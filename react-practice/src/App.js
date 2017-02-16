@@ -15,6 +15,7 @@ class App extends Component {
         </p>
         <p>Ty was here</p>
         <p> Adam Was here </p>
+        <p> Noah also stopped by </p>
       </div>
     );
   }

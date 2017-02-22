@@ -17,6 +17,7 @@ class App extends Component {
         <p> Password: <input type="text"></input></p>
         <input type="submit"></input>
         <p> Adam Was here </p>
+        <p> Noah also stopped by </p>
       </div>
     );
     var h1 = <h1>Hello!!</h1>;

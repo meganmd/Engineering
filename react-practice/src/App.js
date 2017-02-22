@@ -13,10 +13,13 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <p>Ty was here</p>
+        <p> Username: <input type="text"></input></p>
+        <p> Password: <input type="text"></input></p>
+        <input type="submit"></input>
         <p> Adam Was here </p>
       </div>
     );
+    var h1 = <h1>Hello!!</h1>;
   }
 }
 

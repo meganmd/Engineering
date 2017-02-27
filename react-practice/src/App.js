@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import LogInForm from './LogInForm'
 import UserTable from './UserTable'
+import AddUserForm from './AddUserForm'
 
 function addUser(user){
   users.push(user)
@@ -72,6 +73,7 @@ class App extends Component {
           <h2>{greeting}</h2>
         </div>
         <UserTable/>
+        <AddUserForm/>
         <br />
         <LogInForm users={users} handleAddUser={this.addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
       </div>

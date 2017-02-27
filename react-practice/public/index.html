@@ -17,6 +17,21 @@
   </head>
   <body>
     <div id="root"></div>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBp3-GMOMBN3wvFt6JGCyA9ual2E5A0qy0",
+    authDomain: "scrumdemo-4203b.firebaseapp.com",
+    databaseURL: "https://scrumdemo-4203b.firebaseio.com",
+    storageBucket: "scrumdemo-4203b.appspot.com",
+    messagingSenderId: "447687386047"
+  };
+  firebase.initializeApp(config);
+  database = firebase.database().ref();
+</script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

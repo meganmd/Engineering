@@ -1,9 +1,29 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import * as firebase from "firebase";
+
 
 class App extends Component {
   render() {
+    console.log("point 1");
+    var firebase = require("firebase");
+
+    var config = {
+      apiKey: "AIzaSyBp3-GMOMBN3wvFt6JGCyA9ual2E5A0qy0",
+      authDomain: "scrumdemo-4203b.firebaseapp.com",
+      databaseURL: "https://scrumdemo-4203b.firebaseio.com",
+      storageBucket: "scrumdemo-4203b.appspot.com",
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    database.ref('tyler').set({
+    username: 'ty',
+    email: 'ttt',
+    profile_picture : 'tttt'
+  });
+
+        console.log("point 2");
     return (
       <div className="App">
         <div className="App-header">
@@ -20,7 +40,6 @@ class App extends Component {
         <p> Noah also stopped by </p>
       </div>
     );
-    var h1 = <h1>Hello!!</h1>;
   }
 }
 

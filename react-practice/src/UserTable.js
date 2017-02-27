@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Client from './Client.js';
 
+
+
 class UserTable extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,12 @@ class UserTable extends Component {
                                               // component we need it
   }
 
+  updateTable(){
+    this.getUsers();
+  }
+
   getUsers() {
+    console.log("Getting users");
     Client.getUsers((users) => {
       this.setState({
         users: users,
@@ -32,12 +39,14 @@ class UserTable extends Component {
         <tr>
           <td>Username</td>
           <td>Password</td>
+          <td>Favorite Color</td>
         </tr>
         {this.state.users.map(function(user, i) {
           return (
             <tr>
               <td>{user.username}</td>
               <td>{user.password}</td>
+              <td>{user.favoriteColor}</td>
             </tr>
           );
         })}

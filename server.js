@@ -8,11 +8,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 db.serialize(function() {
-    //db.run("DROP TABLE users");
-    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)");
-//    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user1", "pass1");
-//    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user2", "pass2");
-//    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user3", "pass3");
+    db.run("DROP TABLE users");
+    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, favoriteColor TEXT)");
+    db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", "user1", "pass1", "red");
+    db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", "user2", "pass2", "blue");
+    db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", "user3", "pass3", "purple");
 });
 
 app.get('/api/listUsers', function(request, response) {
@@ -36,8 +36,15 @@ app.get('/api/user', function(request,response) {
   console.log("Getting...");
   console.log(request.body);
   db.get("SELECT * FROM users where username = ?",username, function(err,row){
+    console.log(row);
     response.setHeader('Content-Type', 'application/json');
-    response.json(row);
+    if(row != undefined){
+      console.log("Found")
+      response.json(row);
+    }else{
+      console.log("Not found")
+      response.json({})
+    }
   })
 })
 
@@ -45,8 +52,13 @@ app.post('/api/addUser', function(request, response) {
   console.log("Adding...");
   //console.log(request);
   console.log(request.body);
-  db.run("INSERT INTO users (username, password) VALUES (?, ?)", request.body.username, request.body.password);
+  var favoriteColor = "black";
+  if (request.body.favoriteColor != null){
+    favoriteColor = request.body.favoriteColor;
+  }
+  db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", request.body.username, request.body.password, favoriteColor);
   response.end();
+  console.log("hello there");
 })
 
 var server = app.listen(3001, function() {

@@ -53,7 +53,7 @@ function RegisterDisplay(props){
         onChange={props.handleUserChange}/><br />
       <input type="text" placeholder="New Password..." onChange={props.handlePasswordChange} /> <br />
       Favorite Color:
-      <select onChange={props.handleColorChange}>
+      <select default="red" onChange={props.handleColorChange}>
         <option value="red">Red</option>
         <option value="blue">Blue</option>
         <option value="green">Green</option>
@@ -72,7 +72,7 @@ function RegisterDisplay(props){
 class LogInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {userfield: '', passwordfield: '', favoriteColorField: '', errorMessage: '', registering: false};
+    this.state = {userfield: '', passwordfield: '', favoriteColorField: 'red', errorMessage: '', registering: false};
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -96,11 +96,11 @@ class LogInForm extends Component {
 
   handleSubmitNewUserClick(){
     this.props.getUser(this.state.userfield, (user) => {
-        if (user != null){
+        if (user.username == this.state.userfield){
           this.setState({errorMessage: 'Username already taken'});
           return;
         }
-        this.props.addUser({username: this.state.userfield, password: this.state.passwordfield, favoriteColor: this.state.favoriteColorField});
+        this.props.addUser(this.state.userfield,this.state.passwordfield,this.state.favoriteColorField);
         this.props.handleLogIn(this.state.userfield, this.state.favoriteColorField);
         this.setState({errorMessage: ''});
     });
@@ -131,7 +131,8 @@ class LogInForm extends Component {
     var display = null;
     if (this.state.registering) {
       display = <RegisterDisplay handleUserChange={this.handleUserChange} handlePasswordChange={this.handlePasswordChange}
-        handleSubmitNewUserClick={this.handleSubmitNewUserClick} handleCancelRegisterClick={this.handleCancelRegisterClick} errorMessage={this.state.errorMessage}/>
+        handleSubmitNewUserClick={this.handleSubmitNewUserClick} handleCancelRegisterClick={this.handleCancelRegisterClick}
+        errorMessage={this.state.errorMessage} handleColorChange={this.handleColorChange}/>
     } else {
       display = <LogInDisplay handleUserChange={this.handleUserChange} handlePasswordChange={this.handlePasswordChange}
         handleLoginClick={this.handleLoginClick} handleRegisterClick={this.handleRegisterClick} errorMessage={this.state.errorMessage}/>

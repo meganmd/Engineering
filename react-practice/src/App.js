@@ -14,9 +14,8 @@ function LogOutButton(props) {
   );
 }
 
-//ADD COLOR FUNCTIONALITY LATER
 function addUser(username,password,color){
-  Client.addUser(username,password, function(){});
+  Client.addUser(username,password,color, function(){});
 }
 
 class App extends Component {

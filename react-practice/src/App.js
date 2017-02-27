@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import LogInForm from './LogInForm'
+import UserTable from './UserTable'
 
 function addUser(user){
   users.push(user)
@@ -42,6 +43,7 @@ class App extends Component {
           <h1>Scrumptious Demo Page</h1>
           <h2>{greeting}</h2>
         </div>
+        <UserTable/>
         <br />
         <LogInForm users={users} handleAddUser={this.addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
       </div>

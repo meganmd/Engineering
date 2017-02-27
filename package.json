@@ -1,0 +1,30 @@
+{
+  "name": "enginnering",
+  "version": "1.0.0",
+  "description": "Web Application Scrum board",
+  "main": "server.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meganmd/Engineering.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meganmd/Engineering/issues"
+  },
+  "homepage": "https://github.com/meganmd/Engineering#readme",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "concurrently": "^3.3.0"
+  }
+}

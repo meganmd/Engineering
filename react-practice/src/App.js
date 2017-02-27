@@ -4,78 +4,58 @@ import './App.css';
 import LogInForm from './LogInForm'
 import UserTable from './UserTable'
 import AddUserForm from './AddUserForm'
+import Client from './Client'
 
-function addUser(user){
-  users.push(user)
+function LogOutButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
 }
 
-var users = [
-  {username: 'adam', password: 'password'},
-  {username: 'noah', password: 'otherPassword'}
-];
+//ADD COLOR FUNCTIONALITY LATER
+function addUser(username,password,color){
+  Client.addUser(username,password, function(){});
+}
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, loggedInUser: ''};
+    this.state = {isLoggedIn: false, loggedInUser: '', bannerColor: 'black'};
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
-  handleLoginClick() {
-  //EXAMPLE. We will probably want a different implementation to work with the database
-   for(var i = 0; i < this.props.users.length; i++){
-     if(this.props.users[i].username === this.state.userfield &&
-       this.props.users[i].password === this.state.passwordfield){
-       this.setState({loggedInUser: this.state.userfield});
-       this.setState({isLoggedIn: true});
-       this.setState({errorMessage: ''});
-       return;
-     }
-   }
-   this.setState({errorMessage: 'Incorrect Username or Password'})
-  }
-
-  handleRegisterClick(){
-    //Example. We will probably want a different implementation to work with the database
-    for(var i = 0; i < this.props.users.length; i++){
-      if(this.props.users[i].username === this.state.userfield){
-        this.setState({errorMessage: 'Username already taken'});
-        return;
-      }
-    }
-    addUser({username: this.state.userfield, password: this.state.passwordfield});
-    this.setState({loggedInUser: this.state.userfield});
-    this.setState({isLoggedIn: true});
-    this.setState({errorMessage: ''});
-  }
-
-  handleLogIn(user){
-    this.setState({isLoggedIn: true, loggedInUser: user});
+  handleLogIn(user,color){
+    this.setState({isLoggedIn: true, loggedInUser: user, bannerColor: color});
   }
 
   handleLogOut(){
-    this.setState({isLoggedIn: false, loggedInUser: ''});
+    this.setState({isLoggedIn: false, loggedInUser: '', bannerColor: 'black'});
   }
 
   render() {
     var greeting = null;
+    var content = null;
     if(this.state.isLoggedIn){
       greeting = 'Welcome ' + this.state.loggedInUser;
+      content = <LogOutButton onClick={this.handleLogOut}/>
     } else{
       greeting = 'Please Login...';
+      content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
     }
     return (
       <div className="App">
-        <div className="App-header">
+        <div className={"App-header-" + this.state.bannerColor}>
           <img src={logo} className="App-logo" alt="logo" />
-          <h1>Scrumptious Demo Page</h1>
+          <h1>Scrumtious Demo Page</h1>
           <h2>{greeting}</h2>
         </div>
+        <br />
+        {content}
         <UserTable/>
         <AddUserForm/>
-        <br />
-        <LogInForm users={users} handleAddUser={this.addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
       </div>
     );
   }

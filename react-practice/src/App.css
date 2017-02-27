@@ -14,6 +14,55 @@
   color: white;
 }
 
+.App-header-black {
+  background-color: #222;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
+.App-header-red {
+  background-color: #DC143C;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
+.App-header-blue {
+  background-color: #0000FF;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
+.App-header-green {
+  background-color: #228B22;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
+.App-header-purple {
+  background-color: #8B008B;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
+.App-header-orange {
+  background-color: #FF4500;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
+.App-header-beige {
+  background-color: #F5F5DC;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
 .App-intro {
   font-size: large;
 }

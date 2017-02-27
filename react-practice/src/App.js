@@ -4,6 +4,7 @@ import './App.css';
 import LogInForm from './LogInForm'
 import UserTable from './UserTable'
 import AddUserForm from './AddUserForm'
+import Client from './Client'
 
 function LogOutButton(props) {
   return (
@@ -11,6 +12,11 @@ function LogOutButton(props) {
       Logout
     </button>
   );
+}
+
+//ADD COLOR FUNCTIONALITY LATER
+function addUser(username,password,color){
+  Client.addUser(username,password, function(){});
 }
 
 class App extends Component {
@@ -34,10 +40,10 @@ class App extends Component {
     var content = null;
     if(this.state.isLoggedIn){
       greeting = 'Welcome ' + this.state.loggedInUser;
-      content = <LogOutButton />
+      content = <LogOutButton onClick={this.handleLogOut}/>
     } else{
       greeting = 'Please Login...';
-      content = <LogInForm handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
+      content = <LogInForm getUsers={Client.getUsers} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
     }
     return (
       <div className="App">

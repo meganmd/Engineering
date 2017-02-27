@@ -74,7 +74,6 @@ class LogInForm extends Component {
     super(props);
     this.state = {userfield: '', passwordfield: '', favoriteColorField: '', errorMessage: '', registering: false};
     this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleRegisterClick = this.handleRegisterClick.bind(this);

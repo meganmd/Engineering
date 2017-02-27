@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import LogInForm from './LogInForm'
 import UserTable from './UserTable'
+import AddUserForm from './AddUserForm'
 
 function LogOutButton(props) {
   return (
@@ -46,6 +47,7 @@ class App extends Component {
           <h2>{greeting}</h2>
         </div>
         <UserTable/>
+        <AddUserForm/>
         <br />
         {content}
       </div>

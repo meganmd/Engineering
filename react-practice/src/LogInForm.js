@@ -34,7 +34,7 @@ function BackButton(props){
 
 function LogInDisplay(props){
   return(
-    <div>
+    <div className="loginForm">
       <input type="text" placeholder="Enter Username..."
         onChange={props.handleUserChange}/><br />
       <input type="text" placeholder="Enter Password..." onChange={props.handlePasswordChange} /> <br />
@@ -48,7 +48,7 @@ function LogInDisplay(props){
 
 function RegisterDisplay(props){
   return(
-    <div>
+    <div className="loginForm">
       <input type="text" placeholder="New Username..."
         onChange={props.handleUserChange}/><br />
       <input type="text" placeholder="New Password..." onChange={props.handlePasswordChange} /> <br />

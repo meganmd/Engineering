@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 db.serialize(function() {
     //db.run("DROP TABLE users");
     db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)");
-    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user1", "pass1");
-    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user2", "pass2");
-    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user3", "pass3");
+  //  db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user1", "pass1");
+  //  db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user2", "pass2");
+  //  db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user3", "pass3");
 });
 
 app.get('/api/listUsers', function(request, response) {

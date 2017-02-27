@@ -34,7 +34,7 @@ function BackButton(props){
 
 function LogInDisplay(props){
   return(
-    <div>
+    <div className="loginForm">
       <input type="text" placeholder="Enter Username..."
         onChange={props.handleUserChange}/><br />
       <input type="text" placeholder="Enter Password..." onChange={props.handlePasswordChange} /> <br />
@@ -48,19 +48,20 @@ function LogInDisplay(props){
 
 function RegisterDisplay(props){
   return(
-    <div>
+    <div className="loginForm">
       <input type="text" placeholder="New Username..."
         onChange={props.handleUserChange}/><br />
       <input type="text" placeholder="New Password..." onChange={props.handlePasswordChange} /> <br />
-      Favorite Color:
-      <select onChange={props.handleColorChange}>
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="orange">Orange</option>
-        <option value="beige">Beige</option>
-        <option value="purple">Purple</option>
-      </select><br />
+      <p className="textStuff">Favorite Color:
+        <select onChange={props.handleColorChange}>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+              <option value="orange">Orange</option>
+              <option value="beige">Beige</option>
+              <option value="purple">Purple</option>
+            </select><br /></p>
+
       <BackButton onClick={props.handleCancelRegisterClick} />
       <SubmitButton onClick={props.handleSubmitNewUserClick} />
       <br/>

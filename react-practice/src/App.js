@@ -5,6 +5,7 @@ import LogInForm from './LogInForm'
 import UserTable from './UserTable'
 import AddUserForm from './AddUserForm'
 import Client from './Client'
+import s from './index.css';
 
 function LogOutButton(props) {
   return (
@@ -52,10 +53,9 @@ class App extends Component {
           <h1>Scrumptious Demo Page</h1>
           <h2>{greeting}</h2>
         </div>
-        <UserTable/>
-        <AddUserForm/>
         <br />
         {content}
+        <UserTable/>
       </div>
     );
   }

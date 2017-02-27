@@ -28,10 +28,11 @@ class UserTable extends Component {
 
   render() {
     return (
+      <center>
       <table>
         <tr>
-          <td>Username</td>
-          <td>Password</td>
+          <th>Username</th>
+          <th>Password</th>
         </tr>
         {this.state.users.map(function(user, i) {
           return (
@@ -42,6 +43,7 @@ class UserTable extends Component {
           );
         })}
     </table>
+  </center>
     );
   }
 }

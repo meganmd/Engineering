@@ -1,55 +1,23 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import LogInForm from './LogInForm'
 
-
-function LoginButton(props) {
-  return (
-    <button onClick={props.onClick}>
-      Login
-    </button>
-  );
+function addUser(user){
+  users.push(user)
 }
 
-function LogoutButton(props) {
-  return (
-    <button onClick={props.onClick}>
-      Logout
-    </button>
-  );
-}
+var users = [
+  {username: 'adam', password: 'password'},
+  {username: 'noah', password: 'otherPassword'}
+];
 
-function RegisterButton(props){
-  return(
-  <button onClick={props.onClick}>
-    Register
-  </button>
-  )
-}
-
-function LogInForm(props){
-  return(
-    <div>
-      <input type="text" placeholder="Enter Username..."
-        onChange={props.handleUserChange}/><br />
-      <input type="text" placeholder="Enter Password..." onChange={props.handlePasswordChange} /> <br />
-      <LoginButton onClick={props.handleLoginClick} />
-      <RegisterButton onClick={props.handleRegisterClick} />
-      <br/>
-      <font color="red">{props.errorMessage}</font>
-    </div>
-  );
-}
-
-class LoginControl extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, loggedInUser: '', userfield: '', passwordfield: '', errorMessage: ''};
-    this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
-    this.handleUserChange = this.handleUserChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleRegisterClick = this.handleRegisterClick.bind(this);
+    this.state = {isLoggedIn: false, loggedInUser: ''};
+    this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   handleLoginClick() {
@@ -80,54 +48,30 @@ class LoginControl extends Component {
     this.setState({errorMessage: ''});
   }
 
-  handleUserChange(e){
-    this.setState({userfield: e.target.value});
+  handleLogIn(user){
+    this.setState({isLoggedIn: true, loggedInUser: user});
   }
 
-  handlePasswordChange(e){
-    this.setState({passwordfield: e.target.value});
-  }
-
-  handleLogoutClick(){
-    this.setState({loggedInUser: '', isLoggedIn: false})
+  handleLogOut(){
+    this.setState({isLoggedIn: false, loggedInUser: ''});
   }
 
   render() {
-    const isLoggedIn = this.state.isLoggedIn;
-    var display = null;
-    if (isLoggedIn) {
-      display = <LogoutButton onClick={this.handleLogoutClick}/>
-    } else {
-      display = <LogInForm handleUserChange={this.handleUserChange} handlePasswordChange={this.handlePasswordChange}
-        handleLoginClick={this.handleLoginClick} handleRegisterClick={this.handleRegisterClick} errorMessage={this.state.errorMessage}/>
+    var greeting = null;
+    if(this.state.isLoggedIn){
+      greeting = 'Welcome ' + this.state.loggedInUser;
+    } else{
+      greeting = 'Please Login...';
     }
-    return (
-      <div>
-          {display}
-      </div>
-    )
-  }
-}
-
-function addUser(user){
-  users.push(user)
-}
-
-var users = [
-  {username: 'adam', password: 'password'},
-  {username: 'noah', password: 'otherPassword'}
-];
-
-class App extends Component {
-  render() {
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>LogIn page</h2>
+          <h1>Scrumptious Demo Page</h1>
+          <h2>{greeting}</h2>
         </div>
         <br />
-        <LoginControl users={users} handleAddUser={this.addUser}/>
+        <LogInForm users={users} handleAddUser={this.addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
       </div>
     );
   }

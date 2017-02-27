@@ -55,8 +55,8 @@ class LoginControl extends Component {
   handleLoginClick() {
   //EXAMPLE. We will probably want a different implementation to work with the database
    for(var i = 0; i < this.props.users.length; i++){
-     if(this.props.users[i].username == this.state.userfield &&
-       this.props.users[i].password == this.state.passwordfield){
+     if(this.props.users[i].username === this.state.userfield &&
+       this.props.users[i].password === this.state.passwordfield){
        this.setState({loggedInUser: this.state.userfield});
        this.setState({isLoggedIn: true});
        this.setState({errorMessage: ''});
@@ -69,7 +69,7 @@ class LoginControl extends Component {
   handleRegisterClick(){
     //Example. We will probably want a different implementation to work with the database
     for(var i = 0; i < this.props.users.length; i++){
-      if(this.props.users[i].username == this.state.userfield){
+      if(this.props.users[i].username === this.state.userfield){
         this.setState({errorMessage: 'Username already taken'});
         return;
       }

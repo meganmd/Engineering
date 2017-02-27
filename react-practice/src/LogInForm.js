@@ -52,6 +52,15 @@ function RegisterDisplay(props){
       <input type="text" placeholder="New Username..."
         onChange={props.handleUserChange}/><br />
       <input type="text" placeholder="New Password..." onChange={props.handlePasswordChange} /> <br />
+      Favorite Color:
+      <select onChange={props.handleColorChange}>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="orange">Orange</option>
+        <option value="beige">Beige</option>
+        <option value="purple">Purple</option>
+      </select><br />
       <BackButton onClick={props.handleCancelRegisterClick} />
       <SubmitButton onClick={props.handleSubmitNewUserClick} />
       <br/>
@@ -63,7 +72,7 @@ function RegisterDisplay(props){
 class LogInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {userfield: '', passwordfield: '', errorMessage: '', registering: false};
+    this.state = {userfield: '', passwordfield: '', favoriteColorField: '', errorMessage: '', registering: false};
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -71,6 +80,7 @@ class LogInForm extends Component {
     this.handleRegisterClick = this.handleRegisterClick.bind(this);
     this.handleSubmitNewUserClick = this.handleSubmitNewUserClick.bind(this);
     this.handleCancelRegisterClick = this.handleCancelRegisterClick.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
   }
 
   handleLoginClick() {
@@ -78,7 +88,7 @@ class LogInForm extends Component {
    for(var i = 0; i < this.props.users.length; i++){
      if(this.props.users[i].username == this.state.userfield &&
        this.props.users[i].password == this.state.passwordfield){
-       this.props.handleLogIn(this.state.userfield);
+       this.props.handleLogIn(this.state.userfield, this.state.favoriteColorField);
        this.setState({errorMessage: ''});
        return;
      }
@@ -117,6 +127,10 @@ class LogInForm extends Component {
 
   handleLogoutClick(){
     this.props.handleLogOut();
+  }
+
+  handleColorChange(e){
+    this.setState({favoriteColorField: e.target.value})
   }
 
   render() {

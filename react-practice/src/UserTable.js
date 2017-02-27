@@ -35,6 +35,7 @@ class UserTable extends Component {
 
   render() {
     return (
+      <center>
       <table>
         <tr>
           <td>Username</td>
@@ -51,6 +52,7 @@ class UserTable extends Component {
           );
         })}
     </table>
+  </center>
     );
   }
 }

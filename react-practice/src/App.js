@@ -21,6 +21,34 @@ class App extends Component {
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
+  handleLoginClick() {
+  //EXAMPLE. We will probably want a different implementation to work with the database
+   for(var i = 0; i < this.props.users.length; i++){
+     if(this.props.users[i].username === this.state.userfield &&
+       this.props.users[i].password === this.state.passwordfield){
+       this.setState({loggedInUser: this.state.userfield});
+       this.setState({isLoggedIn: true});
+       this.setState({errorMessage: ''});
+       return;
+     }
+   }
+   this.setState({errorMessage: 'Incorrect Username or Password'})
+  }
+
+  handleRegisterClick(){
+    //Example. We will probably want a different implementation to work with the database
+    for(var i = 0; i < this.props.users.length; i++){
+      if(this.props.users[i].username === this.state.userfield){
+        this.setState({errorMessage: 'Username already taken'});
+        return;
+      }
+    }
+    addUser({username: this.state.userfield, password: this.state.passwordfield});
+    this.setState({loggedInUser: this.state.userfield});
+    this.setState({isLoggedIn: true});
+    this.setState({errorMessage: ''});
+  }
+
   handleLogIn(user){
     this.setState({isLoggedIn: true, loggedInUser: user});
   }

@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 db.serialize(function() {
     //db.run("DROP TABLE users");
     db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)");
-    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user1", "pass1");
-    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user2", "pass2");
-    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user3", "pass3");
+//    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user1", "pass1");
+//    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user2", "pass2");
+//    db.run("INSERT INTO users (username, password) VALUES (?, ?)", "user3", "pass3");
 });
 
 app.get('/api/listUsers', function(request, response) {
@@ -29,6 +29,16 @@ app.get('/api/listUsernames', function(request, response) {
         response.setHeader('Content-Type', 'application/json');
         response.json(rows);
     });
+})
+
+app.get('/api/user', function(request,response) {
+  username = request.query.username;
+  console.log("Getting...");
+  console.log(request.body);
+  db.get("SELECT * FROM users where username = ?",username, function(err,row){
+    response.setHeader('Content-Type', 'application/json');
+    response.json(row);
+  })
 })
 
 app.post('/api/addUser', function(request, response) {

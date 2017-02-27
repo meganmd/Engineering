@@ -84,11 +84,11 @@ class LogInForm extends Component {
   }
 
   handleLoginClick() {
-  //EXAMPLE. We will probably want a different implementation to work with the database
-   for(var i = 0; i < this.props.users.length; i++){
-     if(this.props.users[i].username == this.state.userfield &&
-       this.props.users[i].password == this.state.passwordfield){
-       this.props.handleLogIn(this.state.userfield, this.state.favoriteColorField);
+  var users = this.props.getUsers();
+   for(var i = 0; i < users.length; i++){
+     if(users[i].username == this.state.userfield &&
+       users[i].password == this.state.passwordfield){
+       this.props.handleLogIn(this.state.userfield, users[i].favoriteColor);
        this.setState({errorMessage: ''});
        return;
      }
@@ -97,15 +97,15 @@ class LogInForm extends Component {
   }
 
   handleSubmitNewUserClick(){
-    //Example. We will probably want a different implementation to work with the database
-    for(var i = 0; i < this.props.users.length; i++){
-      if(this.props.users[i].username == this.state.userfield){
+    var users = this.props.getUsers();
+    for(var i = 0; i < users.length; i++){
+      if(users[i].username == this.state.userfield){
         this.setState({errorMessage: 'Username already taken'});
         return;
       }
     }
-    this.props.addUser({username: this.state.userfield, password: this.state.passwordfield});
-    this.props.handleLogIn(this.state.userfield);
+    this.props.addUser({username: this.state.userfield, password: this.state.passwordfield, favoriteColor: this.state.favoriteColorField});
+    this.props.handleLogIn(this.state.userfield, this.state.favoriteColorField);
     this.setState({errorMessage: ''});
   }
 
@@ -123,10 +123,6 @@ class LogInForm extends Component {
 
   handlePasswordChange(e){
     this.setState({passwordfield: e.target.value});
-  }
-
-  handleLogoutClick(){
-    this.props.handleLogOut();
   }
 
   handleColorChange(e){

@@ -33,7 +33,7 @@ class App extends Component {
   }
 
   handleLogOut(){
-    this.setState({isLoggedIn: false, loggedInUser: ''});
+    this.setState({isLoggedIn: false, loggedInUser: '', bannerColor: 'black'});
   }
 
   render() {
@@ -44,13 +44,13 @@ class App extends Component {
       content = <LogOutButton onClick={this.handleLogOut}/>
     } else{
       greeting = 'Please Login...';
-      content = <LogInForm getUsers={Client.getUsers} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
+      content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
     }
     return (
       <div className="App">
         <div className={"App-header-" + this.state.bannerColor}>
           <img src={logo} className="App-logo" alt="logo" />
-          <h1>Scrumptious Demo Page</h1>
+          <h1>Scrumtious Demo Page</h1>
           <h2>{greeting}</h2>
         </div>
         <br />

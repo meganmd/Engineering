@@ -31,6 +31,16 @@ app.get('/api/listUsernames', function(request, response) {
     });
 })
 
+app.get('/api/user', function(request,response) {
+  username = request.query.username;
+  console.log("Getting...");
+  console.log(request.body);
+  db.get("SELECT * FROM users where username = ?",username, function(err,row){
+    response.setHeader('Content-Type', 'application/json');
+    response.json(row);
+  })
+})
+
 app.post('/api/addUser', function(request, response) {
   console.log("Adding...");
   //console.log(request);

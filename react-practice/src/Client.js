@@ -16,7 +16,7 @@ function getUsers(cb) {
 }
 
 function getUser(uid, cb) {
-  return fetch(`api/users/${uid}`, {
+  return fetch(`api/user?username=${uid}`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)

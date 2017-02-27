@@ -12,6 +12,14 @@ var users = [
   {username: 'noah', password: 'otherPassword'}
 ];
 
+function LogOutButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,10 +38,13 @@ class App extends Component {
 
   render() {
     var greeting = null;
+    var content = null;
     if(this.state.isLoggedIn){
       greeting = 'Welcome ' + this.state.loggedInUser;
+      content = <LogOutButton />
     } else{
       greeting = 'Please Login...';
+      content = <LogInForm users={users} handleAddUser={this.addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
     }
     return (
       <div className="App">
@@ -43,7 +54,7 @@ class App extends Component {
           <h2>{greeting}</h2>
         </div>
         <br />
-        <LogInForm users={users} handleAddUser={this.addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
+        {content}
       </div>
     );
   }

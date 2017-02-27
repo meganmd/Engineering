@@ -83,29 +83,27 @@ class LogInForm extends Component {
   }
 
   handleLoginClick() {
-  var users = this.props.getUsers();
-   for(var i = 0; i < users.length; i++){
-     if(users[i].username == this.state.userfield &&
-       users[i].password == this.state.passwordfield){
-       this.props.handleLogIn(this.state.userfield, users[i].favoriteColor);
-       this.setState({errorMessage: ''});
-       return;
-     }
-   }
-   this.setState({errorMessage: 'Incorrect Username or Password'})
+    this.props.getUser(this.state.userfield, (user) => {
+      if (user == null || user.password != this.state.passwordfield){
+        this.setState({errorMessage: 'Incorrect Username or Password'});
+      } else{
+        this.props.handleLogIn(this.state.userfield, user.favoriteColor);
+        this.setState({errorMessage: ''});
+      }
+    });
+
   }
 
   handleSubmitNewUserClick(){
-    var users = this.props.getUsers();
-    for(var i = 0; i < users.length; i++){
-      if(users[i].username == this.state.userfield){
-        this.setState({errorMessage: 'Username already taken'});
-        return;
-      }
-    }
-    this.props.addUser({username: this.state.userfield, password: this.state.passwordfield, favoriteColor: this.state.favoriteColorField});
-    this.props.handleLogIn(this.state.userfield, this.state.favoriteColorField);
-    this.setState({errorMessage: ''});
+    this.props.getUser(this.state.userfield, (user) => {
+        if (user != null){
+          this.setState({errorMessage: 'Username already taken'});
+          return;
+        }
+        this.props.addUser({username: this.state.userfield, password: this.state.passwordfield, favoriteColor: this.state.favoriteColorField});
+        this.props.handleLogIn(this.state.userfield, this.state.favoriteColorField);
+        this.setState({errorMessage: ''});
+    });
   }
 
   handleRegisterClick(){

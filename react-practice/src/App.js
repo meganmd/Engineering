@@ -43,7 +43,7 @@ class App extends Component {
       content = <LogOutButton onClick={this.handleLogOut}/>
     } else{
       greeting = 'Please Login...';
-      content = <LogInForm getUsers={Client.getUsers} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
+      content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
     }
     return (
       <div className="App">

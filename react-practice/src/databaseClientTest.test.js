@@ -1,28 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import LogInForm from './LogInForm'
-import UserTable from './UserTable'
-import AddUserForm from './AddUserForm'
+import LogInForm from './LogInForm';
+import UserTable from './UserTable';
+import AddUserForm from './AddUserForm';
+import Client1 from './Client';
 
 beforeAll(() => {
-  //this is incorrectly called
-  addUser('mockName1', 'password1', function(){});
+  Client1.addUser('mockName1', 'password1', function(){});
 });
 
-it('can find user', () => {
-    //not sure what getUser is actually currently
-    //returning. We could check username and
-    //password independently?
-    expect(getUser('mockName', cb).toBeDefined());
+it('addUser works and  getUser runs', () => {
+    expect(Client1.getUser('mockName1', function(){})).toBeDefined;
 });
 
-it('can set logged in', () => {
-    setState({isLoggedIn: true, loggedInUser: user});
-    expect(getUser('mockName', cb).toBeTruthy());
-});
+it('can check username', () => {
+  function callback(user) {
+    expect(user).toBe('mockname1');
+    done();
+  }
+  Client1.getUser('mockName1', function(){});
+})
 
-it('can set logged out', () => {
-    setState({isLoggedIn: false, loggedInUser: user});
-    expect(this.state.isLoggedIn.toBeFalsy());
-});
+it('can check password', () => {
+  function callback(user) {
+    expect(user).toBe('password1');
+    done();
+  }
+  Client1.getUser('mockName1', function(){});
+})

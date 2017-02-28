@@ -38,9 +38,9 @@ class UserTable extends Component {
       <center>
       <table>
         <tr>
-          <td>Username</td>
-          <td>Password</td>
-          <td>Favorite Color</td>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Favorite Color</th>
         </tr>
         {this.state.users.map(function(user, i) {
           return (

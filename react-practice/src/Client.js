@@ -23,8 +23,8 @@ function getUser(uid, cb) {
     .then(cb);
 }
 
-function addUser(username, password, favoriteColor, cb) {
-  console.log(username + " " + password + " " + favoriteColor)
+function addUser(username, password, firstName, lastName, cb) {
+  console.log(username + " " + password + " " + firstName + " " + lastName)
   return fetch('api/addUser',
   {
     headers: {
@@ -35,7 +35,8 @@ function addUser(username, password, favoriteColor, cb) {
     body: JSON.stringify({
       username: username,
       password: password,
-      favoriteColor: favoriteColor
+      firstName: firstName,
+      lastName: lastName
     })
   }).then(checkStatus)
     .then(parseJSON)

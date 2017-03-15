@@ -52,16 +52,8 @@ function RegisterDisplay(props){
       <input type="text" placeholder="New Username..."
         onChange={props.handleUserChange}/><br />
       <input type="text" placeholder="New Password..." onChange={props.handlePasswordChange} /> <br />
-      <p className="textStuff">Favorite Color:
-        <select default="red" onChange={props.handleColorChange}>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="orange">Orange</option>
-          <option value="beige">Beige</option>
-          <option value="purple">Purple</option>
-        </select><br />
-      </p>
+      <input type="text" placeholder="First Name (optional)..." onChange={props.handleFirstNameChange} /><br />
+      <input type="text" placeholder="Last Name (optional)..." onChange={props.handleLastNameChange} /><br />
       <BackButton onClick={props.handleCancelRegisterClick} />
       <SubmitButton onClick={props.handleSubmitNewUserClick} />
       <br/>
@@ -73,14 +65,15 @@ function RegisterDisplay(props){
 class LogInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {userfield: '', passwordfield: '', favoriteColorField: 'red', errorMessage: '', registering: false};
+    this.state = {userfield: '', passwordfield: '', firstNameField:'', lastNameField:'', errorMessage: '', registering: false};
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleRegisterClick = this.handleRegisterClick.bind(this);
     this.handleSubmitNewUserClick = this.handleSubmitNewUserClick.bind(this);
     this.handleCancelRegisterClick = this.handleCancelRegisterClick.bind(this);
-    this.handleColorChange = this.handleColorChange.bind(this);
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
   }
 
   handleLoginClick() {
@@ -88,7 +81,11 @@ class LogInForm extends Component {
       if (user == null || user.password != this.state.passwordfield){
         this.setState({errorMessage: 'Incorrect Username or Password'});
       } else{
-        this.props.handleLogIn(this.state.userfield, user.favoriteColor);
+        if(user.firstName != ''){
+          this.props.handleLogIn(user.firstName);
+        } else{
+          this.props.handleLogIn(this.state.userfield);
+        }
         this.setState({errorMessage: ''});
       }
     });
@@ -101,8 +98,9 @@ class LogInForm extends Component {
           this.setState({errorMessage: 'Username already taken'});
           return;
         }
-        this.props.addUser(this.state.userfield,this.state.passwordfield,this.state.favoriteColorField);
-        this.props.handleLogIn(this.state.userfield, this.state.favoriteColorField);
+        this.props.addUser(this.state.userfield,this.state.passwordfield,
+          this.state.firstNameField,this.state.lastNameField);
+        this.props.handleLogIn(this.state.userfield);
         this.setState({errorMessage: ''});
     });
   }
@@ -123,20 +121,33 @@ class LogInForm extends Component {
     this.setState({passwordfield: e.target.value});
   }
 
-  handleColorChange(e){
-    this.setState({favoriteColorField: e.target.value})
+  handleFirstNameChange(e){
+    this.setState({firstNameField: e.target.value});
+  }
+
+  handleLastNameChange(e){
+    this.setState({lastNameField: e.target.value});
   }
 
   render() {
     const isLoggedIn = this.props.isLoggedIn;
     var display = null;
     if (this.state.registering) {
-      display = <RegisterDisplay handleUserChange={this.handleUserChange} handlePasswordChange={this.handlePasswordChange}
-        handleSubmitNewUserClick={this.handleSubmitNewUserClick} handleCancelRegisterClick={this.handleCancelRegisterClick}
-        errorMessage={this.state.errorMessage} handleColorChange={this.handleColorChange}/>
+      display = <RegisterDisplay
+        handleUserChange={this.handleUserChange}
+        handlePasswordChange={this.handlePasswordChange}
+        handleSubmitNewUserClick={this.handleSubmitNewUserClick}
+        handleCancelRegisterClick={this.handleCancelRegisterClick}
+        errorMessage={this.state.errorMessage}
+        handleFirstNameChange={this.handleFirstNameChange}
+        handleLastNameChange = {this.handleLastNameChange}/>
     } else {
-      display = <LogInDisplay handleUserChange={this.handleUserChange} handlePasswordChange={this.handlePasswordChange}
-        handleLoginClick={this.handleLoginClick} handleRegisterClick={this.handleRegisterClick} errorMessage={this.state.errorMessage}/>
+      display = <LogInDisplay
+        handleUserChange={this.handleUserChange}
+        handlePasswordChange={this.handlePasswordChange}
+        handleLoginClick={this.handleLoginClick}
+        handleRegisterClick={this.handleRegisterClick}
+        errorMessage={this.state.errorMessage}/>
     }
     return (
       <div className="loginForm">

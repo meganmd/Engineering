@@ -9,10 +9,8 @@ app.use(bodyParser.json());
 
 db.serialize(function() {
     db.run("DROP TABLE users");
-    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, favoriteColor TEXT)");
-    db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", "user1", "pass1", "red");
-    db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", "user2", "pass2", "blue");
-    db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", "user3", "pass3", "purple");
+    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, firstName TEXT, lastName TEXT)");
+    db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", "user1", "pass1", "first", "last");
 });
 
 app.get('/api/listUsers', function(request, response) {
@@ -52,13 +50,8 @@ app.post('/api/addUser', function(request, response) {
   console.log("Adding...");
   //console.log(request);
   console.log(request.body);
-  var favoriteColor = "black";
-  if (request.body.favoriteColor != null){
-    favoriteColor = request.body.favoriteColor;
-  }
-  db.run("INSERT INTO users (username, password, favoriteColor) VALUES (?, ?, ?)", request.body.username, request.body.password, favoriteColor);
+  db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", request.body.username, request.body.password, request.body.firstName, request.body.lastName);
   response.end();
-  console.log("hello there");
 })
 
 var server = app.listen(3001, function() {

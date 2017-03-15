@@ -15,8 +15,8 @@ function LogOutButton(props) {
   );
 }
 
-function addUser(username,password,color){
-  Client.addUser(username,password,color, function(){});
+function addUser(username,password,firstName,lastName){
+  Client.addUser(username,password,firstName, lastName, function(){});
 }
 
 class App extends Component {
@@ -27,12 +27,12 @@ class App extends Component {
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
-  handleLogIn(user,color){
-    this.setState({isLoggedIn: true, loggedInUser: user, bannerColor: color});
+  handleLogIn(user){
+    this.setState({isLoggedIn: true, loggedInUser: user});
   }
 
   handleLogOut(){
-    this.setState({isLoggedIn: false, loggedInUser: '', bannerColor: 'black'});
+    this.setState({isLoggedIn: false, loggedInUser: ''});
   }
 
   render() {

@@ -7,7 +7,7 @@ import AddUserForm from './AddUserForm';
 import Client1 from './Client';
 
 beforeAll(() => {
-  Client1.addUser('mockName1', 'password1', function(){});
+  Client1.addUser('mockName1', 'password1', 'firstName1', 'lastName1', function(){});
 });
 
 it('addUser works and  getUser runs', () => {
@@ -25,6 +25,22 @@ it('can check username', () => {
 it('can check password', () => {
   function callback(user) {
     expect(user).toBe('password1');
+    done();
+  }
+  Client1.getUser('mockName1', function(){});
+})
+
+it('can check firstName', () => {
+  function callback(user) {
+    expect(user).toBe('firstName1');
+    done();
+  }
+  Client1.getUser('mockName1', function(){});
+})
+
+it('can check lastName', () => {
+  function callback(user) {
+    expect(user).toBe('lastName1');
     done();
   }
   Client1.getUser('mockName1', function(){});

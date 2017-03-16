@@ -10,6 +10,7 @@ function CreateProjectDisplay(props){
       <textarea align="bottom" cols="40" rows="2" type="text" placeholder="Enter Project Description ..." onChange={props.handleDescriptionChange} /> <br/>
       <font color="red">{props.errorMessage}</font><br/>
       <button onClick={props.handleCreateClick}>Create Project</button>
+      <br/> <font color="red">{props.errorMessage}</font>
     </div>
   );
 }
@@ -26,14 +27,14 @@ class CreateProjectForm extends Component {
   }
 
   handleCreateClick(props){
-    console.log("why wont this work!!!!!");
-    this.props.handleProjectComplete();
-    // if(this.projectTitle.getValue.length === 0){
-    //   console.log("we in yo");
-    //   this.setState({errorMessage: 'Please enter in a title for your project'});
-    // }else{
-    //   //submit stuff to database and exit
-    // }
+    if(this.state.projectTitle.length > 0){
+        console.log("why wont this work!!!!!");
+        //submit credentials to database here
+        this.props.handleProjectComplete();
+    }else{
+      console.log("Should display error");
+      this.setState({errorMessage:'Please enter in a title for your project'});
+    }
   }
 
   handleProjectNameChange(e){

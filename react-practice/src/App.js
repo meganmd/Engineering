@@ -33,6 +33,7 @@ class App extends Component {
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
+    this.handleProjectComplete = this.handleProjectComplete.bind(this);
   }
 
   handleLogIn(user){

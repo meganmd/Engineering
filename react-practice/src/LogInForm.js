@@ -13,7 +13,7 @@ function RegisterButton(props){
   <button onClick={props.onClick}>
     Register
   </button>
-  )
+  );
 }
 
 function SubmitButton(props){
@@ -21,7 +21,7 @@ function SubmitButton(props){
   <button onClick={props.onClick}>
     Submit
   </button>
-  )
+  );
 }
 
 function BackButton(props){
@@ -29,7 +29,7 @@ function BackButton(props){
   <button onClick={props.onClick}>
     Back
   </button>
-  )
+  );
 }
 
 function LogInDisplay(props){
@@ -59,7 +59,7 @@ function RegisterDisplay(props){
       <br/>
       <font color="red">{props.errorMessage}</font>
     </div>
-  )
+  );
 }
 
 class LogInForm extends Component {

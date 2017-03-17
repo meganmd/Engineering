@@ -54,6 +54,13 @@ app.post('/api/addUser', function(request, response) {
   response.end();
 })
 
+app.post('/api/deleteUser', function(request, response) {
+  console.log("Deleting...");
+  console.log(request.body);
+  db.run("DELETE FROM users WHERE username=?",request.body.username);
+  response.end();
+})
+
 var server = app.listen(3001, function() {
   var host = server.address().address;
   var port = server.address().port;

@@ -43,6 +43,21 @@ function addUser(username, password, firstName, lastName, cb) {
     .then(cb);
 }
 
+function deleteUser(username, cb) {
+  return fetch(`api/deleteUser`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: username,
+    })
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;

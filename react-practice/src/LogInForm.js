@@ -78,14 +78,10 @@ class LogInForm extends Component {
 
   handleLoginClick() {
     this.props.getUser(this.state.userfield, (user) => {
-      if (user == null || user.password != this.state.passwordfield){
+      if (user === null || user.password !== this.state.passwordfield){
         this.setState({errorMessage: 'Incorrect Username or Password'});
       } else{
-        if(user.firstName != ''){
-          this.props.handleLogIn(user.firstName);
-        } else{
-          this.props.handleLogIn(this.state.userfield);
-        }
+        this.props.handleLogIn(this.state.userfield);
         this.setState({errorMessage: ''});
       }
     });
@@ -94,7 +90,7 @@ class LogInForm extends Component {
 
   handleSubmitNewUserClick(){
     this.props.getUser(this.state.userfield, (user) => {
-        if (user.username == this.state.userfield){
+        if (user.username === this.state.userfield){
           this.setState({errorMessage: 'Username already taken'});
           return;
         }

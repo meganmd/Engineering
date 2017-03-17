@@ -9,8 +9,10 @@ app.use(bodyParser.json());
 
 db.serialize(function() {
     db.run("DROP TABLE users");
-    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, firstName TEXT, lastName TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT primary key, password TEXT, firstName TEXT, lastName TEXT)");
     db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", "user1", "pass1", "first", "last");
+    db.run("CREATE TABLE IF NOT EXISTS projects (name TEXT, description TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT)");
 });
 
 app.get('/api/listUsers', function(request, response) {

@@ -13,7 +13,7 @@ function RegisterButton(props){
   <button onClick={props.onClick}>
     Register
   </button>
-);
+  );
 }
 
 function SubmitButton(props){
@@ -21,7 +21,7 @@ function SubmitButton(props){
   <button onClick={props.onClick}>
     Submit
   </button>
-);
+  );
 }
 
 function BackButton(props){
@@ -29,7 +29,7 @@ function BackButton(props){
   <button onClick={props.onClick}>
     Back
   </button>
-);
+  );
 }
 
 function LogInDisplay(props){
@@ -59,7 +59,7 @@ function RegisterDisplay(props){
       <br/>
       <font color="red">{props.errorMessage}</font>
     </div>
-  )
+  );
 }
 
 class LogInForm extends Component {
@@ -78,14 +78,10 @@ class LogInForm extends Component {
 
   handleLoginClick() {
     this.props.getUser(this.state.userfield, (user) => {
-      if (user == null || user.password != this.state.passwordfield){
+      if (user === null || user.password !== this.state.passwordfield){
         this.setState({errorMessage: 'Incorrect Username or Password'});
       } else{
-        if(user.firstName != ''){
-          this.props.handleLogIn(user.firstName);
-        } else{
-          this.props.handleLogIn(this.state.userfield);
-        }
+        this.props.handleLogIn(this.state.userfield);
         this.setState({errorMessage: ''});
       }
     });
@@ -94,7 +90,7 @@ class LogInForm extends Component {
 
   handleSubmitNewUserClick(){
     this.props.getUser(this.state.userfield, (user) => {
-        if (user.username == this.state.userfield){
+        if (user.username === this.state.userfield){
           this.setState({errorMessage: 'Username already taken'});
           return;
         }

@@ -56,6 +56,14 @@ app.post('/api/addUser', function(request, response) {
   response.end();
 })
 
+app.post('/api/addProject', function(request, response) {
+  console.log("Adding...");
+  //console.log(request);
+  console.log(request.body);
+  db.run("INSERT INTO projects (name, description) VALUES (?, ?)", request.body.name, request.body.description);
+  response.end();
+})
+
 var server = app.listen(3001, function() {
   var host = server.address().address;
   var port = server.address().port;

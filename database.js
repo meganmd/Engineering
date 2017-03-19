@@ -7,9 +7,9 @@ module.exports = class database {
 
   initialize(cb) {
     this.db.serialize(() => {
-      this.db.run("CREATE TABLE IF NOT EXISTS users (username TEXT primary key, password TEXT, firstName TEXT, lastName TEXT)");
-      this.db.run("CREATE TABLE IF NOT EXISTS projects (name TEXT primary key, description TEXT)");
-      this.db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT, primary key(username, projectName))");
+      this.db.run("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, firstName TEXT, lastName TEXT)");
+      this.db.run("CREATE TABLE IF NOT EXISTS projects (name TEXT PRIMARY KEY, description TEXT)");
+      this.db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT, PRIMARY KEY(username, projectName))");
       if(!(typeof cb === 'undefined')) {
         cb();
       };
@@ -32,9 +32,7 @@ module.exports = class database {
   }
 
   addUser(username, password, firstName, lastName, cb) {
-    this.db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", username, password, firstName, lastName, (error) => {
-      if(error) cb(error);
-    });
+    this.db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", username, password, firstName, lastName, cb);
   }
 
   getUser(username, cb) {
@@ -54,9 +52,7 @@ module.exports = class database {
   }
 
   addProject(name, description, cb) {
-    this.db.run("INSERT INTO projects (name, description) VALUES (?, ?)", name, description, (error) => {
-      if(error) cb(error);
-    });
+    this.db.run("INSERT INTO projects (name, description) VALUES (?, ?)", name, description, cb);
   }
 
   getProjects(cb) {

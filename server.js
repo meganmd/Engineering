@@ -8,7 +8,9 @@ app.use(bodyParser.json());
 var database = require("./database.js");
 var data = new database("exampleDB");
 
+//data.drop();
 data.initialize();
+
 
 app.get('/api/listUsers', function(request, response) {
   data.getUsers(function(err, rows) {
@@ -51,10 +53,13 @@ app.post('/api/addUser', function(request, response) {
     request.body.firstName,
     request.body.lastName,
     function(error) {
-      response.status(400);
+      if(error) {
+        response.status(400).send("project name not unique!");               ///this isnt happening
+      } else {
+        response.status(200).end();
+      }
     }
   )
-  response.end();
 })
 
 app.post('/api/addProject', function(request, response) {
@@ -65,10 +70,13 @@ app.post('/api/addProject', function(request, response) {
     request.body.name,
     request.body.description,
     function(error) {
-      response.status(400);
+      if(error) {
+        response.status(400).send("project name not unique!");               ///this isnt happening
+      } else {
+        response.status(200).end();
+      }
     }
   )
-  response.end();
 })
 
 app.get('/api/listProjects', function(request, response) {

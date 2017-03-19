@@ -65,13 +65,27 @@ var tests = [
   },
   function addUsers() {
     data.addUser("user1", "pass1", "bob", "boy");
+//    data.addUser("user1", "pass1", "bob", "boy");
     data.addUser("user2", "pass", "bob", "dude");
   },
   function getUsers() {
     data.getUsers(function(err, rows) {
       console.log(rows);
     });
-  }
+  },
+  function deleteUser() {
+    data.deleteUser("user2", function(error) {
+      console.log(error);
+    });
+    data.deleteUser("user2", function(error) {
+      console.log(error);
+    });
+  },
+  function getUsers() {
+    data.getUsers(function(err, rows) {
+      console.log(rows);
+    });
+  },
 ];
 
 for(var i = 0; i < tests.length; i++) {

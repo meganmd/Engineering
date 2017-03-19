@@ -31,11 +31,18 @@ module.exports = class database {
     this.db.all("SELECT name FROM sqlite_master WHERE type='table'", cb);
   }
 
-  addUser(username, password, firstName, lastName, cb) {
-    this.db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", username, password, firstName, lastName, () => {
-      if(!(typeof cb === 'undefined')) {
-        cb();
-      }});
+  addUser(username, password, firstName, lastName) {
+    this.db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", username, password, firstName, lastName, (error) => {
+      if(error) throw error;
+    });
+  }
+
+  getUser(username, cb) {
+    this.db.get("SELECT * FROM users where username = ?",username, cb);
+  }
+
+  deleteUser(username, cb) {
+    this.db.run("DELETE FROM users where username = ?", username, cb);
   }
 
   getUsers(cb) {

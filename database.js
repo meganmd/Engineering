@@ -31,9 +31,9 @@ module.exports = class database {
     this.db.all("SELECT name FROM sqlite_master WHERE type='table'", cb);
   }
 
-  addUser(username, password, firstName, lastName) {
+  addUser(username, password, firstName, lastName, cb) {
     this.db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", username, password, firstName, lastName, (error) => {
-      if(error) throw error;
+      if(error) cb(error);
     });
   }
 
@@ -53,5 +53,11 @@ module.exports = class database {
 
   getUsernames(cb) { //not right
     this.db.all("SELECT username FROM users", cb);
+  }
+
+  addProject(name, description, cb) {
+    this.db.run("INSERT INTO projects (name, description) VALUES (?, ?)", name, description, (error) => {
+      if(error) cb(error);
+    });
   }
 }

@@ -46,9 +46,7 @@ module.exports = class database {
   }
 
   getUsers(cb) {
-    var users = [];
     this.db.all("SELECT * FROM users", cb);
-    return users;
   }
 
   getUsernames(cb) { //not right
@@ -59,5 +57,9 @@ module.exports = class database {
     this.db.run("INSERT INTO projects (name, description) VALUES (?, ?)", name, description, (error) => {
       if(error) cb(error);
     });
+  }
+
+  getProjects(cb) {
+    this.db.all("SELECT * FROM projects", cb);
   }
 }

@@ -71,6 +71,13 @@ app.post('/api/addProject', function(request, response) {
   response.end();
 })
 
+app.get('/api/listProjects', function(request, response) {
+  data.getProjects(function(err, rows){
+        response.setHeader('Content-Type', 'application/json');
+        response.json(rows);
+  });
+})
+
 app.post('/api/deleteUser', function(request, response) {
   console.log("Deleting...");
   console.log(request.body);

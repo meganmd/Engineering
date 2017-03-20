@@ -15,17 +15,6 @@ function CreateProjectDisplay(props){
   );
 }
 
-function AddUserDisplay(props){
-  return(
-    <div className="CreateProject">
-       Username*<br/>
-      <input type="text" placeholder="Enter Username ... "
-        onChange={props.handleProjectNameChange}/> <br/>
-      <br/> <font color="red">{props.errorMessage}</font>
-    </div>
-  );
-}
-
 
 class CreateProjectForm extends Component {
 
@@ -40,15 +29,16 @@ class CreateProjectForm extends Component {
 
   handleClick(){
     if(this.state.projectTitle.length > 0){
-      Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
-
-        console.log("why wont this work!!!!!");
-        //submit credentials to database here
-        //this.props.handleProjectComplete();
+      Client.getProject(this.state.projectTitle,(project) => {
+        if(project != null){
+          this.setState({errorMessage: 'project name is already taken!'});
+          return;
+        }
+        Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
+        this.props.handleProjectComplete();
+      })
     } else {
-      console.log("Should display error");
       this.setState({errorMessage:'Project name cannot be empty!'});
-      console.log(this.state.errorMessage + "<- should be something here!");
     }
   }
 

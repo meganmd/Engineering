@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 function PBIFormattedSection(props){
   return(
     <div className="PBIAutoCategories">
-      As a: <input type="text" placeholder="Enter Role..."
-        onChange={props.handleRoleChange} /> <br/>
-      I can: <textarea type="text" placeholder="Enter Action..."
-        onChange={props.handleActionChange} /> <br/>
-      So that: <textarea type="text" placeholder="Enter Reason..."
-        onChange={props.handleReasonChange} /><br/>
+      As a: <input name="role" type="text" placeholder="Enter Role..."
+        onChange={props.handleInputChange} /> <br/>
+      I can: <textarea name="action" type="text" placeholder="Enter Action..."
+        onChange={props.handleInputChange} /> <br/>
+      So that: <textarea name="reason" type="text" placeholder="Enter Reason..."
+        onChange={props.handleInputChange} /><br/>
     </div>
   );
 }
@@ -16,15 +16,13 @@ function PBIFormattedSection(props){
 function CreatePBIDisplay(props){
   return(
     <div className="CreatePBI">
-      Description: <textarea align="bottom" cols="40" rows="2" type="text" placeholder="Enter Description..."
-        onChange={props.handleDescriptionChange} /> <br/>
-      <PBIFormattedSection handleRoleChange={props.handleRoleChange}
-        handleActionChange={props.handleActionChange}
-        handleReasonChange={props.handleReasonChange} />
-      Acceptance Criteria: <textarea type="text"
+      Description: <textarea name="description" align="bottom" cols="40" rows="2" type="text" placeholder="Enter Description..."
+        onChange={props.handleInputChange} /> <br/>
+      <PBIFormattedSection handleInputChange={props.handleInputChange} />
+      Acceptance Criteria: <textarea name="acceptanceCriteria" type="text"
         placeholder="Enter Acceptance Criteria..."
-        onChange={props.handleAcceptanceCriteriaChange} /> <br/>
-      Estimate: <select onChange={props.handleEstimateChange}>
+        onChange={props.handleInputChange} /> <br/>
+      Estimate: <select name="estimate" onChange={props.handleInputChange}>
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
@@ -42,39 +40,14 @@ class CreatePBIForm extends Component {
     super(props);
     this.state = {description:'',role: '', action:'', reason:'',
     acceptanceCriteria:'', estimate:'small', errorMessage:''};
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleRoleChange = this.handleRoleChange.bind(this);
-    this.handleActionChange = this.handleActionChange.bind(this);
-    this.handleReasonChange = this.handleReasonChange.bind(this);
-    this.handleAcceptanceCriteriaChange = this.handleAcceptanceCriteriaChange.bind(this);
-    this.handleEstimateChange = this.handleEstimateChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCreateClick = this.handleCreateClick.bind(this);
     this.handleCancelClick = this.handleCancelClick.bind(this);
     }
 
-  handleDescriptionChange(e){
-    this.setState({description: e.target.value});
-  }
-
-  handleRoleChange(e){
-    this.setState({role: e.target.value});
-  }
-
-  handleActionChange(e){
-    this.setState({action: e.target.value});
-  }
-
-  handleReasonChange(e){
-    this.setState({reason: e.target.value});
-  }
-
-  handleAcceptanceCriteriaChange(e){
-    this.setState({acceptanceCriteria: e.target.value});
-  }
-
-  handleEstimateChange(e){
-    this.setState({estimate: e.target.value});
-  }
+    handleInputChange(event) {
+      this.setState({[event.target.name]: event.target.value});
+    }
 
   handleCancelClick(){
     this.props.leavePBIForm();
@@ -100,12 +73,7 @@ class CreatePBIForm extends Component {
     return (
       <div className="CreatePBI">
           <CreatePBIDisplay
-            handleDescriptionChange={this.handleDescriptionChange}
-            handleRoleChange={this.handleRoleChange}
-            handleActionChange={this.handleActionChange}
-            handleReasonChange={this.handleReasonChange}
-            handleAcceptanceCriteriaChange={this.handleAcceptanceCriteriaChange}
-            handleEstimateChange={this.handleEstimateChange}
+            handleInputChange={this.handleInputChange}
             handleCreateClick={this.handleCreateClick}
             handleCancelClick={this.handleCancelClick}
             errorMessage={this.state.errorMessage}

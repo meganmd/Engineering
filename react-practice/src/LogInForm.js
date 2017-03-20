@@ -35,9 +35,10 @@ function BackButton(props){
 function LogInDisplay(props){
   return(
     <div className="loginForm">
-      <input type="text" placeholder="Enter Username..."
-        onChange={props.handleUserChange}/><br />
-      <input type="text" placeholder="Enter Password..." onChange={props.handlePasswordChange} /> <br />
+      <input name="userfield" type="text" placeholder="Enter Username..."
+        onChange={props.handleInputChange}/><br />
+      <input name="passwordfield" type="text" placeholder="Enter Password..."
+        onChange={props.handleInputChange} /> <br />
       <LoginButton onClick={props.handleLoginClick} />
       <RegisterButton onClick={props.handleRegisterClick} />
       <br/>
@@ -49,11 +50,16 @@ function LogInDisplay(props){
 function RegisterDisplay(props){
   return(
     <div className="loginForm">
-      <input type="text" placeholder="New Username..."
-        onChange={props.handleUserChange}/><br />
-      <input type="text" placeholder="New Password..." onChange={props.handlePasswordChange} /> <br />
-      <input type="text" placeholder="First Name (optional)..." onChange={props.handleFirstNameChange} /><br />
-      <input type="text" placeholder="Last Name (optional)..." onChange={props.handleLastNameChange} /><br />
+      <input name="userfield" type="text" placeholder="New Username..."
+        onChange={props.handleInputChange}/><br />
+      <input name="passwordfield" type="text" placeholder="New Password..."
+        onChange={props.handleInputChange} /> <br />
+      <input name="firstNameField" type="text"
+        placeholder="First Name (optional)..."
+        onChange={props.handleInputChange} /><br />
+      <input name="lastNameField" type="text"
+        placeholder="Last Name (optional)..."
+        onChange={props.handleInputChange} /><br />
       <BackButton onClick={props.handleCancelRegisterClick} />
       <SubmitButton onClick={props.handleSubmitNewUserClick} />
       <br/>
@@ -67,13 +73,10 @@ class LogInForm extends Component {
     super(props);
     this.state = {userfield: '', passwordfield: '', firstNameField:'', lastNameField:'', errorMessage: '', registering: false};
     this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.handleUserChange = this.handleUserChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleRegisterClick = this.handleRegisterClick.bind(this);
     this.handleSubmitNewUserClick = this.handleSubmitNewUserClick.bind(this);
     this.handleCancelRegisterClick = this.handleCancelRegisterClick.bind(this);
-    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-    this.handleLastNameChange = this.handleLastNameChange.bind(this);
   }
 
   handleLoginClick() {
@@ -102,27 +105,15 @@ class LogInForm extends Component {
   }
 
   handleRegisterClick(){
-    this.setState({registering: true});
+    this.setState({userfield: '', passwordfield: '', registering: true});
   }
 
   handleCancelRegisterClick(){
-    this.setState({registering: false});
+    this.setState({userfield: '', passwordfield: '', firstNameField: '', lastNameField: '', registering: false});
   }
 
-  handleUserChange(e){
-    this.setState({userfield: e.target.value});
-  }
-
-  handlePasswordChange(e){
-    this.setState({passwordfield: e.target.value});
-  }
-
-  handleFirstNameChange(e){
-    this.setState({firstNameField: e.target.value});
-  }
-
-  handleLastNameChange(e){
-    this.setState({lastNameField: e.target.value});
+  handleInputChange(event) {
+    this.setState({[event.target.name]: event.target.value});
   }
 
   render() {
@@ -130,17 +121,13 @@ class LogInForm extends Component {
     var display = null;
     if (this.state.registering) {
       display = <RegisterDisplay
-        handleUserChange={this.handleUserChange}
-        handlePasswordChange={this.handlePasswordChange}
+        handleInputChange={this.handleInputChange}
         handleSubmitNewUserClick={this.handleSubmitNewUserClick}
         handleCancelRegisterClick={this.handleCancelRegisterClick}
-        errorMessage={this.state.errorMessage}
-        handleFirstNameChange={this.handleFirstNameChange}
-        handleLastNameChange = {this.handleLastNameChange}/>
+        errorMessage={this.state.errorMessage}/>
     } else {
       display = <LogInDisplay
-        handleUserChange={this.handleUserChange}
-        handlePasswordChange={this.handlePasswordChange}
+        handleInputChange={this.handleInputChange}
         handleLoginClick={this.handleLoginClick}
         handleRegisterClick={this.handleRegisterClick}
         errorMessage={this.state.errorMessage}/>

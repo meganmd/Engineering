@@ -23,7 +23,7 @@ it('can check username', user => {
     done();
   }
   Client.getUser('mockName1', callback);
-})
+});
 
 it('can check password', user => {
   function callback(user) {
@@ -31,7 +31,7 @@ it('can check password', user => {
     done();
   }
   Client.getUser('mockName1', callback);
-})
+});
 
 it('can check firstName', user => {
   function callback(user) {
@@ -39,7 +39,7 @@ it('can check firstName', user => {
     done();
   }
   Client.getUser('mockName1', callback);
-})
+});
 
 it('can check lastName', user => {
   function callback(user) {
@@ -47,4 +47,4 @@ it('can check lastName', user => {
     done();
   }
   Client.getUser('mockName1', callback);
-})
+});

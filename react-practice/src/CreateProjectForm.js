@@ -52,7 +52,7 @@ class CreateProjectForm extends Component {
             handleDescriptionChange={this.handleDescriptionChange}
             handleProjectNameChange={this.handleProjectNameChange}
             handleCreateClick={this.handleCreateClick}
-            errorMessage={this.errorMessage}
+            errorMessage={this.state.errorMessage}
           />
       </div>
     );

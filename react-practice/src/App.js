@@ -79,7 +79,6 @@ class App extends Component {
         <br />
         {content}
         <UserTable/>
-        <AddUserToProjectForm/>
       </div>
     );
   }

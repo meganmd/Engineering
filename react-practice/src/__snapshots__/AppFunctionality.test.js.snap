@@ -1,0 +1,72 @@
+exports[`test renders correctly (incomplete) 1`] = `
+<div
+  className="App">
+  <div
+    className="App-header-black">
+    <img
+      alt="logo"
+      className="App-logo"
+      src="logo.svg" />
+    <h1>
+      Scrumtious Demo Page
+    </h1>
+    <h2>
+      Please Login...
+    </h2>
+  </div>
+  <br />
+  <div
+    className="loginForm">
+    <div
+      className="loginForm">
+      <input
+        name="userfield"
+        onChange={[Function]}
+        placeholder="Enter Username..."
+        type="text" />
+      <br />
+      <input
+        name="passwordfield"
+        onChange={[Function]}
+        placeholder="Enter Password..."
+        type="text" />
+       
+      <br />
+      <button
+        onClick={[Function]}>
+        Login
+      </button>
+      <button
+        onClick={[Function]}>
+        Register
+      </button>
+      <br />
+      <font
+        color="red">
+        
+      </font>
+    </div>
+  </div>
+  <center>
+    <table>
+      <tr>
+        <td>
+          Username
+        </td>
+        <td>
+          Password
+        </td>
+        <td>
+          First Name
+        </td>
+        <td>
+          Last Name
+        </td>
+      </tr>
+    </table>
+  </center>
+  <center>
+    <table />
+  </center>
+</div>
+`;

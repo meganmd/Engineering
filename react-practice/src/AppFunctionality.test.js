@@ -4,12 +4,12 @@ import App from './App';
 import LogInForm from './LogInForm';
 import UserTable from './UserTable';
 import AddUserForm from './AddUserForm';
-import Link from '../Link.react';
+//import Link from '../Link.react';
 import renderer from 'react-test-renderer';
 
 it('renders correctly (incomplete)', () => {
   const tree = renderer.create(
-    <Link page="localHost3000">logIn</Link>
+    <App />
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

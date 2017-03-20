@@ -45,9 +45,9 @@ class CreatePBIForm extends Component {
     this.handleCancelClick = this.handleCancelClick.bind(this);
     }
 
-    handleInputChange(event) {
-      this.setState({[event.target.name]: event.target.value});
-    }
+  handleInputChange(event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
 
   handleCancelClick(){
     this.props.leavePBIForm();

@@ -4,44 +4,47 @@ import App from './App';
 import LogInForm from './LogInForm';
 import UserTable from './UserTable';
 import AddUserForm from './AddUserForm';
-import Client1 from './Client';
+import Client from './Client';
 
 beforeAll(() => {
-  Client1.addUser('mockName1', 'password1', 'firstName1', 'lastName1', function(){});
+  Client.addUser('mockName1', 'password1', 'firstName1', 'lastName1', function(){});
 });
 
-it('addUser works and  getUser runs', () => {
-    expect(Client1.getUser('mockName1', function(){})).toBeDefined;
+it('addUser works and  getUser runs', user => {
+  function callback(user) {
+    expect(user).toBeDefined;
+  }
+  Client.getUser('mockName1', callback);
 });
 
-it('can check username', () => {
+it('can check username', user => {
   function callback(user) {
-    expect(user).toBe('mockname1');
+    expect(user.username).toBe('mockName1');
     done();
   }
-  Client1.getUser('mockName1', function(){});
-})
+  Client.getUser('mockName1', callback);
+});
 
-it('can check password', () => {
+it('can check password', user => {
   function callback(user) {
-    expect(user).toBe('password1');
+    expect(user.password).toBe('password1');
     done();
   }
-  Client1.getUser('mockName1', function(){});
-})
+  Client.getUser('mockName1', callback);
+});
 
-it('can check firstName', () => {
+it('can check firstName', user => {
   function callback(user) {
-    expect(user).toBe('firstName1');
+    expect(user.firstName).toBe('firstName1');
     done();
   }
-  Client1.getUser('mockName1', function(){});
-})
+  Client.getUser('mockName1', callback);
+});
 
-it('can check lastName', () => {
+it('can check lastName', user => {
   function callback(user) {
-    expect(user).toBe('lastName1');
+    expect(user.lastName).toBe('lastName1');
     done();
   }
-  Client1.getUser('mockName1', function(){});
-})
+  Client.getUser('mockName1', callback);
+});

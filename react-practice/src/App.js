@@ -8,6 +8,7 @@ import AddUserForm from './AddUserForm';
 import Client from './Client';
 import s from './index.css';
 import AddUserToProjectForm from './AddUserToProjectForm'
+import ProjectTable from './ProjectTable.js'
 
 function LogOutButton(props) {
   return (
@@ -79,6 +80,7 @@ class App extends Component {
         <br />
         {content}
         <UserTable/>
+        <ProjectTable/>
       </div>
     );
   }

@@ -3,8 +3,6 @@ import './App.css';
 import Client from './Client.js';
 
 
-
-
 class ProjectTable extends Component {
 
   constructor(props, user) {
@@ -12,10 +10,7 @@ class ProjectTable extends Component {
     this.state = {users:[]};
     this.getUsers = this.getUsers.bind(this);
     this.fetchProject = this.fetchProject.bind(this);
-
-
   }
-
 
   getUsers() {
 //This needs to get projects, I'm testing it on users currently
@@ -36,36 +31,18 @@ class ProjectTable extends Component {
    }
 
 render() {
+  var tableBody = [];
+  for(var i = 0; i < this.state.users.length; i++){
+    tableBody.push(<tr onClick={this.fetchProject}><td>{this.state.users[i].username}</td></tr>);
+  }
+
   return (
     <center>
     <table>
-      <tr>
-        <td>Username</td>
-        <td>Password</td>
-
-      </tr>
-      {this.state.users.map(function(user, i) {
-        return (
-
-
-
-   <tr onClick={this.fetchProject}>
-       <td data-title="Username">{user.username}</td>
-       <td data-title="Password">{user.password}</td>
-
-   </tr>
-
-
-            );}
-        )
-
-      }
-      </table>
+      {tableBody}
+    </table>
     </center>
     )}
-
-
-
 }
 
 export default ProjectTable;

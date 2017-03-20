@@ -33,6 +33,7 @@ exports[`test renders correctly (incomplete) 1`] = `
        
       <br />
       <button
+        name="loginButton"
         onClick={[Function]}>
         Login
       </button>

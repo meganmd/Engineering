@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import LogInForm from './LogInForm'
-import UserTable from './UserTable'
-import CreateProjectForm from './CreateProjectForm'
-import AddUserForm from './AddUserForm'
-import Client from './Client'
+import LogInForm from './LogInForm';
+import UserTable from './UserTable';
+import CreateProjectForm from './CreateProjectForm';
+import AddUserForm from './AddUserForm';
+import Client from './Client';
 import s from './index.css';
+import AddUserToProjectForm from './AddUserToProjectForm'
 
 function LogOutButton(props) {
   return (
@@ -78,7 +79,6 @@ class App extends Component {
         <br />
         {content}
         <UserTable/>
-        <CreateProjectForm/>
       </div>
     );
   }

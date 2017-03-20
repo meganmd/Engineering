@@ -1,39 +1,36 @@
 var express = require("express");
 var app = express();
 var fs = require("fs");
-var sqlite = require("sqlite3").verbose();
-var db = new sqlite.Database("./db/exampleDB.db");
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-db.serialize(function() {
-    db.run("DROP TABLE users");
-    db.run("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, firstName TEXT, lastName TEXT)");
-    db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", "user1", "pass1", "first", "last");
-});
+var database = require("./database.js");
+var data = new database("exampleDB");
+
+//data.drop();
+data.initialize();
+
 
 app.get('/api/listUsers', function(request, response) {
-
-  db.all("SELECT * FROM users", function(err, rows){
-        response.setHeader('Content-Type', 'application/json');
-        response.json(rows);
-    });
+  data.getUsers(function(err, rows) {
+    response.setHeader('Content-Type', 'application/json');
+    response.json(rows);
+  });
 })
 
 app.get('/api/listUsernames', function(request, response) {
-
-  db.all("SELECT username FROM users", function(err, rows){
+  data.getUsernames(function(err, rows){
         response.setHeader('Content-Type', 'application/json');
         response.json(rows);
-    });
+  });
 })
 
 app.get('/api/user', function(request,response) {
   username = request.query.username;
-  console.log("Getting...");
+  console.log("Getting..." + username);
   console.log(request.body);
-  db.get("SELECT * FROM users where username = ?",username, function(err,row){
+  data.getUser(request.query.username, function(err, row) {
     console.log(row);
     response.setHeader('Content-Type', 'application/json');
     if(row != undefined){
@@ -50,14 +47,49 @@ app.post('/api/addUser', function(request, response) {
   console.log("Adding...");
   //console.log(request);
   console.log(request.body);
-  db.run("INSERT INTO users (username, password, firstName, lastName) VALUES (?, ?, ?, ?)", request.body.username, request.body.password, request.body.firstName, request.body.lastName);
-  response.end();
+  data.addUser(
+    request.body.username,
+    request.body.password,
+    request.body.firstName,
+    request.body.lastName,
+    function(error) {
+      if(error) {
+        response.status(400).send("project name not unique!");               ///this isnt happening
+      } else {
+        response.status(200).end();
+      }
+    }
+  )
+})
+
+app.post('/api/addProject', function(request, response) {
+  console.log("Adding...");
+  //console.log(request);
+  console.log(request.body);
+  data.addProject(
+    request.body.name,
+    request.body.description,
+    function(error) {
+      if(error) {
+        response.status(400).send("project name not unique!");               ///this isnt happening
+      } else {
+        response.status(200).end();
+      }
+    }
+  )
+})
+
+app.get('/api/listProjects', function(request, response) {
+  data.getProjects(function(err, rows){
+        response.setHeader('Content-Type', 'application/json');
+        response.json(rows);
+  });
 })
 
 app.post('/api/deleteUser', function(request, response) {
   console.log("Deleting...");
   console.log(request.body);
-  db.run("DELETE FROM users WHERE username=?",request.body.username);
+  data.deleteUser(request.body.username)
   response.end();
 })
 

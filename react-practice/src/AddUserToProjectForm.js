@@ -7,7 +7,7 @@ function AddUserDisplay(props){
        Username*<br/>
       <input type="text" placeholder="Enter Username ... "
         onChange={props.handleProjectNameChange}/> <br/>
-      <br/> <font color="red">{props.errorMessage}</font>
+      <font color="red">{props.errorMessage}</font> <br/>
       <button onClick={props.handleInviteUserClick}>Invite!</button>
     </div>
   );
@@ -17,7 +17,7 @@ class AddUserToProjectForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {username: ''};
+    this.state = {username: '', errorMessage: ''};
     this.handleUsernameChange = this.handleUserNameChange.bind(this);
     this.handleInviteUserClick = this.handleInviteUserClick.bind(this);
   }
@@ -28,7 +28,11 @@ class AddUserToProjectForm extends Component {
 
   handleInviteUserClick(){
     console.log("handling the user click");
-    //add the database call here!
+    if(this.state.username.length == 0){
+      this.setState({errorMessage: 'Please enter in a user to invite'});
+      return;
+    }
+    //add the database call here to find users associated with a project
     this.props.exit();
   }
 
@@ -38,6 +42,7 @@ class AddUserToProjectForm extends Component {
           <AddUserDisplay
             handleUserNameChange={this.handleUserNameChange}
             handleInviteUserClick={this.handleInviteUserClick}
+            errorMessage={this.state.errorMessage}
           />
       </div>
     );

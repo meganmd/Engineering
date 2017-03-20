@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Client from './Client'
+
 
 function CreateProjectDisplay(props){
   return(
@@ -28,10 +30,12 @@ class CreateProjectForm extends Component {
 
   handleCreateClick(props){
     if(this.state.projectTitle.length > 0){
+      Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
+
         console.log("why wont this work!!!!!");
         //submit credentials to database here
-        this.props.handleProjectComplete();
-    }else{
+        //this.props.handleProjectComplete();
+    } else {
       console.log("Should display error");
       this.setState({errorMessage:'Please enter in a title for your project'});
     }

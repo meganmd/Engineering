@@ -39,7 +39,6 @@ function addUser(username, password, firstName, lastName, cb) {
       lastName: lastName
     })
   }).then(checkStatus)
-    .then(parseJSON)
     .then(cb);
 }
 
@@ -58,6 +57,21 @@ function deleteUser(username, cb) {
     .then(cb);
 }
 
+function addProject(name, description, cb) {
+  return fetch('api/addProject', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      name: name,
+      description: description
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -73,5 +87,5 @@ function parseJSON(response) {
   return response.json();
 }
 
-const Client = { getUsers, addUser, getUser, getUsernames };
+const Client = { getUsers, addUser, getUser, getUsernames, addProject };
 export default Client;

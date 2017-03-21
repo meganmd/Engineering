@@ -6,10 +6,10 @@ function CreateProjectDisplay(props){
   return(
     <div className="CreateProject">
       Project Name* <font color="red">{props.errorMessage}</font><br/><br/>
-      <input type="text" placeholder="Enter Project Name ... "
+      <input name="projectTitle" type="text" placeholder="Enter Project Name ... "
         onChange={props.handleProjectNameChange}/> <br/>
         Description<br/>
-      <textarea align="bottom" cols="40" rows="2" type="text" placeholder="Enter Project Description ..." onChange={props.handleDescriptionChange} /> <br/>
+      <textarea name="descriptionField" align="bottom" cols="40" rows="2" type="text" placeholder="Enter Project Description ..." onChange={props.handleDescriptionChange} /> <br/>
       <button onClick={props.handleClick}>Create Project</button>
     </div>
   );
@@ -20,11 +20,9 @@ class CreateProjectForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {projectTitle: '', descriptionField: '', errorMessage: '', username:''};
-    this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleUserNameChange = this.handleUserNameChange.bind(this);
+    this.state = {projectTitle: '', descriptionField: '', errorMessage: ''};
     this.handleClick = this.handleClick.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleClick(){
@@ -42,16 +40,16 @@ class CreateProjectForm extends Component {
     }
   }
 
+  handleInputChange(event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
   handleProjectNameChange(e){
     this.setState({projectTitle: e.target.value});
   }
 
   handleDescriptionChange(e){
     this.setState({descriptionField: e.target.value});
-  }
-
-  handleUserNameChange(e){
-    this.setState({username: e.target.value});
   }
 
   render() {

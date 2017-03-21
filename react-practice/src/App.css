@@ -15,6 +15,12 @@ table {
   margin-top: 50px;
 }
 
+#card
+{
+  background: #000000;
+  color: black;
+}
+
 #productbacklog
 {
   left:.3%;

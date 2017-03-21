@@ -9,6 +9,7 @@ import Client from './Client';
 import s from './index.css';
 import AddUserToProjectForm from './AddUserToProjectForm'
 import ProjectTable from './ProjectTable.js'
+import PBIBacklogForm from './PBIBacklogForm'
 
 function LogOutButton(props) {
   return (
@@ -79,8 +80,7 @@ class App extends Component {
         </div>
         <br />
         {content}
-        <UserTable/>
-        <ProjectTable/>
+        <PBIBacklogForm projectName={'Test Name'}/>
       </div>
     );
   }

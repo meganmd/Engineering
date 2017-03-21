@@ -28,7 +28,7 @@ class AddUserToProjectForm extends Component {
 
   handleInviteUserClick(){
     console.log("handling the user click");
-    if(this.state.username.length == 0){
+    if(this.state.username.length === 0){
       this.setState({errorMessage: 'Please enter in a user to invite'});
       return;
     }

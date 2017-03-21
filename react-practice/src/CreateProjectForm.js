@@ -7,9 +7,9 @@ function CreateProjectDisplay(props){
     <div className="CreateProject">
       Project Name* <font color="red">{props.errorMessage}</font><br/><br/>
       <input name="projectTitle" type="text" placeholder="Enter Project Name ... "
-        onChange={props.handleProjectNameChange}/> <br/>
+        onChange={props.handleFieldChange}/> <br/>
         Description<br/>
-      <textarea name="descriptionField" align="bottom" cols="40" rows="2" type="text" placeholder="Enter Project Description ..." onChange={props.handleDescriptionChange} /> <br/>
+      <textarea name="descriptionField" align="bottom" cols="40" rows="2" type="text" placeholder="Enter Project Description ..." onChange={props.handleFieldChange} /> <br/>
       <button onClick={props.handleClick}>Create Project</button>
     </div>
   );
@@ -56,10 +56,9 @@ class CreateProjectForm extends Component {
     return (
       <div className="CreateProject">
           <CreateProjectDisplay
-            handleDescriptionChange={this.handleDescriptionChange}
-            handleProjectNameChange={this.handleProjectNameChange}
             handleClick={this.handleClick}
             errorMessage={this.state.errorMessage}
+            handleFieldChange={this.handleInputChange}
           />
       </div>
     );

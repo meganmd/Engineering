@@ -7,7 +7,9 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server.js",
     "client": "node start-client.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "react-test": "node test-client.js",
+    "database-test": "node databaseTest.js",
+    "test": "concurrently \"npm run server\" \"npm run react-test\""
   },
   "repository": {
     "type": "git",

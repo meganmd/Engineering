@@ -3,7 +3,7 @@
 }
 
 .logInButton{
-  
+
 }
 
 .switchToRegisteringButton{
@@ -12,6 +12,40 @@
 
 .registerNewUserButton{
 
+}
+
+.card{
+  position:absolute;
+  background: #bbbbbb;
+  border: 2px solid black;
+  left: 5%;
+  width: 90%;
+  min-height: 100px;
+  border-radius:15px;
+}
+
+#a{
+    top: 35px;
+}
+
+#b{
+    top: 160px;
+}
+
+#c{
+    top: 285px;
+}
+
+#d{
+    top: 410px;
+}
+
+#e{
+    top: 535px;
+}
+
+#f{
+    top: 660px;
 }
 
 table {
@@ -24,11 +58,6 @@ table {
   margin-top: 50px;
 }
 
-#card
-{
-  background: #000000;
-  color: black;
-}
 
 #productbacklog
 {
@@ -61,22 +90,22 @@ table {
   text-align:center;
   color:white;
   padding: 2px 0px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
-
+/*
 #todo, #inprogress, #done, #productbacklog, #scrumbacklog
 {
   position:absolute;
   width: 19.6%;
-  min-height:75%;
+  height: 100%;
   border: 2px solid black;
   outline: 0;
   background: #f2f2f2;
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 10px;
 }
-
+*/
 th, td {
     padding: 8px;
     text-align: center;

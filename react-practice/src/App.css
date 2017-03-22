@@ -24,30 +24,6 @@
   border-radius:15px;
 }
 
-#a{
-    top: 35px;
-}
-
-#b{
-    top: 160px;
-}
-
-#c{
-    top: 285px;
-}
-
-#d{
-    top: 410px;
-}
-
-#e{
-    top: 535px;
-}
-
-#f{
-    top: 660px;
-}
-
 table {
   margin-top: 350px;
     border-collapse: collapse;
@@ -93,19 +69,7 @@ table {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
-/*
-#todo, #inprogress, #done, #productbacklog, #scrumbacklog
-{
-  position:absolute;
-  width: 19.6%;
-  height: 100%;
-  border: 2px solid black;
-  outline: 0;
-  background: #f2f2f2;
-  box-sizing: border-box;
-  border-radius: 10px;
-}
-*/
+
 th, td {
     padding: 8px;
     text-align: center;

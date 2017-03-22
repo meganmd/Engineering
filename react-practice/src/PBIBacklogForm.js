@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 function GetCardsForColumn(props) {
   var idTags = ["a","b","c","d","e","f"];
   var indents = [];
-  for (var i = 0; i < 6; i++) {
+  console.log(props.project.length + " this many projects");
+  for (var i = 0; i < props.project.length; i++) {
     var divStyle = {
       position:"absolute",
       background: "#bbbbbb",
@@ -21,7 +22,7 @@ function GetCardsForColumn(props) {
       props.updateBoardHeight((i*125)+150);
     }
     console.log(props.backlogColumnStyle.height+ "Height--------" +divStyle.top);
-    indents.push(<div /*className="card" id={idTags[i]}*/ style={divStyle}></div>);
+    indents.push(<div /*className="card" id={idTags[i]}*/ style={divStyle}>{props.project[i].description}<br/>Size: {props.project[i].size}</div>);
   }
   return(
     <div id="productbacklog" style={props.backlogColumnStyle}>
@@ -39,7 +40,7 @@ function PBIBacklogDisplay(props){
       <h1>{props.projectName}</h1>
     <div id="board" style={{width:"100%", height:"fill"}}>
       <GetCardsForColumn backlogColumnStyle={props.backlogColumnStyle}
-      updateBoardHeight={props.updateBoardHeight}/>
+      updateBoardHeight={props.updateBoardHeight} project={props.project}/>
       <div id="scrumbacklog" style={props.backlogColumnStyle}>
         <div id="title">Scrum Backlog</div>
       </div>
@@ -65,7 +66,7 @@ class PBIBacklogForm extends Component {
     this.backlogColumnStyle = {
       position:'absolute',
       width: '19.6%',
-      height: '200px',
+      height: '280px',
       border: '2px solid black',
       outline: '0',
       background: '#f2f2f2',
@@ -73,7 +74,7 @@ class PBIBacklogForm extends Component {
       'border-radius': '10px'
     }
     this.updateBoardHeight = this.updateBoardHeight.bind(this);
-    //var example = [{description:"this is a user story", size:"small"},{description:"another user story", size:"large"}];
+    this.example = [{description:"this is a user story", size:"small"},{description:"another user story", size:"large"}];
   }
 
   updateBoardHeight(e){

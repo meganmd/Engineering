@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Client from './Client'
 
 function getCardsForColumn(props){
   console.log("why is it not getting here");
   return(
-    <button width="100%">wtf</button>
+    <button>wtf</button>
   );
 }
 
@@ -40,7 +39,7 @@ class PBIBacklogForm extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    var example = [{description:"this is a user story", size:"small"},{description:"another user story", size:"large"}];
+    //var example = [{description:"this is a user story", size:"small"},{description:"another user story", size:"large"}];
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-function getCardsForColumn(props){
+function GetCardsForColumn(props) {
   console.log("why is it not getting here");
   return(
     <button>wtf</button>
@@ -15,7 +15,7 @@ function PBIBacklogDisplay(props){
     <div id="board" style={{width:"100%"}}>
       <div id="productbacklog">
         <div id="title">Product Backlog</div>
-        <getCardsForColumn/>
+        <GetCardsForColumn />
       </div>
       <div id="scrumbacklog">
         <div id="title">Scrum Backlog</div>

@@ -10,7 +10,7 @@ function LoginButton(props) {
 
 function RegisterButton(props){
   return(
-  <button onClick={props.onClick}>
+  <button className="switchToRegisteringButton" onClick={props.onClick}>
     Register
   </button>
   );
@@ -18,7 +18,7 @@ function RegisterButton(props){
 
 function SubmitButton(props){
   return(
-  <button onClick={props.onClick}>
+  <button className="registerNewUserButton" onClick={props.onClick}>
     Submit
   </button>
   );
@@ -92,6 +92,10 @@ class LogInForm extends Component {
   }
 
   handleSubmitNewUserClick(){
+    if(this.state.userfield === '' || this.state.passwordfield === ''){
+      this.setState({errorMessage: 'Must have a username and password'});
+      return;
+    }
     this.props.getUser(this.state.userfield, (user) => {
         if (user.username === this.state.userfield){
           this.setState({errorMessage: 'Username already taken'});

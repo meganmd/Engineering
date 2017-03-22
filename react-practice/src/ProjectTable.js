@@ -38,7 +38,7 @@ class ProjectTable extends Component {
 render() {
   var tableBody = [];
   for(var i = 0; i < this.state.users.length; i++){
-    tableBody.push(<tableRow username={this.state.users[i]} fetchProject={this.fetchProject});
+    tableBody.push(<tableRow username={this.state.users[i]} fetchProject={this.fetchProject} />);
   }
 
   return (

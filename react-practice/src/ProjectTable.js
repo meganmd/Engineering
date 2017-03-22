@@ -7,7 +7,7 @@ class ProjectTable extends Component {
 
   constructor(props, user) {
     super(props);
-    this.state = {users:[]};
+    this.state = {users:[], projects:[]};
     this.getUsers = this.getUsers.bind(this);
     this.fetchProject = this.fetchProject.bind(this);
   }
@@ -21,25 +21,46 @@ class ProjectTable extends Component {
     });
   }
 
-  fetchProject () {
+  fetchProject (user) {
     //const user = e.target.getAttribute('data-item');
-    console.log('Testing click ');
+    console.log('Testing click ',user.username);
+    Client.getProjectsByUser(user.username, (projects) => {
+      console.log('Projects ',projects[0]);
+    });
+
   }
 
    componentWillMount() {
      this.getUsers();
    }
 
-render() {
-  var tableBody = [];
-  for(var i = 0; i < this.state.users.length; i++){
-    tableBody.push(<tr onClick={this.fetchProject}><td>{this.state.users[i].username}</td></tr>);
-  }
+  render() {
+    var tableBody = [];
+
+
+
+
+    tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
+    for(var i = 0; i < this.state.users.length; i++){
+      tableBody.push(<tr onClick={()=>this.fetchProject(this.state.users[i])}>
+      <td><font color = "black">{this.state.users[i].username}</font></td>
+      <td><font color = "black">{this.state.users[i].password}</font></td></tr>);
+    }
+
+
+
 
   return (
+
     <center>
     <table>
       {tableBody}
+      <tr onClick={()=>this.fetchProject(this.state.users[0])}>
+      <td><font color = "black">test</font></td>
+      <td><font color = "black">test</font></td></tr>
+      <tr onClick={()=>this.fetchProject(this.state.users[1])}>
+      <td><font color = "black">test2</font></td>
+      <td><font color = "black">test2</font></td></tr>
     </table>
     </center>
     )}

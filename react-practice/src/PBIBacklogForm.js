@@ -111,20 +111,20 @@ class PBIBacklogForm extends Component {
       done:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
       isDragging:false,
       droppableColumnColor:"#00003333",
-      droppableColumnBorderColor:"4px solid blue"
+      droppableColumnBorderColor:"4px solid blue",
+      backlogColumnStyle:{
+        position:'absolute',
+        width: '19.6%',
+        height: '280px',
+        border: '2px solid black',
+        outline: '0',
+        background: '#f2f2f2',
+        'box-sizing': 'border-box',
+        'border-radius': '10px',
+
+      }
     };
 
-    this.backlogColumnStyle = {
-      position:'absolute',
-      width: '19.6%',
-      height: '280px',
-      border: '2px solid black',
-      outline: '0',
-      background: '#f2f2f2',
-      'box-sizing': 'border-box',
-      'border-radius': '10px',
-
-    }
     this.updateBoardHeight = this.updateBoardHeight.bind(this);
     this.drag=this.drag.bind(this);
     this.drop=this.drop.bind(this);
@@ -135,7 +135,17 @@ class PBIBacklogForm extends Component {
   }
 
   updateBoardHeight(e){
-    this.backlogColumnStyle.height = e;
+    this.setState({backlogColumnStyle:{
+      position:'absolute',
+      width: '19.6%',
+      height: e,
+      border: '2px solid black',
+      outline: '0',
+      background: '#f2f2f2',
+      'box-sizing': 'border-box',
+      'border-radius': '10px',
+
+    }});
   }
 
   dragover(e){
@@ -266,7 +276,7 @@ class PBIBacklogForm extends Component {
       background: this.state.droppableColumnColor,
       width: "19.4%",
       left: ".1%",
-      height:this.backlogColumnStyle.height - 8,
+      height:this.state.backlogColumnStyle.height - 8,
       'border-radius':"15px",
       border: this.state.droppableColumnBorderColor
     }
@@ -276,7 +286,7 @@ class PBIBacklogForm extends Component {
     return (
       <div className="PBIBacklogDisplay">
           <PBIBacklogDisplay
-            backlogColumnStyle={this.backlogColumnStyle}
+            backlogColumnStyle={this.state.backlogColumnStyle}
             projectName={this.props.projectName}
             updateBoardHeight={this.updateBoardHeight}
             drag={this.drag}

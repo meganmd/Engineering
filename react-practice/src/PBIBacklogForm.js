@@ -20,8 +20,9 @@ function GetCardsForColumn(props) {
     if(divStyle.top > parseInt(props.backlogColumnStyle.height,10)){
       props.updateBoardHeight((i*125)+150);
     }
-    content.push(<div style={divStyle} draggable="true" onDragStart={props.drag}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
+    content.push(<div id={i} className={props.columnNumber}  style={divStyle} draggable="true" onDragStart={props.drag}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
   }
+
   return(
     <div id={props.columnName} style={props.backlogColumnStyle} onDrop={props.drop} onDragOver={props.allowDrop}>
       <div id="title">{props.title}</div>
@@ -32,12 +33,6 @@ function GetCardsForColumn(props) {
 
 
 function PBIBacklogDisplay(props){
-  //used only for testing layout as of now
-  var example = [{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"},{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"}];
-  var example1 = [{description:"Do some stuff", size:"SMALL"},{description:"Another user story", size:"LARGE"},{description:"Another user story", size:"LARGE"}];
-  var example2 = [{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}];
-  var example3 = [{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}];
-
   return(
     <div id="Backlog">
       <h1>{props.projectName}</h1>
@@ -45,7 +40,7 @@ function PBIBacklogDisplay(props){
       <GetCardsForColumn
         backlogColumnStyle={props.backlogColumnStyle}
         updateBoardHeight={props.updateBoardHeight}
-        project={example}
+        project={props.column1}
         columnName="productbacklog"
         columnNumber="1"
         title="Product Backlog"
@@ -55,7 +50,7 @@ function PBIBacklogDisplay(props){
       <GetCardsForColumn
         backlogColumnStyle={props.backlogColumnStyle}
         updateBoardHeight={props.updateBoardHeight}
-        project={example1}
+        project={props.column2}
         columnName="scrumbacklog"
         columnNumber="2"
         title="Scrum Backlog"
@@ -65,7 +60,7 @@ function PBIBacklogDisplay(props){
       <GetCardsForColumn
         backlogColumnStyle={props.backlogColumnStyle}
         updateBoardHeight={props.updateBoardHeight}
-        project={example2}
+        project={props.column3}
         columnName="todo"
         columnNumber="3"
         title="To Do"
@@ -75,7 +70,7 @@ function PBIBacklogDisplay(props){
       <GetCardsForColumn
         backlogColumnStyle={props.backlogColumnStyle}
         updateBoardHeight={props.updateBoardHeight}
-        project={example3}
+        project={props.column4}
         columnName="inprogress"
         columnNumber="4"
         title="In Progress"
@@ -85,7 +80,7 @@ function PBIBacklogDisplay(props){
       <GetCardsForColumn
         backlogColumnStyle={props.backlogColumnStyle}
         updateBoardHeight={props.updateBoardHeight}
-        project={props.example4}
+        project={props.column5}
         columnName="done"
         columnNumber="5"
         title="Done"
@@ -101,9 +96,15 @@ class PBIBacklogForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {example4:
-      [{description:"This is another user story", size:"SMALL"}]
+    //put in call to client toinstantiate
+    this.state = {
+      column1:[{description:"This is another user story", size:"SMALL"}],
+      column2:[{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"},{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"}],
+      column3:[{description:"Do some stuff", size:"SMALL"},{description:"Another user story", size:"LARGE"},{description:"Another user story", size:"LARGE"}],
+      column4:[{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
+      column5:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}]
     };
+
     this.backlogColumnStyle = {
       position:'absolute',
       width: '19.6%',
@@ -130,15 +131,17 @@ class PBIBacklogForm extends Component {
 
   drag(ev) {
       ev.dataTransfer.setData("text", ev.target.id);
-      console.log("we in here");
+      ev.dataTransfer.setData("column",ev.target.className);
+      ev.dataTransfer.setData("row", ev.target.id);
+      console.log("Row = " +ev.target.id + " column = " + ev.target.className);
   }
 
   drop(ev) {
+    ev.preventDefault();
+    console.log(ev.dataTransfer.getData("column") + " <- column number");
+    console.log(ev.clientX + " XPos " + ev.clientY + " YPos ");
     console.log("dropped");
-    var temp = this.state.example4;
-    temp.push({description:"This is another user story", size:"SMALL"});
-    this.setState({example4:temp});
-  }
+}
 
   render() {
     return (
@@ -150,7 +153,11 @@ class PBIBacklogForm extends Component {
             drag={this.drag}
             drop={this.drop}
             allowDrop={this.allowDrop}
-            example4={this.state.example4}/>
+            column1={this.state.column1}
+            column2={this.state.column2}
+            column3={this.state.column3}
+            column4={this.state.column4}
+            column5={this.state.column5}/>
       </div>
     );
   }

@@ -109,7 +109,9 @@ class PBIBacklogForm extends Component {
       todo:[{description:"Do some stuff", size:"SMALL"},{description:"Another user story", size:"LARGE"},{description:"Another user story", size:"LARGE"}],
       inprogress:[{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
       done:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
-      isDragging:false
+      isDragging:false,
+      droppableColumnColor:"#00003333",
+      droppableColumnBorderColor:"4px solid blue"
     };
 
     this.backlogColumnStyle = {
@@ -128,10 +130,16 @@ class PBIBacklogForm extends Component {
     this.drop=this.drop.bind(this);
     this.allowDrop=this.allowDrop.bind(this);
     this.dragexit=this.dragexit.bind(this);
+    this.dragleave=this.dragleave.bind(this);
+    this.dragenter=this.dragenter.bind(this);
   }
 
   updateBoardHeight(e){
     this.backlogColumnStyle.height = e;
+  }
+
+  dragover(e){
+    this.setState({droppableColumnColor:"00220022"});
   }
 
   allowDrop(ev) {
@@ -144,6 +152,20 @@ class PBIBacklogForm extends Component {
       ev.dataTransfer.setData("column",ev.target.className);
       ev.dataTransfer.setData("row", ev.target.id);
       console.log("Row = " +ev.target.id + " column = " + ev.target.className);
+  }
+
+  dragleave(e){
+    e.preventDefault();
+    console.log("dragging leave");
+    this.setState({droppableColumnColor:"#00006633"});
+    this.setState({droppableColumnBorderColor:"4px solid blue"});
+  }
+
+  dragenter(e){
+    e.preventDefault();
+    console.log("dragging enter");
+    this.setState({droppableColumnColor:"#66FF0033"});
+    this.setState({droppableColumnBorderColor:"4px solid green"});
   }
 
   dragexit(ev){
@@ -241,15 +263,15 @@ class PBIBacklogForm extends Component {
 
     var divStyle = {
       position:"absolute",
-      background: "#00002222",
+      background: this.state.droppableColumnColor,
       width: "19.4%",
       left: ".1%",
       height:this.backlogColumnStyle.height - 8,
       'border-radius':"15px",
-      border: "4px solid blue"
+      border: this.state.droppableColumnBorderColor
     }
     if(this.state.isDragging == true){
-      content = <div style={divStyle} onDrop={this.drop} onDragOver={this.allowDrop}></div>
+      content = <div style={divStyle} onDrop={this.drop} onDragOver={this.allowDrop} onDragLeave={this.dragleave} onDragEnter={this.dragenter}></div>
     }
     return (
       <div className="PBIBacklogDisplay">

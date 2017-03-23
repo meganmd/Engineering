@@ -98,11 +98,11 @@ class PBIBacklogForm extends Component {
     super(props);
     //put in call to client toinstantiate
     this.state = {
-      column1:[{description:"This is another user story", size:"SMALL"}],
-      column2:[{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"},{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"}],
-      column3:[{description:"Do some stuff", size:"SMALL"},{description:"Another user story", size:"LARGE"},{description:"Another user story", size:"LARGE"}],
-      column4:[{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
-      column5:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}]
+      productbacklog:[{description:"This is another user story", size:"SMALL"}],
+      scrumbacklog:[{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"},{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"}],
+      todo:[{description:"Do some stuff", size:"SMALL"},{description:"Another user story", size:"LARGE"},{description:"Another user story", size:"LARGE"}],
+      inprogress:[{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
+      done:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}]
     };
 
     this.backlogColumnStyle = {
@@ -138,10 +138,72 @@ class PBIBacklogForm extends Component {
 
   drop(ev) {
     ev.preventDefault();
-    console.log(ev.dataTransfer.getData("column") + " <- column number");
     console.log(ev.clientX + " XPos " + ev.clientY + " YPos ");
+    var column = 0;
+    column = parseInt(ev.dataTransfer.getData("column"),10);
+    var x = ev.clientX;
+    var item = {};
+    var temp = [];
+    var row = ev.dataTransfer.getData("row");
+    switch (column) {
+      case 1:
+        var temp = this.state.productbacklog;
+        item = temp[row];
+        temp.splice(row,1);
+        this.setState({productbacklog:temp});
+        break;
+      case 2:
+        var temp = this.state.scrumbacklog;
+        item = temp[row];
+        temp.splice(row,1);
+        this.setState({scrumbacklog:temp});
+        break;
+      case 3:
+        var temp = this.state.todo;
+        item = temp[row];
+        temp.splice(row,1);
+        this.setState({todo:temp});
+        break;
+      case 4:
+        var temp = this.state.inprogress;
+        item = temp[row];
+        temp.splice(row,1);
+        this.setState({inprogress:temp});
+        break;
+      case 5:
+        var temp = this.state.done;
+        item = temp[row];
+        temp.splice(row,1);
+        this.setState({done:temp});
+        break;
+      default:
+    }
+
+    if(x<260){
+      var back = this.state.productbacklog;
+      back.push(item);
+      this.setState({productbacklog:back});
+    }else if(x<500){
+      var back = this.state.scrumbacklog;
+      back.push(item);
+      this.setState({scrumbacklog:back});
+    }else if(x<750){
+      var back = this.state.todo;
+      back.push(item);
+      this.setState({todo:back});
+    }else if(x<1000){
+      var back = this.state.inprogress;
+      back.push(item);
+      this.setState({inprogress:back});
+    }else{
+      var back = this.state.done;
+      back.push(item);
+      this.setState({done:back});
+    }
     console.log("dropped");
+
 }
+
 
   render() {
     return (
@@ -153,11 +215,11 @@ class PBIBacklogForm extends Component {
             drag={this.drag}
             drop={this.drop}
             allowDrop={this.allowDrop}
-            column1={this.state.column1}
-            column2={this.state.column2}
-            column3={this.state.column3}
-            column4={this.state.column4}
-            column5={this.state.column5}/>
+            column1={this.state.productbacklog}
+            column2={this.state.scrumbacklog}
+            column3={this.state.todo}
+            column4={this.state.inprogress}
+            column5={this.state.done}/>
       </div>
     );
   }

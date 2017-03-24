@@ -1,0 +1,36 @@
+exports[`test renders correctly (incomplete) 1`] = `
+<div
+  className="loginForm">
+  <div
+    className="loginForm">
+    <input
+      name="userfield"
+      onChange={[Function]}
+      placeholder="Enter Username..."
+      type="text" />
+    <br />
+    <input
+      name="passwordfield"
+      onChange={[Function]}
+      placeholder="Enter Password..."
+      type="text" />
+     
+    <br />
+    <button
+      className="logInButton"
+      onClick={[Function]}>
+      Login
+    </button>
+    <button
+      className="switchToRegisteringButton"
+      onClick={[Function]}>
+      Register
+    </button>
+    <br />
+    <font
+      color="red">
+      
+    </font>
+  </div>
+</div>
+`;

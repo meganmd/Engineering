@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import LogInForm from './LogInForm';
 import Client from './Client';
 import { mount } from 'enzyme';
+import renderer from 'react-test-renderer';
+
+it('renders correctly (incomplete)', () => {
+  const tree = renderer.create(
+    <LogInForm />
+  ).toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
 test('LogInForm calls getUser when loginbutton is clicked', () => {
   const getUser = jest.fn();

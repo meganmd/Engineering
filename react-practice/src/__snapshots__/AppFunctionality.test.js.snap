@@ -33,11 +33,12 @@ exports[`test renders correctly (incomplete) 1`] = `
        
       <br />
       <button
-        name="loginButton"
+        className="logInButton"
         onClick={[Function]}>
         Login
       </button>
       <button
+        className="switchToRegisteringButton"
         onClick={[Function]}>
         Register
       </button>
@@ -48,26 +49,340 @@ exports[`test renders correctly (incomplete) 1`] = `
       </font>
     </div>
   </div>
-  <center>
-    <table>
-      <tr>
-        <td>
-          Username
-        </td>
-        <td>
-          Password
-        </td>
-        <td>
-          First Name
-        </td>
-        <td>
-          Last Name
-        </td>
-      </tr>
-    </table>
-  </center>
-  <center>
-    <table />
-  </center>
+  <div
+    className="PBIBacklogDisplay">
+    <div
+      id="Backlog">
+      <h1>
+        Test Project
+      </h1>
+      <div
+        id="board">
+        <div
+          id="productbacklog"
+          style={
+            Object {
+              "background": "#f2f2f2",
+              "border": "2px solid black",
+              "border-radius": "10px",
+              "box-sizing": "border-box",
+              "height": 525,
+              "outline": "0",
+              "position": "absolute",
+              "width": "19.6%",
+            }
+          }>
+          <div
+            id="title">
+            Product Backlog
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 35,
+                "width": "90%",
+              }
+            }>
+            <br />
+            This is a user story
+            <br />
+            Size: 
+            SMALL
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 160,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Make Food
+            <br />
+            Size: 
+            LARGE
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 285,
+                "width": "90%",
+              }
+            }>
+            <br />
+            This is a user story
+            <br />
+            Size: 
+            SMALL
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 410,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Make Food
+            <br />
+            Size: 
+            LARGE
+          </div>
+        </div>
+        <div
+          id="scrumbacklog"
+          style={
+            Object {
+              "background": "#f2f2f2",
+              "border": "2px solid black",
+              "border-radius": "10px",
+              "box-sizing": "border-box",
+              "height": 525,
+              "outline": "0",
+              "position": "absolute",
+              "width": "19.6%",
+            }
+          }>
+          <div
+            id="title">
+            Scrum Backlog
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 35,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Do some stuff
+            <br />
+            Size: 
+            SMALL
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 160,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Another user story
+            <br />
+            Size: 
+            LARGE
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 285,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Another user story
+            <br />
+            Size: 
+            LARGE
+          </div>
+        </div>
+        <div
+          id="todo"
+          style={
+            Object {
+              "background": "#f2f2f2",
+              "border": "2px solid black",
+              "border-radius": "10px",
+              "box-sizing": "border-box",
+              "height": 525,
+              "outline": "0",
+              "position": "absolute",
+              "width": "19.6%",
+            }
+          }>
+          <div
+            id="title">
+            To Do
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 35,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Stop being lazy
+            <br />
+            Size: 
+            SMALL
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 160,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Another user story
+            <br />
+            Size: 
+            LARGE
+          </div>
+        </div>
+        <div
+          id="inprogress"
+          style={
+            Object {
+              "background": "#f2f2f2",
+              "border": "2px solid black",
+              "border-radius": "10px",
+              "box-sizing": "border-box",
+              "height": 525,
+              "outline": "0",
+              "position": "absolute",
+              "width": "19.6%",
+            }
+          }>
+          <div
+            id="title">
+            In Progress
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 35,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Finish the project
+            <br />
+            Size: 
+            SMALL
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 160,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Another user story
+            <br />
+            Size: 
+            LARGE
+          </div>
+        </div>
+        <div
+          id="done"
+          style={
+            Object {
+              "background": "#f2f2f2",
+              "border": "2px solid black",
+              "border-radius": "10px",
+              "box-sizing": "border-box",
+              "height": 525,
+              "outline": "0",
+              "position": "absolute",
+              "width": "19.6%",
+            }
+          }>
+          <div
+            id="title">
+            Done
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 35,
+                "width": "90%",
+              }
+            }>
+            <br />
+            This is another user story
+            <br />
+            Size: 
+            SMALL
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;

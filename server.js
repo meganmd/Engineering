@@ -86,6 +86,14 @@ app.get('/api/listProjects', function(request, response) {
   });
 })
 
+app.get('/api/projects', function(request, response){
+  data.getUser(request.query.username, function(err, row){
+    response.setHeader('Content-Type', 'application/json');
+    response.json(rows);
+  });
+    
+})
+
 app.post('/api/deleteUser', function(request, response) {
   console.log("Deleting...");
   console.log(request.body);

@@ -3,6 +3,29 @@
 }
 
 .logInButton{
+
+}
+
+.switchToRegisteringButton{
+
+}
+
+.registerNewUserButton{
+
+}
+
+.createProjectButton{
+  
+}
+
+.card{
+  position:absolute;
+  background: #bbbbbb;
+  border: 2px solid black;
+  left: 5%;
+  width: 90%;
+  min-height: 100px;
+  border-radius:15px;
 }
 
 table {
@@ -14,6 +37,7 @@ table {
 .loginForm{
   margin-top: 50px;
 }
+
 
 #productbacklog
 {
@@ -46,20 +70,8 @@ table {
   text-align:center;
   color:white;
   padding: 2px 0px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-#todo, #inprogress, #done, #productbacklog, #scrumbacklog
-{
-  position:absolute;
-  width: 19.6%;
-  min-height:75%;
-  border: 2px solid black;
-  outline: 0;
-  background: #f2f2f2;
-  box-sizing: border-box;
-  border-radius: 15px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 th, td {

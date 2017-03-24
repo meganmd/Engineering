@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import Client from './Client.js';
 
+function tableRow(props){
+  return(
+    <tr onClick={props.fetchProject}><td>{props.username}</td></tr>
+  )
+}
 
 class ProjectTable extends Component {
 
@@ -34,6 +39,7 @@ class ProjectTable extends Component {
      this.getUsers();
    }
 
+<<<<<<< HEAD
   render() {
     var tableBody = [];
 
@@ -49,6 +55,13 @@ class ProjectTable extends Component {
 
 
 
+=======
+render() {
+  var tableBody = [];
+  for(var i = 0; i < this.state.users.length; i++){
+    tableBody.push(<tableRow username={this.state.users[i]} fetchProject={this.fetchProject} />);
+  }
+>>>>>>> origin/master
 
   return (
 

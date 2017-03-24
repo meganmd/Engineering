@@ -84,6 +84,9 @@ class App extends Component {
         </div>
         <br />
         {content}
+        <PBIBacklogForm
+          projectName="Test Project"
+        />
       </div>
     );
   }

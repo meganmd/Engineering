@@ -8,7 +8,7 @@ function AddUserDisplay(props){
       <input type="text" placeholder="Enter Username ... "
         onChange={props.handleProjectNameChange}/> <br/>
       <font color="red">{props.errorMessage}</font> <br/>
-      <button onClick={props.handleInviteUserClick}>Invite!</button>
+      <button className="inviteUserToProjectButton" onClick={props.handleInviteUserClick}>Invite!</button>
     </div>
   );
 }

@@ -29,7 +29,7 @@ function CreatePBIDisplay(props){
           <option value="extra-large">Extra-Large</option>
       </select><br />
       <button onClick={props.handleCancelClick}>Cancel</button>
-      <button onClick={props.handleCreateClick}>Create PBI</button>
+      <button className="createPBIButton" onClick={props.handleCreateClick}>Create PBI</button>
       <br/> <font color="red">{props.errorMessage}</font>
     </div>
   );

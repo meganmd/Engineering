@@ -110,7 +110,7 @@ class PBIBacklogForm extends Component {
       inprogress:[{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
       done:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
       isDragging:false,
-      droppableColumnColor:"#00003333",
+      droppableColumnColor:"linear-gradient(#00000000, #000066CC, #00000000)",
       droppableColumnBorderColor:"4px solid blue",
       backlogColumnStyle:{
         position:'absolute',
@@ -167,14 +167,14 @@ class PBIBacklogForm extends Component {
   dragleave(e){
     e.preventDefault();
     console.log("dragging leave");
-    this.setState({droppableColumnColor:"#00006633"});
+    this.setState({droppableColumnColor:"linear-gradient(#00000000, #000066CC, #00000000)"});
     this.setState({droppableColumnBorderColor:"4px solid blue"});
   }
 
   dragenter(e){
     e.preventDefault();
     console.log("dragging enter");
-    this.setState({droppableColumnColor:"#66FF0033"});
+    this.setState({droppableColumnColor:"linear-gradient(#00000000, #66FF00CC, #00000000)"});
     this.setState({droppableColumnBorderColor:"4px solid green"});
   }
 
@@ -186,6 +186,7 @@ class PBIBacklogForm extends Component {
   drop(ev) {
     ev.preventDefault();
     this.setState({isDragging:false});
+        this.setState({droppableColumnColor:"linear-gradient(#00000000, #000066CC, #00000000)"});
     console.log(ev.clientX + " XPos " + ev.clientY + " YPos ");
     var column = 0;
     column = parseInt(ev.dataTransfer.getData("column"),10);
@@ -275,10 +276,11 @@ class PBIBacklogForm extends Component {
       position:"absolute",
       background: this.state.droppableColumnColor,
       width: "19.4%",
-      left: ".1%",
-      height:this.state.backlogColumnStyle.height - 8,
+      left: ".4%",
+      top:"666px",
+      height:"150px",//this.state.backlogColumnStyle.height - 8,
       'border-radius':"15px",
-      border: this.state.droppableColumnBorderColor
+    //  border: this.state.droppableColumnBorderColor
     }
     if(this.state.isDragging == true){
       content = <div style={divStyle} onDrop={this.drop} onDragOver={this.allowDrop} onDragLeave={this.dragleave} onDragEnter={this.dragenter}></div>

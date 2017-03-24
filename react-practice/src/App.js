@@ -59,6 +59,9 @@ class App extends Component {
   render() {
     var greeting = null;
     var content = null;
+
+
+
     if(this.state.isLoggedIn){
       if(this.state.isCreatingProject){
         greeting = 'Create Project Form';
@@ -77,13 +80,20 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Scrumtious Demo Page</h1>
           <h2>{greeting}</h2>
+          < ProjectTable/>
+          <pr> </pr>
+
+
         </div>
         <br />
         {content}
         <PBIBacklogForm
           projectName="Test Project"
         />
+
+
       </div>
+
     );
   }
 }

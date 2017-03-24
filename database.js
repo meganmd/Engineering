@@ -64,10 +64,14 @@ module.exports = class database {
   }
 
   getProjectUsers(projectName, cb) {
-    this.db.all("Select * from users where username in select username from userprojects where projectName = ?", projectName, cb)
+    this.db.all("Select * from users where username in select username from userProjects where projectName = ?", projectName, cb)
   }
 
   listProjectUsers(cb) {
     this.db.all("SELECT * FROM userprojects", cb);
+  }
+
+  getProjectsByUser(username, cb){
+    this.db.all("Select * from projects where projectName in select projectName from userProjects where username = ?", username, cb)
   }
 }

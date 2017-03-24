@@ -14,6 +14,7 @@ class ProjectTable extends Component {
     super(props);
     this.state = {users:[], projects:[]};
     this.getUsers = this.getUsers.bind(this);
+    this.getProjects = this.getProjects.bind(this);
     this.fetchProject = this.fetchProject.bind(this);
   }
 
@@ -25,6 +26,16 @@ class ProjectTable extends Component {
       });
     });
   }
+
+
+    getProjects() {
+      Client.getProject((projects) => {
+        this.setState({
+          projects:projects,
+        });
+      });
+    }
+
 
   fetchProject (user) {
     //const user = e.target.getAttribute('data-item');
@@ -39,29 +50,34 @@ class ProjectTable extends Component {
      this.getUsers();
    }
 
-<<<<<<< HEAD
   render() {
     var tableBody = [];
 
 
 
 
-    tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
+/*    tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
     for(var i = 0; i < this.state.users.length; i++){
       tableBody.push(<tr onClick={()=>this.fetchProject(this.state.users[i])}>
       <td><font color = "black">{this.state.users[i].username}</font></td>
-      <td><font color = "black">{this.state.users[i].password}</font></td></tr>);
-    }
+      <td><font color = "black">{this.state.users[i].password}</font></td></tr>); */
+
+      tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
+      for(var i = 0; i < this.state.projects.length; i++){
+        tableBody.push(<tr onClick={()=>this.fetchProject(this.state.projects[i])}>
+        <td><font color = "black">{this.state.projects[i].projectTitle}</font></td>
+        <td><font color = "black">{this.state.projects[i].descriptionField}</font></td></tr>);
+
+
+    }}
 
 
 
-=======
 render() {
   var tableBody = [];
   for(var i = 0; i < this.state.users.length; i++){
     tableBody.push(<tableRow username={this.state.users[i]} fetchProject={this.fetchProject} />);
   }
->>>>>>> origin/master
 
   return (
 

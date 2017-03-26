@@ -29,7 +29,6 @@ app.get('/api/listUsernames', function(request, response) {
 app.get('/api/user', function(request,response) {
   username = request.query.username;
   console.log("Getting..." + username);
-  console.log(request.body);
   data.getUser(request.query.username, function(err, row) {
     console.log(row);
     response.setHeader('Content-Type', 'application/json');
@@ -91,7 +90,21 @@ app.get('/api/projects', function(request, response){
     response.setHeader('Content-Type', 'application/json');
     response.json(rows);
   });
-    
+
+})
+
+app.get('/app/project', function(request,response){
+  console.log("Getting..." + request.query.name);
+  data.getProject(request.query.name, function(err, row){
+    response.setHeader('Content-Type', 'application/json');
+    if(row != undefined){
+      console.log("Found")
+      response.json(row);
+    }else{
+      console.log("Not found")
+      response.json({})
+    }
+  })
 })
 
 app.post('/api/deleteUser', function(request, response) {

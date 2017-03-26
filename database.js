@@ -59,6 +59,10 @@ module.exports = class database {
     this.db.all("SELECT * FROM projects", cb);
   }
 
+  getProject(name, cb){
+    this.db.run("SELECT * FROM projects where name = ?",name, cb);
+  }
+
   addUserProjectConnection(username, projectName, cb) {
     this.db.run("INSERT INTO userProjects (username, projectName) VALUES (?, ?)", username, projectName, cb);
   }

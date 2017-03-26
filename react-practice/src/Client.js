@@ -72,6 +72,14 @@ function addProject(name, description, cb) {
     .then(cb);
 }
 
+function getProject(name, cb){
+  return fetch('api/project?name=${name}', {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function getProjectsByUser(uid, cb) {
   return fetch(`api/projects?username=${uid}`, {
     accept: 'application/json',

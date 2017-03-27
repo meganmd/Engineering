@@ -15,8 +15,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test2": "concurrently \"npm run run-server\" \"npm run run-tests\"",
+    "test": "react-scripts test",
+    "run-server": "start-server.js",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "concurrently": "^3.3.0"
   },
   "proxy": "http://localhost:3001/"
 }

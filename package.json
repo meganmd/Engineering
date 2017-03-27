@@ -9,7 +9,7 @@
     "client": "node start-client.js",
     "react-test": "node test-client.js",
     "database-test": "node databaseTest.js",
-    "test": "concurrently \"npm run server\" \"npm run react-test\""
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,10 @@
   "homepage": "https://github.com/meganmd/Engineering#readme",
   "dependencies": {
     "body-parser": "^1.16.1",
+    "chai": "^3.5.0",
     "express": "^4.14.1",
+    "mocha": "^3.2.0",
+    "react": "^15.4.2",
     "sqlite3": "^3.1.8"
   },
   "devDependencies": {

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "concurrently": "^3.3.0",
+    "concurrently": "^3.3.0"
   },
   "dependencies": {
     "react": "^15.4.2",

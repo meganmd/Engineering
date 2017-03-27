@@ -72,8 +72,55 @@ function addProject(name, description, cb) {
     .then(cb);
 }
 
+function addUserToProject(username, projectName, cb) {
+  return fetch('api/addUserToProject', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: username,
+      projectName: projectName
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
+function getProject(uid, cb){
+  return fetch(`api/project?name=${uid}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function getProjects(cb) {
+  return fetch(`api/listProjects`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function listProjectUsersTable(cb) {
+  return fetch(`api/listProjectUsers`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function getProjectsByUser(uid, cb) {
   return fetch(`api/projects?username=${uid}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function getUserFromProject(uid,pid, cb){
+  return fetch(`api/userFromProject?username=${uid}&projectTitle=${pid}`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)
@@ -95,5 +142,7 @@ function parseJSON(response) {
   return response.json();
 }
 
-const Client = { getUsers, addUser, getUser, getUsernames, addProject };
+const Client = { getUsers, addUser, getUser, getUsernames, addProject,
+  getProject, getProjectsByUser, getProjects, listProjectUsersTable,
+  addUserToProject, getUserFromProject };
 export default Client;

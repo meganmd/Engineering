@@ -22,7 +22,6 @@ test('CreateProjectForm DOES call getProject if projectTitle and descriptionFiel
   jest.mock('./Client');
   const foo = require('./Client');
   foo.getProject = jest.fn();
-
   const wrapper = mount(
     <CreateProjectForm />
   );

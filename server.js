@@ -78,8 +78,34 @@ app.post('/api/addProject', function(request, response) {
   )
 })
 
+app.post('/api/addUserToProject', function(request, response) {
+  console.log("Adding...");
+  //console.log(request);
+  console.log(request.body);
+  data.addUserProjectConnection(
+    request.body.username,
+    request.body.projectName,
+    function(error) {
+      console.log("Entered function");
+      if(error) {
+        response.status(400).send("project name not unique!");               ///this isnt happening
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    }
+  )
+})
+
 app.get('/api/listProjects', function(request, response) {
   data.getProjects(function(err, rows){
+        response.setHeader('Content-Type', 'application/json');
+        response.json(rows);
+  });
+})
+
+app.get('/api/listProjectUsers', function(request, response) {
+  data.listProjectUsers(function(err, rows){
         response.setHeader('Content-Type', 'application/json');
         response.json(rows);
   });
@@ -93,16 +119,17 @@ app.get('/api/projects', function(request, response){
 
 })
 
-app.get('/app/project', function(request,response){
+app.get('/api/project', function(request,response){
   console.log("Getting..." + request.query.name);
   data.getProject(request.query.name, function(err, row){
     response.setHeader('Content-Type', 'application/json');
+    console.log(row);
     if(row != undefined){
-      console.log("Found")
+      console.log("Found");
       response.json(row);
     }else{
-      console.log("Not found")
-      response.json({})
+      console.log("Not found");
+      response.json({});
     }
   })
 })
@@ -112,6 +139,20 @@ app.post('/api/deleteUser', function(request, response) {
   console.log(request.body);
   data.deleteUser(request.body.username)
   response.end();
+})
+
+app.get('/api/userFromProject', function(request, response) {
+  console.log("Retrieving " + request.query.username + " from " + request.query.projectTitle);
+  data.getUserFromProject(request.query.projectTitle, request.query.username, function(err, row) {
+    response.setHeader('Content-Type', 'application/json');
+    if(row != undefined){
+      console.log("Found");
+      response.json(row);
+    }else{
+      console.log("Not found");
+      response.json({});
+    }
+  })
 })
 
 var server = app.listen(3001, function() {

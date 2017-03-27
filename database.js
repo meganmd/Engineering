@@ -60,7 +60,7 @@ module.exports = class database {
   }
 
   getProject(name, cb){
-    this.db.run("SELECT * FROM projects where name = ?",name, cb);
+    this.db.get("SELECT * FROM projects where name = ?",name, cb);
   }
 
   addUserProjectConnection(username, projectName, cb) {
@@ -69,6 +69,10 @@ module.exports = class database {
 
   getProjectUsers(projectName, cb) {
     this.db.all("Select * from users where username in select username from userProjects where projectName = ?", projectName, cb)
+  }
+
+  getUserFromProject(projectName, username, cb){
+    this.db.get("Select * from userProjects where username = ? AND projectName = ?",username,projectName,cb)
   }
 
   listProjectUsers(cb) {

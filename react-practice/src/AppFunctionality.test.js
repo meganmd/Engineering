@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import LogInForm from './LogInForm';
-import UserTable from './UserTable';
-import AddUserForm from './AddUserForm';
 //import Link from '../Link.react';
 import renderer from 'react-test-renderer';
 

@@ -6,9 +6,9 @@ function AddUserDisplay(props){
     <div className="CreateProject">
        Username*<br/>
       <input type="text" placeholder="Enter Username ... "
-        onChange={props.handleProjectNameChange}/> <br/>
+        onChange={props.handleUserNameChange}/> <br/>
       <font color="red">{props.errorMessage}</font> <br/>
-      <button onClick={props.handleInviteUserClick}>Invite!</button>
+      <button className="inviteUserToProjectButton" onClick={props.handleInviteUserClick}>Invite!</button>
     </div>
   );
 }
@@ -17,8 +17,8 @@ class AddUserToProjectForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {username: '', errorMessage: ''};
-    this.handleUsernameChange = this.handleUserNameChange.bind(this);
+    this.state = {username: '', errorMessage: '', project: this.props.project};
+    this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handleInviteUserClick = this.handleInviteUserClick.bind(this);
   }
 
@@ -32,8 +32,16 @@ class AddUserToProjectForm extends Component {
       this.setState({errorMessage: 'Please enter in a user to invite'});
       return;
     }
-    //add the database call here to find users associated with a project
-    this.props.exit();
+    Client.getUserFromProject(this.state.username, this.state.project, (user) => {
+      if (user.username === this.state.username){
+        this.setState({errorMessage: 'User already in project'});
+        return;
+      } else{
+        Client.addUserToProject(this.state.username, this.state.project, function(){});
+        this.props.handleAddUserComplete();
+      }
+    });
+    //this.props.exit();
   }
 
   render() {

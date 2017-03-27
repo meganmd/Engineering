@@ -13,6 +13,43 @@ exports[`test renders correctly (incomplete) 1`] = `
     <h2>
       Please Login...
     </h2>
+    <center>
+      <table>
+        <tr
+          onClick={[Function]}>
+          <td>
+            <font
+              color="black">
+              test
+            </font>
+          </td>
+          <td>
+            <font
+              color="black">
+              test
+            </font>
+          </td>
+        </tr>
+        <tr
+          onClick={[Function]}>
+          <td>
+            <font
+              color="black">
+              test2
+            </font>
+          </td>
+          <td>
+            <font
+              color="black">
+              test2
+            </font>
+          </td>
+        </tr>
+      </table>
+    </center>
+    <pr>
+       
+    </pr>
   </div>
   <br />
   <div
@@ -60,6 +97,8 @@ exports[`test renders correctly (incomplete) 1`] = `
         id="board">
         <div
           id="productbacklog"
+          onDragOver={[Function]}
+          onDrop={[Function]}
           style={
             Object {
               "background": "#f2f2f2",
@@ -77,11 +116,17 @@ exports[`test renders correctly (incomplete) 1`] = `
             Product Backlog
           </div>
           <div
+            className="1"
+            draggable="true"
+            id={0}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -90,71 +135,16 @@ exports[`test renders correctly (incomplete) 1`] = `
               }
             }>
             <br />
-            This is a user story
+            This is another user story
             <br />
             Size: 
             SMALL
-          </div>
-          <div
-            style={
-              Object {
-                "background": "#dfdfdf",
-                "border": "2px solid black",
-                "border-radius": "15px",
-                "left": "5%",
-                "min-height": "100px",
-                "position": "absolute",
-                "top": 160,
-                "width": "90%",
-              }
-            }>
-            <br />
-            Make Food
-            <br />
-            Size: 
-            LARGE
-          </div>
-          <div
-            style={
-              Object {
-                "background": "#dfdfdf",
-                "border": "2px solid black",
-                "border-radius": "15px",
-                "left": "5%",
-                "min-height": "100px",
-                "position": "absolute",
-                "top": 285,
-                "width": "90%",
-              }
-            }>
-            <br />
-            This is a user story
-            <br />
-            Size: 
-            SMALL
-          </div>
-          <div
-            style={
-              Object {
-                "background": "#dfdfdf",
-                "border": "2px solid black",
-                "border-radius": "15px",
-                "left": "5%",
-                "min-height": "100px",
-                "position": "absolute",
-                "top": 410,
-                "width": "90%",
-              }
-            }>
-            <br />
-            Make Food
-            <br />
-            Size: 
-            LARGE
           </div>
         </div>
         <div
           id="scrumbacklog"
+          onDragOver={[Function]}
+          onDrop={[Function]}
           style={
             Object {
               "background": "#f2f2f2",
@@ -172,11 +162,17 @@ exports[`test renders correctly (incomplete) 1`] = `
             Scrum Backlog
           </div>
           <div
+            className="2"
+            draggable="true"
+            id={0}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -185,17 +181,23 @@ exports[`test renders correctly (incomplete) 1`] = `
               }
             }>
             <br />
-            Do some stuff
+            This is a user story
             <br />
             Size: 
             SMALL
           </div>
           <div
+            className="2"
+            draggable="true"
+            id={1}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -204,17 +206,23 @@ exports[`test renders correctly (incomplete) 1`] = `
               }
             }>
             <br />
-            Another user story
+            Make Food
             <br />
             Size: 
             LARGE
           </div>
           <div
+            className="2"
+            draggable="true"
+            id={2}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -223,7 +231,32 @@ exports[`test renders correctly (incomplete) 1`] = `
               }
             }>
             <br />
-            Another user story
+            This is a user story
+            <br />
+            Size: 
+            SMALL
+          </div>
+          <div
+            className="2"
+            draggable="true"
+            id={3}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "columnColor": "#",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 410,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Make Food
             <br />
             Size: 
             LARGE
@@ -231,6 +264,8 @@ exports[`test renders correctly (incomplete) 1`] = `
         </div>
         <div
           id="todo"
+          onDragOver={[Function]}
+          onDrop={[Function]}
           style={
             Object {
               "background": "#f2f2f2",
@@ -248,11 +283,17 @@ exports[`test renders correctly (incomplete) 1`] = `
             To Do
           </div>
           <div
+            className="3"
+            draggable="true"
+            id={0}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -261,17 +302,23 @@ exports[`test renders correctly (incomplete) 1`] = `
               }
             }>
             <br />
-            Stop being lazy
+            Do some stuff
             <br />
             Size: 
             SMALL
           </div>
           <div
+            className="3"
+            draggable="true"
+            id={1}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -285,9 +332,36 @@ exports[`test renders correctly (incomplete) 1`] = `
             Size: 
             LARGE
           </div>
+          <div
+            className="3"
+            draggable="true"
+            id={2}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "columnColor": "#",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 285,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Another user story
+            <br />
+            Size: 
+            LARGE
+          </div>
         </div>
         <div
           id="inprogress"
+          onDragOver={[Function]}
+          onDrop={[Function]}
           style={
             Object {
               "background": "#f2f2f2",
@@ -305,11 +379,17 @@ exports[`test renders correctly (incomplete) 1`] = `
             In Progress
           </div>
           <div
+            className="4"
+            draggable="true"
+            id={0}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -318,17 +398,23 @@ exports[`test renders correctly (incomplete) 1`] = `
               }
             }>
             <br />
-            Finish the project
+            Stop being lazy
             <br />
             Size: 
             SMALL
           </div>
           <div
+            className="4"
+            draggable="true"
+            id={1}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -345,6 +431,8 @@ exports[`test renders correctly (incomplete) 1`] = `
         </div>
         <div
           id="done"
+          onDragOver={[Function]}
+          onDrop={[Function]}
           style={
             Object {
               "background": "#f2f2f2",
@@ -362,11 +450,17 @@ exports[`test renders correctly (incomplete) 1`] = `
             Done
           </div>
           <div
+            className="5"
+            draggable="true"
+            id={0}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
             style={
               Object {
                 "background": "#dfdfdf",
                 "border": "2px solid black",
                 "border-radius": "15px",
+                "columnColor": "#",
                 "left": "5%",
                 "min-height": "100px",
                 "position": "absolute",
@@ -375,10 +469,35 @@ exports[`test renders correctly (incomplete) 1`] = `
               }
             }>
             <br />
-            This is another user story
+            Finish the project
             <br />
             Size: 
             SMALL
+          </div>
+          <div
+            className="5"
+            draggable="true"
+            id={1}
+            onDragEnd={[Function]}
+            onDragStart={[Function]}
+            style={
+              Object {
+                "background": "#dfdfdf",
+                "border": "2px solid black",
+                "border-radius": "15px",
+                "columnColor": "#",
+                "left": "5%",
+                "min-height": "100px",
+                "position": "absolute",
+                "top": 160,
+                "width": "90%",
+              }
+            }>
+            <br />
+            Another user story
+            <br />
+            Size: 
+            LARGE
           </div>
         </div>
       </div>

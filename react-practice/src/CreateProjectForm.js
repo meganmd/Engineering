@@ -28,13 +28,14 @@ class CreateProjectForm extends Component {
   handleClick(){
     if(this.state.projectTitle.length > 0){
       Client.getProject(this.state.projectTitle,(project) => {
-        if(project != null){
-          this.setState({errorMessage: 'project name is already taken!'});
+        if (project.name === this.state.projectTitle){
+          this.setState({errorMessage: 'Project name already taken'});
           return;
+        } else{
+          Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
+          this.props.handleProjectComplete();
         }
-        Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
-        this.props.handleProjectComplete();
-      })
+      });
     } else {
       this.setState({errorMessage:'Project name cannot be empty!'});
     }

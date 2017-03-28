@@ -80,14 +80,13 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Scrumtious Demo Page</h1>
           <h2>{greeting}</h2>
-          < ProjectTable/>
           <pr> </pr>
-
-
         </div>
         <br />
         {content}
-
+        <PBIBacklogForm
+          projectName="Greatest Project Ever"
+        />
       </div>
 
     );

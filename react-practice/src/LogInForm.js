@@ -84,7 +84,7 @@ class LogInForm extends Component {
       if (user === null || user.password !== this.state.passwordfield){
         this.setState({errorMessage: 'Incorrect Username or Password'});
       } else{
-        this.props.handleLogIn(this.state.userfield);
+        this.props.handleLogIn(user);
         this.setState({errorMessage: ''});
       }
     });
@@ -103,7 +103,10 @@ class LogInForm extends Component {
         }
         this.props.addUser(this.state.userfield,this.state.passwordfield,
           this.state.firstNameField,this.state.lastNameField);
-        this.props.handleLogIn(this.state.userfield);
+        this.props.handleLogIn({
+          username: this.state.userfield,
+          firstName: this.state.firstNameField,
+          lastName: this.state.lastNameField});
         this.setState({errorMessage: ''});
     });
   }

@@ -39,7 +39,7 @@ function addUser(username,password,firstName,lastName){
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, loggedInUser: '', bannerColor: 'black', isCreatingProject: false};
+    this.state = {isLoggedIn: false, loggedInUser: {}, bannerColor: 'black', isCreatingProject: false};
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
@@ -77,7 +77,11 @@ class App extends Component {
         greeting = 'Create Project Form';
         content = <CreateProjectForm handleProjectComplete={this.handleProjectComplete} handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
       }else{
-        greeting = 'Welcome ' + this.state.loggedInUser;
+        if(this.state.loggedInUser.firstName == ''){
+          greeting = 'Welcome ' + this.state.loggedInUser.username;
+        }else{
+          greeting = 'Welcome ' + this.state.loggedInUser.firstName + ' ' + this.state.loggedInUser.lastName;
+        }
         // content = <LogOutButton onClick={this.handleLogOut} />
         content.push(<div> <LogOutButton onClick={this.handleLogOut} /> <CreateProjectButton createClick={this.handleCreateProject}/> </div>);
         content.push(<ProjectTable user={this.state.loggedInUser}/>);

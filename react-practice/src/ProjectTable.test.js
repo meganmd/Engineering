@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CreateProjectForm from './CreateProjectForm'
+import ProjectTable from './ProjectTable'
 import Client from './Client';
 import { mount } from 'enzyme';
 
 //how does projectTable get user?
 
 test('Clicking a tableRow calls fetchProject once', () => {
-  jest.mock('./Client');
-  const foo = require('./Client');
-  foo.getProject = jest.fn();
+  Client.getProject = jest.fn();
 
   const wrapper = mount(
     <ProjectTable />
@@ -17,10 +15,10 @@ test('Clicking a tableRow calls fetchProject once', () => {
 
   const p = wrapper.find('row1');
   p.simulate('click');
-  expect(foo.getProject).toHaveBeenCalledTimes(1);
+  expect(Client.getProject).toHaveBeenCalledTimes(1);
 });
 
 
 test('Clicking a tableRow returns correct project', () => {
-  );
+
 });

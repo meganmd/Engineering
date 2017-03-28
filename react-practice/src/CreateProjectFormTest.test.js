@@ -5,9 +5,7 @@ import Client from './Client';
 import { mount } from 'enzyme';
 
 test('CreateProjectForm does not call getProject if projectTitle and descriptionField are empty', () => {
-  jest.mock('./Client');
-  const foo = require('./Client');
-  foo.getProject = jest.fn();
+  Client.getProject = jest.fn();
 
   const wrapper = mount(
     <CreateProjectForm />
@@ -15,13 +13,11 @@ test('CreateProjectForm does not call getProject if projectTitle and description
 
   const p = wrapper.find('.createProjectButton');
   p.simulate('click');
-  expect(foo.getProject).toHaveBeenCalledTimes(0);
+  expect(Client.getProject).toHaveBeenCalledTimes(0);
 });
 
 test('CreateProjectForm DOES call getProject if projectTitle and descriptionField are not empty', () => {
-  jest.mock('./Client');
-  const foo = require('./Client');
-  foo.getProject = jest.fn();
+  Client.getProject = jest.fn();
   const wrapper = mount(
     <CreateProjectForm />
   );
@@ -30,15 +26,13 @@ test('CreateProjectForm DOES call getProject if projectTitle and descriptionFiel
 
   const p = wrapper.find('.createProjectButton');
   p.simulate('click');
-  expect(foo.getProject).toHaveBeenCalledTimes(1);
+  expect(Client.getProject).toHaveBeenCalledTimes(1);
 });
 
 test('CreateProjectForm does not call addProject if getProject returns the same name', () => {
-  jest.mock('./Client');
-  const foo = require('./Client');
-  foo.getProject = jest.fn();
-  foo.getProject.mockImplementationOnce((title,description,cb) => cb({projectTitle: 'someTitle',description: 'someDescription'}));
-  foo.addProject = jest.fn();
+  Client.getProject = jest.fn();
+  Client.getProject.mockImplementationOnce((title,cb) => cb({name: 'someTitle',description: 'someDescription'}));
+  Client.addProject = jest.fn();
 
   const wrapper = mount(
     <CreateProjectForm />
@@ -48,23 +42,22 @@ test('CreateProjectForm does not call addProject if getProject returns the same 
 
   const p = wrapper.find('.createProjectButton');
   p.simulate('click');
-  expect(foo.addProject).toHaveBeenCalledTimes(0);
+  expect(Client.addProject).toHaveBeenCalledTimes(0);
 });
 
-test('CreateProjectForm DOES call addProject if getProject returns the same name', () => {
-  jest.mock('./Client');
-  const foo = require('./Client');
-  foo.getProject = jest.fn();
-  foo.getProject.mockImplementationOnce((title,description,cb) => cb(null));
-  foo.addProject = jest.fn();
-
+test('CreateProjectForm DOES call addProject and handleProjectComplete if getProject returns an empty object', () => {
+  Client.getProject = jest.fn();
+  Client.getProject.mockImplementationOnce((title,cb) => cb({}));
+  Client.addProject = jest.fn();
+  const handleProjectComplete = jest.fn();
   const wrapper = mount(
-    <CreateProjectForm />
+    <CreateProjectForm handleProjectComplete={handleProjectComplete}/>
   );
 
   wrapper.setState({projectTitle: 'someTitle', descriptionField: 'someDescription'});
 
   const p = wrapper.find('.createProjectButton');
   p.simulate('click');
-  expect(foo.addProject).toHaveBeenCalledTimes(1);
+  expect(Client.addProject).toHaveBeenCalledTimes(1);
+  expect(handleProjectComplete).toHaveBeenCalledTimes(1);
 });

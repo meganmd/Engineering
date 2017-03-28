@@ -81,13 +81,9 @@ render() {
       <td><title>{'row'+i}</title><font color = "black">{this.state.users[i].password}</font></td></tr>);}
 
   return (
-
     <center>
     <table>
-
      {tableBody}
-
-
     </table>
     </center>
     )}

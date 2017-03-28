@@ -17,9 +17,16 @@ function LogOutButton(props) {
     <button onClick={props.onClick}>
       Logout
     </button>
-    <button onClick={props.createClick}>
-      Create Project
-    </button>
+    </div>
+  );
+}
+
+function CreateProjectButton(props) {
+  return(
+    <div>
+      <button onClick={props.createClick}>
+        Create Project
+      </button>
     </div>
   );
 }
@@ -58,9 +65,7 @@ class App extends Component {
 
   render() {
     var greeting = null;
-    var content = null;
-
-
+    var content = [];
 
     if(this.state.isLoggedIn){
       if(this.state.isCreatingProject){
@@ -68,7 +73,8 @@ class App extends Component {
         content = <CreateProjectForm handleProjectComplete={this.handleProjectComplete}/>
       }else{
         greeting = 'Welcome ' + this.state.loggedInUser;
-        content = <LogOutButton onClick={this.handleLogOut} createClick={this.handleCreateProject}/>
+        content.push(<ProjectTable user={this.state.loggedInUser}/>);
+        content.push(<div> <LogOutButton onClick={this.handleLogOut} /> <CreateProjectButton createClick={this.handleCreateProject}/> </div>);
       }
     }else{
       greeting = 'Please Login...';
@@ -80,10 +86,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Scrumtious Demo Page</h1>
           <h2>{greeting}</h2>
-          < ProjectTable/>
           <pr> </pr>
-
-
         </div>
         <br />
         {content}

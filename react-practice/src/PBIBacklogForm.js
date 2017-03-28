@@ -32,6 +32,60 @@ function GetCardsForColumn(props) {
   );
 }
 
+function DropZoneColumn(props){
+  var content = [];
+  var topdivStyle = {
+  position:"absolute",
+  background: "linear-gradient(#99CEFAC1, #01CEFA00)",
+  width: "19.4%",
+  left: props.left,
+//  border: "2px solid black",
+  top:"615px",
+  height:"65px",
+}
+
+  for(var i=0; i<props.length; i++){
+    console.log("going through y");
+    if(i == 0){
+      content.push(<div style={topdivStyle}></div>)
+    }else{
+      var divStyle = {
+        position:"absolute",
+        background: "linear-gradient(#01CEFA00, #99CEFAC1, #01CEFA00)",
+        width: "19.4%",
+        left: props.left,
+    //    border: "2px solid black",
+        top:(i*125)+555,
+        height:"125px",//this.state.backlogColumnStyle.height - 8,
+        'border-radius':"15px",
+        }
+      content.push(<div style={divStyle}></div>)
+    }
+  }
+
+  return(
+    <div>{content}</div>
+  );
+}
+
+function DropZones(props){
+  var lengths = [];
+  lengths = props.number;
+  return(
+    <div>
+      <DropZoneColumn
+        length={lengths[0]}
+      left=".4%"/>
+      <DropZoneColumn
+        length={lengths[1]}
+      left="20.2%"/>
+      <DropZoneColumn
+        length={lengths[2]}
+      left="40%"/>
+    </div>
+  );
+}
+
 
 function PBIBacklogDisplay(props){
   return(
@@ -271,30 +325,8 @@ class PBIBacklogForm extends Component {
 
 
   render() {
-    var content, content2;
-
-    var divStyle = {
-      position:"absolute",
-      background: this.state.droppableColumnColor,
-      width: "19.4%",
-      left: ".4%",
-      top:"666px",
-      height:"150px",//this.state.backlogColumnStyle.height - 8,
-    //  border: this.state.droppableColumnBorderColor
-    }
-    var topdivStyle = {
-      position:"absolute",
-      background: this.state.drop2,
-      width: "19.4%",
-      left: ".4%",
-      top:"615px",
-      height:"75px",//this.state.backlogColumnStyle.height - 8,
-    //  border: this.state.droppableColumnBorderColor
-    }
-    if(this.state.isDragging == true){
-      content = <div style={divStyle} onDrop={this.drop} onDragOver={this.allowDrop} onDragLeave={this.dragleave} onDragEnter={this.dragenter}></div>
-      content2 = <div style={topdivStyle} ></div>
-    }
+    var columnLengths = [this.state.productbacklog.length +1, this.state.scrumbacklog.length + 1, this.state.todo.length + 1,
+       this.state.inprogress.length + 1, this.state.done.length + 1];
     return (
       <div className="PBIBacklogDisplay">
           <PBIBacklogDisplay
@@ -310,8 +342,9 @@ class PBIBacklogForm extends Component {
             column4={this.state.inprogress}
             column5={this.state.done}
             onDragExit={this.dragexit}/>
-            {content}
-            {content2}
+          {console.log("wtf")}
+            <DropZones
+            number={columnLengths}/>
       </div>
     );
   }

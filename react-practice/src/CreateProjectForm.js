@@ -10,6 +10,7 @@ function CreateProjectDisplay(props){
         onChange={props.handleFieldChange}/> <br/>
         Description<br/>
       <textarea name="descriptionField" align="bottom" cols="40" rows="2" type="text" placeholder="Enter Project Description ..." onChange={props.handleFieldChange} /> <br/>
+      <button className="leaveProjectFormButton" onClick={props.handleBackButton}>Cancel</button>
       <button className="createProjectButton" onClick={props.handleClick}>Create Project</button>
     </div>
   );
@@ -58,6 +59,7 @@ class CreateProjectForm extends Component {
       <div className="CreateProject">
           <CreateProjectDisplay
             handleClick={this.handleClick}
+            handleBackButton={this.props.handleLeaveCreateProjectForm}
             errorMessage={this.state.errorMessage}
             handleFieldChange={this.handleInputChange}
           />

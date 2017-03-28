@@ -44,6 +44,7 @@ class App extends Component {
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
     this.handleProjectComplete = this.handleProjectComplete.bind(this);
+    this.handleLeaveCreateProjectForm = this.handleLeaveCreateProjectForm.bind(this);
   }
 
   handleLogIn(user){
@@ -63,6 +64,10 @@ class App extends Component {
     this.setState({isCreatingProject: false});
   }
 
+  handleLeaveCreateProjectForm(){
+    this.setState({isCreatingProject: false});
+  }
+
   render() {
     var greeting = null;
     var content = [];
@@ -70,11 +75,12 @@ class App extends Component {
     if(this.state.isLoggedIn){
       if(this.state.isCreatingProject){
         greeting = 'Create Project Form';
-        content = <CreateProjectForm handleProjectComplete={this.handleProjectComplete}/>
+        content = <CreateProjectForm handleProjectComplete={this.handleProjectComplete} handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
       }else{
         greeting = 'Welcome ' + this.state.loggedInUser;
-        content.push(<ProjectTable user={this.state.loggedInUser}/>);
+        // content = <LogOutButton onClick={this.handleLogOut} />
         content.push(<div> <LogOutButton onClick={this.handleLogOut} /> <CreateProjectButton createClick={this.handleCreateProject}/> </div>);
+        content.push(<ProjectTable user={this.state.loggedInUser}/>);
       }
     }else{
       greeting = 'Please Login...';
@@ -90,6 +96,7 @@ class App extends Component {
         </div>
         <br />
         {content}
+        {/* <br /> */}
         <PBIBacklogForm
           projectName="Greatest Project Ever"
         />

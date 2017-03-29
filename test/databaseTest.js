@@ -7,12 +7,11 @@ describe('hooks', function() {
 
   before(function() {
     var data = new database("testDB");
-    data.drop();
     data.initialize();
   });
 
   after(function() {
-    // runs after all tests in this block
+    data.drop();
   });
 
   beforeEach(function() {
@@ -26,11 +25,32 @@ describe('hooks', function() {
   describe('check database size', function() {
     it('shuold have 3 tables', function() {
       data.getTableNames((err, rows)=> {
-        assert.equal(2, rows.length);
+        console.log(rows);
+        assert.equal(3, rows.length);
       })
     })
   })
 
+  describe('check add User', function() {
+    it('should add correctly', function() {
+      data.addUser('user', 'pass', 'first', 'last');
+      data.getUser('user', (err, row) => {
+        console.log(row);
+        assert.equal({
+          username: 'user',
+          password: 'pass',
+          firstName: 'first',
+          lastName: 'last'
+        }, row);
+      })
+    })
+  })
+
+  describe('do tests ever fail?', function() {
+    it("not be eqaula", function() {
+      assert.equal(2,2);
+    })
+  })
   // test cases
 });
 

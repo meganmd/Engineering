@@ -45,13 +45,17 @@ function DropZoneColumn(props){
 }
 
   for(var i=0; i<props.length; i++){
-    console.log("going through y");
-    if(i == 0){
-      content.push(<div style={topdivStyle}></div>)
+    console.log(props.greenRow);
+    if(i === 0){
+      if(props.greenRow === "0"){
+        console.log("setting");
+        topdivStyle.background = "linear-gradient(#00FF00FF, #01CEFA00)"
+      }
+      content.push(<div style={topdivStyle} id="0" onDragEnter={props.onDragEnter} onDragLeave={props.onDragLeave}></div>)
     }else{
       var divStyle = {
         position:"absolute",
-        background: "linear-gradient(#01CEFA00, #99CEFAC1, #01CEFA00)",
+        background: "linear-gradient(#FFFFFF00, #99CEFAFF, #FFFFFF00)",
         width: "19.4%",
         left: props.left,
     //    border: "2px solid black",
@@ -59,7 +63,11 @@ function DropZoneColumn(props){
         height:"125px",//this.state.backlogColumnStyle.height - 8,
         'border-radius':"15px",
         }
-      content.push(<div style={divStyle}></div>)
+        if(props.greenRow === i + ""){
+          console.log("setting");
+          divStyle.background = "linear-gradient(#01CEFA00, #00FF00FF, #01CEFA00)"
+        }
+      content.push(<div style={divStyle} id={i} onDragEnter={props.onDragEnter} onDragLeave={props.onDragLeave}></div>)
     }
   }
 
@@ -75,13 +83,22 @@ function DropZones(props){
     <div>
       <DropZoneColumn
         length={lengths[0]}
-      left=".4%"/>
+      left=".4%"
+    greenRow={props.greenRow}
+  onDragEnter={props.onDragEnter}
+onDragLeave={props.onDragLeave}/>
       <DropZoneColumn
         length={lengths[1]}
-      left="20.2%"/>
+      left="20.2%"
+    greenRow={props.greenRow}
+    onDragEnter={props.onDragEnter}
+  onDragLeave={props.onDragLeave}/>
       <DropZoneColumn
         length={lengths[2]}
-      left="40%"/>
+      left="40.4%"
+    greenRow={props.greenRow}
+    onDragEnter={props.onDragEnter}
+  onDragLeave={props.onDragLeave}/>
     </div>
   );
 }
@@ -176,8 +193,9 @@ class PBIBacklogForm extends Component {
         background: '#f2f2f2',
         'box-sizing': 'border-box',
         'border-radius': '10px',
+      },
+      greenRow:'',
 
-      }
     };
 
     this.updateBoardHeight = this.updateBoardHeight.bind(this);
@@ -221,16 +239,14 @@ class PBIBacklogForm extends Component {
 
   dragleave(e){
     e.preventDefault();
-    console.log("dragging leave");
-    this.setState({droppableColumnColor:"linear-gradient(#87CEFA00, #87CEFAC1, #87CEFA00)"});
-    this.setState({droppableColumnBorderColor:"4px solid blue"});
+    console.log("dragging leave for ID " + e.target.id);
+    this.setState({greenRow:''});
   }
 
   dragenter(e){
     e.preventDefault();
-    console.log("dragging enter");
-    this.setState({droppableColumnColor:"linear-gradient(#66FF0000, #66FF00C1, #66FF0000)"});
-    this.setState({droppableColumnBorderColor:"4px solid green"});
+    console.log("dragging enter for ID " + e.target.id);
+    this.setState({greenRow:e.target.id});
   }
 
   dragexit(ev){
@@ -344,7 +360,10 @@ class PBIBacklogForm extends Component {
             onDragExit={this.dragexit}/>
           {console.log("wtf")}
             <DropZones
-            number={columnLengths}/>
+            number={columnLengths}
+          greenRow={this.state.greenRow}
+        onDragEnter={this.dragenter}
+      onDragLeave={this.dragleave}/>
       </div>
     );
   }

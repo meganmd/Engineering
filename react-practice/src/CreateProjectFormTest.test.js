@@ -45,13 +45,16 @@ test('CreateProjectForm does not call addProject if getProject returns the same 
   expect(Client.addProject).toHaveBeenCalledTimes(0);
 });
 
-test('CreateProjectForm DOES call addProject and handleProjectComplete if getProject returns an empty object', () => {
+test('CreateProjectForm DOES call addProject and handleProjectComplete and addUserToProject if getProject returns an empty object', () => {
   Client.getProject = jest.fn();
   Client.getProject.mockImplementationOnce((title,cb) => cb({}));
   Client.addProject = jest.fn();
+  Client.addProject.mockImplementationOnce((title,description,cb) => cb())
+  Client.addUserToProject = jest.fn();
+  Client.addUserToProject.mockImplementationOnce((username, project, cb) => cb())
   const handleProjectComplete = jest.fn();
   const wrapper = mount(
-    <CreateProjectForm handleProjectComplete={handleProjectComplete}/>
+    <CreateProjectForm handleProjectComplete={handleProjectComplete} user={{username: "someUser"}}/>
   );
 
   wrapper.setState({projectTitle: 'someTitle', descriptionField: 'someDescription'});
@@ -59,5 +62,6 @@ test('CreateProjectForm DOES call addProject and handleProjectComplete if getPro
   const p = wrapper.find('.createProjectButton');
   p.simulate('click');
   expect(Client.addProject).toHaveBeenCalledTimes(1);
+  expect(Client.addUserToProject).toHaveBeenCalledTimes(1);
   expect(handleProjectComplete).toHaveBeenCalledTimes(1);
 });

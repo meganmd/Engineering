@@ -75,14 +75,16 @@ class App extends Component {
     if(this.state.isLoggedIn){
       if(this.state.isCreatingProject){
         greeting = 'Create Project Form';
-        content = <CreateProjectForm handleProjectComplete={this.handleProjectComplete} handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
+        content = <CreateProjectForm user={this.state.loggedInUser}
+          handleProjectComplete={this.handleProjectComplete}
+          handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
       }else{
         if(this.state.loggedInUser.firstName == ''){
           greeting = 'Welcome ' + this.state.loggedInUser.username;
         }else{
-          greeting = 'Welcome ' + this.state.loggedInUser.firstName + ' ' + this.state.loggedInUser.lastName;
+          greeting = 'Welcome ' + this.state.loggedInUser.firstName + ' ' +
+          this.state.loggedInUser.lastName;
         }
-        // content = <LogOutButton onClick={this.handleLogOut} />
         content.push(<div> <LogOutButton onClick={this.handleLogOut} /> <CreateProjectButton createClick={this.handleCreateProject}/> </div>);
         content.push(<ProjectTable user={this.state.loggedInUser}/>);
       }

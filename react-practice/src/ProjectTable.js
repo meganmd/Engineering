@@ -54,9 +54,6 @@ return "testing it out";
      this.getUsers();
    }
 
-
-
-
 render() {
   var tableBody = [];
   /*for(var i = 0; i < this.state.users.length; i++){

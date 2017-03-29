@@ -16,7 +16,7 @@ function PBIFormattedSection(props){
 function CreatePBIDisplay(props){
   return(
     <div className="CreatePBI">
-      Description: <textarea name="description" align="bottom" cols="40" rows="2" type="text" placeholder="Enter Description..."
+      Description: <textarea name="description" cols="40" rows="2" type="text" placeholder="Enter Description..."
         onChange={props.handleInputChange} /> <br/>
       <PBIFormattedSection handleInputChange={props.handleInputChange} />
       Acceptance Criteria: <textarea name="acceptanceCriteria" type="text"

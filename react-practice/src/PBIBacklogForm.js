@@ -36,22 +36,24 @@ function DropZoneColumn(props){
   var content = [];
   var topdivStyle = {
   position:"absolute",
-  background: "linear-gradient(#99CEFAC1, #01CEFA00)",
+  background: "linear-gradient(#99CEFAFF, #FFFFFF00)",
   width: "19.4%",
   left: props.left,
 //  border: "2px solid black",
   top:"615px",
-  height:"65px",
+  height:"50px",
 }
+
+console.log(props.columnName + " is " +props.isGreen);
 
   for(var i=0; i<props.length; i++){
     console.log(props.greenRow);
     if(i === 0){
-      if(props.greenRow === "0"){
+      if(props.greenRow === "0" && props.isGreen == true){
         console.log("setting");
         topdivStyle.background = "linear-gradient(#00FF00FF, #01CEFA00)"
       }
-      content.push(<div style={topdivStyle} id="0" onDragEnter={props.onDragEnter} onDragLeave={props.onDragLeave}></div>)
+      content.push(<div style={topdivStyle} id="0" className={props.columnName} onDragEnter={props.onDragEnter} onDragLeave={props.onDragLeave} onDragOver={props.onDragOver}></div>)
     }else{
       var divStyle = {
         position:"absolute",
@@ -60,14 +62,14 @@ function DropZoneColumn(props){
         left: props.left,
     //    border: "2px solid black",
         top:(i*125)+555,
-        height:"125px",//this.state.backlogColumnStyle.height - 8,
+        height:"100px",//this.state.backlogColumnStyle.height - 8,
         'border-radius':"15px",
         }
-        if(props.greenRow === i + ""){
+        if(props.greenRow === i + "" && props.isGreen == true){
           console.log("setting");
           divStyle.background = "linear-gradient(#01CEFA00, #00FF00FF, #01CEFA00)"
         }
-      content.push(<div style={divStyle} id={i} onDragEnter={props.onDragEnter} onDragLeave={props.onDragLeave}></div>)
+      content.push(<div style={divStyle} id={i} className={props.columnName} onDragEnter={props.onDragEnter} onDragLeave={props.onDragLeave} onDragOver={props.onDragOver}></div>)
     }
   }
 
@@ -76,8 +78,33 @@ function DropZoneColumn(props){
   );
 }
 
+function getGreenColumn(e){
+  var retValue = [false,false,false,false,false];
+console.log("finding green column " + e);
+  if(e==="productbacklog"){
+    retValue[0] = true;
+    return retValue;
+  }else if(e==="scrumbacklog"){
+      retValue[1] = true;
+      return retValue;
+  }else if(e==="todo"){
+      retValue[2] = true;
+      return retValue;
+  }else if(e==="inprogress"){
+      retValue[3] = true;
+      return retValue;
+  }else if(e==="done"){
+      retValue[4] = true;
+      return retValue;
+    }
+    return retValue;
+}
+
 function DropZones(props){
   var lengths = [];
+  console.log("g " + props.greenColumn);
+  var greenColumn = getGreenColumn(props.greenColumn);
+
   lengths = props.number;
   return(
     <div>
@@ -86,19 +113,28 @@ function DropZones(props){
       left=".4%"
     greenRow={props.greenRow}
   onDragEnter={props.onDragEnter}
-onDragLeave={props.onDragLeave}/>
+onDragLeave={props.onDragLeave}
+isGreen={greenColumn[0]}
+columnName="productbacklog"
+onDragOver={props.onDragOver}/>
       <DropZoneColumn
         length={lengths[1]}
       left="20.2%"
     greenRow={props.greenRow}
     onDragEnter={props.onDragEnter}
-  onDragLeave={props.onDragLeave}/>
+  onDragLeave={props.onDragLeave}
+isGreen={greenColumn[1]}
+columnName="scrumbacklog"
+onDragOver={props.onDragOver}/>
       <DropZoneColumn
         length={lengths[2]}
       left="40.4%"
     greenRow={props.greenRow}
     onDragEnter={props.onDragEnter}
-  onDragLeave={props.onDragLeave}/>
+  onDragLeave={props.onDragLeave}
+isGreen={greenColumn[2]}
+columnName="todo"
+onDragOver={props.onDragOver}/>
     </div>
   );
 }
@@ -195,6 +231,7 @@ class PBIBacklogForm extends Component {
         'border-radius': '10px',
       },
       greenRow:'',
+      greenColumn:'todo',
 
     };
 
@@ -222,7 +259,8 @@ class PBIBacklogForm extends Component {
   }
 
   dragover(e){
-    this.setState({droppableColumnColor:"00220022"});
+    this.setState({greenRow:e.target.id});
+    this.setState({greenColumn:e.target.className});
   }
 
   allowDrop(ev) {
@@ -239,14 +277,16 @@ class PBIBacklogForm extends Component {
 
   dragleave(e){
     e.preventDefault();
-    console.log("dragging leave for ID " + e.target.id);
+    console.log("dragging leave for ID " + e.target.id+" name "+ e.target.className);
     this.setState({greenRow:''});
+    this.setState({greenColumn:''})
   }
 
   dragenter(e){
     e.preventDefault();
-    console.log("dragging enter for ID " + e.target.id);
+    console.log("dragging enter for ID " + e.target.id +" name "+ e.target.className);
     this.setState({greenRow:e.target.id});
+    this.setState({greenColumn:e.target.className});
   }
 
   dragexit(ev){
@@ -361,10 +401,12 @@ class PBIBacklogForm extends Component {
           {console.log("wtf")}
             <DropZones
             number={columnLengths}
-          greenRow={this.state.greenRow}
-        onDragEnter={this.dragenter}
-      onDragLeave={this.dragleave}/>
-      </div>
+            greenRow={this.state.greenRow}
+            greenColumn={this.state.greenColumn}
+            onDragEnter={this.dragenter}
+            onDragLeave={this.dragleave}
+          onDragOver={this.onDragOver}/>
+         </div>
     );
   }
 }

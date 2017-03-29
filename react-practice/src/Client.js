@@ -127,6 +127,37 @@ function getUserFromProject(uid,pid, cb){
     .then(cb);
 }
 
+function getPBIs(project,cb){
+  return fetch(`api/pbis?project=${project}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function addPBI(description, role, functionality, value,
+  acceptanceCriteria, estimate, columnNumber, rowNumber, project, cb){
+    return fetch('api/addPBI', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+        description: description,
+        role: role,
+        functionality: functionality,
+        value: value,
+        acceptanceCriteria: acceptanceCriteria,
+        estimate: estimate,
+        columnNumber: columnNumber,
+        rowNumber: rowNumber,
+        project: project
+      })
+    }).then(checkStatus)
+      .then(cb);
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;

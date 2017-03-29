@@ -86,7 +86,6 @@ app.post('/api/addUserToProject', function(request, response) {
     request.body.username,
     request.body.projectName,
     function(error) {
-      console.log("Entered function");
       if(error) {
         response.status(400).send("project name not unique!");               ///this isnt happening
       } else {
@@ -112,7 +111,7 @@ app.get('/api/listProjectUsers', function(request, response) {
 })
 
 app.get('/api/projects', function(request, response){
-  data.getUser(request.query.username, function(err, row){
+  data.getProjectsByUser(request.query.username, function(err, row){
     response.setHeader('Content-Type', 'application/json');
     response.json(rows);
   });
@@ -153,6 +152,31 @@ app.get('/api/userFromProject', function(request, response) {
       response.json({});
     }
   })
+})
+
+app.get('/api/pbis', function(request, response) {
+  console.log("Retrieving PBIs for " + request.query.project);
+  data.getProductBacklogItemsForProject(request.query.project, function(err, rows) {
+    response.setHeader('Content-Type', 'application/json');
+    response.json(rows);
+  })
+})
+
+app.post('/api/addPBI', function(request, response) {
+  console.log("Adding PBI...");
+  console.log(request.body);
+  data.addProductBacklogItem(
+    request.body.description, request.body.role, request.body.functionality,
+    request.body.value, request.body.acceptanceCriteria, request.body.estimate,
+    request.body.columnNumber, request.body.rowNumber, request.body.project,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in adding");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    })
 })
 
 var server = app.listen(3001, function() {

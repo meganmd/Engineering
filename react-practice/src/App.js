@@ -96,7 +96,7 @@ class App extends Component {
       <div className="App">
         <div className={"App-header-" + this.state.bannerColor}>
           <img src={logo} className="App-logo" alt="logo" />
-          <h1>Scrumtious Demo Page</h1>
+          <h1>Scrumtious Scrum Page</h1>
           <h2>{greeting}</h2>
           <pr> </pr>
         </div>

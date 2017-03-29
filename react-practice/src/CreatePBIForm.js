@@ -5,9 +5,9 @@ function PBIFormattedSection(props){
     <div className="PBIAutoCategories">
       As a: <input name="role" type="text" placeholder="Enter Role..."
         onChange={props.handleInputChange} /> <br/>
-      I can: <textarea name="action" type="text" placeholder="Enter Action..."
+      I can: <textarea name="functionality" type="text" placeholder="Enter functionality..."
         onChange={props.handleInputChange} /> <br/>
-      So that: <textarea name="reason" type="text" placeholder="Enter Reason..."
+      So that: <textarea name="value" type="text" placeholder="Enter value..."
         onChange={props.handleInputChange} /><br/>
     </div>
   );
@@ -38,7 +38,7 @@ function CreatePBIDisplay(props){
 class CreatePBIForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {description:'',role: '', action:'', reason:'',
+    this.state = {description:'',role: '', functionality:'', value:'',
     acceptanceCriteria:'', estimate:'small', errorMessage:''};
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCreateClick = this.handleCreateClick.bind(this);
@@ -54,15 +54,15 @@ class CreatePBIForm extends Component {
   }
 
   handleCreateClick(){
-    if(this.state.description === '' && (this.state.role === '' || this.state.action === '' || this.state.reason === '')){
-      this.setState({errorMessage: 'Must have description OR role, action, and reason'});
+    if(this.state.description === '' && (this.state.role === '' || this.state.functionality === '' || this.state.value === '')){
+      this.setState({errorMessage: 'Must have description OR role, functionality, and value'});
     }
     else if(this.state.acceptanceCriteria === ''){
       this.setState({errorMessage: 'Must have acceptance criteria'});
     }
     else{
       this.props.addPBI(this.state.description, this.state.role,
-        this.state.action, this.state.reason, this.state.acceptanceCriteria,
+        this.state.functionality, this.state.value, this.state.acceptanceCriteria,
         this.state.estimate);
       this.props.leavePBIForm();
       this.setState({errorMessage: ''});

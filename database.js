@@ -10,6 +10,9 @@ module.exports = class database {
       this.db.run("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, firstName TEXT, lastName TEXT)");
       this.db.run("CREATE TABLE IF NOT EXISTS projects (name TEXT PRIMARY KEY, description TEXT)");
       this.db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT, PRIMARY KEY(username, projectName))");
+
+      //Uses foreign key in projects table
+      this.db.run("CREATE TABLE IF NOT EXISTS productBacklogItems (id INTEGER PRIMARY KEY, description TEXT, role TEXT, functionality TEXT, value TEXT, acceptanceCriteria TEXT, estimate TEXT, columnNumber INT, rowNumber INT, project TEXT, FOREIGN KEY(project) REFERENCES projects(name))");
       if(!(typeof cb === 'undefined')) {
         cb();
       };
@@ -21,6 +24,7 @@ module.exports = class database {
       this.db.run("DROP TABLE users");
       this.db.run("DROP TABLE projects");
       this.db.run("DROP TABLE userProjects");
+      this.db.run("DROP TABLE productBacklogItems")
       if(!(typeof cb === 'undefined')) {
         cb();
       };
@@ -81,5 +85,23 @@ module.exports = class database {
 
   getProjectsByUser(username, cb){
     this.db.all("Select * from projects where projectName in select projectName from userProjects where username = ?", username, cb)
+  }
+
+  listProductBacklogItemsTable(cb){
+    this.db.all("SELECT * FROM productBacklogItems", cb);
+  }
+
+  // Returns all PBIs for a project in order by column and then row
+  getProductBacklogItemsForProject(projectName, cb){
+    this.db.all("SELECT * FROM productBacklogItems where projectName = ? ORDER BY columnNumber, rowNumber",projectName, cb);
+  }
+
+  addProductBacklogItem(description, role, functionality, value,
+    acceptanceCriteria, estimate, columnNumber, rowNumber, project, cb){
+    this.db.run("INSERT INTO productBacklogItems (description, role, " +
+    "functionality, value, acceptanceCriteria, estimate, columnNumber, " +
+    "rowNumber, project) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",description, role,
+    functionality, value, acceptanceCriteria, estimate, columnNumber, rowNumber,
+     project, cb);
   }
 }

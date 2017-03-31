@@ -41,6 +41,15 @@ return "testing it out";
       });
     }
 
+  getUserProjects() {
+    Client.getProjectsByUser(this.props.user.username, (projects) => {
+      console.log(projects);
+      this.setState({
+        projects: projects,
+      });
+    });
+  }
+
 
   fetchProject (user) {
     //const user = e.target.getAttribute('data-item');
@@ -51,7 +60,7 @@ return "testing it out";
   }
 
    componentWillMount() {
-     this.getUsers();
+     this.getUserProjects();
    }
 
 render() {
@@ -60,22 +69,25 @@ render() {
     tableBody.push(<tableRow username={this.state.users[i]} fetchProject={this.fetchProject} />);
   }*/
 
-  /*
+
         tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
         for(var i = 0; i < this.state.projects.length; i++){
           var clicker = this.fetchProject(this.state.projects[i]);
           tableBody.push(<tr onClick={clicker}>
-          <td><font color = "black">{this.state.projects[i].projectTitle}</font></td>
-          <td><input type="button"  className={"btn for table " + i} value={this.state.projects[i].projectTitle} onClick={()=>this.fetchProject(this.state.projects[i])}/></td>
-          <td><font color = "black">{this.state.projects[i].descriptionField}</font></td></tr>);
-*/
+          <td><font color = "black">{this.state.projects[i].name}</font></td>
+          {//<td><input type="button"  className={"btn for table " + i} value="View" onClick={()=>this.fetchProject(this.state.projects[i])}/></td>
+          }
+          <td><font color = "black">{this.state.projects[i].description}</font></td></tr>);
+        }
 
+/*
   tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
     for(var i = 0; i < this.state.users.length; i++){
       var clicker = this.fetchProject(this.state.users[i]);
       tableBody.push(<tr onClick={clicker}>
       <td><font color = "black">{this.state.users[i].username}</font></td>
       <td><title>{'row'+i}</title><font color = "black">{this.state.users[i].password}</font></td></tr>);}
+*/
 
   return (
     <center>

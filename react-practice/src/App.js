@@ -68,6 +68,10 @@ class App extends Component {
     this.setState({isCreatingProject: false});
   }
 
+  handleProjectSelected(project){
+    console.log("project is selected");
+  }
+
   render() {
     var greeting = null;
     var content = [];
@@ -86,7 +90,7 @@ class App extends Component {
           this.state.loggedInUser.lastName;
         }
         content.push(<div> <LogOutButton onClick={this.handleLogOut} /> <CreateProjectButton createClick={this.handleCreateProject}/> </div>);
-        content.push(<ProjectTable user={this.state.loggedInUser}/>);
+        content.push(<ProjectTable user={this.state.loggedInUser} handleProjectSelected={this.handleProjectSelected}/>);
       }
     }else{
       greeting = 'Please Login...';

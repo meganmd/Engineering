@@ -84,7 +84,7 @@ module.exports = class database {
   }
 
   getProjectsByUser(username, cb){
-    this.db.all("Select * from projects where projectName in select projectName from userProjects where username = ?", username, cb)
+    this.db.all("Select * from projects where name in (select projectName from userProjects where username = ?)", username, cb)
   }
 
   listProductBacklogItemsTable(cb){

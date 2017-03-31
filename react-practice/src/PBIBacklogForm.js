@@ -237,6 +237,7 @@ class PBIBacklogForm extends Component {
     this.dragleave=this.dragleave.bind(this);
     this.dragenter=this.dragenter.bind(this);
     this.insert = this.insert.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   updateBoardHeight(e){
@@ -286,14 +287,23 @@ class PBIBacklogForm extends Component {
     this.setState({greenRow:''});
     this.setState({greenColumn:''});
     this.insert(ev.target.id,"todo",{description:"$$$$$$$$", size:"!!!!"});
+    this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
 }
 
 insert(row, column, pbi){
   //change to allow multiple columns
   var backlogArray = this.state.todo;
   backlogArray.splice(row,0,pbi);
-  this.setState(column:backlogArray);
-  console.log("new array = " + this.state.column);
+  this.setState({[column]:backlogArray});
+  console.log("done inserting");
+}
+
+remove(row,column){
+    console.log("start removing");
+  var backlogArray = this.state.inprogress;
+  backlogArray.splice(row,1);
+  this.setState({[column]:backlogArray});
+    console.log("done removing");
 }
 
 

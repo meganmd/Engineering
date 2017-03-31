@@ -20,7 +20,7 @@ function GetCardsForColumn(props) {
     if(divStyle.top > parseInt(props.backlogColumnStyle.height,10)){
       props.updateBoardHeight((i*125)+150);
     }
-    content.push(<div id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
+    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
   }
 
   return(

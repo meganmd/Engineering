@@ -238,6 +238,7 @@ class PBIBacklogForm extends Component {
     this.dragenter=this.dragenter.bind(this);
     this.insert = this.insert.bind(this);
     this.remove = this.remove.bind(this);
+    this.getStateByName = this.getStateByName.bind(this);
   }
 
   updateBoardHeight(e){
@@ -286,24 +287,41 @@ class PBIBacklogForm extends Component {
     console.log("dropping\nRemoving from Column "+ev.dataTransfer.getData('column') + " row " + ev.dataTransfer.getData('row') + " to column " + ev.target.className + " row " + ev.target.id);
     this.setState({greenRow:''});
     this.setState({greenColumn:''});
-    this.insert(ev.target.id,"todo",{description:"$$$$$$$$", size:"!!!!"});
-    this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
+    var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
+    this.insert(ev.target.id,ev.target.className,pbi);
 }
 
 insert(row, column, pbi){
   //change to allow multiple columns
-  var backlogArray = this.state.todo;
+  var backlogArray = this.getStateByName(column);
   backlogArray.splice(row,0,pbi);
   this.setState({[column]:backlogArray});
   console.log("done inserting");
 }
 
 remove(row,column){
-    console.log("start removing");
-  var backlogArray = this.state.inprogress;
+  console.log("start removing");
+  var backlogArray = this.getStateByName(column);
+  var returnValue = backlogArray[row];
   backlogArray.splice(row,1);
   this.setState({[column]:backlogArray});
-    console.log("done removing");
+  console.log("done removing");
+  return returnValue;
+}
+
+getStateByName(name){
+  if(name==="productbacklog"){
+    return this.state.productbacklog;
+  }else if(name==="scrumbacklog"){
+    return this.state.scrumbacklog;
+  }else if(name==="todo"){
+    return this.state.todo;
+  }else if(name==="inprogress"){
+    return this.state.inprogress;
+  }else if(name==="done"){
+    return this.state.done;
+  }
+  return "error";
 }
 
 

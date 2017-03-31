@@ -23,11 +23,9 @@ class ProjectTable extends Component {
   }
 
 getProjects(){
-
-Client.getProjectsByUser(this.props.user.username,(projects)=>{
-  this.setState({projects:projects})
-});
-
+  Client.getProjectsByUser(this.props.user.username,(projects)=>{
+    this.setState({projects:projects})
+  });
 }
 
    componentWillMount() {
@@ -37,16 +35,12 @@ Client.getProjectsByUser(this.props.user.username,(projects)=>{
 render() {
   var tableBody = [];
 
-
-
     tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
     for(var i = 0; i < this.state.projects.length; i++){
       var clicker = this.fetchProject(this.state.projects[i]);
       tableBody.push(<tr onClick={clicker}>
-      <td><font color = "black">{this.state.projects[i].projectTitle}</font></td>
-      <td><title>{'row'+i}</title><font color = "black">{this.state.projects[i].descriptionField}</font></td></tr>);}
-
-
+      <td><font color = "black">{this.state.projects[i].name}</font></td>
+      <td><title>{'row'+i}</title><font color = "black">{this.state.projects[i].description}</font></td></tr>);}
 
 
 /*

@@ -113,7 +113,14 @@ app.get('/api/listProjectUsers', function(request, response) {
 app.get('/api/projects', function(request, response){
   data.getProjectsByUser(request.query.username, function(err, rows){
     response.setHeader('Content-Type', 'application/json');
-    response.json(rows);
+    console.log(rows);
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
   });
 
 })

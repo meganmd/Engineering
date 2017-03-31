@@ -72,7 +72,7 @@ module.exports = class database {
   }
 
   getProjectUsers(projectName, cb) {
-    this.db.all("Select * from users where username in select username from userProjects where projectName = ?", projectName, cb)
+    this.db.all("Select * from users where username in (select username from userProjects where projectName = ?)", projectName, cb)
   }
 
   getUserFromProject(projectName, username, cb){
@@ -80,11 +80,11 @@ module.exports = class database {
   }
 
   listProjectUsers(cb) {
-    this.db.all("SELECT * FROM userprojects", cb);
+    this.db.all("SELECT * FROM userProjects", cb);
   }
 
   getProjectsByUser(username, cb){
-    this.db.all("Select * from projects where name in (select projectName from userProjects where username = ?)", username, cb)
+    this.db.all("SELECT * FROM projects where name in (SELECT projectName FROM userProjects where username = ?)", username, cb)
   }
 
   listProductBacklogItemsTable(cb){

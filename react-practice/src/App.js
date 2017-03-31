@@ -39,13 +39,13 @@ function addUser(username,password,firstName,lastName){
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, loggedInUser: {}, bannerColor: 'black', isCreatingProject: false};
+    this.state = {isLoggedIn: false, loggedInUser: {}, bannerColor: 'black', isCreatingProject: false, currentProject: {},isViewingProject:false};
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
     this.handleProjectComplete = this.handleProjectComplete.bind(this);
     this.handleLeaveCreateProjectForm = this.handleLeaveCreateProjectForm.bind(this);
-    this.selectProject = this.selectProject.bind(this);
+    this.handleProjectSelected = this.handleProjectSelected.bind(this);
   }
 
   handleLogIn(user){
@@ -69,8 +69,9 @@ class App extends Component {
     this.setState({isCreatingProject: false});
   }
 
-  selectProject(projectName){
-    this.setState({currentProjectName: projectName});
+  handleProjectSelected(project){
+    console.log("project is selected" , project.name);
+    this.setState({currentProject:project, isViewingProject:true});
   }
 
   render() {
@@ -91,12 +92,9 @@ class App extends Component {
           this.state.loggedInUser.lastName;
         }
         content.push(<div> <LogOutButton onClick={this.handleLogOut} /> <CreateProjectButton createClick={this.handleCreateProject}/> </div>);
-        content.push(<ProjectTable user={this.state.loggedInUser} selectProject={this.selectProject}/>);
+        content.push(<ProjectTable user={this.state.loggedInUser} handleProjectSelected={this.handleProjectSelected}/>);
       }
-      if(this.state.currentProjectName) {
-        content.push(<PBIBacklogForm projectName={this.state.currentProjectName}/>);
-      }
-    }else{
+    } else {
       greeting = 'Please Login...';
       content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
     }
@@ -111,10 +109,9 @@ class App extends Component {
         <br />
         {content}
         {
-          /* <br />
         <PBIBacklogForm
           projectName="Greatest Project Ever"
-        /> */
+        />
         }
       </div>
 

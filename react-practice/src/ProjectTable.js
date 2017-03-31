@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import App from './App.css';
 import Client from './Client.js';
 
-function tableRow(props){
-  return(
-    <tr onClick={props.fetchProject}><td>{props.username}</td></tr>
-  )
-}
+
 
 class ProjectTable extends Component {
 
-  constructor(props, user) {
+  constructor(props) {
     super(props);
     this.state = {users:[], projects:[]};
     this.getUsers = this.getUsers.bind(this);
     this.getProjects = this.getProjects.bind(this);
     this.fetchProject = this.fetchProject.bind(this);
+
   }
 
   getUsers() {
@@ -27,14 +24,10 @@ class ProjectTable extends Component {
     });
   }
 
-  getCurrentProject(){
-return "testing it out";
-
-  }
 
 
-    getProjects() {
-      Client.getProject((projects) => {
+    getProjects(user) {
+      Client.getProjectsByUser((projects) => {
         this.setState({
           projects:projects,
         });
@@ -42,10 +35,9 @@ return "testing it out";
     }
 
 
-  fetchProject (user) {
-    //const user = e.target.getAttribute('data-item');
-    return function(){console.log('Testing click ',user.username);
-    App.currentProject = user;}
+  fetchProject (project) {
+    return function(){console.log('Testing click ',project.projectTitle);
+    this.props.handleProjectSelected(project);}
 
 
   }
@@ -56,32 +48,36 @@ return "testing it out";
 
 render() {
   var tableBody = [];
-  /*for(var i = 0; i < this.state.users.length; i++){
-    tableBody.push(<tableRow username={this.state.users[i]} fetchProject={this.fetchProject} />);
-  }*/
 
-  /*
+  this.state.projects = this.getProjects(this.props.user);
+
         tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
         for(var i = 0; i < this.state.projects.length; i++){
           var clicker = this.fetchProject(this.state.projects[i]);
           tableBody.push(<tr onClick={clicker}>
           <td><font color = "black">{this.state.projects[i].projectTitle}</font></td>
-          <td><input type="button"  className={"btn for table " + i} value={this.state.projects[i].projectTitle} onClick={()=>this.fetchProject(this.state.projects[i])}/></td>
-          <td><font color = "black">{this.state.projects[i].descriptionField}</font></td></tr>);
-*/
+          <td><title>{'row'+i}</title><font color = "black">{this.state.projects[i].descriptionField}</font></td></tr>);}
+
+/*
 
   tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
     for(var i = 0; i < this.state.users.length; i++){
       var clicker = this.fetchProject(this.state.users[i]);
       tableBody.push(<tr onClick={clicker}>
       <td><font color = "black">{this.state.users[i].username}</font></td>
-      <td><title>{'row'+i}</title><font color = "black">{this.state.users[i].password}</font></td></tr>);}
+      <td><title>{'row'+i}</title><font color = "black">{this.state.users[i].password}</font></td></tr>);}*/
 
   return (
+
+
+
+
     <center>
-    <table>
-     {tableBody}
-    </table>
+<table>
+    {tableBody}
+   </table>
+
+
     </center>
     )}
 }

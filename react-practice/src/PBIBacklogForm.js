@@ -133,6 +133,28 @@ columnName="todo"
 onDragOver={props.onDragOver}
 allowDrop={props.allowDrop}
 drop={props.drop}/>
+<DropZoneColumn
+  length={lengths[3]}
+left="60.4%"
+greenRow={props.greenRow}
+onDragEnter={props.onDragEnter}
+onDragLeave={props.onDragLeave}
+isGreen={greenColumn[3]}
+columnName="inprogress"
+onDragOver={props.onDragOver}
+allowDrop={props.allowDrop}
+drop={props.drop}/>
+<DropZoneColumn
+  length={lengths[4]}
+left="80.4%"
+greenRow={props.greenRow}
+onDragEnter={props.onDragEnter}
+onDragLeave={props.onDragLeave}
+isGreen={greenColumn[4]}
+columnName="done"
+onDragOver={props.onDragOver}
+allowDrop={props.allowDrop}
+drop={props.drop}/>
     </div>
   );
 }

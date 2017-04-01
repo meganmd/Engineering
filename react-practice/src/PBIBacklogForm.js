@@ -280,6 +280,8 @@ class PBIBacklogForm extends Component {
 
   dragexit(ev){
     this.setState({isDragging:false});
+    this.setState({greenRow:''});
+    this.setState({greenColumn:''});
   }
 
   drop(ev) {
@@ -287,15 +289,25 @@ class PBIBacklogForm extends Component {
     console.log("dropping\nRemoving from Column "+ev.dataTransfer.getData('column') + " row " + ev.dataTransfer.getData('row') + " to column " + ev.target.className + " row " + ev.target.id);
     this.setState({greenRow:''});
     this.setState({greenColumn:''});
+    this.setState({isDragging:false});
     var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
     this.insert(ev.target.id,ev.target.className,pbi);
 }
 
 insert(row, column, pbi){
   //change to allow multiple columns
-  var backlogArray = this.getStateByName(column);
-  backlogArray.splice(row,0,pbi);
-  this.setState({[column]:backlogArray});
+  console.log("row = " + row +" column =" + column);
+  var backlogArray = [];
+  if(column==="999"){
+    console.log(backlogArray);
+    backlogArray = this.getStateByName(row);
+    backlogArray.push(pbi);
+    this.setState({[row]:backlogArray});
+  }else{
+    backlogArray = this.getStateByName(column);
+    backlogArray.splice(row,0,pbi);
+    this.setState({[column]:backlogArray});
+  }
   console.log("done inserting");
 }
 
@@ -321,6 +333,7 @@ getStateByName(name){
   }else if(name==="done"){
     return this.state.done;
   }
+  console.log("state not found: "+ name);
   return "error";
 }
 

@@ -63,7 +63,7 @@ class CreatePBIForm extends Component {
     else{
       this.props.addPBI(this.state.description, this.state.role,
         this.state.functionality, this.state.value, this.state.acceptanceCriteria,
-        this.state.estimate);
+        this.state.estimate, 0, 0, this.props.projectName);
       this.props.leavePBIForm();
       this.setState({errorMessage: ''});
     }

@@ -10,6 +10,7 @@ import s from './index.css';
 import AddUserToProjectForm from './AddUserToProjectForm'
 import ProjectTable from './ProjectTable.js'
 import PBIBacklogForm from './PBIBacklogForm'
+import CreatePBIForm from './CreatePBIForm'
 
 function LogOutButton(props) {
   return (
@@ -46,6 +47,7 @@ class App extends Component {
     this.handleProjectComplete = this.handleProjectComplete.bind(this);
     this.handleLeaveCreateProjectForm = this.handleLeaveCreateProjectForm.bind(this);
     this.handleProjectSelected = this.handleProjectSelected.bind(this);
+    this.handleLeavePBIBacklogForm = this.handleLeavePBIBacklogForm.bind(this);
   }
 
   handleLogIn(user){
@@ -70,8 +72,11 @@ class App extends Component {
   }
 
   handleProjectSelected(project){
-    console.log("project is selected" , project.name);
     this.setState({currentProject:project, isViewingProject:true});
+  }
+
+  handleLeavePBIBacklogForm(){
+    this.setState({currentProject: {}, isViewingProject:false});
   }
 
   render() {
@@ -84,6 +89,9 @@ class App extends Component {
         content = <CreateProjectForm user={this.state.loggedInUser}
           handleProjectComplete={this.handleProjectComplete}
           handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
+      } else if(this.state.isViewingProject){
+        content = <PBIBacklogForm project={this.state.currentProject}
+          handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />
       }else{
         if(this.state.loggedInUser.firstName == ''){
           greeting = 'Welcome ' + this.state.loggedInUser.username;
@@ -107,6 +115,7 @@ class App extends Component {
           <pr> </pr>
         </div>
         <br />
+        <CreatePBIForm projectName="user1project" addPBI={Client.addPBI} leavePBIForm={function(){}} />
         {content}
         {
         <PBIBacklogForm

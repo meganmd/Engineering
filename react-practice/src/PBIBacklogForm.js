@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import EditPBIForm from './EditPBIForm'
 
 function GetCardsForColumn(props) {
   var userStories = props.project;
@@ -21,7 +21,7 @@ function GetCardsForColumn(props) {
       props.updateBoardHeight((i*125)+150);
     }
     //update the details about the user story we want displayed here
-    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
+    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag} onClick={props.onClick}><br/>{userStories[i].description}<br/>Size: {userStories[i].estimate}</div>);
   }
 
   return(
@@ -97,55 +97,66 @@ function getGreenColumn(e){
 function DropZones(props){
   var lengths = [];
   var greenColumn = getGreenColumn(props.greenColumn);
-
-  lengths = props.number;
-  return(
-    <div>
-      <DropZoneColumn
-        length={lengths[0]}
-      left=".4%"
-    greenRow={props.greenRow}
+  var content = [];
+    lengths = props.number;
+  console.log("should be true yo - " +props.possibleDropColumns[0]);
+  if(props.possibleDropColumns[0]===true){
+    console.log("getting in here");
+    content.push(<DropZoneColumn
+            length={lengths[0]}
+          left=".4%"
+        greenRow={props.greenRow}
+      onDragEnter={props.onDragEnter}
+    onDragLeave={props.onDragLeave}
+    isGreen={greenColumn[0]}
+    columnName="productbacklog"
+    onDragOver={props.onDragOver}
+    allowDrop={props.allowDrop}
+    drop={props.drop}/>);
+  }
+  if(props.possibleDropColumns[1]===true){
+    content.push( <DropZoneColumn
+            length={lengths[1]}
+          left="20.4%"
+        greenRow={props.greenRow}
+        onDragEnter={props.onDragEnter}
+      onDragLeave={props.onDragLeave}
+    isGreen={greenColumn[1]}
+    columnName="scrumbacklog"
+    onDragOver={props.onDragOver}
+    allowDrop={props.allowDrop}
+    drop={props.drop}/>);
+  }
+  if(props.possibleDropColumns[2]===true){
+    content.push(
+    <DropZoneColumn
+      length={lengths[2]}
+    left="40.4%"
+  greenRow={props.greenRow}
   onDragEnter={props.onDragEnter}
 onDragLeave={props.onDragLeave}
-isGreen={greenColumn[0]}
-columnName="productbacklog"
-onDragOver={props.onDragOver}
-allowDrop={props.allowDrop}
-drop={props.drop}/>
-      <DropZoneColumn
-        length={lengths[1]}
-      left="20.4%"
-    greenRow={props.greenRow}
-    onDragEnter={props.onDragEnter}
-  onDragLeave={props.onDragLeave}
-isGreen={greenColumn[1]}
-columnName="scrumbacklog"
-onDragOver={props.onDragOver}
-allowDrop={props.allowDrop}
-drop={props.drop}/>
-      <DropZoneColumn
-        length={lengths[2]}
-      left="40.4%"
-    greenRow={props.greenRow}
-    onDragEnter={props.onDragEnter}
-  onDragLeave={props.onDragLeave}
 isGreen={greenColumn[2]}
 columnName="todo"
 onDragOver={props.onDragOver}
 allowDrop={props.allowDrop}
 drop={props.drop}/>
-<DropZoneColumn
-  length={lengths[3]}
-left="60.4%"
-greenRow={props.greenRow}
-onDragEnter={props.onDragEnter}
-onDragLeave={props.onDragLeave}
-isGreen={greenColumn[3]}
-columnName="inprogress"
-onDragOver={props.onDragOver}
-allowDrop={props.allowDrop}
-drop={props.drop}/>
-<DropZoneColumn
+);
+  }
+  if(props.possibleDropColumns[3]===true){
+    content.push(<DropZoneColumn
+      length={lengths[3]}
+    left="60.4%"
+    greenRow={props.greenRow}
+    onDragEnter={props.onDragEnter}
+    onDragLeave={props.onDragLeave}
+    isGreen={greenColumn[3]}
+    columnName="inprogress"
+    onDragOver={props.onDragOver}
+    allowDrop={props.allowDrop}
+    drop={props.drop}/>);
+  }
+    if(props.possibleDropColumns[4]===true){
+content.push(<DropZoneColumn
   length={lengths[4]}
 left="80.4%"
 greenRow={props.greenRow}
@@ -155,7 +166,11 @@ isGreen={greenColumn[4]}
 columnName="done"
 onDragOver={props.onDragOver}
 allowDrop={props.allowDrop}
-drop={props.drop}/>
+drop={props.drop}/>);
+    }
+  return(
+    <div>
+      {content}
     </div>
   );
 }
@@ -165,63 +180,68 @@ function PBIBacklogDisplay(props){
   return(
     <div id="Backlog">
       <h1>{props.projectName}</h1>
-    <div id="board">
-      <GetCardsForColumn
-        backlogColumnStyle={props.backlogColumnStyle}
-        updateBoardHeight={props.updateBoardHeight}
-        project={props.column1}
-        columnName="productbacklog"
-        columnNumber="1"
-        title="Product Backlog"
-      drag={props.drag}
-    drop={props.drop}
-  allowDrop={props.allowDrop}
-onDragExit={props.onDragExit}/>
-      <GetCardsForColumn
-        backlogColumnStyle={props.backlogColumnStyle}
-        updateBoardHeight={props.updateBoardHeight}
-        project={props.column2}
-        columnName="scrumbacklog"
-        columnNumber="2"
-        title="Scrum Backlog"
-      drag={props.drag}
-    drop={props.drop}
-  allowDrop={props.allowDrop}
-onDragExit={props.onDragExit}/>
-      <GetCardsForColumn
-        backlogColumnStyle={props.backlogColumnStyle}
-        updateBoardHeight={props.updateBoardHeight}
-        project={props.column3}
-        columnName="todo"
-        columnNumber="3"
-        title="To Do"
-      drag={props.drag}
-    drop={props.drop}
-  allowDrop={props.allowDrop}
-onDragExit={props.onDragExit}/>
-      <GetCardsForColumn
-        backlogColumnStyle={props.backlogColumnStyle}
-        updateBoardHeight={props.updateBoardHeight}
-        project={props.column4}
-        columnName="inprogress"
-        columnNumber="4"
-        title="In Progress"
-      drag={props.drag}
-    drop={props.drop}
-  allowDrop={props.allowDrop}
-onDragExit={props.onDragExit}/>
-      <GetCardsForColumn
-        backlogColumnStyle={props.backlogColumnStyle}
-        updateBoardHeight={props.updateBoardHeight}
-        project={props.column5}
-        columnName="done"
-        columnNumber="5"
-        title="Done"
-      drag={props.drag}
-    drop={props.drop}
-  allowDrop={props.allowDrop}
-onDragExit={props.onDragExit}/>
-      </div>
+      <div id="board">
+            <GetCardsForColumn
+              backlogColumnStyle={props.backlogColumnStyle}
+              updateBoardHeight={props.updateBoardHeight}
+              project={props.column1}
+              columnName="productbacklog"
+              columnNumber="1"
+              title="Product Backlog"
+            drag={props.drag}
+          drop={props.drop}
+        allowDrop={props.allowDrop}
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
+            <GetCardsForColumn
+              backlogColumnStyle={props.backlogColumnStyle}
+              updateBoardHeight={props.updateBoardHeight}
+              project={props.column2}
+              columnName="scrumbacklog"
+              columnNumber="2"
+              title="Scrum Backlog"
+            drag={props.drag}
+          drop={props.drop}
+        allowDrop={props.allowDrop}
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
+            <GetCardsForColumn
+              backlogColumnStyle={props.backlogColumnStyle}
+              updateBoardHeight={props.updateBoardHeight}
+              project={props.column3}
+              columnName="todo"
+              columnNumber="3"
+              title="To Do"
+            drag={props.drag}
+          drop={props.drop}
+        allowDrop={props.allowDrop}
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
+            <GetCardsForColumn
+              backlogColumnStyle={props.backlogColumnStyle}
+              updateBoardHeight={props.updateBoardHeight}
+              project={props.column4}
+              columnName="inprogress"
+              columnNumber="4"
+              title="In Progress"
+            drag={props.drag}
+          drop={props.drop}
+        allowDrop={props.allowDrop}
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
+            <GetCardsForColumn
+              backlogColumnStyle={props.backlogColumnStyle}
+              updateBoardHeight={props.updateBoardHeight}
+              project={props.column5}
+              columnName="done"
+              columnNumber="5"
+              title="Done"
+            drag={props.drag}
+          drop={props.drop}
+        allowDrop={props.allowDrop}
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
+    </div>
     </div>
   );
 }
@@ -232,11 +252,11 @@ class PBIBacklogForm extends Component {
     super(props);
     //put in call to client toinstantiate
     this.state = {
-      productbacklog:[{description:"This is another user story", size:"SMALL"}],
-      scrumbacklog:[{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"},{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"}],
-      todo:[{description:"Do some stuff", size:"SMALL"},{description:"Another user story", size:"LARGE"},{description:"Another user story", size:"LARGE"}],
-      inprogress:[{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
-      done:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
+      productbacklog:[{description:"This is another user story", estimate:"small"}],
+      scrumbacklog:[{description:"This is a user story", estimate:"small"},{description:"Make Food", estimate:"large"},{description:"This is a user story", estimate:"small"},{description:"Make Food", estimate:"large"}],
+      todo:[{description:"Do some stuff", estimate:"small"},{description:"Another user story", estimate:"large"},{description:"Another user story", estimate:"large"}],
+      inprogress:[{description:"Stop being lazy", estimate:"small"},{description:"Another user story", estimate:"large"}],
+      done:[{description:"Finish the project", estimate:"small"},{description:"Another user story", estimate:"large"}],
       isDragging:false,
       backlogColumnStyle:{
         position:'absolute',
@@ -250,6 +270,10 @@ class PBIBacklogForm extends Component {
       },
       greenRow:'',
       greenColumn:'todo',
+      possibleDropColumns: [true,true,true,true,true],
+      editPBI:null,
+      editPBIRow:'',
+      editPBIColumn:'',
     };
 
     this.updateBoardHeight = this.updateBoardHeight.bind(this);
@@ -262,7 +286,10 @@ class PBIBacklogForm extends Component {
     this.insert = this.insert.bind(this);
     this.remove = this.remove.bind(this);
     this.getStateByName = this.getStateByName.bind(this);
-
+    this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
+    this.handlePBIClick = this.handlePBIClick.bind(this);
+    this.exitEditPBI = this.exitEditPBI.bind(this);
+    this.updateBacklog = this.updateBacklog.bind(this);
     //fetch the user stories from client and populate the state here.
   }
 
@@ -285,10 +312,21 @@ class PBIBacklogForm extends Component {
   }
 
   drag(ev) {
-    this.setState({isDragging:true});
-    ev.dataTransfer.setData("text", ev.target.id);
-    ev.dataTransfer.setData("column",ev.target.className);
-    ev.dataTransfer.setData("row", ev.target.id);
+
+    var column = ev.target.className;
+    var row = ev.target.id;
+    ev.dataTransfer.setData("column", column);
+    ev.dataTransfer.setData("row", row);
+    var droppableColumns = [true,true,true,true,true];
+  if(column==="productbacklog" && row==="0"){
+    droppableColumns = [true,true,false,false,false];
+  }else if(column==="productbacklog"){
+    droppableColumns = [true,false,false,false,false];
+  }else if(column==="todo" || column ==="inprogress" || column==="done"){
+    droppableColumns = [false,false,true,true,true];
+  }
+
+   this.setState({isDragging:true,possibleDropColumns:droppableColumns});
   }
 
   dragleave(e){
@@ -315,9 +353,29 @@ class PBIBacklogForm extends Component {
     this.setState({greenRow:''});
     this.setState({greenColumn:''});
     this.setState({isDragging:false});
-    var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
-    this.insert(ev.target.id,ev.target.className,pbi);
+    if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.id)] === true || this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.className)] === true){
+      var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
+      this.insert(ev.target.id,ev.target.className,pbi);
+    }
+
     //insert for loop here to iterate over the two columns and update their row and column
+}
+
+handlePBIClick(e){
+  console.log("PBIClicked at column " + e.target.className + " row " + e.target.id );
+  var pbi = this.getStateByName(e.target.className)[e.target.id];
+  console.log(pbi.description + "<- supposed to be a description");
+  this.setState({editPBI:pbi, editPBIRow:e.target.id, editPBIColumn:e.target.className});
+}
+
+exitEditPBI(){
+  this.setState({editPBI:null});
+}
+
+updateBacklog(newpbi,row,column){
+    var pbi = this.getStateByName(column);
+    pbi[row] = newpbi;
+    this.setState({[column]: pbi});
 }
 
 insert(row, column, pbi){
@@ -363,6 +421,22 @@ getStateByName(name){
   return "error";
 }
 
+getColumnNumberByName(name){
+  if(name==="productbacklog"){
+    return 0;
+  }else if(name==="scrumbacklog"){
+    return 1;
+  }else if(name==="todo"){
+    return 2;
+  }else if(name==="inprogress"){
+    return 3;
+  }else if(name==="done"){
+    return 4;
+  }
+  console.log("state not found: "+ name);
+  return "error";
+}
+
 
   render() {
     var columnLengths = [this.state.productbacklog.length +1, this.state.scrumbacklog.length + 1, this.state.todo.length + 1,
@@ -376,7 +450,21 @@ getStateByName(name){
                      onDragEnter={this.dragenter}
                      onDragLeave={this.dragleave}
                      allowDrop={this.allowDrop}
-                     drop={this.drop}/>;
+                     drop={this.drop}
+                     possibleDropColumns={this.state.possibleDropColumns}/>;
+       }
+       var editPBIView;
+       if(this.state.editPBI != null){
+         console.log(" not empty-----------------------");
+         editPBIView = <EditPBIForm
+           exit={this.exitEditPBI}
+           pbi={this.state.editPBI}
+           updatePBI={this.updateBacklog}
+           row={this.state.editPBIRow}
+           column={this.state.editPBIColumn}
+         />
+       }else{
+         console.log("UNDEFINED______________________");
        }
     return (
       <div className="PBIBacklogDisplay">
@@ -392,8 +480,10 @@ getStateByName(name){
             column3={this.state.todo}
             column4={this.state.inprogress}
             column5={this.state.done}
-            onDragExit={this.dragexit}/>
+            onDragExit={this.dragexit}
+            onClick={this.handlePBIClick}/>
 {content}
+{editPBIView}
          </div>
     );
   }

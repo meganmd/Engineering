@@ -21,7 +21,7 @@ function GetCardsForColumn(props) {
       props.updateBoardHeight((i*125)+150);
     }
     //update the details about the user story we want displayed here
-    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
+    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag} onClick={props.onClick}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
   }
 
   return(
@@ -191,7 +191,8 @@ function PBIBacklogDisplay(props){
             drag={props.drag}
           drop={props.drop}
         allowDrop={props.allowDrop}
-      onDragExit={props.onDragExit}/>
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
             <GetCardsForColumn
               backlogColumnStyle={props.backlogColumnStyle}
               updateBoardHeight={props.updateBoardHeight}
@@ -202,7 +203,8 @@ function PBIBacklogDisplay(props){
             drag={props.drag}
           drop={props.drop}
         allowDrop={props.allowDrop}
-      onDragExit={props.onDragExit}/>
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
             <GetCardsForColumn
               backlogColumnStyle={props.backlogColumnStyle}
               updateBoardHeight={props.updateBoardHeight}
@@ -213,7 +215,8 @@ function PBIBacklogDisplay(props){
             drag={props.drag}
           drop={props.drop}
         allowDrop={props.allowDrop}
-      onDragExit={props.onDragExit}/>
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
             <GetCardsForColumn
               backlogColumnStyle={props.backlogColumnStyle}
               updateBoardHeight={props.updateBoardHeight}
@@ -224,7 +227,8 @@ function PBIBacklogDisplay(props){
             drag={props.drag}
           drop={props.drop}
         allowDrop={props.allowDrop}
-      onDragExit={props.onDragExit}/>
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
             <GetCardsForColumn
               backlogColumnStyle={props.backlogColumnStyle}
               updateBoardHeight={props.updateBoardHeight}
@@ -235,7 +239,8 @@ function PBIBacklogDisplay(props){
             drag={props.drag}
           drop={props.drop}
         allowDrop={props.allowDrop}
-      onDragExit={props.onDragExit}/>
+      onDragExit={props.onDragExit}
+    onClick={props.onClick}/>
     </div>
     </div>
   );
@@ -279,6 +284,7 @@ class PBIBacklogForm extends Component {
     this.remove = this.remove.bind(this);
     this.getStateByName = this.getStateByName.bind(this);
     this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
+    this.handlePBIClick = this.handlePBIClick.bind(this);
     //fetch the user stories from client and populate the state here.
   }
 
@@ -348,6 +354,10 @@ class PBIBacklogForm extends Component {
     }
 
     //insert for loop here to iterate over the two columns and update their row and column
+}
+
+handlePBIClick(e){
+  console.log("PBIClicked");
 }
 
 insert(row, column, pbi){
@@ -439,7 +449,8 @@ getColumnNumberByName(name){
             column3={this.state.todo}
             column4={this.state.inprogress}
             column5={this.state.done}
-            onDragExit={this.dragexit}/>
+            onDragExit={this.dragexit}
+            onClick={this.handlePBIClick}/>
 {content}
          </div>
     );

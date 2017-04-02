@@ -30,10 +30,14 @@ class EditPBIForm extends Component {
     return (
       <div id="EditPBIBackground">
         <div id="EditPBIForm">
-        <h1>Edit PBI Form</h1> <br/>
-<PBIFormattedSection handleInputChange={this.handleInputChange}/>
+        <h1 id="editheader">Edit PBI Form</h1> <br/>
+        <h3>User Story</h3>
+        <PBIFormattedSection handleInputChange={this.handleInputChange}/>
+        <h3>Acceptance Criteria</h3> <textarea id="fillparent" name="acceptanceCriteria" type="text"
+          placeholder="Enter Acceptance Criteria..."
+          onChange={this.handleInputChange} />
+        <button onClick={this.props.exit}>Save</button>
         </div>
-        <button onClick={this.props.exit}>Save & Exit</button>
       </div>
     );
   }

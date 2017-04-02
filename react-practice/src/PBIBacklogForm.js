@@ -342,7 +342,7 @@ class PBIBacklogForm extends Component {
     this.setState({greenRow:''});
     this.setState({greenColumn:''});
     this.setState({isDragging:false});
-    if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.id)] === true){
+    if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.id)] === true || this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.className)] === true){
       var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
       this.insert(ev.target.id,ev.target.className,pbi);
     }

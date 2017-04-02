@@ -21,7 +21,7 @@ function GetCardsForColumn(props) {
       props.updateBoardHeight((i*125)+150);
     }
     //update the details about the user story we want displayed here
-    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag} onClick={props.onClick}><br/>{userStories[i].description}<br/>Size: {userStories[i].size}</div>);
+    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag} onClick={props.onClick}><br/>{userStories[i].description}<br/>Size: {userStories[i].estimate}</div>);
   }
 
   return(
@@ -252,11 +252,11 @@ class PBIBacklogForm extends Component {
     super(props);
     //put in call to client toinstantiate
     this.state = {
-      productbacklog:[{description:"This is another user story", size:"SMALL"}],
-      scrumbacklog:[{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"},{description:"This is a user story", size:"SMALL"},{description:"Make Food", size:"LARGE"}],
-      todo:[{description:"Do some stuff", size:"SMALL"},{description:"Another user story", size:"LARGE"},{description:"Another user story", size:"LARGE"}],
-      inprogress:[{description:"Stop being lazy", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
-      done:[{description:"Finish the project", size:"SMALL"},{description:"Another user story", size:"LARGE"}],
+      productbacklog:[{description:"This is another user story", estimate:"small"}],
+      scrumbacklog:[{description:"This is a user story", estimate:"small"},{description:"Make Food", estimate:"large"},{description:"This is a user story", estimate:"small"},{description:"Make Food", estimate:"large"}],
+      todo:[{description:"Do some stuff", estimate:"small"},{description:"Another user story", estimate:"large"},{description:"Another user story", estimate:"large"}],
+      inprogress:[{description:"Stop being lazy", estimate:"small"},{description:"Another user story", estimate:"large"}],
+      done:[{description:"Finish the project", estimate:"small"},{description:"Another user story", estimate:"large"}],
       isDragging:false,
       backlogColumnStyle:{
         position:'absolute',
@@ -271,7 +271,9 @@ class PBIBacklogForm extends Component {
       greenRow:'',
       greenColumn:'todo',
       possibleDropColumns: [true,true,true,true,true],
-      editPBI:null
+      editPBI:null,
+      editPBIRow:'',
+      editPBIColumn:'',
     };
 
     this.updateBoardHeight = this.updateBoardHeight.bind(this);
@@ -287,6 +289,7 @@ class PBIBacklogForm extends Component {
     this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
     this.handlePBIClick = this.handlePBIClick.bind(this);
     this.exitEditPBI = this.exitEditPBI.bind(this);
+    this.updateBacklog = this.updateBacklog.bind(this);
     //fetch the user stories from client and populate the state here.
   }
 
@@ -362,11 +365,17 @@ handlePBIClick(e){
   console.log("PBIClicked at column " + e.target.className + " row " + e.target.id );
   var pbi = this.getStateByName(e.target.className)[e.target.id];
   console.log(pbi.description + "<- supposed to be a description");
-  this.setState({editPBI:pbi});
+  this.setState({editPBI:pbi, editPBIRow:e.target.id, editPBIColumn:e.target.className});
 }
 
 exitEditPBI(){
   this.setState({editPBI:null});
+}
+
+updateBacklog(newpbi,row,column){
+    var pbi = this.getStateByName(column);
+    pbi[row] = newpbi;
+    this.setState({[column]: pbi});
 }
 
 insert(row, column, pbi){
@@ -450,6 +459,9 @@ getColumnNumberByName(name){
          editPBIView = <EditPBIForm
            exit={this.exitEditPBI}
            pbi={this.state.editPBI}
+           updatePBI={this.updateBacklog}
+           row={this.state.editPBIRow}
+           column={this.state.editPBIColumn}
          />
        }else{
          console.log("UNDEFINED______________________");

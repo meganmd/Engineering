@@ -50,7 +50,7 @@ table {
   left: 0;
   top: 0;
   background: #555555dd;
-  height: 150%;
+  height: 130%;
   width: 100%;
 }
 
@@ -59,7 +59,7 @@ table {
   left: 25%;
   top: 5%;
   background: #FFFFFF;
-  height: 140%;
+  height: 90%;
   width: 45%;
   border-radius: 15px;
   border: 2px solid black;

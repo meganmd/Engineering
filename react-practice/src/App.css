@@ -54,6 +54,10 @@ table {
   width: 100%;
 }
 
+#editPBIButton{
+  width: 40%;
+}
+
 #EditPBIForm{
   position: absolute;
   left: 25%;

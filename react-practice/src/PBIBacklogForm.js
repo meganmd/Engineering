@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import EditPBIForm from './EditPBIForm'
 
 function GetCardsForColumn(props) {
   var userStories = props.project;
@@ -271,6 +271,7 @@ class PBIBacklogForm extends Component {
       greenRow:'',
       greenColumn:'todo',
       possibleDropColumns: [true,true,true,true,true],
+      editPBI:null
     };
 
     this.updateBoardHeight = this.updateBoardHeight.bind(this);
@@ -285,6 +286,7 @@ class PBIBacklogForm extends Component {
     this.getStateByName = this.getStateByName.bind(this);
     this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
     this.handlePBIClick = this.handlePBIClick.bind(this);
+    this.exitEditPBI = this.exitEditPBI.bind(this);
     //fetch the user stories from client and populate the state here.
   }
 
@@ -357,7 +359,14 @@ class PBIBacklogForm extends Component {
 }
 
 handlePBIClick(e){
-  console.log("PBIClicked");
+  console.log("PBIClicked at column " + e.target.className + " row " + e.target.id );
+  var pbi = this.getStateByName(e.target.className)[e.target.id];
+  console.log(pbi.description + "<- supposed to be a description");
+  this.setState({editPBI:pbi});
+}
+
+exitEditPBI(){
+  this.setState({editPBI:null});
 }
 
 insert(row, column, pbi){
@@ -435,6 +444,16 @@ getColumnNumberByName(name){
                      drop={this.drop}
                      possibleDropColumns={this.state.possibleDropColumns}/>;
        }
+       var editPBIView;
+       if(this.state.editPBI != null){
+         console.log(" not empty-----------------------");
+         editPBIView = <EditPBIForm
+           exit={this.exitEditPBI}
+           pbi={this.state.editPBI}
+         />
+       }else{
+         console.log("UNDEFINED______________________");
+       }
     return (
       <div className="PBIBacklogDisplay">
           <PBIBacklogDisplay
@@ -452,6 +471,7 @@ getColumnNumberByName(name){
             onDragExit={this.dragexit}
             onClick={this.handlePBIClick}/>
 {content}
+{editPBIView}
          </div>
     );
   }

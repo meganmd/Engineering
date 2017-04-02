@@ -45,6 +45,30 @@ table {
   margin-top: 50px;
 }
 
+#EditPBIBackground{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #555555dd;
+  height: 100%;
+  width: 100%;
+}
+
+#EditPBIForm{
+  position: absolute;
+  left: 30%;
+  top: 15%;
+  background: #FFFFFF;
+  height: 70%;
+  width: 40%;
+  border-radius: 15px;
+  border: 2px solid black;
+}
+
+#editFormat{
+  width: 85%;
+}
+
 
 #productbacklog
 {

@@ -220,5 +220,6 @@ function parseJSON(response) {
 
 const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getProject, getProjectsByUser, getProjects, listProjectUsersTable,
-  addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable };
+  addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
+  editPBI, movePBI};
 export default Client;

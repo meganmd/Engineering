@@ -96,23 +96,14 @@ class App extends Component {
       }
     } else {
       greeting = 'Please Login...';
-      content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>
+      content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>;
     }
     return (
       <div className="App">
-        <div className={"App-header-" + this.state.bannerColor}>
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>Scrumtious Scrum Page</h1>
-          <h2>{greeting}</h2>
-          <pr> </pr>
-        </div>
-        <br />
         {content}
-        {
         <PBIBacklogForm
-          projectName="Greatest Project Ever"
-        />
-        }
+   projectName="Greatest Project Ever"
+/>
       </div>
 
     );

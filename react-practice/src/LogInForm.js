@@ -127,17 +127,18 @@ class LogInForm extends Component {
     const isLoggedIn = this.props.isLoggedIn;
     var display = null;
     if (this.state.registering) {
-      display = <RegisterDisplay
+      display = <div id="RegisterBackground"><h1>Register</h1><RegisterDisplay
         handleInputChange={this.handleInputChange}
         handleSubmitNewUserClick={this.handleSubmitNewUserClick}
         handleCancelRegisterClick={this.handleCancelRegisterClick}
-        errorMessage={this.state.errorMessage}/>
+        errorMessage={this.state.errorMessage}/></div>
     } else {
-      display = <LogInDisplay
+      display = <div id="AppBackground"><h1>Sign in</h1><LogInDisplay
         handleInputChange={this.handleInputChange}
         handleLoginClick={this.handleLoginClick}
         handleRegisterClick={this.handleRegisterClick}
         errorMessage={this.state.errorMessage}/>
+        </div>
     }
     return (
       <div className="loginForm">

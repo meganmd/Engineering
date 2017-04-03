@@ -8,15 +8,15 @@ function GetCardsForColumn(props) {
     var divStyle = {
       position:"absolute",
       background: "#dfdfdf",
-      border: "2px solid black",
+      'box-shadow': '0 0 3px 3px #333333',
       left: "5%",
       top: "50px",
       width: "90%",
       'min-height': "100px",
-      'border-radius':"15px",
+    //  'border-radius':"15px",
       columnColor: "#"
     }
-    divStyle.top = (i*125)+35;
+    divStyle.top = (i*125)+75;
     if(divStyle.top > parseInt(props.backlogColumnStyle.height,10)){
       props.updateBoardHeight((i*125)+150);
     }
@@ -26,7 +26,7 @@ function GetCardsForColumn(props) {
 
   return(
     <div id={props.columnName} className="999" style={props.backlogColumnStyle} onDrop={props.drop} onDragOver={props.allowDrop}>
-      <div id="title">{props.title}</div>
+      <div id="title"><h3>{props.title}</h3></div>
       {content}
     </div>
   );
@@ -37,27 +37,27 @@ function DropZoneColumn(props){
 
   var topdivStyle = {
   position:"absolute",
-  background: "linear-gradient(#99CEFAFF, #FFFFFF00)",
+  background: "linear-gradient(#99CEFA00, #FFFFFF00)",
   width: "19.4%",
   left: props.left,
-  top:"615px",
+  top:"140px",
   height:"50px",
 }
 
   for(var i=0; i<props.length; i++){
     if(i === 0){
       if(props.greenRow === "0" && props.isGreen == true){
-        topdivStyle.background = "linear-gradient(#00FF00FF, #01CEFA00)"
+        topdivStyle.background = "linear-gradient(#00FF00FF, #00FF0000)"
       }
       content.push(<div style={topdivStyle} id="0" className={props.columnName} onDragOver={props.allowDrop} onDrop={props.drop} onDragEnter={props.onDragEnter} onDragLeave={props.onDragLeave}></div>)
     }else{
       var divStyle = {
         position:"absolute",
-        background: "linear-gradient(#FFFFFF00, #99CEFAFF, #FFFFFF00)",
+      //  background: "linear-gradient(#FFFFFF00, #99CEFA00, #FFFFFF00)",
         width: "19.4%",
         left: props.left,
     //    border: "2px solid black",
-        top:(i*125)+555,
+        top:(i*125)+90,
         height:"100px",//this.state.backlogColumnStyle.height - 8,
         'border-radius':"15px",
         }
@@ -179,7 +179,7 @@ drop={props.drop}/>);
 function PBIBacklogDisplay(props){
   return(
     <div id="Backlog">
-      <h1>{props.projectName}</h1>
+      <h1  id="projectTitleText">{props.projectName}</h1>
       <div id="board">
             <GetCardsForColumn
               backlogColumnStyle={props.backlogColumnStyle}
@@ -262,11 +262,11 @@ class PBIBacklogForm extends Component {
         position:'absolute',
         width: '19.6%',
         height: '280px',
-        border: '2px solid black',
+  //      border: '2px solid black',
         outline: '0',
-        background: '#f2f2f2',
-        'box-sizing': 'border-box',
-        'border-radius': '10px',
+        background: "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
+      //  'box-sizing': 'border-box',
+    //    'border-radius': '10px',
       },
       greenRow:'',
       greenColumn:'todo',
@@ -298,11 +298,11 @@ class PBIBacklogForm extends Component {
       position:'absolute',
       width: '19.6%',
       height: e,
-      border: '2px solid black',
+    //  border: '2px solid black',
       outline: '0',
-      background: '#f2f2f2',
+      background: "linear-gradient(-90deg ,#DDDDDD99, #DDDDDDDD, #DDDDDD99)",
       'box-sizing': 'border-box',
-      'border-radius': '10px',
+//      'border-radius': '10px',
 
     }});
   }

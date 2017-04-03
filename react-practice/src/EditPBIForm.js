@@ -51,7 +51,7 @@ class EditPBIForm extends Component {
       else{
         this.props.updatePBI(this.props.pbi.id, this.state.description,
           this.state.role, this.state.functionality, this.state.value,
-          this.state.acceptanceCriteria, this.props.row, this.props.column);
+          this.state.acceptanceCriteria, this.state.estimate, function(){});
         this.props.exit();
       }
     }

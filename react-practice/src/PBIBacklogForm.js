@@ -10,11 +10,11 @@ function GetCardsForColumn(props) {
     var divStyle = {
       position:"absolute",
       background: "#dfdfdf",
-      'box-shadow': '0 0 4px 4px #666666',
+      'boxShadow': '0 0 4px 4px #666666',
       left: "5%",
       top: "50px",
       width: "90%",
-      'min-height': "100px",
+      'minHeight': "100px",
     //  'border-radius':"15px",
       columnColor: "#"
     }
@@ -289,7 +289,7 @@ class PBIBacklogForm extends Component {
         position:'absolute',
         width: '19.6%',
         height: '280px',
-        'overflow-y':'scroll',
+        'overflowY':'scroll',
   //      border: '2px solid black',
         outline: '0',
         background: "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
@@ -317,7 +317,7 @@ class PBIBacklogForm extends Component {
     this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
     this.handlePBIClick = this.handlePBIClick.bind(this);
     this.exitEditPBI = this.exitEditPBI.bind(this);
-    this.updateBacklog = this.updateBacklog.bind(this);
+    // this.updateBacklog = this.updateBacklog.bind(this);
     this.exitAddPBI = this.exitAddPBI.bind(this);
     this.openAddPBI = this.openAddPBI.bind(this);
     //fetch the user stories from client and populate the state here.
@@ -366,7 +366,7 @@ class PBIBacklogForm extends Component {
     //  border: '2px solid black',
       outline: '0',
       background: "linear-gradient(-90deg ,#DDDDDD99, #DDDDDDDD, #DDDDDD99)",
-      'box-sizing': 'border-box',
+      'boxSizing': 'border-box',
 //      'border-radius': '10px',
 
     }});
@@ -436,6 +436,7 @@ handlePBIClick(e){
 
 exitEditPBI(){
   this.setState({editPBI:null});
+  this.updateTablePBIs();
 }
 
 openAddPBI(){
@@ -447,11 +448,16 @@ exitAddPBI(){
   this.updateTablePBIs();
 }
 
-updateBacklog(newpbi,row,column){
-    var pbi = this.getStateByName(column);
-    pbi[row] = newpbi;
-    this.setState({[column]: pbi});
-}
+// updateBacklog(id, description, role, functionality, value,
+//   acceptanceCriteria, estimate, column, row){
+//     pbi[row] = {id: id, description: description, role: role,
+//       functionality: functionality, value: value,
+//       acceptanceCriteria: acceptanceCriteria, estimate: estimate,
+//       column: column, row: row};
+//     this.setState({[column]: pbi});
+//     Client.editPBI(id, description, role, functionality, value,
+//       acceptanceCriteria, estimate, function(){});
+// }
 
 insert(row, column, pbi){
   //change to allow multiple columns
@@ -534,7 +540,7 @@ getColumnNumberByName(name){
          editPBIView = <EditPBIForm
            exit={this.exitEditPBI}
            pbi={this.state.editPBI}
-           updatePBI={this.updateBacklog}
+           updatePBI={Client.editPBI}
            row={this.state.editPBIRow}
            column={this.state.editPBIColumn}
            height={this.state.backlogColumnStyle.height}

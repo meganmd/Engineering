@@ -110,8 +110,7 @@ module.exports = class database {
       this.db.run("UPDATE productBacklogItems SET description = ?, role = ?," +
       " functionality = ?, value = ?, acceptanceCriteria = ?, estimate = ?" +
       "  WHERE id = ?", description, role,
-      functionality, value, acceptanceCriteria, estimate, columnNumber,
-      rowNumber, id, cb);
+      functionality, value, acceptanceCriteria, estimate, id, cb);
   }
 
   moveProductBackLogItem(id, columnNumber, rowNumber, cb){

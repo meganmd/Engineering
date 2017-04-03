@@ -161,11 +161,31 @@ app.get('/api/userFromProject', function(request, response) {
   })
 })
 
+app.get('/api/listPBITable', function(request, response) {
+  console.log("Retrieving PBIs");
+  data.listProductBacklogItemsTable(function(err, rows) {
+    response.setHeader('Content-Type', 'application/json');
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  })
+})
+
 app.get('/api/pbis', function(request, response) {
   console.log("Retrieving PBIs for " + request.query.project);
   data.getProductBacklogItemsForProject(request.query.project, function(err, rows) {
     response.setHeader('Content-Type', 'application/json');
-    response.json(rows);
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
   })
 })
 

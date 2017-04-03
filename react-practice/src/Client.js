@@ -135,6 +135,14 @@ function getPBIs(project,cb){
     .then(cb);
 }
 
+function listPBITable(cb){
+  return fetch(`api/listPBITable`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function addPBI(description, role, functionality, value,
   acceptanceCriteria, estimate, columnNumber, rowNumber, project, cb){
     return fetch('api/addPBI', {
@@ -175,5 +183,5 @@ function parseJSON(response) {
 
 const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getProject, getProjectsByUser, getProjects, listProjectUsersTable,
-  addUserToProject, getUserFromProject };
+  addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable };
 export default Client;

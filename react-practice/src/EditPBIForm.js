@@ -17,8 +17,8 @@ class EditPBIForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {description:props.pbi.description,role: '', functionality:'', value:'',
-    acceptanceCriteria:'', estimate:props.pbi.size, errorMessage:''};
+    this.state = {description:props.pbi.description,role: props.pbi.role, functionality: props.pbi.functionality, value:props.pbi.value,
+    acceptanceCriteria:props.pbi.acceptanceCriteria, estimate:props.pbi.estimate, errorMessage:''};
     this.handleInputChange = this.handleInputChange.bind(this);
     this.saveData = this.saveData.bind(this);
     }
@@ -29,10 +29,18 @@ class EditPBIForm extends Component {
 
     saveData(data){
       console.log("saving data");
-      this.props.updatePBI(this.state,this.props.row, this.props.column);
-      this.props.exit();
-      //call client to save data
-
+      if(this.state.description === '' && (this.state.role === '' || this.state.functionality === '' || this.state.value === '')){
+        this.setState({errorMessage: 'Must have description OR role, functionality, and value'});
+      }
+      else if(this.state.acceptanceCriteria === ''){
+        this.setState({errorMessage: 'Must have acceptance criteria'});
+      }
+      else{
+        this.props.updatePBI(this.props.pbi.id, this.state.description,
+          this.state.role, this.state.functionality, this.state.value,
+          this.state.acceptanceCriteria, this.props.row, this.props.column);
+        this.props.leaveEditPBIForm();
+      }
     }
 
   render(){
@@ -40,6 +48,8 @@ class EditPBIForm extends Component {
       <div id="EditPBIBackground">
         <div id="EditPBIForm">
         <h3>User Story</h3>
+        <h3>Description</h3> <textarea id="fillparent" value={this.state.description} name="description" cols="40" rows="2" type="text" placeholder="Enter Description..."
+            onChange={this.handleInputChange} /><br/>
         <PBIFormattedSection handleInputChange={this.handleInputChange}/>
         <h3>Acceptance Criteria</h3> <textarea id="fillparent" name="acceptanceCriteria" type="text"
           placeholder="Enter Acceptance Criteria..."
@@ -50,10 +60,8 @@ class EditPBIForm extends Component {
               <option value="large">Large</option>
               <option value="extra-large">Extra-Large</option>
           </select><br/> </h3> <br/>
-        <h3>Description</h3> <textarea id="fillparent" value={this.state.description} name="description" cols="40" rows="2" type="text" placeholder="Enter Description..."
-            onChange={this.handleInputChange} /><br/>
         <button id="editPBIButton" onClick={this.saveData}>Save</button>
-        <button id="editPBIButton" onClick={this.props.exit}>Exit</button>
+        <button id="editPBIButton" onClick={this.props.leaveEditPBIForm}>Cancel</button>
         </div>
       </div>
     );

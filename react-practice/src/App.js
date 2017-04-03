@@ -115,7 +115,6 @@ class App extends Component {
           <pr> </pr>
         </div>
         <br />
-        <CreatePBIForm projectName="user1project" addPBI={Client.addPBI} leavePBIForm={function(){}} />
         {content}
         {
         <PBIBacklogForm

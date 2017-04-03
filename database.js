@@ -92,8 +92,8 @@ module.exports = class database {
   }
 
   // Returns all PBIs for a project in order by column and then row
-  getProductBacklogItemsForProject(projectName, cb){
-    this.db.all("SELECT * FROM productBacklogItems where projectName = ? ORDER BY columnNumber, rowNumber",projectName, cb);
+  getProductBacklogItemsForProject(project, cb){
+    this.db.all("SELECT * FROM productBacklogItems where project = ? ORDER BY columnNumber, rowNumber",project, cb);
   }
 
   addProductBacklogItem(description, role, functionality, value,

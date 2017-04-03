@@ -10,6 +10,7 @@ import s from './index.css';
 import AddUserToProjectForm from './AddUserToProjectForm'
 import ProjectTable from './ProjectTable.js'
 import PBIBacklogForm from './PBIBacklogForm'
+import CreatePBIForm from './CreatePBIForm'
 
 function LogOutButton(props) {
   return (
@@ -39,13 +40,14 @@ function addUser(username,password,firstName,lastName){
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, loggedInUser: {}, bannerColor: 'black', isCreatingProject: false, currentProject: {},isViewingProject:false};
+    this.state = {isLoggedIn: false, loggedInUser: {}, isCreatingProject: false, currentProject: {},isViewingProject:false};
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
     this.handleProjectComplete = this.handleProjectComplete.bind(this);
     this.handleLeaveCreateProjectForm = this.handleLeaveCreateProjectForm.bind(this);
     this.handleProjectSelected = this.handleProjectSelected.bind(this);
+    this.handleLeavePBIBacklogForm = this.handleLeavePBIBacklogForm.bind(this);
   }
 
   handleLogIn(user){
@@ -70,8 +72,11 @@ class App extends Component {
   }
 
   handleProjectSelected(project){
-    console.log("project is selected" , project.name);
     this.setState({currentProject:project, isViewingProject:true});
+  }
+
+  handleLeavePBIBacklogForm(){
+    this.setState({currentProject: {}, isViewingProject:false});
   }
 
   render() {
@@ -84,6 +89,9 @@ class App extends Component {
         content = <CreateProjectForm user={this.state.loggedInUser}
           handleProjectComplete={this.handleProjectComplete}
           handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
+      } else if(this.state.isViewingProject){
+        content.push( <PBIBacklogForm project={this.state.currentProject}
+          handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />);
       }else{
         if(this.state.loggedInUser.firstName == ''){
           greeting = 'Welcome ' + this.state.loggedInUser.username;
@@ -100,8 +108,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-      <PBIBacklogForm
-      projectName="Greatest Project Ever"/>
+        {content}
       </div>
 
     );

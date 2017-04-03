@@ -7,7 +7,6 @@ import { mount } from 'enzyme';
 //how does projectTable get user?
 
 test('Clicking a tableRow calls fetchProject once', () => {
-  Client.getProject = jest.fn();
 
   const wrapper = mount(
     <ProjectTable />
@@ -15,10 +14,20 @@ test('Clicking a tableRow calls fetchProject once', () => {
 
   const p = wrapper.find('row1');
   p.simulate('click');
-  expect(Client.getProject).toHaveBeenCalledTimes(1);
+  expect(wrapper.fetchProject).toHaveBeenCalledTimes(1);
 });
 
 
-test('Clicking a tableRow returns correct project', () => {
+test('Client gets proper project', () => {
+  Client.getProjectsByUser = jest.fn();
+
+  const wrapper = mount(
+    <ProjectTable />
+  );
+
+  Client.getProjectsByUser.mockImplementationOnce(user1, projects => ({
+      expect(projects[0].name.toBe('somePRoject'));
+  }));
+
 
 });

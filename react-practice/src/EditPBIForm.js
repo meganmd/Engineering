@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 function PBIFormattedSection(props){
   return(
     <div className="PBIAutoCategories" padding="5px">
-      As a: <input id="editFormat" width="100%" name="role" type="text" placeholder="Enter Role..."
+      As a: <input id="editFormat" width="100%" name="role" type="text"
+        placeholder="Enter Role..." value={props.role}
         onChange={props.handleInputChange} /> <br/>
-      I can: <input id="editFormat" name="functionality" type="text" placeholder="Enter functionality..."
+      I can: <input id="editFormat" name="functionality" type="text"
+        placeholder="Enter functionality..." value={props.functionality}
         onChange={props.handleInputChange} /> <br/>
-      So that: <input id="editFormat" name="value" type="text" placeholder="Enter value..."
+      So that: <input id="editFormat" name="value" type="text"
+        placeholder="Enter value..." value={props.value}
         onChange={props.handleInputChange} />
     </div>
   );
@@ -48,10 +51,15 @@ class EditPBIForm extends Component {
       <div id="EditPBIBackground">
         <div id="EditPBIForm">
         <h3>User Story</h3>
-        <h3>Description</h3> <textarea id="fillparent" value={this.state.description} name="description" cols="40" rows="2" type="text" placeholder="Enter Description..."
+        <h3>Description</h3> <textarea id="fillparent" value={this.state.description}
+          name="description" cols="40" rows="2" type="text"
+          placeholder="Enter Description..."
             onChange={this.handleInputChange} /><br/>
-        <PBIFormattedSection handleInputChange={this.handleInputChange}/>
-        <h3>Acceptance Criteria</h3> <textarea id="fillparent" name="acceptanceCriteria" type="text"
+        <PBIFormattedSection handleInputChange={this.handleInputChange}
+          role={this.state.role} functionality={this.state.functionality}
+          value={this.state.value}/>
+        <h3>Acceptance Criteria</h3> <textarea id="fillparent" name="acceptanceCriteria"
+          value={this.state.acceptanceCriteria} type="text"
           placeholder="Enter Acceptance Criteria..."
           onChange={this.handleInputChange} />
           <h3>Estimate <select name="estimate" onChange={this.handleInputChange} value={this.state.estimate}>
@@ -61,7 +69,7 @@ class EditPBIForm extends Component {
               <option value="extra-large">Extra-Large</option>
           </select><br/> </h3> <br/>
         <button id="editPBIButton" onClick={this.saveData}>Save</button>
-        <button id="editPBIButton" onClick={this.props.leaveEditPBIForm}>Cancel</button>
+        <button id="editPBIButton" onClick={this.props.exit}>Cancel</button>
         </div>
       </div>
     );

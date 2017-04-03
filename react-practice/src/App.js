@@ -90,8 +90,8 @@ class App extends Component {
           handleProjectComplete={this.handleProjectComplete}
           handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
       } else if(this.state.isViewingProject){
-        content = <PBIBacklogForm project={this.state.currentProject}
-          handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />
+        content.push( <PBIBacklogForm project={this.state.currentProject}
+          handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />);
       }else{
         if(this.state.loggedInUser.firstName == ''){
           greeting = 'Welcome ' + this.state.loggedInUser.username;
@@ -117,9 +117,7 @@ class App extends Component {
         <br />
         {content}
         {
-        <PBIBacklogForm
-          projectName="Greatest Project Ever"
-        />
+
         }
       </div>
 

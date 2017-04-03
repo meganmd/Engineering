@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Client from './Client'
 import EditPBIForm from './EditPBIForm'
 
 function GetCardsForColumn(props) {
@@ -21,7 +22,15 @@ function GetCardsForColumn(props) {
       props.updateBoardHeight((i*125)+150);
     }
     //update the details about the user story we want displayed here
-    content.push(<div key={i} id={i} className={props.columnName}  style={divStyle} draggable="true" onDragEnd={props.onDragExit} onDragStart={props.drag} onClick={props.onClick}><br/>{userStories[i].description}<br/>Size: {userStories[i].estimate}</div>);
+    content.push(<div key={i} id={i} className={props.columnName}
+      style={divStyle} draggable="true" onDragEnd={props.onDragExit}
+      onDragStart={props.drag} onClick={props.onClick}>
+      <br/>{userStories[i].description}
+      <br/>Role: {userStories[i].role}
+      <br/>Functionality: {userStories[i].functionality}
+      <br/>Value: {userStories[i].value}
+      <br/>Acceptance Criteria: {userStories[i].acceptanceCriteria}
+      <br/> Estimate: {userStories[i].estimate}</div>);
   }
 
   return(
@@ -252,11 +261,11 @@ class PBIBacklogForm extends Component {
     super(props);
     //put in call to client toinstantiate
     this.state = {
-      productbacklog:[{description:"This is another user story", estimate:"small"}],
-      scrumbacklog:[{description:"This is a user story", estimate:"small"},{description:"Make Food", estimate:"large"},{description:"This is a user story", estimate:"small"},{description:"Make Food", estimate:"large"}],
-      todo:[{description:"Do some stuff", estimate:"small"},{description:"Another user story", estimate:"large"},{description:"Another user story", estimate:"large"}],
-      inprogress:[{description:"Stop being lazy", estimate:"small"},{description:"Another user story", estimate:"large"}],
-      done:[{description:"Finish the project", estimate:"small"},{description:"Another user story", estimate:"large"}],
+      productbacklog:[],
+      scrumbacklog:[],
+      todo:[],
+      inprogress:[],
+      done:[],
       isDragging:false,
       backlogColumnStyle:{
         position:'absolute',
@@ -292,6 +301,47 @@ class PBIBacklogForm extends Component {
     this.updateBacklog = this.updateBacklog.bind(this);
     //fetch the user stories from client and populate the state here.
   }
+
+  updateTablePBIs(){
+    console.log("Get pbis");
+    console.log("project name: " + this.props.project.name);
+    Client.getPBIs(this.props.project.name,(PBIs)=>{
+      console.log(PBIs);
+
+      //this.setState({productbacklog: PBIs});
+
+      var productbacklog = [];
+      var scrumbacklog = [];
+      var todo = [];
+      var inprogress = [];
+      var done = [];
+      for(var i = 0; i < PBIs.length; i++){
+          var p = PBIs[i];
+          if(p.columnNumber == 1){
+            productbacklog.push(p);
+          } else if(p.columnNumber == 2){
+            scrumbacklog.push(p);
+          } else if(p.columnNumber == 3){
+            todo.push(p);
+          }else if(p.columnNumber == 4){
+            inprogress.push(p);
+          }else if(p.columnNumber == 5){
+            done.push(p);
+          }
+      }
+      this.setState({
+        productbacklog: productbacklog,
+        scrumbacklog: scrumbacklog,
+        todo: todo,
+        inprogress: inprogress,
+        done: done
+      })
+    });
+  }
+
+ componentWillMount() {
+   this.updateTablePBIs();
+ }
 
   updateBoardHeight(e){
     this.setState({backlogColumnStyle:{
@@ -364,7 +414,6 @@ class PBIBacklogForm extends Component {
 handlePBIClick(e){
   console.log("PBIClicked at column " + e.target.className + " row " + e.target.id );
   var pbi = this.getStateByName(e.target.className)[e.target.id];
-  console.log(pbi.description + "<- supposed to be a description");
   this.setState({editPBI:pbi, editPBIRow:e.target.id, editPBIColumn:e.target.className});
 }
 
@@ -470,7 +519,7 @@ getColumnNumberByName(name){
       <div className="PBIBacklogDisplay">
           <PBIBacklogDisplay
             backlogColumnStyle={this.state.backlogColumnStyle}
-            projectName={this.props.projectName}
+            projectName={this.props.project.name}
             updateBoardHeight={this.updateBoardHeight}
             drag={this.drag}
             drop={this.drop}

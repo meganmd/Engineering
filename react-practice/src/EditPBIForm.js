@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 function PBIFormattedSection(props){
   return(
-    <div className="PBIAutoCategories" padding="5px">
+    <div className="PBIAutoCategories">
       As a: <input id="editFormat" width="100%" name="role" type="text"
         placeholder="Enter Role..." value={props.role}
         onChange={props.handleInputChange} /> <br/>
@@ -52,7 +52,7 @@ class EditPBIForm extends Component {
         this.props.updatePBI(this.props.pbi.id, this.state.description,
           this.state.role, this.state.functionality, this.state.value,
           this.state.acceptanceCriteria, this.props.row, this.props.column);
-        this.props.leaveEditPBIForm();
+        this.props.exit();
       }
     }
 
@@ -78,8 +78,8 @@ class EditPBIForm extends Component {
               <option value="large">Large</option>
               <option value="extra-large">Extra-Large</option>
           </select><br/> </h3> <br/>
-        <button id="editPBIButton" onClick={this.props.exit}>Cancel</button>
-        <button id="editPBIButton" onClick={this.saveData}>Save</button>
+        <button id="cancelEditPBIButton" onClick={this.props.exit}>Cancel</button>
+        <button id="editPBIButton" className="savePBIButton" onClick={this.saveData}>Save</button>
         </div>
       </div>
     );

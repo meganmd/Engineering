@@ -84,6 +84,14 @@ table {
   width: 40%;
 }
 
+.savePBIButton{
+  
+}
+
+#cancelEditPBIButton{
+  width: 40%;
+}
+
 #EditPBIForm{
   position: absolute;
   left: 25%;

@@ -1,0 +1,135 @@
+exports[`test renders correctly (incomplete) 1`] = `
+<div
+  className="PBIBacklogDisplay">
+  <div
+    id="Backlog">
+    <h1
+      id="projectTitleText">
+               
+      <button
+        onClick={[Function]}>
+        Back
+      </button>
+       
+               
+      <button
+        onClick={[Function]}>
+        Add PBI
+      </button>
+    </h1>
+    <div
+      id="board">
+      <div
+        className="999"
+        id="productbacklog"
+        onDragOver={[Function]}
+        onDrop={[Function]}
+        style={
+          Object {
+            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
+            "height": "280px",
+            "outline": "0",
+            "overflow-y": "scroll",
+            "position": "absolute",
+            "width": "19.6%",
+          }
+        }>
+        <div
+          id="title">
+          <h3>
+            Product Backlog
+          </h3>
+        </div>
+      </div>
+      <div
+        className="999"
+        id="scrumbacklog"
+        onDragOver={[Function]}
+        onDrop={[Function]}
+        style={
+          Object {
+            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
+            "height": "280px",
+            "outline": "0",
+            "overflow-y": "scroll",
+            "position": "absolute",
+            "width": "19.6%",
+          }
+        }>
+        <div
+          id="title">
+          <h3>
+            Scrum Backlog
+          </h3>
+        </div>
+      </div>
+      <div
+        className="999"
+        id="todo"
+        onDragOver={[Function]}
+        onDrop={[Function]}
+        style={
+          Object {
+            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
+            "height": "280px",
+            "outline": "0",
+            "overflow-y": "scroll",
+            "position": "absolute",
+            "width": "19.6%",
+          }
+        }>
+        <div
+          id="title">
+          <h3>
+            To Do
+          </h3>
+        </div>
+      </div>
+      <div
+        className="999"
+        id="inprogress"
+        onDragOver={[Function]}
+        onDrop={[Function]}
+        style={
+          Object {
+            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
+            "height": "280px",
+            "outline": "0",
+            "overflow-y": "scroll",
+            "position": "absolute",
+            "width": "19.6%",
+          }
+        }>
+        <div
+          id="title">
+          <h3>
+            In Progress
+          </h3>
+        </div>
+      </div>
+      <div
+        className="999"
+        id="done"
+        onDragOver={[Function]}
+        onDrop={[Function]}
+        style={
+          Object {
+            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
+            "height": "280px",
+            "outline": "0",
+            "overflow-y": "scroll",
+            "position": "absolute",
+            "width": "19.6%",
+          }
+        }>
+        <div
+          id="title">
+          <h3>
+            Done
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

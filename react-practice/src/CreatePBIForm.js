@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 function PBIFormattedSection(props){
   return(
-    <div className="PBIAutoCategories" padding="5px">
+    <div className="PBIAutoCategories">
       As a: <input id="editFormat" width="100%" name="role" type="text"
         placeholder="Enter Role..."
         onChange={props.handleInputChange} /> <br/>

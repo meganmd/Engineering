@@ -166,6 +166,43 @@ function addPBI(description, role, functionality, value,
       .then(cb);
 }
 
+function editPBI(id, description, role, functionality, value,
+  acceptanceCriteria, estimate, cb){
+    return fetch('api/editPBI', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+        id: id,
+        description: description,
+        role: role,
+        functionality: functionality,
+        value: value,
+        acceptanceCriteria: acceptanceCriteria,
+        estimate: estimate
+      })
+    }).then(checkStatus)
+      .then(cb);
+}
+
+function movePBI(id, columnNumber, rowNumber, cb){
+    return fetch('api/movePBI', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+        id: id,
+        columnNumber: columnNumber,
+        rowNumber: rowNumber
+      })
+    }).then(checkStatus)
+      .then(cb);
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;

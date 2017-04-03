@@ -206,6 +206,38 @@ app.post('/api/addPBI', function(request, response) {
     })
 })
 
+app.post('/api/editPBI', function(request, response) {
+  console.log("Editing PBI...");
+  data.updateProductBacklogItem(
+    request.body.id, request.body.description, request.body.role,
+    request.body.functionality, request.body.value,
+    request.body.acceptanceCriteria, request.body.estimate,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in editing");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    }
+  )
+})
+
+app.post('/api/movePBI', function(request, response) {
+  console.log("Moving PBI...");
+  data.moveProductBackLogItem(
+    request.body.id, request.body.columnNumber, request.body.rowNumber,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in moving");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    }
+  )
+})
+
 var server = app.listen(3001, function() {
   var host = server.address().address;
   var port = server.address().port;

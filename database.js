@@ -104,4 +104,19 @@ module.exports = class database {
     functionality, value, acceptanceCriteria, estimate, columnNumber, rowNumber,
      project, cb);
   }
+
+  updateProductBacklogItem(id, description, role, functionality, value,
+    acceptanceCriteria, estimate, cb){
+      this.db.run("UPDATE productBacklogItems SET description = ?, role = ?," +
+      " functionality = ?, value = ?, acceptanceCriteria = ?, estimate = ?" +
+      "  WHERE id = ?", description, role,
+      functionality, value, acceptanceCriteria, estimate, columnNumber,
+      rowNumber, id, cb);
+  }
+
+  moveProductBackLogItem(id, columnNumber, rowNumber, cb){
+    this.db.run("UPDATE productBacklogItems SET columnNumber = ?, rowNumber = ?" +
+    " WHERE id = ?", columnNumber, rowNumber, id, cb);
+  }
+
 }

@@ -23,6 +23,21 @@ function GetCardsForColumn(props) {
       props.updateBoardHeight((i*125)+150);
     }
     //update the details about the user story we want displayed here
+    if(userStories[i].description != ""){
+      content.push(<div key={i} id={i} className={props.columnName}
+        style={divStyle} draggable="true" onDragEnd={props.onDragExit}
+        onDragStart={props.drag} onClick={props.onClick}>
+        <br/>{userStories[i].description}
+        <br/>A.C.: {userStories[i].acceptanceCriteria}
+        <br/> Estimate: {userStories[i].estimate}</div>);
+    } else{
+      content.push(<div key={i} id={i} className={props.columnName}
+        style={divStyle} draggable="true" onDragEnd={props.onDragExit}
+        onDragStart={props.drag} onClick={props.onClick}>
+        <br/>As A: {userStories[i].role}, I Can: {userStories[i].functionality}, So That: {userStories[i].value}
+        <br/>A.C.: {userStories[i].acceptanceCriteria}
+        <br/> Estimate: {userStories[i].estimate}</div>);
+    }
     content.push(<div key={i} id={i} className={props.columnName}
       style={divStyle} draggable="true" onDragEnd={props.onDragExit}
       onDragStart={props.drag} onClick={props.onClick}>
@@ -67,7 +82,7 @@ function DropZoneColumn(props){
         width: "19.4%",
         left: props.left,
     //    border: "2px solid black",
-        top:(i*125)+90,
+        top:(i*125)+110,
         height:"100px",//this.state.backlogColumnStyle.height - 8,
         'border-radius':"15px",
         }
@@ -189,10 +204,10 @@ drop={props.drop}/>);
 function PBIBacklogDisplay(props){
   return(
     <div id="Backlog">
-      <h1  id="projectTitleText">{props.projectName}</h1>
+      <h1  id="projectTitleText">         <button onClick={props.handleLeavePBIBacklogForm}>Back</button> {props.projectName}         <button onClick={props.openAddPBI}>Add PBI</button></h1>
       <div id="board">
-        <button onClick={props.openAddPBI}>Add PBI</button>
-        <button onClick={props.handleLeavePBIBacklogForm}>Back</button>
+
+
             <GetCardsForColumn
               backlogColumnStyle={props.backlogColumnStyle}
               updateBoardHeight={props.updateBoardHeight}

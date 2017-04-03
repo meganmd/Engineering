@@ -4,6 +4,7 @@
   background: #61DAFB;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 #AppBackground{
@@ -74,8 +75,9 @@ table {
   left: 0;
   top: 0;
   background: #555555dd;
-  height: 130%;
   width: 100%;
+  min-height: 760px;
+  height: 0;
 }
 
 #editPBIButton{
@@ -85,9 +87,9 @@ table {
 #EditPBIForm{
   position: absolute;
   left: 25%;
-  top: 5%;
+  top: 20px;
   background: #FFFFFF;
-  height: 90%;
+  height: 700px;
   width: 45%;
   border-radius: 15px;
   border: 2px solid black;
@@ -153,12 +155,13 @@ table {
 }
 
 #projectTitleText{
-    color:#81FAFB;
+    color:white;
     width: 100%;
     font-size: 60px;
     margin: 0px;
     padding-bottom: 0px;
-    text-shadow: 4px 4px #41bAcB
+    background: linear-gradient(#444444, #000000);
+    margin-bottom: 15px;
 }
 
 th, td {

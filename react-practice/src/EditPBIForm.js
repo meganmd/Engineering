@@ -19,6 +19,16 @@ class EditPBIForm extends Component {
     super(props);
     this.state = {description:props.pbi.description,role: '', functionality:'', value:'',
     acceptanceCriteria:'', estimate:props.pbi.size, errorMessage:''};
+    this.divStyle = {
+      position: 'absolute',
+      left: '0',
+      top: '0',
+      background: '#555555dd',
+      width: '100%',
+      'min-height': '760px',
+      height: props.height+75,
+    };
+    console.log(props.height+ "<- should be");
     this.handleInputChange = this.handleInputChange.bind(this);
     this.saveData = this.saveData.bind(this);
     }
@@ -37,7 +47,7 @@ class EditPBIForm extends Component {
 
   render(){
     return (
-      <div id="EditPBIBackground">
+      <div style={this.divStyle}>
         <div id="EditPBIForm">
         <h3>User Story</h3>
         <PBIFormattedSection handleInputChange={this.handleInputChange}/>

@@ -17,7 +17,7 @@ function GetCardsForColumn(props) {
       columnColor: "#"
     }
     divStyle.top = (i*125)+75;
-    if(divStyle.top > parseInt(props.backlogColumnStyle.height,10)){
+    if(divStyle.top > parseInt(props.backlogColumnStyle.height,10) - 250){
       props.updateBoardHeight((i*125)+150);
     }
     //update the details about the user story we want displayed here
@@ -262,6 +262,7 @@ class PBIBacklogForm extends Component {
         position:'absolute',
         width: '19.6%',
         height: '280px',
+        'overflow-y':'scroll',
   //      border: '2px solid black',
         outline: '0',
         background: "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
@@ -297,7 +298,7 @@ class PBIBacklogForm extends Component {
     this.setState({backlogColumnStyle:{
       position:'absolute',
       width: '19.6%',
-      height: e,
+      height: e+250,
     //  border: '2px solid black',
       outline: '0',
       background: "linear-gradient(-90deg ,#DDDDDD99, #DDDDDDDD, #DDDDDD99)",
@@ -462,6 +463,7 @@ getColumnNumberByName(name){
            updatePBI={this.updateBacklog}
            row={this.state.editPBIRow}
            column={this.state.editPBIColumn}
+           height={this.state.backlogColumnStyle.height}
          />
        }else{
          console.log("UNDEFINED______________________");

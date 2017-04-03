@@ -100,14 +100,13 @@ class App extends Component {
     }
     return (
       <div className="App">
-        {content}
+
         <PBIBacklogForm
-   projectName="Greatest Project Ever"
-/>
+   projectName="Greatest Project Ever"/>
       </div>
 
     );
   }
 }
-
+//        {content}
 export default App;

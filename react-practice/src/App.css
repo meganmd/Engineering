@@ -153,13 +153,12 @@ table {
 }
 
 #projectTitleText{
-    color:black;
+    color:#81FAFB;
     width: 100%;
-    text-shadow: 2px 2px 4px white;
     font-size: 60px;
-    margin:4px;
-    border-bottom: 6px solid black;
+    margin: 0px;
     padding-bottom: 0px;
+    text-shadow: 4px 4px #41bAcB
 }
 
 th, td {

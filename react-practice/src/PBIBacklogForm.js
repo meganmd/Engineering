@@ -8,7 +8,7 @@ function GetCardsForColumn(props) {
     var divStyle = {
       position:"absolute",
       background: "#dfdfdf",
-      'box-shadow': '0 0 3px 3px #333333',
+      'box-shadow': '0 0 4px 4px #666666',
       left: "5%",
       top: "50px",
       width: "90%",

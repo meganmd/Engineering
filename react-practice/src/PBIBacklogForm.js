@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Client from './Client'
 import EditPBIForm from './EditPBIForm'
+import CreatePBIForm from './CreatePBIForm'
 
 function GetCardsForColumn(props) {
   var userStories = props.project;
@@ -190,6 +191,8 @@ function PBIBacklogDisplay(props){
     <div id="Backlog">
       <h1>{props.projectName}</h1>
       <div id="board">
+        <button onClick={props.openAddPBI}>Add PBI</button>
+        <button onClick={props.handleLeavePBIBacklogForm}>Back</button>
             <GetCardsForColumn
               backlogColumnStyle={props.backlogColumnStyle}
               updateBoardHeight={props.updateBoardHeight}
@@ -299,17 +302,13 @@ class PBIBacklogForm extends Component {
     this.handlePBIClick = this.handlePBIClick.bind(this);
     this.exitEditPBI = this.exitEditPBI.bind(this);
     this.updateBacklog = this.updateBacklog.bind(this);
+    this.exitAddPBI = this.exitAddPBI.bind(this);
+    this.openAddPBI = this.openAddPBI.bind(this);
     //fetch the user stories from client and populate the state here.
   }
 
   updateTablePBIs(){
-    console.log("Get pbis");
-    console.log("project name: " + this.props.project.name);
     Client.getPBIs(this.props.project.name,(PBIs)=>{
-      console.log(PBIs);
-
-      //this.setState({productbacklog: PBIs});
-
       var productbacklog = [];
       var scrumbacklog = [];
       var todo = [];
@@ -417,8 +416,19 @@ handlePBIClick(e){
   this.setState({editPBI:pbi, editPBIRow:e.target.id, editPBIColumn:e.target.className});
 }
 
+
+
 exitEditPBI(){
   this.setState({editPBI:null});
+}
+
+openAddPBI(){
+  this.setState({addPBI: true});
+}
+
+exitAddPBI(){
+  this.setState({addPBI:false});
+  this.updateTablePBIs();
 }
 
 updateBacklog(newpbi,row,column){
@@ -515,6 +525,14 @@ getColumnNumberByName(name){
        }else{
          console.log("UNDEFINED______________________");
        }
+       var addPBIView;
+       if(this.state.addPBI){
+         addPBIView = <CreatePBIForm
+           projectName={this.props.project.name}
+           exit={this.exitAddPBI}
+           addPBI={Client.addPBI}
+         />
+       }
     return (
       <div className="PBIBacklogDisplay">
           <PBIBacklogDisplay
@@ -530,9 +548,12 @@ getColumnNumberByName(name){
             column4={this.state.inprogress}
             column5={this.state.done}
             onDragExit={this.dragexit}
-            onClick={this.handlePBIClick}/>
+            onClick={this.handlePBIClick}
+            openAddPBI={this.openAddPBI}
+            handleLeavePBIBacklogForm={this.props.handleLeavePBIBacklogForm}/>
 {content}
 {editPBIView}
+{addPBIView}
          </div>
     );
   }

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 
 function PBIFormattedSection(props){
   return(
-    <div className="PBIAutoCategories">
-      As a: <input name="role" type="text" placeholder="Enter Role..."
+    <div className="PBIAutoCategories" padding="5px">
+      As a: <input id="editFormat" width="100%" name="role" type="text"
+        placeholder="Enter Role..."
         onChange={props.handleInputChange} /> <br/>
-      I can: <textarea name="functionality" type="text" placeholder="Enter functionality..."
+      I can: <textarea id="fillparent" name="functionality" type="text"
+        placeholder="Enter functionality..."
         onChange={props.handleInputChange} /> <br/>
-      So that: <textarea name="value" type="text" placeholder="Enter value..."
+      So that: <textarea id="fillparent" name="value" type="text" placeholder="Enter value..."
         onChange={props.handleInputChange} /><br/>
     </div>
   );
@@ -15,22 +17,27 @@ function PBIFormattedSection(props){
 
 function CreatePBIDisplay(props){
   return(
-    <div className="CreatePBI">
-      Description: <textarea name="description" cols="40" rows="2" type="text" placeholder="Enter Description..."
-        onChange={props.handleInputChange} /> <br/>
-      <PBIFormattedSection handleInputChange={props.handleInputChange} />
-      Acceptance Criteria: <textarea name="acceptanceCriteria" type="text"
-        placeholder="Enter Acceptance Criteria..."
-        onChange={props.handleInputChange} /> <br/>
-      Estimate: <select name="estimate" onChange={props.handleInputChange}>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-          <option value="extra-large">Extra-Large</option>
-      </select><br />
-      <button onClick={props.handleCancelClick}>Cancel</button>
-      <button className="createPBIButton" onClick={props.handleCreateClick}>Create PBI</button>
-      <br/> <font color="red">{props.errorMessage}</font>
+    <div id="EditPBIBackground">
+      <div id="EditPBIForm">
+        <div className="CreatePBI">
+          <h3>Create New User Story</h3>
+          Description: <textarea id="fillparent" name="description" cols="40" rows="2" type="text" placeholder="Enter Description..."
+            onChange={props.handleInputChange} /> <br/>
+          <PBIFormattedSection handleInputChange={props.handleInputChange} />
+          Acceptance Criteria: <textarea id="fillparent" name="acceptanceCriteria" type="text"
+            placeholder="Enter Acceptance Criteria..."
+            onChange={props.handleInputChange} /> <br/>
+          Estimate: <select name="estimate" onChange={props.handleInputChange}>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+              <option value="extra-large">Extra-Large</option>
+          </select><br />
+          <button id="editPBIButton" onClick={props.handleCancelClick}>Cancel</button>
+          <button id="editPBIButton" className="createPBIButton" onClick={props.handleCreateClick}>Create PBI</button>
+          <br/> <font color="red">{props.errorMessage}</font>
+        </div>
+      </div>
     </div>
   );
 }
@@ -50,7 +57,7 @@ class CreatePBIForm extends Component {
   }
 
   handleCancelClick(){
-    this.props.leavePBIForm();
+    this.props.exit();
   }
 
   handleCreateClick(){
@@ -64,7 +71,7 @@ class CreatePBIForm extends Component {
       this.props.addPBI(this.state.description, this.state.role,
         this.state.functionality, this.state.value, this.state.acceptanceCriteria,
         this.state.estimate, 1, 1, this.props.projectName);
-      this.props.leavePBIForm();
+      this.props.exit();
       this.setState({errorMessage: ''});
     }
   }

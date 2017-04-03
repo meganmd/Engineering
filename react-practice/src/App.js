@@ -40,7 +40,7 @@ function addUser(username,password,firstName,lastName){
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, loggedInUser: {}, bannerColor: 'black', isCreatingProject: false, currentProject: {},isViewingProject:false};
+    this.state = {isLoggedIn: false, loggedInUser: {}, isCreatingProject: false, currentProject: {},isViewingProject:false};
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
@@ -108,7 +108,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <div className={"App-header-" + this.state.bannerColor}>
+        <div className={"App-header-black"}>
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Scrumtious Scrum Page</h1>
           <h2>{greeting}</h2>

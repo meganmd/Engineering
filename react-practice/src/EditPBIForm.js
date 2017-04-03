@@ -50,7 +50,7 @@ class EditPBIForm extends Component {
     return (
       <div id="EditPBIBackground">
         <div id="EditPBIForm">
-        <h3>User Story</h3>
+        <h3>Edit User Story</h3>
         <h3>Description</h3> <textarea id="fillparent" value={this.state.description}
           name="description" cols="40" rows="2" type="text"
           placeholder="Enter Description..."
@@ -68,8 +68,8 @@ class EditPBIForm extends Component {
               <option value="large">Large</option>
               <option value="extra-large">Extra-Large</option>
           </select><br/> </h3> <br/>
-        <button id="editPBIButton" onClick={this.saveData}>Save</button>
         <button id="editPBIButton" onClick={this.props.exit}>Cancel</button>
+        <button id="editPBIButton" onClick={this.saveData}>Save</button>
         </div>
       </div>
     );

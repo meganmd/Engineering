@@ -52,7 +52,7 @@ class EditPBIForm extends Component {
         this.props.updatePBI(this.props.pbi.id, this.state.description,
           this.state.role, this.state.functionality, this.state.value,
           this.state.acceptanceCriteria, this.state.estimate, function(){});
-        this.props.exit();
+          this.props.exit();
       }
     }
 

@@ -50,7 +50,7 @@ function GetCardsForColumn(props) {
   }
 
   return(
-    <div id={props.columnName} className="999" style={props.backlogColumnStyle} onDrop={props.drop} onDragOver={props.allowDrop}>
+    <div id="999" className={props.columnName} style={props.backlogColumnStyle} onDrop={props.drop} onDragOver={props.allowDrop}>
       <div id="title"><h3>{props.title}</h3></div>
       {content}
     </div>
@@ -290,11 +290,8 @@ class PBIBacklogForm extends Component {
         width: '19.6%',
         height: '280px',
         'overflowY':'scroll',
-  //      border: '2px solid black',
         outline: '0',
       background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
-      //  'box-sizing': 'border-box',
-    //    'border-radius': '10px',
       },
       greenRow:'',
       greenColumn:'todo',
@@ -321,6 +318,7 @@ class PBIBacklogForm extends Component {
     this.exitAddPBI = this.exitAddPBI.bind(this);
     this.openAddPBI = this.openAddPBI.bind(this);
     this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
+    this.updatePBIsForColumn = this.updatePBIsForColumn.bind(this);
     //fetch the user stories from client and populate the state here.
   }
 
@@ -364,12 +362,9 @@ class PBIBacklogForm extends Component {
       position:'absolute',
       width: '19.6%',
       height: e+250,
-    //  border: '2px solid black',
       outline: '0',
       background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
       'boxSizing': 'border-box',
-//      'border-radius': '10px',
-
     }});
   }
 
@@ -429,13 +424,30 @@ isFirstStoryProductBacklogComplete(){
     this.setState({greenColumn:''});
     this.setState({isDragging:false});
     console.log(this.state.possibleDropColumns);
-    if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.id)] === true || this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.className)] === true){
+    if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.className)] === true){
       var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
       this.insert(ev.target.id,ev.target.className,pbi);
+      this.updatePBIsForColumn(ev.dataTransfer.getData('column'),ev.target.className);
     }
 
     //insert for loop here to iterate over the two columns and update their row and column
 }
+
+      updatePBIsForColumn(col1,col2){
+        var column1 = this.getStateByName(col1);
+        var colNum = this.getColumnNumberByName(col1);
+        for(var i=0;i<column1.length; i++){
+          console.log(column1[i].id + "<- id col->" + colNum + " row ->"+i);
+          Client.movePBI(column1[i].id,colNum,i,() => {});
+        }
+
+        var column2 = this.getStateByName(col2);
+        var colNum = this.getColumnNumberByName(col2);
+        for(var i=0;i<column2.length; i++){
+          console.log(column2[i].id + "<- id col->" + colNum + " row ->"+i);
+          Client.movePBI(column2[i].id,colNum,i,() => {});
+        }
+      }
 
 handlePBIClick(e){
   console.log("PBIClicked at column " + e.target.className + " row " + e.target.id );
@@ -474,9 +486,9 @@ insert(row, column, pbi){
   //change to allow multiple columns
   console.log("row = " + row +" column =" + column);
   var backlogArray = [];
-  if(column==="999"){
-    console.log(backlogArray);
-    backlogArray = this.getStateByName(row);
+  if(row==="999"){
+    console.log(column + " <- colll");
+    backlogArray = this.getStateByName(column);
     backlogArray.push(pbi);
     this.setState({[row]:backlogArray});
   }else{

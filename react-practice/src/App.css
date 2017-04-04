@@ -145,27 +145,27 @@ table {
 }
 
 
-#productbacklog
+.productbacklog
 {
   left:.3%;
 }
 
-#inprogress
+.inprogress
 {
   left:60.3%;
 }
 
-#todo
+.todo
 {
   left:40.3%;
 }
 
-#done
+.done
 {
   left:80.3%;
 }
 
-#scrumbacklog
+.scrumbacklog
 {
   left:20.3%;
 }

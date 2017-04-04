@@ -39,7 +39,7 @@ render() {
     tableBody.push(<tr ><th><font color = "blue">Project</font></th><th><font color = "blue">Description</font></th></tr>);
     for(var i = 0; i < this.state.projects.length; i++){
       var clicker = this.fetchProject(this.state.projects[i], this.props.handleProjectSelected);
-      tableBody.push(<tr onClick={clicker}>
+      tableBody.push(<tr onClick={clicker} id="projectTable">
       <td><font color = "black">{this.state.projects[i].name}</font></td>
       <td><title>{'row'+i}</title><font color = "black">{this.state.projects[i].description}</font></td></tr>);}
 
@@ -70,7 +70,7 @@ render() {
 
   return (
     <center>
-      <table>
+      <table id="projectTable">
         {tableBody}
       </table>
     </center>

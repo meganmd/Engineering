@@ -14,21 +14,17 @@ import CreatePBIForm from './CreatePBIForm'
 
 function LogOutButton(props) {
   return (
-    <div>
     <button onClick={props.onClick}>
       Logout
     </button>
-    </div>
   );
 }
 
 function CreateProjectButton(props) {
   return(
-    <div>
       <button onClick={props.createClick}>
         Create Project
       </button>
-    </div>
   );
 }
 
@@ -93,14 +89,16 @@ class App extends Component {
         content.push( <PBIBacklogForm project={this.state.currentProject}
           handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />);
       }else{
-        if(this.state.loggedInUser.firstName == ''){
-          greeting = 'Welcome ' + this.state.loggedInUser.username;
-        }else{
-          greeting = 'Welcome ' + this.state.loggedInUser.firstName + ' ' +
-          this.state.loggedInUser.lastName;
-        }
-        content.push(<div> <LogOutButton onClick={this.handleLogOut} /> <CreateProjectButton createClick={this.handleCreateProject}/> </div>);
-        content.push(<ProjectTable user={this.state.loggedInUser} handleProjectSelected={this.handleProjectSelected}/>);
+        var top =  <h1  id="projectTitleText">
+          <LogOutButton onClick={this.handleLogOut} />
+          {this.state.loggedInUser.firstName + " " + this.state.loggedInUser.lastName}
+         <CreateProjectButton createClick={this.handleCreateProject}/>
+        </h1>
+        content.push(top);
+        var projectTable = <div id="projectHome">
+<ProjectTable user={this.state.loggedInUser} handleProjectSelected={this.handleProjectSelected}/>
+        </div>
+        content.push(projectTable);
       }
     } else {
       greeting = 'Please Login...';

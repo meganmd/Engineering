@@ -204,7 +204,7 @@ drop={props.drop}/>);
 function PBIBacklogDisplay(props){
   return(
     <div id="Backlog">
-      <h1  id="projectTitleText">         <button onClick={props.handleLeavePBIBacklogForm}>Back</button> {props.projectName}         <button onClick={props.openAddPBI}>Add PBI</button></h1>
+      <h1  id="projectTitleText"><button onClick={props.handleLeavePBIBacklogForm}>Back</button> {props.projectName}         <button onClick={props.openAddPBI}>Add PBI</button></h1>
       <div id="board">
 
 

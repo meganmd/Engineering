@@ -288,8 +288,7 @@ class PBIBacklogForm extends Component {
       backlogColumnStyle:{
         position:'absolute',
         width: '19.6%',
-        height: '280px',
-        'overflowY':'scroll',
+        height: '475px',
         outline: '0',
       background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
       },
@@ -420,16 +419,13 @@ isFirstStoryProductBacklogComplete(){
   drop(ev) {
     ev.preventDefault();
     console.log("dropping\nRemoving from Column "+ev.dataTransfer.getData('column') + " row " + ev.dataTransfer.getData('row') + " to column " + ev.target.className + " row " + ev.target.id);
-    this.setState({greenRow:''});
-    this.setState({greenColumn:''});
-    this.setState({isDragging:false});
+    this.setState({greenRow:'',isDragging:false,greenColumn:''});
     console.log(this.state.possibleDropColumns);
     if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.className)] === true){
       var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
       this.insert(ev.target.id,ev.target.className,pbi);
       this.updatePBIsForColumn(ev.dataTransfer.getData('column'),ev.target.className);
     }
-
     //insert for loop here to iterate over the two columns and update their row and column
 }
 
@@ -438,14 +434,14 @@ isFirstStoryProductBacklogComplete(){
         var colNum = this.getColumnNumberByName(col1);
         for(var i=0;i<column1.length; i++){
           console.log(column1[i].id + "<- id col->" + colNum + " row ->"+i);
-          Client.movePBI(column1[i].id,colNum+1,i,() => {});
+          Client.movePBI(column1[i].id,colNum + 1,i+1,function(){});
         }
 
         var column2 = this.getStateByName(col2);
         var colNum = this.getColumnNumberByName(col2);
         for(var i=0;i<column2.length; i++){
           console.log(column2[i].id + "<- id col->" + colNum + " row ->"+i);
-          Client.movePBI(column2[i].id,colNum+1,i,() => {});
+          Client.movePBI(column2[i].id,colNum+1,i+1,function(){});
         }
       }
 

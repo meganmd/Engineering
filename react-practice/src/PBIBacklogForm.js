@@ -438,14 +438,14 @@ isFirstStoryProductBacklogComplete(){
         var colNum = this.getColumnNumberByName(col1);
         for(var i=0;i<column1.length; i++){
           console.log(column1[i].id + "<- id col->" + colNum + " row ->"+i);
-          Client.movePBI(column1[i].id,colNum,i,() => {});
+          Client.movePBI(column1[i].id,colNum+1,i,() => {});
         }
 
         var column2 = this.getStateByName(col2);
         var colNum = this.getColumnNumberByName(col2);
         for(var i=0;i<column2.length; i++){
           console.log(column2[i].id + "<- id col->" + colNum + " row ->"+i);
-          Client.movePBI(column2[i].id,colNum,i,() => {});
+          Client.movePBI(column2[i].id,colNum+1,i,() => {});
         }
       }
 

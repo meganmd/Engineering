@@ -5,31 +5,36 @@ exports[`test renders correctly (incomplete) 1`] = `
     id="Backlog">
     <h1
       id="projectTitleText">
-               
       <button
         onClick={[Function]}>
         Back
       </button>
        
-               
+       
       <button
+        className="halfSizeButton"
         onClick={[Function]}>
         Add PBI
+      </button>
+       
+      <button
+        className="halfSizeButton"
+        onClick={[Function]}>
+        Add User
       </button>
     </h1>
     <div
       id="board">
       <div
-        className="999"
-        id="productbacklog"
+        className="productbacklog"
+        id="999"
         onDragOver={[Function]}
         onDrop={[Function]}
         style={
           Object {
-            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
-            "height": "280px",
+            "background": "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
+            "height": "475px",
             "outline": "0",
-            "overflow-y": "scroll",
             "position": "absolute",
             "width": "19.6%",
           }
@@ -42,16 +47,15 @@ exports[`test renders correctly (incomplete) 1`] = `
         </div>
       </div>
       <div
-        className="999"
-        id="scrumbacklog"
+        className="scrumbacklog"
+        id="999"
         onDragOver={[Function]}
         onDrop={[Function]}
         style={
           Object {
-            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
-            "height": "280px",
+            "background": "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
+            "height": "475px",
             "outline": "0",
-            "overflow-y": "scroll",
             "position": "absolute",
             "width": "19.6%",
           }
@@ -64,16 +68,15 @@ exports[`test renders correctly (incomplete) 1`] = `
         </div>
       </div>
       <div
-        className="999"
-        id="todo"
+        className="todo"
+        id="999"
         onDragOver={[Function]}
         onDrop={[Function]}
         style={
           Object {
-            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
-            "height": "280px",
+            "background": "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
+            "height": "475px",
             "outline": "0",
-            "overflow-y": "scroll",
             "position": "absolute",
             "width": "19.6%",
           }
@@ -86,16 +89,15 @@ exports[`test renders correctly (incomplete) 1`] = `
         </div>
       </div>
       <div
-        className="999"
-        id="inprogress"
+        className="inprogress"
+        id="999"
         onDragOver={[Function]}
         onDrop={[Function]}
         style={
           Object {
-            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
-            "height": "280px",
+            "background": "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
+            "height": "475px",
             "outline": "0",
-            "overflow-y": "scroll",
             "position": "absolute",
             "width": "19.6%",
           }
@@ -108,16 +110,15 @@ exports[`test renders correctly (incomplete) 1`] = `
         </div>
       </div>
       <div
-        className="999"
-        id="done"
+        className="done"
+        id="999"
         onDragOver={[Function]}
         onDrop={[Function]}
         style={
           Object {
-            "background": "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
-            "height": "280px",
+            "background": "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
+            "height": "475px",
             "outline": "0",
-            "overflow-y": "scroll",
             "position": "absolute",
             "width": "19.6%",
           }

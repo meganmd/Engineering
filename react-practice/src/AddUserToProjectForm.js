@@ -3,13 +3,14 @@ import Client from './Client'
 
 function AddUserDisplay(props){
   return(
-    <div id="EditPBIBackground">
-      <div id="EditPBIForm">
+    <div id="AddUserBackground">
+      <div id="AddUserForm">
         <div className="CreateProject">
            Username*<br/>
           <input type="text" placeholder="Enter Username ... "
             onChange={props.handleUserNameChange}/> <br/>
           <font color="red">{props.errorMessage}</font> <br/>
+          <button onClick={props.handleBackButton}>Cancel</button>
           <button className="inviteUserToProjectButton" onClick={props.handleInviteUserClick}>Invite!</button>
         </div>
       </div>
@@ -60,6 +61,7 @@ class AddUserToProjectForm extends Component {
             handleUserNameChange={this.handleUserNameChange}
             handleInviteUserClick={this.handleInviteUserClick}
             errorMessage={this.state.errorMessage}
+            handleBackButton={this.props.handleAddUserComplete}
           />
       </div>
     );

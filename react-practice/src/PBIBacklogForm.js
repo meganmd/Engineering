@@ -588,7 +588,7 @@ getColumnNumberByName(name){
        var addUserView;
        if(this.state.addUser){
          addUserView = <AddUserToProjectForm project={this.props.project.name}
-           handleAddUserComplete={this.exitAddUser} />
+           handleAddUserComplete={this.exitAddUser}/>
        }
 
     return (

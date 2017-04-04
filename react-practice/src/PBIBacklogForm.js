@@ -316,6 +316,7 @@ class PBIBacklogForm extends Component {
     this.exitEditPBI = this.exitEditPBI.bind(this);
     // this.updateBacklog = this.updateBacklog.bind(this);
     this.exitAddPBI = this.exitAddPBI.bind(this);
+    this.addPBIComplete = this.addPBIComplete.bind(this);
     this.openAddPBI = this.openAddPBI.bind(this);
     this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
     this.updatePBIsForColumn = this.updatePBIsForColumn.bind(this);
@@ -438,13 +439,15 @@ isFirstStoryProductBacklogComplete(){
           console.log(column1[i].id + "<- id col->" + colNum + " row ->"+i);
           Client.movePBI(column1[i].id,colNum + 1,i+1,function(){});
         }
-
-        var column2 = this.getStateByName(col2);
-        var colNum = this.getColumnNumberByName(col2);
-        for(var i=0;i<column2.length; i++){
-          console.log(column2[i].id + "<- id col->" + colNum + " row ->"+i);
-          Client.movePBI(column2[i].id,colNum+1,i+1,function(){});
+        if(col1 != col2){
+          var column2 = this.getStateByName(col2);
+          var colNum = this.getColumnNumberByName(col2);
+          for(var i=0;i<column2.length; i++){
+            console.log(column2[i].id + "<- id col->" + colNum + " row ->"+i);
+            Client.movePBI(column2[i].id,colNum+1,i+1,function(){});
+          }
         }
+
       }
 
 handlePBIClick(e){
@@ -453,8 +456,6 @@ handlePBIClick(e){
   this.setState({editPBI:pbi, editPBIRow:e.target.id, editPBIColumn:e.target.className});
 }
 
-
-
 exitEditPBI(){
   this.setState({editPBI:null});
   this.updateTablePBIs();
@@ -462,6 +463,18 @@ exitEditPBI(){
 
 openAddPBI(){
   this.setState({addPBI: true});
+}
+
+addPBIComplete(){
+  this.setState({addPBI:false});
+  for(var i = 0; i < this.state.productbacklog.length; i++){
+    var id = this.state.productbacklog[i].id;
+    var column = this.state.productbacklog[i].columnNumber;
+    var row = this.state.productbacklog[i].rowNumber;
+    //Move them all down 1 row
+    Client.movePBI(id,column, row+1,function(){});
+  }
+  this.exitAddPBI();
 }
 
 exitAddPBI(){
@@ -582,6 +595,7 @@ getColumnNumberByName(name){
          addPBIView = <CreatePBIForm
            projectName={this.props.project.name}
            exit={this.exitAddPBI}
+           addPBIComplete={this.addPBIComplete}
            addPBI={Client.addPBI}
          />
        }

@@ -224,7 +224,7 @@ app.post('/api/editPBI', function(request, response) {
 })
 
 app.post('/api/movePBI', function(request, response) {
-  console.log("Moving PBI...");
+  console.log("Moving PBI " + request.body.id + " to " + request.body.columnNumber + " | " + request.body.rowNumber);
   data.moveProductBackLogItem(
     request.body.id, request.body.columnNumber, request.body.rowNumber,
     function(error){

@@ -419,16 +419,13 @@ isFirstStoryProductBacklogComplete(){
   drop(ev) {
     ev.preventDefault();
     console.log("dropping\nRemoving from Column "+ev.dataTransfer.getData('column') + " row " + ev.dataTransfer.getData('row') + " to column " + ev.target.className + " row " + ev.target.id);
-    this.setState({greenRow:''});
-    this.setState({greenColumn:''});
-    this.setState({isDragging:false});
+    this.setState({greenRow:'',isDragging:false,greenColumn:''});
     console.log(this.state.possibleDropColumns);
     if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.className)] === true){
       var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
       this.insert(ev.target.id,ev.target.className,pbi);
       this.updatePBIsForColumn(ev.dataTransfer.getData('column'),ev.target.className);
     }
-
     //insert for loop here to iterate over the two columns and update their row and column
 }
 

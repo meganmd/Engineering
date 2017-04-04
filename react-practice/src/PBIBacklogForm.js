@@ -288,8 +288,7 @@ class PBIBacklogForm extends Component {
       backlogColumnStyle:{
         position:'absolute',
         width: '19.6%',
-        height: '280px',
-        'overflowY':'scroll',
+        height: '475px',
         outline: '0',
       background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
       },
@@ -438,14 +437,14 @@ isFirstStoryProductBacklogComplete(){
         var colNum = this.getColumnNumberByName(col1);
         for(var i=0;i<column1.length; i++){
           console.log(column1[i].id + "<- id col->" + colNum + " row ->"+i);
-          Client.movePBI(column1[i].id,colNum,i,() => {});
+          Client.movePBI(column1[i].id,colNum,i,function(){});
         }
 
         var column2 = this.getStateByName(col2);
         var colNum = this.getColumnNumberByName(col2);
         for(var i=0;i<column2.length; i++){
           console.log(column2[i].id + "<- id col->" + colNum + " row ->"+i);
-          Client.movePBI(column2[i].id,colNum,i,() => {});
+          Client.movePBI(column2[i].id,colNum,i,function(){});
         }
       }
 

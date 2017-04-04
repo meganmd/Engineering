@@ -87,6 +87,10 @@ table {
   margin-top: 20px;
 }
 
+.halfSizeButton{
+  width: 20%;
+}
+
 #EditPBIBackground{
   position: absolute;
   left: 0;
@@ -94,6 +98,16 @@ table {
   background: #555555dd;
   width: 100%;
   min-height: 760px;
+  height: 0;
+}
+
+#AddUserBackground{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #555555dd;
+  width: 100%;
+  min-height: 200px;
   height: 0;
 }
 
@@ -114,7 +128,7 @@ table {
   left: 25%;
   top: 20px;
   background: #FFFFFF;
-  height: 700px;
+  height: 200px;
   width: 45%;
   border-radius: 15px;
   border: 2px solid black;

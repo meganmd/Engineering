@@ -33,8 +33,8 @@ class CreateProjectForm extends Component {
           this.setState({errorMessage: 'Project name already taken'});
           return;
         } else{
-          Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
           Client.addUserToProject(this.props.user.username, this.state.projectTitle, function(){});
+          Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
           this.props.handleProjectComplete();
         }
       });

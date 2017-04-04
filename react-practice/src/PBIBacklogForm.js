@@ -65,7 +65,7 @@ function DropZoneColumn(props){
   background: "linear-gradient(#99CEFA00, #FFFFFF00)",
   width: "19.4%",
   left: props.left,
-  top:"140px",
+  top:"166px",
   height:"50px",
 }
 
@@ -129,7 +129,7 @@ function DropZones(props){
     console.log("getting in here");
     content.push(<DropZoneColumn
             length={lengths[0]}
-          left=".4%"
+          left=".3%"
         greenRow={props.greenRow}
       onDragEnter={props.onDragEnter}
     onDragLeave={props.onDragLeave}
@@ -142,7 +142,7 @@ function DropZones(props){
   if(props.possibleDropColumns[1]===true){
     content.push( <DropZoneColumn
             length={lengths[1]}
-          left="20.4%"
+          left="20.3%"
         greenRow={props.greenRow}
         onDragEnter={props.onDragEnter}
       onDragLeave={props.onDragLeave}
@@ -156,7 +156,7 @@ function DropZones(props){
     content.push(
     <DropZoneColumn
       length={lengths[2]}
-    left="40.4%"
+    left="40.3%"
   greenRow={props.greenRow}
   onDragEnter={props.onDragEnter}
 onDragLeave={props.onDragLeave}
@@ -170,7 +170,7 @@ drop={props.drop}/>
   if(props.possibleDropColumns[3]===true){
     content.push(<DropZoneColumn
       length={lengths[3]}
-    left="60.4%"
+    left="60.3%"
     greenRow={props.greenRow}
     onDragEnter={props.onDragEnter}
     onDragLeave={props.onDragLeave}
@@ -183,7 +183,7 @@ drop={props.drop}/>
     if(props.possibleDropColumns[4]===true){
 content.push(<DropZoneColumn
   length={lengths[4]}
-left="80.4%"
+left="80.3%"
 greenRow={props.greenRow}
 onDragEnter={props.onDragEnter}
 onDragLeave={props.onDragLeave}
@@ -292,7 +292,7 @@ class PBIBacklogForm extends Component {
         'overflowY':'scroll',
   //      border: '2px solid black',
         outline: '0',
-        background: "linear-gradient(-90deg , #DDDDDDDD, #DDDDDD11)",
+      background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
       //  'box-sizing': 'border-box',
     //    'border-radius': '10px',
       },
@@ -320,6 +320,7 @@ class PBIBacklogForm extends Component {
     // this.updateBacklog = this.updateBacklog.bind(this);
     this.exitAddPBI = this.exitAddPBI.bind(this);
     this.openAddPBI = this.openAddPBI.bind(this);
+    this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
     //fetch the user stories from client and populate the state here.
   }
 
@@ -365,7 +366,7 @@ class PBIBacklogForm extends Component {
       height: e+250,
     //  border: '2px solid black',
       outline: '0',
-      background: "linear-gradient(-90deg ,#DDDDDD99, #DDDDDDDD, #DDDDDD99)",
+      background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
       'boxSizing': 'border-box',
 //      'border-radius': '10px',
 
@@ -376,19 +377,28 @@ class PBIBacklogForm extends Component {
       ev.preventDefault();
   }
 
+isFirstStoryProductBacklogComplete(){
+  var pbi = this.getStateByName("productbacklog")[0];
+  if(pbi.role != '' && pbi.functionality != '' && pbi.value != '' && pbi.acceptanceCriteria != ''){
+        console.log("return true");
+    return true;
+  }
+  return false;
+}
+
   drag(ev) {
 
     var column = ev.target.className;
     var row = ev.target.id;
     ev.dataTransfer.setData("column", column);
     ev.dataTransfer.setData("row", row);
-    var droppableColumns = [true,true,true,true,true];
-  if(column==="productbacklog" && row==="0"){
+    var droppableColumns = [false,false,false,false,false];
+  if(column==="productbacklog" && row==="0" && this.isFirstStoryProductBacklogComplete()){
     droppableColumns = [true,true,false,false,false];
   }else if(column==="productbacklog"){
     droppableColumns = [true,false,false,false,false];
-  }else if(column==="todo" || column ==="inprogress" || column==="done"){
-    droppableColumns = [false,false,true,true,true];
+  }else if(column==="scrumbacklog"){
+    droppableColumns = [true,true,false,false,false];
   }
 
    this.setState({isDragging:true,possibleDropColumns:droppableColumns});
@@ -418,6 +428,7 @@ class PBIBacklogForm extends Component {
     this.setState({greenRow:''});
     this.setState({greenColumn:''});
     this.setState({isDragging:false});
+    console.log(this.state.possibleDropColumns);
     if(this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.id)] === true || this.state.possibleDropColumns[this.getColumnNumberByName(ev.target.className)] === true){
       var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
       this.insert(ev.target.id,ev.target.className,pbi);

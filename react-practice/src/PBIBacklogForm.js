@@ -66,7 +66,7 @@ function DropZoneColumn(props){
   background: "linear-gradient(#99CEFA00, #FFFFFF00)",
   width: "19.4%",
   left: props.left,
-  top:"166px",
+  top:"160px",
   height:"50px",
 }
 
@@ -205,7 +205,12 @@ drop={props.drop}/>);
 function PBIBacklogDisplay(props){
   return(
     <div id="Backlog">
-      <h1  id="projectTitleText"><button onClick={props.handleLeavePBIBacklogForm}>Back</button> {props.projectName} <button className="halfSizeButton" onClick={props.openAddPBI}>Add PBI</button> <button className="halfSizeButton" onClick={props.openAddUser}>Add User</button></h1>
+      <h1  id="projectTitleText">
+        <button className="halfSizeButton" Click={props.handleLeavePBIBacklogForm}>Back</button>
+        {props.projectName}
+        <button className="halfSizeButton" onClick={props.openAddPBI}>Add PBI</button>
+        <button className="halfSizeButton" onClick={props.openAddUser}>Add User</button>
+      </h1>
       <div id="board">
 
 

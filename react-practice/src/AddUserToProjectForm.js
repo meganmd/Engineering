@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Client from './Client'
 
 function AddUserDisplay(props){
+      console.log((props.divStyle.height +100) + "secondary");
   return(
     <div style={props.divStyle}>
       <div id="AddUserForm">
@@ -25,13 +26,15 @@ class AddUserToProjectForm extends Component {
     this.state = {username: '', errorMessage: '', project: this.props.project};
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handleInviteUserClick = this.handleInviteUserClick.bind(this);
+    var height = parseInt(props.height) + 125;
+        console.log(height + "initial");
     this.divStyle = {
       position: 'absolute',
       left: '0',
       top: '0',
       background: '#555555dd',
       width: '100%',
-      height: props.height+100,
+      'height': height,
     }
   }
 

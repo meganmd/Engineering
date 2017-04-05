@@ -17,7 +17,6 @@ function GetCardsForColumn(props) {
       top: "50px",
       width: "90%",
       'minHeight': "100px",
-    //  'border-radius':"15px",
       columnColor: "#"
     }
     divStyle.top = (i*125)+75;
@@ -619,7 +618,7 @@ getColumnNumberByName(name){
         <button className="halfSizeButton" onClick={this.openAddPBI}>Add PBI</button>
         <button className="halfSizeButton" onClick={this.openAddUser}>Add User</button>
       </h1>
-<ReactNotify ref='notificator'/>
+         <ReactNotify ref='notificator'/>
           <PBIBacklogDisplay
             backlogColumnStyle={this.state.backlogColumnStyle}
             projectName={this.props.project.name}

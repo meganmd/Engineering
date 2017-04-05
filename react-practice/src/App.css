@@ -145,7 +145,7 @@ table {
   background: #FFFFFF;
   height: 700px;
   width: 45%;
-  border-radius: 15px;
+  box-shadow: 0 0 10px 0 rgb(15,15,15);
   border: 2px solid black;
   padding-left: 2%;
   padding-right: 2%;
@@ -155,15 +155,15 @@ table {
 #AddUserForm{
   position: absolute;
   left: 25%;
-  top: 20px;
+  top: 30%;
   background: #FFFFFF;
   height: 200px;
   width: 45%;
-  border-radius: 15px;
+  box-shadow: 0 0 10px 0 rgb(15,15,15);
   border: 2px solid black;
   padding-left: 2%;
   padding-right: 2%;
-  padding-bottom: 2%;
+  padding-top: 2%;
 }
 
 #editheader{
@@ -369,8 +369,9 @@ textarea{
   margin-bottom: 5px;
   font-family: 'Lora',serif;
   font-weight: bold;
-  background-color: #F44336
+  background-color: #FF1100;
 }
+
 
 /*
 this creates a cool shadow effect

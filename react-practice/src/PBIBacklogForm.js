@@ -3,6 +3,7 @@ import Client from './Client'
 import EditPBIForm from './EditPBIForm'
 import CreatePBIForm from './CreatePBIForm'
 import AddUserToProjectForm from './AddUserToProjectForm'
+import ReactNotify from 'react-notify'
 
 function GetCardsForColumn(props) {
   var userStories = props.project;
@@ -205,12 +206,6 @@ drop={props.drop}/>);
 function PBIBacklogDisplay(props){
   return(
     <div id="Backlog">
-      <h1  id="projectTitleText">
-        <button className="halfSizeButton" onClick={props.handleLeavePBIBacklogForm}>Back</button>
-        {props.projectName}
-        <button className="halfSizeButton" onClick={props.openAddPBI}>Add PBI</button>
-        <button className="halfSizeButton" onClick={props.openAddUser}>Add User</button>
-      </h1>
       <div id="board">
 
 
@@ -433,6 +428,8 @@ isFirstStoryProductBacklogComplete(){
       var pbi = this.remove(ev.dataTransfer.getData('row'),ev.dataTransfer.getData('column'));
       this.insert(ev.target.id,ev.target.className,pbi);
       this.updatePBIsForColumn(ev.dataTransfer.getData('column'),ev.target.className);
+    }else{
+      this.refs.notificator.success("Error","You cannot place that card there!!",4000);
     }
     //insert for loop here to iterate over the two columns and update their row and column
 }
@@ -616,6 +613,13 @@ getColumnNumberByName(name){
 
     return (
       <div className="PBIBacklogDisplay">
+      <h1  id="projectTitleText">
+        <button className="halfSizeButton" onClick={this.props.handleLeavePBIBacklogForm}>Back</button>
+        {this.props.project.name}
+        <button className="halfSizeButton" onClick={this.openAddPBI}>Add PBI</button>
+        <button className="halfSizeButton" onClick={this.openAddUser}>Add User</button>
+      </h1>
+<ReactNotify ref='notificator'/>
           <PBIBacklogDisplay
             backlogColumnStyle={this.state.backlogColumnStyle}
             projectName={this.props.project.name}

@@ -358,3 +358,33 @@ textarea{
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.notify-container{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin-bottom: 5px;
+  font-family: 'Lora',serif;
+  font-weight: bold;
+  background-color: #F44336
+}
+
+/*
+this creates a cool shadow effect
+.notify-item:hover{
+  box-shadow: 0 0 10px 0 rgb(15,15,15);
+}
+*/
+
+.notify-item{
+  margin-left: 25%;
+  width: 50%;
+  color: #FFF;
+}
+
+.notify-item.error{
+
+}

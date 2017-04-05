@@ -1,28 +1,28 @@
 exports[`test renders correctly (incomplete) 1`] = `
 <div
   className="PBIBacklogDisplay">
+  <h1
+    id="projectTitleText">
+    <button
+      className="halfSizeButton"
+      onClick={[Function]}>
+      Back
+    </button>
+    <button
+      className="halfSizeButton"
+      onClick={[Function]}>
+      Add PBI
+    </button>
+    <button
+      className="halfSizeButton"
+      onClick={[Function]}>
+      Add User
+    </button>
+  </h1>
+  <div
+    className="notify-container" />
   <div
     id="Backlog">
-    <h1
-      id="projectTitleText">
-      <button
-        onClick={[Function]}>
-        Back
-      </button>
-       
-       
-      <button
-        className="halfSizeButton"
-        onClick={[Function]}>
-        Add PBI
-      </button>
-       
-      <button
-        className="halfSizeButton"
-        onClick={[Function]}>
-        Add User
-      </button>
-    </h1>
     <div
       id="board">
       <div

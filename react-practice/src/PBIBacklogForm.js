@@ -602,12 +602,16 @@ getColumnNumberByName(name){
            exit={this.exitAddPBI}
            addPBIComplete={this.addPBIComplete}
            addPBI={Client.addPBI}
+           height={this.state.backlogColumnStyle.height}
+          //add in height here
          />
        }
        var addUserView;
        if(this.state.addUser){
          addUserView = <AddUserToProjectForm project={this.props.project.name}
-           handleAddUserComplete={this.exitAddUser}/>
+           handleAddUserComplete={this.exitAddUser}
+           height={this.state.backlogColumnStyle.height}/>
+           //add in board height here/>
        }
 
     return (

@@ -3,7 +3,7 @@ import Client from './Client'
 
 function AddUserDisplay(props){
   return(
-    <div id="AddUserBackground">
+    <div style={props.divStyle}>
       <div id="AddUserForm">
         <div className="CreateProject">
            Username*<br/>
@@ -25,6 +25,14 @@ class AddUserToProjectForm extends Component {
     this.state = {username: '', errorMessage: '', project: this.props.project};
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handleInviteUserClick = this.handleInviteUserClick.bind(this);
+    this.divStyle = {
+      position: 'absolute',
+      left: '0',
+      top: '0',
+      background: '#555555dd',
+      width: '100%',
+      height: props.height+100,
+    }
   }
 
   handleUserNameChange(e){
@@ -62,6 +70,7 @@ class AddUserToProjectForm extends Component {
             handleInviteUserClick={this.handleInviteUserClick}
             errorMessage={this.state.errorMessage}
             handleBackButton={this.props.handleAddUserComplete}
+            divStyle={this.divStyle}
           />
       </div>
     );

@@ -206,7 +206,7 @@ function PBIBacklogDisplay(props){
   return(
     <div id="Backlog">
       <h1  id="projectTitleText">
-        <button className="halfSizeButton" Click={props.handleLeavePBIBacklogForm}>Back</button>
+        <button className="halfSizeButton" onClick={props.handleLeavePBIBacklogForm}>Back</button>
         {props.projectName}
         <button className="halfSizeButton" onClick={props.openAddPBI}>Add PBI</button>
         <button className="halfSizeButton" onClick={props.openAddUser}>Add User</button>

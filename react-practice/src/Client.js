@@ -72,7 +72,7 @@ function addProject(name, description, cb) {
     .then(cb);
 }
 
-function addUserToProject(username, projectName, cb) {
+function addUserToProject(username, projectName, role, cb) {
   return fetch('api/addUserToProject', {
     headers: {
       'Accept': 'application/json',
@@ -81,7 +81,8 @@ function addUserToProject(username, projectName, cb) {
     method: "POST",
     body: JSON.stringify({
       username: username,
-      projectName: projectName
+      projectName: projectName,
+      role: role
     })
   }).then(checkStatus)
     .then(cb);

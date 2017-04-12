@@ -85,6 +85,7 @@ app.post('/api/addUserToProject', function(request, response) {
   data.addUserProjectConnection(
     request.body.username,
     request.body.projectName,
+    request.body.role,
     function(error) {
       if(error) {
         response.status(400).send("project name not unique!");               ///this isnt happening

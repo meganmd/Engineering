@@ -53,7 +53,7 @@ test('EditPBIForm does not call updatePBI if the description AND value field are
   expect(updatePBI).toHaveBeenCalledTimes(0);
 });
 
-test('EditPBIForm does not call updatePBI if the acceptanceCriteria field is empty', () => {
+test('EditPBIForm does not call updatePBI if the description and acceptanceCriteria field is empty', () => {
   const updatePBI = jest.fn();
   var height = 0;
   var row = 0;
@@ -63,13 +63,29 @@ test('EditPBIForm does not call updatePBI if the acceptanceCriteria field is emp
     <EditPBIForm updatePBI={updatePBI} height={height} pbi={pbi} row={row} column={column} />
   );
 
-  wrapper.setState({description: 'desc', role:'role', functionality:'functionality', value:'value', acceptanceCriteria:'', estimate:'small'});
+  wrapper.setState({description: '', role:'role', functionality:'functionality', value:'value', acceptanceCriteria:'', estimate:'small'});
   const p = wrapper.find('.savePBIButton');
   p.simulate('click');
   expect(updatePBI).toHaveBeenCalledTimes(0);
 });
 
-test('EditPBIForm DOES call updatePBI if the description (but not role, functionality, or value), and acceptance criteria are filled', () => {
+test('EditPBIForm does not call updatePBI if the description is empty and estimate is unselected', () => {
+  const updatePBI = jest.fn();
+  var height = 0;
+  var row = 0;
+  var column = 0;
+  var pbi = {description: '', role:'', functionality:'', value:'', acceptanceCriteria:'', estimate:''};
+  const wrapper = mount(
+    <EditPBIForm updatePBI={updatePBI} height={height} pbi={pbi} row={row} column={column} />
+  );
+
+  wrapper.setState({description: '', role:'role', functionality:'functionality', value:'value', acceptanceCriteria:'AC', estimate:'unselected'});
+  const p = wrapper.find('.savePBIButton');
+  p.simulate('click');
+  expect(updatePBI).toHaveBeenCalledTimes(0);
+});
+
+test('EditPBIForm DOES call updatePBI if the description is filled,', () => {
   const updatePBI = jest.fn();
   var height = 0;
   var row = 0;
@@ -80,14 +96,14 @@ test('EditPBIForm DOES call updatePBI if the description (but not role, function
     <EditPBIForm updatePBI={updatePBI} height={height} pbi={pbi} row={row} column={column} exit={exit}/>
   );
 
-  wrapper.setState({description: 'desc', role:'', functionality:'', value:'', acceptanceCriteria:'AC', estimate:'small'});
+  wrapper.setState({description: 'desc', role:'', functionality:'', value:'', acceptanceCriteria:'', estimate:'unselected'});
   const p = wrapper.find('.savePBIButton');
   p.simulate('click');
   expect(updatePBI).toHaveBeenCalledTimes(1);
   expect(exit).toHaveBeenCalledTimes(1);
 });
 
-test('EditPBIForm DOES call updatePBI if the role, value and functionality (but not description), and acceptance criteria are filled', () => {
+test('EditPBIForm DOES call updatePBI if the role, value and functionality (but not description), and acceptance criteria and estimate are filled', () => {
   const updatePBI = jest.fn();
   var height = 0;
   var row = 0;

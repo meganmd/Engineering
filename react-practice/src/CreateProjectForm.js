@@ -35,6 +35,7 @@ class CreateProjectForm extends Component {
         } else{
           Client.addUserToProject(this.props.user.username, this.state.projectTitle, "development team member" , function(){});
           Client.addProject(this.state.projectTitle, this.state.descriptionField, function(){});
+          Client.acceptProjectInvitation(this.props.user.username, this.state.projectTitle, function(){});
           this.props.handleProjectComplete();
         }
       });

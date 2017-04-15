@@ -7,6 +7,7 @@ module.exports = class database {
 
   initialize(cb) {
     this.db.serialize(() => {
+
       this.db.run("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, firstName TEXT, lastName TEXT)");
       this.db.run("CREATE TABLE IF NOT EXISTS projects (name TEXT PRIMARY KEY, description TEXT)");
       this.db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT, role TEXT, accepted INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(username, projectName), FOREIGN KEY(projectName) REFERENCES projects(name), FOREIGN KEY(username) REFERENCES users(username))");
@@ -88,11 +89,11 @@ module.exports = class database {
   }
 
   acceptProject(username, projectName, cb){
-    this.db.run("UPDATE userProjects SET accepted = 1 WHERE username = ? AND projectName = ?", username, projectName, cb);
+    this.db.run("UPDATE userProjects SET accepted = ? where username = ? and projectName = ?", 1, username,  projectName, cb);
   }
 
   deleteUserProjectConnection(username, projectName, cb) {
-    this.db.run("DELETE from userProjects where username = ? AND projectName = ?", username, projectName, cb);
+    this.db.run("DELETE from userProjects WHERE username = ? AND projectName = ?", username, projectName, cb);
   }
 
   listProductBacklogItemsTable(cb){

@@ -128,7 +128,7 @@ function getUserFromProject(uid,pid, cb){
     .then(cb);
 }
 
-function acceptProjectInvitation(username, projectTitle, cb){
+function acceptProjectInvitation(username, projectName, cb){
   return fetch('api/acceptProjectInvitation', {
     headers: {
       'Accept': 'application/json',
@@ -137,7 +137,7 @@ function acceptProjectInvitation(username, projectTitle, cb){
     method: "POST",
     body: JSON.stringify({
       username: username,
-      projectTitle: projectTitle
+      projectName: projectName
     })
   }).then(checkStatus)
     .then(cb);

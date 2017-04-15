@@ -63,14 +63,15 @@ test('AddUserToProjectForm DOES call addUserToProject if getUserFromProject retu
   const handleAddUserComplete = jest.fn();
 
   const wrapper = mount(
-    <AddUserToProjectForm handleAddUserComplete={handleAddUserComplete}/>
+    <AddUserToProjectForm handleAddUserComplete={handleAddUserComplete} project={"someTitle"}/>
   );
 
-  wrapper.setState({username: 'someUser'});
+  wrapper.setState({username: 'someUser', role:"product owner"});
   const p = wrapper.find('.inviteUserToProjectButton');
   p.simulate('click');
   expect(Client.getUser).toHaveBeenCalledTimes(1);
   expect(Client.getUserFromProject).toHaveBeenCalledTimes(1);
   expect(Client.addUserToProject).toHaveBeenCalledTimes(1);
+  expect(Client.addUserToProject).toHaveBeenCalledWith("someUser", "someTitle", "product owner", expect.anything());
   expect(handleAddUserComplete).toHaveBeenCalledTimes(1);
 });

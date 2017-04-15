@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Client from './Client'
 
 function AddUserDisplay(props){
-      console.log((props.divStyle.height +100) + "secondary");
+      //console.log((props.divStyle.height +100) + "secondary");
   return(
     <div style={props.divStyle}>
       <div id="AddUserForm">
@@ -31,7 +31,7 @@ class AddUserToProjectForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleInviteUserClick = this.handleInviteUserClick.bind(this);
     var height = parseInt(props.height) + 125;
-        console.log(height + "initial");
+        //console.log(height + "initial");
     this.divStyle = {
       position: 'absolute',
       left: '0',
@@ -47,7 +47,7 @@ class AddUserToProjectForm extends Component {
   }
 
   handleInviteUserClick(){
-    console.log("handling the user click");
+    //console.log("handling the user click");
     if(this.state.username.length === 0){
       this.setState({errorMessage: 'Please enter in a user to invite'});
       return;

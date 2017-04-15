@@ -39,10 +39,10 @@ class EditPBIForm extends Component {
       top: '0',
       background: '#555555dd',
       width: '100%',
-      'min-height': '760px',
+      'minHeight': '760px',
       height: props.height+75,
     };
-    console.log(props.height+ "<- should be");
+    //console.log(props.height+ "<- should be");
     this.handleInputChange = this.handleInputChange.bind(this);
     this.saveData = this.saveData.bind(this);
     }
@@ -55,7 +55,7 @@ class EditPBIForm extends Component {
       if(this.state.description === '' && (this.state.role === '' || this.state.functionality === '' || this.state.value === '' || this.state.acceptanceCriteria === '' || this.state.estimate === 'unselected')){
         this.setState({errorMessage: 'Must have description OR role, functionality, value, acceptance criteria, and estimate'});
       } else{
-        console.log("Saving data");
+        //console.log("Saving data");
         this.props.updatePBI(this.props.pbi.id, this.state.description,
           this.state.role, this.state.functionality, this.state.value,
           this.state.acceptanceCriteria, this.state.estimate, function(){});

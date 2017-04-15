@@ -9,7 +9,7 @@ module.exports = class database {
     this.db.serialize(() => {
       this.db.run("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, firstName TEXT, lastName TEXT)");
       this.db.run("CREATE TABLE IF NOT EXISTS projects (name TEXT PRIMARY KEY, description TEXT)");
-      this.db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT, role TEXT, PRIMARY KEY(username, projectName), FOREIGN KEY(projectName) REFERENCES projects(name), FOREIGN KEY(username) REFERENCES users(username))");
+      this.db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT, role TEXT, accepted INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(username, projectName), FOREIGN KEY(projectName) REFERENCES projects(name), FOREIGN KEY(username) REFERENCES users(username))");
 
       //Uses foreign key in projects table
       this.db.run("CREATE TABLE IF NOT EXISTS productBacklogItems (id INTEGER PRIMARY KEY, description TEXT, role TEXT, functionality TEXT, value TEXT, acceptanceCriteria TEXT, estimate TEXT, columnNumber INT, rowNumber INT, project TEXT, FOREIGN KEY(project) REFERENCES projects(name))");
@@ -85,6 +85,14 @@ module.exports = class database {
 
   getProjectsByUser(username, cb){
     this.db.all("SELECT * FROM userProjects INNER JOIN projects ON projects.name = userProjects.projectName WHERE username = ?",username, cb)
+  }
+
+  acceptProject(username, projectName, cb){
+    this.db.run("UPDATE userProjects SET accepted = 1 WHERE username = ? AND projectName = ?", username, projectName, cb);
+  }
+
+  deleteUserProjectConnection(username, projectName, cb) {
+    this.db.run("DELETE from userProjects where username = ? AND projectName = ?", username, projectName, cb);
   }
 
   listProductBacklogItemsTable(cb){

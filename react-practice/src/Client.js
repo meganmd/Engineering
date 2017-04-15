@@ -128,6 +128,36 @@ function getUserFromProject(uid,pid, cb){
     .then(cb);
 }
 
+function acceptProjectInvitation(username, projectTitle, cb){
+  return fetch('api/acceptProjectInvitation', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: username,
+      projectTitle: projectTitle
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
+function rejectProjectInvitation(username, projectTitle, cb){
+  return fetch('api/rejectProjectInvitation', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: username,
+      projectTitle: projectTitle
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
 function getPBIs(project,cb){
   return fetch(`api/pbis?project=${project}`, {
     accept: 'application/json',
@@ -222,5 +252,5 @@ function parseJSON(response) {
 const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getProject, getProjectsByUser, getProjects, listProjectUsersTable,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
-  editPBI, movePBI};
+  editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation};
 export default Client;

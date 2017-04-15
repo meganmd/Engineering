@@ -141,6 +141,32 @@ app.get('/api/project', function(request,response){
   })
 })
 
+app.get('/api/acceptProjectInvitation', function(request, response) {
+  console.log("Accepting..." + request.body.projectName);
+  data.acceptProject(request.body.username, request.body.projectName,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in accepting project");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+  })
+})
+
+app.get('/api/rejectProjectInvitation', function(request, response) {
+  console.log("Rejecting..." + request.body.projectName);
+  data.deleteUserProjectConnection(request.body.username, request.body.projectName,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in rejecting project");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+  })
+})
+
 app.post('/api/deleteUser', function(request, response) {
   console.log("Deleting...");
   console.log(request.body);

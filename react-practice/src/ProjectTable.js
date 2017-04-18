@@ -13,8 +13,6 @@ class ProjectTable extends Component {
 
   }
 
-
-
   fetchProject (project, handleProjectSelected) {
     return function(){
       console.log('Testing click ',project.name);
@@ -23,7 +21,7 @@ class ProjectTable extends Component {
   }
 
   getProjects(){
-    Client.getProjectsByUser(this.props.user.username,(projects)=>{
+    Client.getAcceptedProjectsByUser(this.props.user.username,(projects)=>{
       this.setState({projects:projects})
     });
   }
@@ -34,14 +32,13 @@ class ProjectTable extends Component {
 
 render() {
   var tableBody = [];
-
-
-    tableBody.push(
-      <tr >
-        <th><font color = "blue">Project</font></th>
-        <th><font color = "blue">Role</font></th>
-        <th><font color = "blue">Description</font></th>
-      </tr>);
+  tableBody.push(<tr>Accepted Projects</tr>)
+  tableBody.push(
+    <tr >
+      <th><font color = "blue">Project</font></th>
+      <th><font color = "blue">Role</font></th>
+      <th><font color = "blue">Description</font></th>
+    </tr>);
     for(var i = 0; i < this.state.projects.length; i++){
       var clicker = this.fetchProject(this.state.projects[i], this.props.handleProjectSelected);
       tableBody.push(
@@ -49,7 +46,8 @@ render() {
           <td><font color = "black">{this.state.projects[i].name}</font></td>
           <td><font color = "black">{this.state.projects[i].role}</font></td>
           <td><title>{'row'+i}</title><font color = "black">{this.state.projects[i].description}</font></td>
-        </tr>);}
+        </tr>);
+    }
 
 
 /*

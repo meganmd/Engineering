@@ -88,6 +88,14 @@ module.exports = class database {
     this.db.all("SELECT * FROM userProjects INNER JOIN projects ON projects.name = userProjects.projectName WHERE username = ?",username, cb)
   }
 
+  getAcceptedProjectsByUser(username, cb){
+    this.db.all("SELECT * FROM userProjects INNER JOIN projects ON projects.name = userProjects.projectName WHERE username = ? and accepted = 1",username, cb)
+  }
+
+  getUnacceptedProjectsByUser(username, cb){
+    this.db.all("SELECT * FROM userProjects INNER JOIN projects ON projects.name = userProjects.projectName WHERE username = ? and accepted = 0",username, cb)
+  }
+
   acceptProject(username, projectName, cb){
     this.db.run("UPDATE userProjects SET accepted = ? where username = ? and projectName = ?", 1, username,  projectName, cb);
   }

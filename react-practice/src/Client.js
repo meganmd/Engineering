@@ -120,6 +120,22 @@ function getProjectsByUser(uid, cb) {
     .then(cb);
 }
 
+function getAcceptedProjectsByUser(uid, cb) {
+  return fetch(`api/acceptedProjects?username=${uid}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function getUnacceptedProjectsByUser(uid, cb) {
+  return fetch(`api/unacceptedProjects?username=${uid}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function getUserFromProject(uid,pid, cb){
   return fetch(`api/userFromProject?username=${uid}&projectTitle=${pid}`, {
     accept: 'application/json',
@@ -143,7 +159,7 @@ function acceptProjectInvitation(username, projectName, cb){
     .then(cb);
 }
 
-function rejectProjectInvitation(username, projectTitle, cb){
+function rejectProjectInvitation(username, projectName, cb){
   return fetch('api/rejectProjectInvitation', {
     headers: {
       'Accept': 'application/json',
@@ -152,7 +168,7 @@ function rejectProjectInvitation(username, projectTitle, cb){
     method: "POST",
     body: JSON.stringify({
       username: username,
-      projectTitle: projectTitle
+      projectName: projectName
     })
   }).then(checkStatus)
     .then(cb);
@@ -250,7 +266,8 @@ function parseJSON(response) {
 }
 
 const Client = { getUsers, addUser, getUser, getUsernames, addProject,
-  getProject, getProjectsByUser, getProjects, listProjectUsersTable,
+  getProject, getProjectsByUser, getAcceptedProjectsByUser,
+  getUnacceptedProjectsByUser, getProjects, listProjectUsersTable,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
   editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation};
 export default Client;

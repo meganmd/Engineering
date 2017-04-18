@@ -123,8 +123,36 @@ app.get('/api/projects', function(request, response){
       response.json([]);
     }
   });
-
 })
+
+app.get('/api/acceptedProjects', function(request, response){
+  data.getAcceptedProjectsByUser(request.query.username, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    console.log(rows);
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  });
+})
+
+app.get('/api/unacceptedProjects', function(request, response){
+  data.getUnacceptedProjectsByUser(request.query.username, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    console.log(rows);
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  });
+})
+
 
 app.get('/api/project', function(request,response){
   console.log("Getting..." + request.query.name);
@@ -156,7 +184,7 @@ app.post('/api/acceptProjectInvitation', function(request, response) {
 })
 
 app.post('/api/rejectProjectInvitation', function(request, response) {
-  console.log("Rejecting..." + request.body.projectName);
+  console.log("Rejecting..." + request.body.projectName + " For..." + request.body.username);
   data.deleteUserProjectConnection(request.body.username, request.body.projectName,
     function(error){
       if(error) {

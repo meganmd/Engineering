@@ -226,7 +226,7 @@ function PBIBacklogDisplay(props){
               project={props.column2}
               columnName="scrumbacklog"
               columnNumber="2"
-              title="Scrum Backlog"
+              title="Sprint Backlog"
             drag={props.drag}
           drop={props.drop}
         allowDrop={props.allowDrop}

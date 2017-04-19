@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Client from './Client';
 import ProductBacklogForm from './ProductBacklogForm';
+import Sprint from './Sprint';
 
 class ProjectBacklog extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ render(){
     <div className="projectBacklog">
       <ProductBacklogForm
       height={this.state.height}/>
+      <Sprint/>
     </div>
   );}
 

@@ -5,8 +5,9 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+var config = require('./serverConfig');
 var database = require("./database.js");
-var data = new database("exampleDB");
+var data = new database(config.database[app.settings.env]);
 
 //data.drop();
 data.initialize();
@@ -315,7 +316,7 @@ app.post('/api/editTask', function(request, response) {
   console.log("Editing Task...");
   console.log(request.body);
   data.updateTask(
-    request.body.id, request.body.pbi, request.body.description, 
+    request.body.id, request.body.pbi, request.body.description,
     request.body.percent, request.body.member,
     function(error){
       if(error) {
@@ -347,3 +348,4 @@ var server = app.listen(3001, function() {
   var port = server.address().port;
   console.log("app listening at %s/%s", host, port);
 })
+module.exports = server;

@@ -214,6 +214,7 @@ table {
 
 .sprint{
   display: inline-block;
+  float: right;
   width: 79%;
   height: 550px;
   background: #888888aa;
@@ -222,7 +223,6 @@ table {
 .ProductBacklogForm{
   display: inline-block;
   width: 19.6%;
-  top: 0;
   margin-right:1%;
 }
 

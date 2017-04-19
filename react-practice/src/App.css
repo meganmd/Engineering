@@ -212,12 +212,14 @@ table {
   margin-right: 1%;
 }
 
+
 .sprint{
   display: inline-block;
   float: right;
   width: 79%;
   height: 550px;
   background: #888888aa;
+  overflow-y:hidden;
 }
 
 .ProductBacklogForm{

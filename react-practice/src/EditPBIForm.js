@@ -11,7 +11,18 @@ function PBIFormattedSection(props){
         onChange={props.handleInputChange} /> <br/>
       So that: <input id="editFormat" name="value" type="text"
         placeholder="Enter value..." value={props.value}
+        onChange={props.handleInputChange} /> <br/>
+      <h3>Acceptance Criteria</h3> <textarea id="fillparent" name="acceptanceCriteria"
+        value={props.acceptanceCriteria} type="text"
+        placeholder="Enter Acceptance Criteria..."
         onChange={props.handleInputChange} />
+      <h3>Estimate <select name="estimate" onChange={props.handleInputChange} value={props.estimate}>
+            <option value="unselected">Unselected</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+            <option value="extra-large">Extra-Large</option>
+        </select><br/> </h3> <br/>
     </div>
   );
 }
@@ -28,10 +39,10 @@ class EditPBIForm extends Component {
       top: '0',
       background: '#555555dd',
       width: '100%',
-      'min-height': '760px',
+      'minHeight': '760px',
       height: props.height+75,
     };
-    console.log(props.height+ "<- should be");
+    //console.log(props.height+ "<- should be");
     this.handleInputChange = this.handleInputChange.bind(this);
     this.saveData = this.saveData.bind(this);
     }
@@ -41,14 +52,10 @@ class EditPBIForm extends Component {
     }
 
     saveData(data){
-      console.log("saving data");
-      if(this.state.description === '' && (this.state.role === '' || this.state.functionality === '' || this.state.value === '')){
-        this.setState({errorMessage: 'Must have description OR role, functionality, and value'});
-      }
-      else if(this.state.acceptanceCriteria === ''){
-        this.setState({errorMessage: 'Must have acceptance criteria'});
-      }
-      else{
+      if(this.state.description === '' && (this.state.role === '' || this.state.functionality === '' || this.state.value === '' || this.state.acceptanceCriteria === '' || this.state.estimate === 'unselected')){
+        this.setState({errorMessage: 'Must have description OR role, functionality, value, acceptance criteria, and estimate'});
+      } else{
+        //console.log("Saving data");
         this.props.updatePBI(this.props.pbi.id, this.state.description,
           this.state.role, this.state.functionality, this.state.value,
           this.state.acceptanceCriteria, this.state.estimate, function(){});
@@ -67,17 +74,10 @@ class EditPBIForm extends Component {
             onChange={this.handleInputChange} /><br/>
         <PBIFormattedSection handleInputChange={this.handleInputChange}
           role={this.state.role} functionality={this.state.functionality}
-          value={this.state.value}/>
-        <h3>Acceptance Criteria</h3> <textarea id="fillparent" name="acceptanceCriteria"
-          value={this.state.acceptanceCriteria} type="text"
-          placeholder="Enter Acceptance Criteria..."
-          onChange={this.handleInputChange} />
-          <h3>Estimate <select name="estimate" onChange={this.handleInputChange} value={this.state.estimate}>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-              <option value="extra-large">Extra-Large</option>
-          </select><br/> </h3> <br/>
+          value={this.state.value}
+          acceptanceCriteria={this.state.acceptanceCriteria}
+          estimate={this.state.estimate}/>
+        <font color="red">{this.state.errorMessage}</font>
         <button id="cancelEditPBIButton" onClick={this.props.exit}>Cancel</button>
         <button id="editPBIButton" className="savePBIButton" onClick={this.saveData}>Save</button>
         </div>

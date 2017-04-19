@@ -10,9 +10,21 @@
 #projectHome{
   position: absolute;
   width:40%;
-  height: 50%;
+  height: 40%;
   left: 30%;
-  top: 25%;
+  top: 20%;
+  background: white;
+  box-shadow: 0 0 15px 15px #118AaB;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+#invitedProjects{
+  position: absolute;
+  width:40%;
+  height: 30%;
+  left: 30%;
+  top: 70%;
   background: white;
   box-shadow: 0 0 15px 15px #118AaB;
   overflow-x: scroll;
@@ -264,6 +276,36 @@ button {
   cursor: pointer;
 }
 
+#acceptProjectInvitationButton {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #008000;
+  width:65px;
+  border: 0;
+  margin: 0px;
+  padding:10px;
+  color: #FFFFFF;
+  font-size: 12px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+#rejectProjectInvitationButton {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #FF0000;
+  width:65px;
+  border: 0;
+  margin: 5px;
+  padding:10px;
+  color: #FFFFFF;
+  font-size: 12px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
 input {
   font-family: "Roboto", sans-serif;
   outline: 0;
@@ -303,48 +345,6 @@ textarea{
 
 .App-header-black {
   background-color: #222;
-  height: 200px;
-  padding: 20px;
-  color: white;
-}
-
-.App-header-red {
-  background-color: #DC143C;
-  height: 200px;
-  padding: 20px;
-  color: white;
-}
-
-.App-header-blue {
-  background-color: #0000FF;
-  height: 200px;
-  padding: 20px;
-  color: white;
-}
-
-.App-header-green {
-  background-color: #228B22;
-  height: 200px;
-  padding: 20px;
-  color: white;
-}
-
-.App-header-purple {
-  background-color: #8B008B;
-  height: 200px;
-  padding: 20px;
-  color: white;
-}
-
-.App-header-orange {
-  background-color: #FF4500;
-  height: 200px;
-  padding: 20px;
-  color: white;
-}
-
-.App-header-beige {
-  background-color: #F5F5DC;
   height: 200px;
   padding: 20px;
   color: white;

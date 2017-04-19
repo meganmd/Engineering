@@ -85,6 +85,7 @@ app.post('/api/addUserToProject', function(request, response) {
   data.addUserProjectConnection(
     request.body.username,
     request.body.projectName,
+    request.body.role,
     function(error) {
       if(error) {
         response.status(400).send("project name not unique!");               ///this isnt happening
@@ -122,8 +123,36 @@ app.get('/api/projects', function(request, response){
       response.json([]);
     }
   });
-
 })
+
+app.get('/api/acceptedProjects', function(request, response){
+  data.getAcceptedProjectsByUser(request.query.username, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    console.log(rows);
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  });
+})
+
+app.get('/api/unacceptedProjects', function(request, response){
+  data.getUnacceptedProjectsByUser(request.query.username, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    console.log(rows);
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  });
+})
+
 
 app.get('/api/project', function(request,response){
   console.log("Getting..." + request.query.name);
@@ -137,6 +166,33 @@ app.get('/api/project', function(request,response){
       console.log("Not found");
       response.json({});
     }
+  })
+})
+
+app.post('/api/acceptProjectInvitation', function(request, response) {
+  console.log("Accepting..." + request.body.projectName + " For..." + request.body.username);
+  console.log(request.body);
+  data.acceptProject(request.body.username, request.body.projectName,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in accepting project");
+      } else {
+        console.log("No error on accepting");
+        response.status(200).end();
+      }
+  })
+})
+
+app.post('/api/rejectProjectInvitation', function(request, response) {
+  console.log("Rejecting..." + request.body.projectName + " For..." + request.body.username);
+  data.deleteUserProjectConnection(request.body.username, request.body.projectName,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in rejecting project");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
   })
 })
 

@@ -72,7 +72,7 @@ function addProject(name, description, cb) {
     .then(cb);
 }
 
-function addUserToProject(username, projectName, cb) {
+function addUserToProject(username, projectName, role, cb) {
   return fetch('api/addUserToProject', {
     headers: {
       'Accept': 'application/json',
@@ -81,7 +81,8 @@ function addUserToProject(username, projectName, cb) {
     method: "POST",
     body: JSON.stringify({
       username: username,
-      projectName: projectName
+      projectName: projectName,
+      role: role
     })
   }).then(checkStatus)
     .then(cb);
@@ -119,11 +120,57 @@ function getProjectsByUser(uid, cb) {
     .then(cb);
 }
 
+function getAcceptedProjectsByUser(uid, cb) {
+  return fetch(`api/acceptedProjects?username=${uid}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function getUnacceptedProjectsByUser(uid, cb) {
+  return fetch(`api/unacceptedProjects?username=${uid}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function getUserFromProject(uid,pid, cb){
   return fetch(`api/userFromProject?username=${uid}&projectTitle=${pid}`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)
+    .then(cb);
+}
+
+function acceptProjectInvitation(username, projectName, cb){
+  return fetch('api/acceptProjectInvitation', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: username,
+      projectName: projectName
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
+function rejectProjectInvitation(username, projectName, cb){
+  return fetch('api/rejectProjectInvitation', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: username,
+      projectName: projectName
+    })
+  }).then(checkStatus)
     .then(cb);
 }
 
@@ -219,7 +266,8 @@ function parseJSON(response) {
 }
 
 const Client = { getUsers, addUser, getUser, getUsernames, addProject,
-  getProject, getProjectsByUser, getProjects, listProjectUsersTable,
+  getProject, getProjectsByUser, getAcceptedProjectsByUser,
+  getUnacceptedProjectsByUser, getProjects, listProjectUsersTable,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
-  editPBI, movePBI};
+  editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation};
 export default Client;

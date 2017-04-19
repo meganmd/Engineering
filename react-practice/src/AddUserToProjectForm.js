@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import Client from './Client'
 
 function AddUserDisplay(props){
-      console.log((props.divStyle.height +100) + "secondary");
+      //console.log((props.divStyle.height +100) + "secondary");
   return(
     <div style={props.divStyle}>
       <div id="AddUserForm">
         <div className="CreateProject">
            Username*<br/>
-          <input type="text" placeholder="Enter Username ... "
-            onChange={props.handleUserNameChange}/> <br/>
+          <input name="username" type="text" placeholder="Enter Username ... "
+            onChange={props.handleChange}/> <br/>
+          <select name="role" value={props.role} onChange={props.handleChange}>
+            <option value="development team member">development team member</option>
+            <option value="product owner">product owner</option>
+          </select>
           <font color="red">{props.errorMessage}</font> <br/>
           <button onClick={props.handleBackButton}>Cancel</button>
           <button className="inviteUserToProjectButton" onClick={props.handleInviteUserClick}>Invite!</button>
@@ -23,11 +27,11 @@ class AddUserToProjectForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {username: '', errorMessage: '', project: this.props.project};
-    this.handleUserNameChange = this.handleUserNameChange.bind(this);
+    this.state = {username: '', errorMessage: '', project: this.props.project, role: 'development team member'};
+    this.handleChange = this.handleChange.bind(this);
     this.handleInviteUserClick = this.handleInviteUserClick.bind(this);
     var height = parseInt(props.height) + 125;
-        console.log(height + "initial");
+        //console.log(height + "initial");
     this.divStyle = {
       position: 'absolute',
       left: '0',
@@ -38,12 +42,12 @@ class AddUserToProjectForm extends Component {
     }
   }
 
-  handleUserNameChange(e){
-    this.setState({username: e.target.value});
+  handleChange(e){
+    this.setState({[e.target.name]: e.target.value});
   }
 
   handleInviteUserClick(){
-    console.log("handling the user click");
+    //console.log("handling the user click");
     if(this.state.username.length === 0){
       this.setState({errorMessage: 'Please enter in a user to invite'});
       return;
@@ -58,7 +62,7 @@ class AddUserToProjectForm extends Component {
           this.setState({errorMessage: 'User already in project'});
           return;
         } else{
-          Client.addUserToProject(this.state.username, this.state.project, function(){});
+          Client.addUserToProject(this.state.username, this.state.project, this.state.role, function(){});
           this.props.handleAddUserComplete();
         }
       });
@@ -69,7 +73,7 @@ class AddUserToProjectForm extends Component {
     return (
       <div className="CreateProject">
           <AddUserDisplay
-            handleUserNameChange={this.handleUserNameChange}
+            handleChange={this.handleChange}
             handleInviteUserClick={this.handleInviteUserClick}
             errorMessage={this.state.errorMessage}
             handleBackButton={this.props.handleAddUserComplete}

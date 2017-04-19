@@ -11,6 +11,7 @@ import AddUserToProjectForm from './AddUserToProjectForm'
 import ProjectTable from './ProjectTable.js'
 import PBIBacklogForm from './PBIBacklogForm'
 import CreatePBIForm from './CreatePBIForm'
+import InvitedProjectsTableForm from './InvitedProjectsTableForm'
 
 function LogOutButton(props) {
   return (
@@ -89,16 +90,20 @@ class App extends Component {
         content.push( <PBIBacklogForm project={this.state.currentProject}
           handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />);
       }else{
-        var top =  <h1  id="projectTitleText">
-          <LogOutButton onClick={this.handleLogOut} />
-          {this.state.loggedInUser.firstName + " " + this.state.loggedInUser.lastName}
-         <CreateProjectButton createClick={this.handleCreateProject}/>
-        </h1>
+        var top = <h1  id="projectTitleText">
+                      <LogOutButton onClick={this.handleLogOut} />
+                      {this.state.loggedInUser.firstName + " " + this.state.loggedInUser.lastName}
+                     <CreateProjectButton createClick={this.handleCreateProject}/>
+                   </h1>
         content.push(top);
         var projectTable = <div id="projectHome">
-<ProjectTable user={this.state.loggedInUser} handleProjectSelected={this.handleProjectSelected}/>
-        </div>
+                              <ProjectTable user={this.state.loggedInUser} handleProjectSelected={this.handleProjectSelected}/>
+                          </div>
         content.push(projectTable);
+        var invitedTable = <div id="invitedProjects">
+          <InvitedProjectsTableForm user={this.state.loggedInUser} />
+        </div>
+        content.push(invitedTable);
       }
     } else {
       greeting = 'Please Login...';

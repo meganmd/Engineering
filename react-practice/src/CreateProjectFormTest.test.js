@@ -51,7 +51,7 @@ test('CreateProjectForm DOES call addProject and handleProjectComplete and addUs
   Client.addProject = jest.fn();
   Client.addProject.mockImplementationOnce((title,description,cb) => cb())
   Client.addUserToProject = jest.fn();
-  Client.addUserToProject.mockImplementationOnce((username, project, cb) => cb())
+  Client.addUserToProject.mockImplementationOnce((username, project, role, cb) => cb())
   const handleProjectComplete = jest.fn();
   const wrapper = mount(
     <CreateProjectForm handleProjectComplete={handleProjectComplete} user={{username: "someUser"}}/>
@@ -63,5 +63,6 @@ test('CreateProjectForm DOES call addProject and handleProjectComplete and addUs
   p.simulate('click');
   expect(Client.addProject).toHaveBeenCalledTimes(1);
   expect(Client.addUserToProject).toHaveBeenCalledTimes(1);
+  expect(Client.addUserToProject).toHaveBeenCalledWith("someUser","someTitle","development team member", expect.anything());
   expect(handleProjectComplete).toHaveBeenCalledTimes(1);
 });

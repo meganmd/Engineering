@@ -375,6 +375,7 @@ class PBIBacklogForm extends Component {
 
 isFirstStoryProductBacklogComplete(){
   var pbi = this.getStateByName("productbacklog")[0];
+  console.log("Role ='" + pbi.role + "' functionality = '" + pbi.functionality + "' acceptanceCriteria = '" + pbi.acceptanceCriteria+"'");
   if(pbi.role != '' && pbi.functionality != '' && pbi.value != '' && pbi.acceptanceCriteria != ''){
         console.log("return true");
     return true;

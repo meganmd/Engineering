@@ -11,7 +11,6 @@ class InvitedProjectsTableForm extends Component {
 
 render() {
   var tableBody = [];
-  tableBody.push(<tr>Project Invitations</tr>)
     tableBody.push(
       <tr >
         <th><font color="blue">Project</font></th>
@@ -37,6 +36,7 @@ render() {
 
   return (
     <center>
+      Project Invitations
       <table id="projectTable">
         {tableBody}
       </table>

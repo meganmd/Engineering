@@ -18,7 +18,6 @@ class ProjectTable extends Component {
 
 render() {
   var tableBody = [];
-  tableBody.push(<tr>Accepted Projects</tr>)
   tableBody.push(
     <tr >
       <th><font color = "blue">Project</font></th>
@@ -38,6 +37,7 @@ render() {
 
   return (
     <center>
+      Accepted Projects
       <table id="projectTable">
         {tableBody}
       </table>

@@ -28,6 +28,7 @@ function CreatePBIDisplay(props){
             placeholder="Enter Acceptance Criteria..."
             onChange={props.handleInputChange} /> <br/>
           Estimate: <select name="estimate" onChange={props.handleInputChange}>
+              <option value="undecided">undecided</option>
               <option value="small">Small</option>
               <option value="medium">Medium</option>
               <option value="large">Large</option>
@@ -63,11 +64,7 @@ class CreatePBIForm extends Component {
   handleCreateClick(){
     if(this.state.description === '' && (this.state.role === '' || this.state.functionality === '' || this.state.value === '')){
       this.setState({errorMessage: 'Must have description OR role, functionality, and value'});
-    }
-    else if(this.state.acceptanceCriteria === ''){
-      this.setState({errorMessage: 'Must have acceptance criteria'});
-    }
-    else{
+    }else{
       this.props.addPBI(this.state.description, this.state.role,
         this.state.functionality, this.state.value, this.state.acceptanceCriteria,
         this.state.estimate, 1, 1, this.props.projectName);

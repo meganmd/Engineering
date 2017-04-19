@@ -30,15 +30,13 @@ class AddUserToProjectForm extends Component {
     this.state = {username: '', errorMessage: '', project: this.props.project, role: 'development team member'};
     this.handleChange = this.handleChange.bind(this);
     this.handleInviteUserClick = this.handleInviteUserClick.bind(this);
-    var height = parseInt(props.height) + 125;
-        //console.log(height + "initial");
     this.divStyle = {
       position: 'absolute',
       left: '0',
       top: '0',
       background: '#555555dd',
       width: '100%',
-      'height': height,
+      'height': 125,
     }
   }
 

@@ -7,11 +7,12 @@ import CreateProjectForm from './CreateProjectForm';
 import AddUserForm from './AddUserForm';
 import Client from './Client';
 import s from './index.css';
-import AddUserToProjectForm from './AddUserToProjectForm'
-import ProjectTable from './ProjectTable.js'
-import PBIBacklogForm from './PBIBacklogForm'
-import CreatePBIForm from './CreatePBIForm'
-import InvitedProjectsTableForm from './InvitedProjectsTableForm'
+import AddUserToProjectForm from './AddUserToProjectForm';
+import ProjectTable from './ProjectTable.js';
+import PBIBacklogForm from './PBIBacklogForm';
+import CreatePBIForm from './CreatePBIForm';
+import InvitedProjectsTableForm from './InvitedProjectsTableForm';
+import ProjectBacklog from './ProjectBacklog';
 
 function LogOutButton(props) {
   return (
@@ -37,7 +38,13 @@ function addUser(username,password,firstName,lastName){
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false, loggedInUser: {}, isCreatingProject: false, currentProject: {},isViewingProject:false};
+    this.state = {
+      isLoggedIn: false,
+      loggedInUser: {},
+      isCreatingProject: false,
+      currentProject: {},
+      isViewingProject:false,
+      isAddingUser: false};
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
@@ -45,6 +52,8 @@ class App extends Component {
     this.handleLeaveCreateProjectForm = this.handleLeaveCreateProjectForm.bind(this);
     this.handleProjectSelected = this.handleProjectSelected.bind(this);
     this.handleLeavePBIBacklogForm = this.handleLeavePBIBacklogForm.bind(this);
+    this.openAddUser = this.openAddUser.bind(this);
+    this.exitAddUser = this.exitAddUser.bind(this);
   }
 
   handleLogIn(user){
@@ -76,6 +85,14 @@ class App extends Component {
     this.setState({currentProject: {}, isViewingProject:false});
   }
 
+  openAddUser(){
+    this.setState({addUser:true});
+  }
+
+  exitAddUser(){
+    this.setState({addUser:false});
+  }
+
   render() {
     var greeting = null;
     var content = [];
@@ -87,8 +104,19 @@ class App extends Component {
           handleProjectComplete={this.handleProjectComplete}
           handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
       } else if(this.state.isViewingProject){
+        //The old way of doing things...
+        /*
         content.push( <PBIBacklogForm project={this.state.currentProject}
           handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />);
+          */
+          //The new way of doing things ...
+          var top = <h1  id="projectTitleText">
+            <button className="halfSizeButton" onClick={this.handleLeavePBIBacklogForm}>Back</button>
+            {this.state.currentProject.name}
+            <button className="halfSizeButton" onClick={this.openAddUser}>Add User</button>
+          </h1>
+          content.push(top);
+          content.push(<ProjectBacklog/>);
       }else{
         var top = <h1  id="projectTitleText">
                       <LogOutButton onClick={this.handleLogOut} />
@@ -109,6 +137,13 @@ class App extends Component {
       greeting = 'Please Login...';
       content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>;
     }
+
+    if(this.state.addUser){
+      content.push(<div><AddUserToProjectForm project={this.state.currentProject.name}
+        handleAddUserComplete={this.exitAddUser}/></div>);
+        //add in board height here/>
+    }
+
     return (
       <div className="App">
         {content}

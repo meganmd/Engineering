@@ -226,7 +226,7 @@ function PBIBacklogDisplay(props){
               project={props.column2}
               columnName="scrumbacklog"
               columnNumber="2"
-              title="Scrum Backlog"
+              title="Sprint Backlog"
             drag={props.drag}
           drop={props.drop}
         allowDrop={props.allowDrop}
@@ -375,6 +375,7 @@ class PBIBacklogForm extends Component {
 
 isFirstStoryProductBacklogComplete(){
   var pbi = this.getStateByName("productbacklog")[0];
+  console.log("Role ='" + pbi.role + "' functionality = '" + pbi.functionality + "' acceptanceCriteria = '" + pbi.acceptanceCriteria+"'");
   if(pbi.role != '' && pbi.functionality != '' && pbi.value != '' && pbi.acceptanceCriteria != ''){
         console.log("return true");
     return true;

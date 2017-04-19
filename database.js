@@ -14,6 +14,8 @@ module.exports = class database {
 
       //Uses foreign key in projects table
       this.db.run("CREATE TABLE IF NOT EXISTS productBacklogItems (id INTEGER PRIMARY KEY, description TEXT, role TEXT, functionality TEXT, value TEXT, acceptanceCriteria TEXT, estimate TEXT, columnNumber INT, rowNumber INT, project TEXT, FOREIGN KEY(project) REFERENCES projects(name))");
+      this.db.run("CREATE TABLE IF NOT EXISTS tasks (project TEXT, pbi INTEGER, id INTEGER PRIMARY KEY, description TEXT, percent INTEGER, member TEXT, columnNumber INTEGER, priority INTEGER, FOREIGN KEY(project) REFERENCES projects(name), FOREIGN KEY(pbi) REFERENCES productBacklogItems(id), FOREIGN KEY(member) REFERENCES users(username))");
+
       if(!(typeof cb === 'undefined')) {
         cb();
       };
@@ -25,7 +27,8 @@ module.exports = class database {
       this.db.run("DROP TABLE users");
       this.db.run("DROP TABLE projects");
       this.db.run("DROP TABLE userProjects");
-      this.db.run("DROP TABLE productBacklogItems")
+      this.db.run("DROP TABLE productBacklogItems");
+      this.db.run("DROP TABLE tasks");
       if(!(typeof cb === 'undefined')) {
         cb();
       };
@@ -135,4 +138,23 @@ module.exports = class database {
     " WHERE id = ?", columnNumber, rowNumber, id, cb);
   }
 
+  addTask(project, pbi, description, percent, member, columnNumber, priority, cb) {
+    this.db.run("INSERT INTO tasks (project, pbi, id, description, percent," +
+    " member, columnNumber, priority) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+    project, pbi, id, description, percent, member, columnNumber, priority, cb);
+  }
+
+  updateTask(id, pbi, description, percent, member, cb) {
+    this.db.run("UPDATE tasks SET pbi = ?, description = ?, percent = ?," +
+    " member = ? WHERE id = ?", pbi, description, percent, member, id, cb);
+  }
+
+  moveTask(id, columnNumber, priority, cb) {
+    this.db.run("UPDATE tasks SET columnNumber = ?, priority = ? WHERE id = ?",
+    columnNumber, priority, id, cb );
+  }
+
+  deleteTask(id, cb) {
+    this.db.run("DELETE from tasks where id = ?", id, cb);
+  }
 }

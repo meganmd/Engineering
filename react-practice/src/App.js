@@ -8,11 +8,10 @@ import AddUserForm from './AddUserForm';
 import Client from './Client';
 import s from './index.css';
 import AddUserToProjectForm from './AddUserToProjectForm';
-import ProjectTable from './ProjectTable.js';
 import PBIBacklogForm from './PBIBacklogForm';
 import CreatePBIForm from './CreatePBIForm';
-import InvitedProjectsTableForm from './InvitedProjectsTableForm';
 import ProjectBacklog from './ProjectBacklog';
+import ViewProjectsForm from './ViewProjectsForm';
 
 function LogOutButton(props) {
   return (
@@ -124,14 +123,9 @@ class App extends Component {
                      <CreateProjectButton createClick={this.handleCreateProject}/>
                    </h1>
         content.push(top);
-        var projectTable = <div id="projectHome">
-                              <ProjectTable user={this.state.loggedInUser} handleProjectSelected={this.handleProjectSelected}/>
-                          </div>
-        content.push(projectTable);
-        var invitedTable = <div id="invitedProjects">
-          <InvitedProjectsTableForm user={this.state.loggedInUser} />
-        </div>
-        content.push(invitedTable);
+        var viewProjects = <div><ViewProjectsForm user={this.state.loggedInUser}
+           handleProjectSelected={this.handleProjectSelected}/></div>
+        content.push(viewProjects);
       }
     } else {
       greeting = 'Please Login...';

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import App from './App.css';
-import Client from './Client.js';
 
 
 
@@ -8,34 +7,7 @@ class InvitedProjectsTableForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { projects:[]};
-    this.acceptInvitation = this.acceptInvitation.bind(this);
-    this.rejectInvitation = this.rejectInvitation.bind(this);
   }
-
-  acceptInvitation(project, user){
-    return function(){
-      console.log("ACCEPT")
-      Client.acceptProjectInvitation(user.username, project.name, function(){});
-    }
-  }
-
-  rejectInvitation(project, user){
-    return function(){
-      console.log("REJECT" + user.username + project.name);
-      Client.rejectProjectInvitation(user.username, project.name, function(){});
-    }
-  }
-
-  getProjects(){
-    Client.getUnacceptedProjectsByUser(this.props.user.username,(projects)=>{
-      this.setState({projects:projects})
-    });
-  }
-
- componentWillMount() {
-   this.getProjects();
- }
 
 render() {
   var tableBody = [];
@@ -47,20 +19,19 @@ render() {
         <th><font color="blue">Description</font></th>
         <th></th>
       </tr>);
-    for(var i = 0; i < this.state.projects.length; i++){
-      var accept = this.acceptInvitation(this.state.projects[i], this.props.user);
-      var reject = this.rejectInvitation(this.state.projects[i], this.props.user);
+    for(var i = 0; i < this.props.projects.length; i++){
+      var accept = this.props.accept(this.props.projects[i], this.props.user, this.props.updateTables);
+      var reject = this.props.reject(this.props.projects[i], this.props.user, this.props.updateTables);
       tableBody.push(
         <tr id="projectTable">
-          <td><font color="black">{this.state.projects[i].name}</font></td>
-          <td><font color="black">{this.state.projects[i].role}</font></td>
-          <td><title>{'row'+i}</title><font color="black">{this.state.projects[i].description}</font></td>
+          <td><font color="black">{this.props.projects[i].name}</font></td>
+          <td><font color="black">{this.props.projects[i].role}</font></td>
+          <td><title>{'row'+i}</title><font color="black">{this.props.projects[i].description}</font></td>
           <td>
             <button id="acceptProjectInvitationButton" color="green" onClick={accept}>Accept</button>
             <button id="rejectProjectInvitationButton" color="red" onClick={reject}>Reject</button>
           </td>
         </tr>);
-
     }
 
 

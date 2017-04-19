@@ -63,7 +63,7 @@ exports[`test renders correctly (incomplete) 1`] = `
         <div
           id="title">
           <h3>
-            Scrum Backlog
+            Sprint Backlog
           </h3>
         </div>
       </div>

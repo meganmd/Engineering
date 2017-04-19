@@ -21,21 +21,14 @@ class Sprint extends Component {
   }
 
 render(){
-  /*
-  divStyle =   {
-  position: "absolute";
-    width: "80%";
-    left: "20%";
-    height: "100%";
-    background: "#000000";
-    style={divStyle}
-  }
-  */
   return (
     <div className="sprint" >
       <div id="title"><h3>Sprint Title</h3></div>
       <br/>
       <ColumnContents column="sprintbacklog" title="Sprint Backlog"/>
+      <ColumnContents column="todo" title="To Do"/>
+      <ColumnContents column="inprogress" title="In Progress"/>
+      <ColumnContents column="done" title="Done"/>
     </div>
   );}
 

@@ -24,10 +24,7 @@ class ProductBacklogForm extends Component {
     this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
     this.divStyle = {
       height: props.height,
-  //    outline: '0',
-      background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)",
-  };
-
+      background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)"};
   }
 
 //--------------------------------------------DND-------------------------------------------------------------

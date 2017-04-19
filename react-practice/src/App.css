@@ -200,7 +200,8 @@ table {
 }
 
 #sprintbacklog{
-  width: 25%;
+  display: inline-block;
+  width: 22%;
   height: 82%;
   background: linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66);
   margin-left: 1%;
@@ -213,32 +214,39 @@ table {
   width: 78%;
   left: 20%;
   height: 95%;
-  background: #110099;
+  background: #888888aa;
+}
+
+#todo{
+  display: inline-block;
+  width: 22%;
+  height: 82%;
+  background: linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66);
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+#inprogress{
+  display: inline-block;
+  width: 22%;
+  height: 82%;
+  background: linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66);
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+#done{
+  display: inline-block;
+  width: 22%;
+  height: 82%;
+  background: linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66);
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .ProductBacklogForm{
   width: 19.6%;
   left: .3%;
-}
-
-.inprogress
-{
-  left:60.3%;
-}
-
-.todo
-{
-  left:40.3%;
-}
-
-.done
-{
-  left:80.3%;
-}
-
-.scrumbacklog
-{
-  left:20.3%;
 }
 
 

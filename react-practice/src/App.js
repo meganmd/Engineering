@@ -7,11 +7,12 @@ import CreateProjectForm from './CreateProjectForm';
 import AddUserForm from './AddUserForm';
 import Client from './Client';
 import s from './index.css';
-import AddUserToProjectForm from './AddUserToProjectForm'
-import ProjectTable from './ProjectTable.js'
-import PBIBacklogForm from './PBIBacklogForm'
-import CreatePBIForm from './CreatePBIForm'
-import InvitedProjectsTableForm from './InvitedProjectsTableForm'
+import AddUserToProjectForm from './AddUserToProjectForm';
+import ProjectTable from './ProjectTable.js';
+import PBIBacklogForm from './PBIBacklogForm';
+import CreatePBIForm from './CreatePBIForm';
+import InvitedProjectsTableForm from './InvitedProjectsTableForm';
+import ProjectBacklog from './ProjectBacklog';
 
 function LogOutButton(props) {
   return (
@@ -87,8 +88,13 @@ class App extends Component {
           handleProjectComplete={this.handleProjectComplete}
           handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
       } else if(this.state.isViewingProject){
+        //The old way of doing things...
+        /*
         content.push( <PBIBacklogForm project={this.state.currentProject}
           handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />);
+          */
+          //The new way of doing things ...
+          content.push(<ProjectBacklog/>);
       }else{
         var top = <h1  id="projectTitleText">
                       <LogOutButton onClick={this.handleLogOut} />

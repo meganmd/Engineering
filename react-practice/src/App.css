@@ -199,10 +199,9 @@ table {
   width: 100%;
 }
 
-
-.productbacklog
-{
-  left:.3%;
+.ProductBacklogForm{
+  width: 19.6%;
+  left: .3%;
 }
 
 .inprogress
@@ -231,7 +230,6 @@ table {
   text-align:center;
   color:white;
   padding: 1px 0px;
-
 }
 
 #projectTitleText{

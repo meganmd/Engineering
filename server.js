@@ -294,6 +294,54 @@ app.post('/api/movePBI', function(request, response) {
   )
 })
 
+app.post('/api/addTask', function(request, response) {
+  console.log("Adding Task...");
+  console.log(request.body);
+  data.addTask(
+    request.body.project, request.body.pbi, request.body.description,
+    request.body.percent, request.body.member, request.body.columnNumber,
+    request.body.priority,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in adding");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    })
+})
+
+app.post('/api/editTask', function(request, response) {
+  console.log("Editing Task...");
+  console.log(request.body);
+  data.updateTask(
+    request.body.id, request.body.pbi, request.body.description, 
+    request.body.percent, request.body.member,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in updating");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    })
+})
+
+app.post('/api/moveTask', function(request, response) {
+  console.log("Moving Task...");
+  console.log(request.body);
+  data.moveTask(
+    request.body.id, request.body.columnNumber, request.body.priority,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in moving");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    })
+})
+
 var server = app.listen(3001, function() {
   var host = server.address().address;
   var port = server.address().port;

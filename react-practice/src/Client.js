@@ -250,6 +250,28 @@ function movePBI(id, columnNumber, rowNumber, cb){
       .then(cb);
 }
 
+function addTask(project, sprint, pbi, description, percentage, member,
+  columnNumber, priority){
+  return fetch('api/addTask', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      project: project,
+      sprint: sprint,
+      pbi: pbi,
+      description: description,
+      percentage: percentage,
+      member: member,
+      columnNumber: columnNumber,
+      priority: priority
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -269,5 +291,5 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getProject, getProjectsByUser, getAcceptedProjectsByUser,
   getUnacceptedProjectsByUser, getProjects, listProjectUsersTable,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
-  editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation};
+  editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask};
 export default Client;

@@ -357,7 +357,7 @@ app.get('/api/tasksBySprint', function(request, response){
 })
 
 app.get('/api/tasksByProject', function(request, response){
-  data.getTasksBySprint(request.query.projectName, function(err, rows){
+  data.getTasksByProject(request.query.projectName, function(err, rows){
     response.setHeader('Content-Type', 'application/json');
     if(rows != undefined){
       console.log("Found");

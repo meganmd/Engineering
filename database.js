@@ -139,9 +139,9 @@ module.exports = class database {
   }
 
   addTask(project, pbi, description, percent, member, columnNumber, priority, cb) {
-    this.db.run("INSERT INTO tasks (project, pbi, id, description, percent," +
-    " member, columnNumber, priority) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
-    project, pbi, id, description, percent, member, columnNumber, priority, cb);
+    this.db.run("INSERT INTO tasks (project, pbi, description, percent," +
+    " member, columnNumber, priority) VALUES(?, ?, ?, ?, ?, ?, ?)",
+    project, pbi, description, percent, member, columnNumber, priority, cb);
   }
 
   updateTask(id, pbi, description, percent, member, cb) {

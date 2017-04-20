@@ -272,6 +272,22 @@ function addTask(project, sprint, pbi, description, percentage, member,
     .then(cb);
 }
 
+function getTasksBySprint(sprintID) {
+  return fetch(`api/tasksBySprint?sprint=${sprintID}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function getTasksByProject(projectName) {
+  return fetch(`api/tasksByProject?project=${projectName}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;

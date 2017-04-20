@@ -343,6 +343,32 @@ app.post('/api/moveTask', function(request, response) {
     })
 })
 
+app.get('/api/tasksBySprint', function(request, response){
+  data.getTasksBySprint(request.query.sprintID, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  });
+})
+
+app.get('/api/tasksByProject', function(request, response){
+  data.getTasksBySprint(request.query.projectName, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  });
+})
+
 var server = app.listen(3001, function() {
   var host = server.address().address;
   var port = server.address().port;

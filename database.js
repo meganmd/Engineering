@@ -157,4 +157,12 @@ module.exports = class database {
   deleteTask(id, cb) {
     this.db.run("DELETE from tasks where id = ?", id, cb);
   }
+
+  getTasksBySprint(sprintID, cb) {
+    //FINISH LATER
+  }
+
+  getTasksByProject(projectName, cb){
+    this.db.all("SELECT * FROM tasks WHERE project = ?", projectName, cb);
+  }
 }

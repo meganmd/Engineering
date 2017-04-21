@@ -8,14 +8,11 @@ class ProjectBacklog extends Component {
     super(props);
     this.state = {
       height:"510",
-      productBacklog:['user story one', 'user story two', 'user story three'],
-      sprints:[[['sprint 1 item 1'],['sprint 1 item 2'],['sprint 1 item 3'],['sprint 1 item 4']]]
+      productBacklog:['user story one', 'user story two', 'user story three']
     };
     this.pushToSprint = this.pushToSprint.bind(this);
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
     this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
-    this.addToEnd = this.addToEnd.bind(this);
-    this.move = this.move.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -39,20 +36,6 @@ class ProjectBacklog extends Component {
     this.setState({'productBacklog':productBacklog, 'sprints':sprints});
   }
 
-  move(sprintNumber, fromRow, fromColumn, toRow, toColumn){
-    var items = this.state.sprints;
-    var item = items[sprintNumber][fromColumn].splice(fromRow,1);
-    items[sprintNumber][toColumn].splice(toRow,0,item);
-    this.setState({'sprints':items})
-  }
-
-  addToEnd(sprintNumber,fromRow, fromColumn, toColumn){
-    var items = this.state.sprints;
-    var item = items[sprintNumber][fromColumn].splice(fromRow,1);
-    items[sprintNumber][toColumn].push(item);
-    this.setState({'sprints':items})
-  }
-
   moveProductBacklog(from, to){
     console.log("moving pbiRow");
     var items = this.state.productBacklog;
@@ -71,11 +54,9 @@ render(){
       items={this.state.productBacklog}
       pushToSprint={this.pushToSprint}
       moveProductBacklog={this.moveProductBacklog}/>
+
       <Sprint
-      items={this.state.sprints[0]}
-      addToEnd={this.addToEnd}
-      sprintNumber={0}
-      move={this.move}/>
+      sprintNumber={0}/>
     </div>
   );}
 

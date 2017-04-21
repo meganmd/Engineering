@@ -8,14 +8,77 @@ module.exports = class database {
   initialize(cb) {
     this.db.serialize(() => {
 
-      this.db.run("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, firstName TEXT, lastName TEXT)");
-      this.db.run("CREATE TABLE IF NOT EXISTS projects (name TEXT PRIMARY KEY, description TEXT)");
-      this.db.run("CREATE TABLE IF NOT EXISTS userProjects (username TEXT, projectName TEXT, role TEXT, accepted INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(username, projectName), FOREIGN KEY(projectName) REFERENCES projects(name), FOREIGN KEY(username) REFERENCES users(username))");
+      this.db.run("CREATE TABLE IF NOT EXISTS users (" +
+          "username TEXT PRIMARY KEY," +
+          "password TEXT," +
+          "firstName TEXT," +
+          "lastName TEXT" +
+        ")");
+
+      this.db.run("CREATE TABLE IF NOT EXISTS projects (" +
+          "name TEXT PRIMARY KEY," +
+           "description TEXT" +
+         ")");
+
+      this.db.run("CREATE TABLE IF NOT EXISTS userProjects (" +
+        "username TEXT," +
+        "projectName TEXT," +
+        "role TEXT," +
+        "accepted INTEGER NOT NULL DEFAULT 0," +
+        "PRIMARY KEY(username, projectName)," +
+        "FOREIGN KEY(projectName) REFERENCES projects(name)," +
+        "FOREIGN KEY(username) REFERENCES users(username)" +
+      ")");
 
       //Uses foreign key in projects table
-      this.db.run("CREATE TABLE IF NOT EXISTS productBacklogItems (id INTEGER PRIMARY KEY, description TEXT, role TEXT, functionality TEXT, value TEXT, acceptanceCriteria TEXT, estimate TEXT, columnNumber INT, rowNumber INT, project TEXT, FOREIGN KEY(project) REFERENCES projects(name))");
-      this.db.run("CREATE TABLE IF NOT EXISTS tasks (project TEXT, pbi INTEGER, id INTEGER PRIMARY KEY, description TEXT, percent INTEGER, member TEXT, columnNumber INTEGER, priority INTEGER, FOREIGN KEY(project) REFERENCES projects(name), FOREIGN KEY(pbi) REFERENCES productBacklogItems(id), FOREIGN KEY(member) REFERENCES users(username))");
+      this.db.run("CREATE TABLE IF NOT EXISTS productBacklogItems (" +
+        "id INTEGER PRIMARY KEY," +
+        "description TEXT, " +
+        "role TEXT, " +
+        "functionality TEXT, " +
+        "value TEXT, " +
+        "acceptanceCriteria TEXT, " +
+        "estimate TEXT, " +
+        "columnNumber INT, " +
+        "rowNumber INT, " +
+        "project TEXT, " +
+        "FOREIGN KEY(project) REFERENCES projects(name)" +
+      ")");
 
+      this.db.run("CREATE TABLE IF NOT EXISTS tasks (" +
+        "project TEXT, " +
+        "pbi INTEGER, " +
+        "id INTEGER PRIMARY KEY, " +
+        "description TEXT, " +
+        "percent INTEGER, " +
+        "member TEXT, " +
+        "columnNumber INTEGER, " +
+        "priority INTEGER, " +
+        "FOREIGN KEY(project) REFERENCES projects(name), " +
+        "FOREIGN KEY(pbi) REFERENCES productBacklogItems(id), " +
+        "FOREIGN KEY(member) REFERENCES users(username)" +
+      ")");
+
+      this.db.run("CREATE TABLE IF NOT EXISTS sprints (" +
+        "number INTEGER, " +
+        "project TEXT, " +
+        "FOREIGN KEY(project) REFERENCES projects(name)" +
+        "PRIMARY KEY (number, project)" +
+      ")");
+
+      this.db.run("CREATE TABLE IF NOT EXISTS sprintPBIs (" +
+        "row INTEGER, " +
+        "project TEXT, " +
+        "PBIid INTEGER, " +
+        "sprint INTEGER, " +
+        "status TEXT, " +
+        "reason TEXT, " +
+        "PRIMARY KEY (project, PBIid, sprint)" +
+        "FOREIGN KEY(project) REFERENCES projects(name)" +
+        "FOREIGN KEY(project) REFERENCES sprints(project)" +
+        "FOREIGN KEY(PBIid) REFERENCES productBacklogItems(id)" +
+        "FOREIGN KEY(sprint) REFERENCES sprints(number)" +
+      ")");
       if(!(typeof cb === 'undefined')) {
         cb();
       };
@@ -29,6 +92,8 @@ module.exports = class database {
       this.db.run("DROP TABLE userProjects");
       this.db.run("DROP TABLE productBacklogItems");
       this.db.run("DROP TABLE tasks");
+      this.db.run("DROP TABLE sprints");
+      this.db.run("DROP TABLE sprintPBIs");
       if(!(typeof cb === 'undefined')) {
         cb();
       };

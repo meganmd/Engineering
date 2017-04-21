@@ -144,6 +144,14 @@ function getUserFromProject(uid,pid, cb){
     .then(cb);
 }
 
+function getUsersFromProject(pid, cb){
+  return fetch(`api/usersFromProject?projectTitle=${pid}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function acceptProjectInvitation(username, projectName, cb){
   return fetch('api/acceptProjectInvitation', {
     headers: {

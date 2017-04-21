@@ -218,6 +218,20 @@ app.get('/api/userFromProject', function(request, response) {
   })
 })
 
+app.get('/api/usersFromProject', function(request, response) {
+  console.log("Retrieving users from " + request.query.projectTitle);
+  data.getProjectUsers(request.query.projectTitle, function(err, row) {
+    response.setHeader('Content-Type', 'application/json');
+    if(row != undefined){
+      console.log("Found");
+      response.json(row);
+    }else{
+      console.log("Not found");
+      response.json({});
+    }
+  })
+})
+
 app.get('/api/listPBITable', function(request, response) {
   console.log("Retrieving PBIs");
   data.listProductBacklogItemsTable(function(err, rows) {

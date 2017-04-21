@@ -13,6 +13,20 @@ class ProjectBacklog extends Component {
     };
     this.pushToSprint = this.pushToSprint.bind(this);
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
+    this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
+    this.addToEnd = this.addToEnd.bind(this);
+  }
+
+  //---------------------------------------- Helper Methods-----------------------------------------------------------
+
+  isFirstStoryProductBacklogComplete(){
+    var pbi = this.getState("contents")[0];
+    console.log("Role ='" + pbi.role + "' functionality = '" + pbi.functionality + "' acceptanceCriteria = '" + pbi.acceptanceCriteria+"'");
+    if(pbi.role != '' && pbi.functionality != '' && pbi.value != '' && pbi.acceptanceCriteria != ''){
+      console.log("return true");
+      return true;
+    }
+    return false;
   }
 
   pushToSprint(){
@@ -28,6 +42,13 @@ class ProjectBacklog extends Component {
 
   }
 
+  addToEnd(sprintNumber,fromRow, fromColumn, toColumn){
+    var items = this.state.sprints;
+    var item = items[sprintNumber][fromColumn].splice(fromRow,1);
+    items[sprintNumber][toColumn].push(item);
+    this.setState({'sprints':items})
+  }
+
   moveProductBacklog(from, to){
     console.log("moving pbiRow");
     var items = this.state.productBacklog;
@@ -36,6 +57,8 @@ class ProjectBacklog extends Component {
     this.setState({'productBacklog':items});
   }
 
+
+//------------------------------------------- render ----------------------------------------------
 render(){
   return (
     <div className="projectBacklog">
@@ -44,9 +67,10 @@ render(){
       items={this.state.productBacklog}
       pushToSprint={this.pushToSprint}
       moveProductBacklog={this.moveProductBacklog}/>
-      
       <Sprint
-      items={this.state.sprints[0]}/>
+      items={this.state.sprints[0]}
+      addToEnd={this.addToEnd}
+      sprintNumber={0}/>
     </div>
   );}
 

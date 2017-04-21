@@ -15,6 +15,7 @@ class ProjectBacklog extends Component {
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
     this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
     this.addToEnd = this.addToEnd.bind(this);
+    this.move = this.move.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -39,7 +40,10 @@ class ProjectBacklog extends Component {
   }
 
   move(sprintNumber, fromRow, fromColumn, toRow, toColumn){
-
+    var items = this.state.sprints;
+    var item = items[sprintNumber][fromColumn].splice(fromRow,1);
+    items[sprintNumber][toColumn].splice(toRow,0,item);
+    this.setState({'sprints':items})
   }
 
   addToEnd(sprintNumber,fromRow, fromColumn, toColumn){
@@ -70,7 +74,8 @@ render(){
       <Sprint
       items={this.state.sprints[0]}
       addToEnd={this.addToEnd}
-      sprintNumber={0}/>
+      sprintNumber={0}
+      move={this.move}/>
     </div>
   );}
 

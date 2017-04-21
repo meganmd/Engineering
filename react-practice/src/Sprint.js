@@ -54,9 +54,13 @@ class Sprint extends Component {
         this.getColumnNumberByName(ev.dataTransfer.getData("column")),
         this.getColumnNumberByName(ev.target.id));
       }else{
-          console.log("dropping height "+ ev.target.className);
+        this.props.move(this.props.sprintNumber,
+        ev.dataTransfer.getData("row"),
+        this.getColumnNumberByName(ev.dataTransfer.getData("column")),
+        ev.target.id,
+        this.getColumnNumberByName(ev.target.className));
+        console.log("dropping height "+ ev.target.className);
       }
-
     //  this.props.moveProductBacklog(ev.dataTransfer.getData('row'),ev.target.className);
     }
 

@@ -369,7 +369,7 @@ app.get('/api/tasksByProject', function(request, response){
   });
 })
 
-var server = app.listen(3001, function() {
+var server = app.listen(config.port[app.settings.env], function() {
   var host = server.address().address;
   var port = server.address().port;
   console.log("app listening at %s/%s", host, port);

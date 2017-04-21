@@ -73,6 +73,7 @@ module.exports = class database {
         "sprint INTEGER, " +
         "status TEXT, " +
         "reason TEXT, " +
+        "PRIMARY KEY (project, PBIid, sprint)" +
         "FOREIGN KEY(project) REFERENCES projects(name)" +
         "FOREIGN KEY(project) REFERENCES sprints(project)" +
         "FOREIGN KEY(PBIid) REFERENCES productBacklogItems(id)" +

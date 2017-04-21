@@ -272,8 +272,8 @@ function addTask(project, sprint, pbi, description, percentage, member,
     .then(cb);
 }
 
-function getTasksBySprint(sprintID) {
-  return fetch(`api/tasksBySprint?sprint=${sprintID}`, {
+function getTasksBySprint(projectName, sprintNum) {
+  return fetch(`api/tasksBySprint?projectName=${projectName}&sprintNum=${sprintNum}`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)

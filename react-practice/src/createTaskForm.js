@@ -8,7 +8,6 @@ function CreateProjectDisplay(props){
       <input id="createTaskInput" name="taskDesciption" type="text" placeholder="Enter Task Description ... "
         onChange={props.handleFieldChange}/> <br/>
         Description<br/>
-      <textarea id="createUserStory" name="userStory" type="text" placeholder="Enter User Story" onChange={props.handleFieldChange} /> <br/>
       <textarea id="createPercentage" name="percentage" type="text" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
       <textarea id="createMember" name="assignedMember" type="text" placeholder="Enter Assigned User" onChange={props.handleFieldChange} /> <br/>
       <button className="leaveTaskFormButton" onClick={props.handleBackButton}>Cancel</button>
@@ -21,7 +20,7 @@ class CreateTaskForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {taskDescription '', userStory: '', member: '', percentage: '', errorMessage: ''};
+    this.state = {taskDescription: '', userStory: this.props.userStory, member: '', percentage: '', errorMessage: '', projecMembers: []};
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -30,7 +29,7 @@ class CreateTaskForm extends Component {
     if(this.state.taskDescription.length > 0 && this.state.userStory.length>0){ //need to check user story exists
 
       Client.addTask(project, sprint, pbi, description, percentage, member, columnNumber, priority) //how do these work?
-      this.props.handleProjectComplete();
+      this.props.handleTaskComplete();
       });
     } else {
       this.setState({errorMessage:'Must fill out project description and user story!'});
@@ -39,22 +38,6 @@ class CreateTaskForm extends Component {
 
   handleInputChange(event) {
     this.setState({[event.target.name]: event.target.value});
-  }
-
-  handleTaskDescriptionChange(e){
-    this.setState({taskDescription: e.target.value});
-  }
-
-  handleUserStoryChange(e){
-    this.setState({userStory: e.target.value});
-  }
-
-  handleUserPercentageChange(e){
-    this.setState({percentage: e.target.value});
-  }
-
-  handleAssignedMemberChange(e){
-    this.setState({member: e.target.value});
   }
 
   render() {

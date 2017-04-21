@@ -9,9 +9,9 @@ function ColumnContents(props) {
       background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
       width: "95%", "margin-bottom":"20px", "min-height":"50px"};
     if(i===0){
-        content.push(<div key={i} style={divStyle}> {props.items[i]} <br/> <button onClick={props.pushToSprint} style={{width:"85%"}}>Push To Sprint</button> </div>);
+        content.push(<div key={i} className={i} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag} style={divStyle}> {props.items[i]} <br/> <button onClick={props.pushToSprint} style={{width:"85%"}}>Push To Sprint</button> </div>);
     }else{
-        content.push(<div key={i} style={divStyle}> {props.items[i]} </div>);
+        content.push(<div key={i} className={i} style={divStyle} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag}> {props.items[i]} </div>);
     }
 
   }
@@ -46,11 +46,12 @@ class ProductBacklogForm extends Component {
 
   drop(ev) {
     ev.preventDefault();
-    console.log("dropping\nRemoving from Row " + ev.dataTransfer.getData('row') +" to row " + ev.target.id);
+    console.log("dropping height "+ ev.target.className);
+    this.props.moveProductBacklog(ev.dataTransfer.getData('row'),ev.target.className);
   }
 
   drag(ev) {
-    ev.dataTransfer.setData("row", ev.target.id);
+    ev.dataTransfer.setData("row", ev.target.className);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -73,7 +74,10 @@ render(){
       <ColumnContents
         style={this.divStyle}
         items={this.props.items}
-        pushToSprint={this.props.pushToSprint}/>
+        pushToSprint={this.props.pushToSprint}
+        drop={this.drop}
+        allowDrop={this.allowDrop}
+        drag={this.drag}/>
     </div>
   );
 }

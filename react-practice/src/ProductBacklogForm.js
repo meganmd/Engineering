@@ -3,9 +3,21 @@ import Client from './Client'
 
 //------------------------------------------functions------------------------------------------------------------
 function ColumnContents(props) {
+  var content = [];
+  for(var i=0;i<props.items.length; i++){
+    var divStyle = {
+      background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
+      width: "95%", "margin-bottom":"20px", "min-height":"50px"};
+    if(i===0){
+        content.push(<div key={i} style={divStyle}> {props.items[i]} <br/> <button onClick={props.pushToSprint} style={{width:"85%"}}>Push To Sprint</button> </div>);
+    }else{
+        content.push(<div key={i} style={divStyle}> {props.items[i]} </div>);
+    }
+
+  }
   return(
     <div style={props.style}>
-
+      {content}
     </div>
   );
 }
@@ -24,7 +36,7 @@ class ProductBacklogForm extends Component {
     this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
     this.divStyle = {
       height: props.height,
-      background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)"};
+      background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)","padding":"7%"};
   }
 
 //--------------------------------------------DND-------------------------------------------------------------
@@ -59,7 +71,9 @@ render(){
     <div className="ProductBacklogForm">
       <div id="title"><h3>"Product Backlog"</h3></div>
       <ColumnContents
-        style={this.divStyle}/>
+        style={this.divStyle}
+        items={this.props.items}
+        pushToSprint={this.props.pushToSprint}/>
     </div>
   );
 }

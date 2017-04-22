@@ -258,8 +258,17 @@ function movePBI(id, columnNumber, rowNumber, cb){
       .then(cb);
 }
 
+//returns an integer representing the current total percentage of tasks for a pbi
+function getTotalPBIPercentage(pbiID, cb){
+  return fetch(`api/PBITotalPercentage?pbi=${pbiID}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function addTask(project, sprint, pbi, description, percentage, member,
-  columnNumber, priority){
+  columnNumber, priority, cb){
   return fetch('api/addTask', {
     headers: {
       'Accept': 'application/json',
@@ -280,7 +289,7 @@ function addTask(project, sprint, pbi, description, percentage, member,
     .then(cb);
 }
 
-function getTasksBySprint(projectName, sprintNum) {
+function getTasksBySprint(projectName, sprintNum, cb) {
   return fetch(`api/tasksBySprint?projectName=${projectName}&sprintNum=${sprintNum}`, {
     accept: 'application/json',
   }).then(checkStatus)
@@ -288,7 +297,7 @@ function getTasksBySprint(projectName, sprintNum) {
     .then(cb);
 }
 
-function getTasksByProject(projectName) {
+function getTasksByProject(projectName, cb) {
   return fetch(`api/tasksByProject?project=${projectName}`, {
     accept: 'application/json',
   }).then(checkStatus)
@@ -315,5 +324,6 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getProject, getProjectsByUser, getAcceptedProjectsByUser,
   getUnacceptedProjectsByUser, getProjects, listProjectUsersTable,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
-  editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask};
+  editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask,
+  getTotalPBIPercentage};
 export default Client;

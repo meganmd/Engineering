@@ -230,4 +230,8 @@ module.exports = class database {
   getTasksByProject(projectName, cb){
     this.db.all("SELECT * FROM tasks WHERE project = ?", projectName, cb);
   }
+
+  getTasksByPBI(pbi, cb){
+    this.db.all("SELECT * from tasks WHERE pbi = ?", pbi, cb);
+  }
 }

@@ -309,6 +309,24 @@ app.post('/api/movePBI', function(request, response) {
   )
 })
 
+app.get('/api/PBITotalPercentage', function(request, response) {
+  console.log("Retrieving percentage for pbi..." + request.query.pbi);
+  data.getTasksByPBI(request.query.pbi, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    if(rows != undefined){
+      console.log("Found");
+      var total = 0;
+      for(var i = 0; i < rows.length; i++){
+        total += rows[i].percent;
+      }
+      response.json(total);
+    } else{
+      console.log("None found");
+      response.json(0);
+    }
+  });
+})
+
 app.post('/api/addTask', function(request, response) {
   console.log("Adding Task...");
   console.log(request.body);

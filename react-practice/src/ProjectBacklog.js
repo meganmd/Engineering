@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Client from './Client';
 import ProductBacklogForm from './ProductBacklogForm';
 import Sprint from './Sprint';
+import EditTaskForm from './EditTaskForm';
 
 class ProjectBacklog extends Component {
   constructor(props) {
@@ -10,6 +11,9 @@ class ProjectBacklog extends Component {
       height:"510",
       productBacklog:['user story one', 'user story two', 'user story three'],
       sprints:[[['item 1'],['item 2'],['item 3'],['item 4']]],
+      editTaskRow:"",
+      editTaskColumn:"",
+      editTaskSprint:"",
     };
     this.pushToSprint = this.pushToSprint.bind(this);
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
@@ -17,6 +21,8 @@ class ProjectBacklog extends Component {
     this.clearStoryToMove = this.clearStoryToMove.bind(this);
     this.move = this.move.bind(this);
     this.addToEnd = this.addToEnd.bind(this);
+    this.exit = this.exit.bind(this);
+    this.editTask = this.editTask.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -66,22 +72,38 @@ class ProjectBacklog extends Component {
     this.setState({'productBacklog':items});
   }
 
+  exit(){
+    this.setState({'EditTaskRow':'','editTaskColumn':'','editTaskSprint':''});
+  }
+
+  editTask(ev){
+    this.setState({'editTaskSprint':1, 'editTaskColumn':1, 'EditTaskRow':1});
+  }
 
 //------------------------------------------- render ----------------------------------------------
 render(){
+  var content;
+  if(this.state.EditTaskRow != ""){
+    content=<EditTaskForm
+    height={this.state.height}
+    exit={this.exit}/>
+  }
   return (
     <div className="projectBacklog">
-      <ProductBacklogForm
-      height={this.state.height}
-      items={this.state.productBacklog}
-      pushToSprint={this.pushToSprint}
-      moveProductBacklog={this.moveProductBacklog}/>
+        <ProductBacklogForm
+        height={this.state.height}
+        items={this.state.productBacklog}
+        pushToSprint={this.pushToSprint}
+        moveProductBacklog={this.moveProductBacklog}/>
 
-      <Sprint
-      sprintNumber={0}
-      items={this.state.sprints[0]}
-      move={this.move}
-      addToEnd={this.addToEnd}/>
+        <Sprint
+        sprintNumber={0}
+        items={this.state.sprints[0]}
+        move={this.move}
+        addToEnd={this.addToEnd}
+        editTask={this.editTask}/>
+
+        {content}
     </div>
   );}
 

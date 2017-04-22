@@ -168,6 +168,20 @@ table {
   padding-bottom: 2%;
 }
 
+#EditTaskForm{
+  position: absolute;
+  left: 25%;
+  top: 20px;
+  background: #FFFFFF;
+  height: 400px;
+  width: 45%;
+  box-shadow: 0 0 10px 0 rgb(15,15,15);
+  border: 2px solid black;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 2%;
+}
+
 #AddUserForm{
   position: absolute;
   left: 25%;

@@ -584,7 +584,7 @@ getColumnNumberByName(name){
          editPBIView = <EditPBIForm
            exit={this.exitEditPBI}
            pbi={this.state.editPBI}
-          updatePBI={Client.editPBI}
+           updatePBI={Client.editPBI}
            row={this.state.editPBIRow}
            column={this.state.editPBIColumn}
            height={this.state.backlogColumnStyle.height}

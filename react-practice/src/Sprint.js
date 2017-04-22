@@ -7,7 +7,7 @@ function ColumnContents(props){
     var divStyle = {
       background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
       width: "95%", "margin-bottom":"20px", "min-height":"50px"};
-      content.push(<div id={i} className={props.column} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i]} </div>);
+      content.push(<div id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i]} </div>);
   }
   return(
     <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>
@@ -82,11 +82,11 @@ render(){
       <ColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.props.items[0]}
       drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
       <ColumnContents column="todo" title="To Do" items={this.props.items[1]}
-      drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
+      drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
       <ColumnContents column="inprogress" title="In Progress" items={this.props.items[2]}
-      drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
+      drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
       <ColumnContents column="done" title="Done"items={this.props.items[3]}
-      drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
+      drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
     </div>
   );}
 

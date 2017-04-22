@@ -8,11 +8,15 @@ class ProjectBacklog extends Component {
     super(props);
     this.state = {
       height:"510",
-      productBacklog:['user story one', 'user story two', 'user story three']
+      productBacklog:['user story one', 'user story two', 'user story three'],
+      sprints:[[['item 1'],['item 2'],['item 3'],['item 4']]],
     };
     this.pushToSprint = this.pushToSprint.bind(this);
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
     this.isFirstStoryProductBacklogComplete = this.isFirstStoryProductBacklogComplete.bind(this);
+    this.clearStoryToMove = this.clearStoryToMove.bind(this);
+    this.move = this.move.bind(this);
+    this.addToEnd = this.addToEnd.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -25,6 +29,24 @@ class ProjectBacklog extends Component {
       return true;
     }
     return false;
+  }
+
+  clearStoryToMove(){
+        this.setState({storyToMove:""});
+  }
+
+  addToEnd(sprintNumber,fromRow, fromColumn, toColumn){
+    var items = this.state.sprints;
+    var item = items[sprintNumber][fromColumn].splice(fromRow,1);
+    items[sprintNumber][toColumn].push(item);
+    this.setState({'sprints':items})
+  }
+
+  move(sprintNumber, fromRow, fromColumn, toRow, toColumn){
+    var items = this.state.sprints;
+    var item = items[sprintNumber][fromColumn].splice(fromRow,1);
+    items[sprintNumber][toColumn].splice(toRow,0,item);
+    this.setState({'sprints':items})
   }
 
   pushToSprint(){
@@ -56,7 +78,10 @@ render(){
       moveProductBacklog={this.moveProductBacklog}/>
 
       <Sprint
-      sprintNumber={0}/>
+      sprintNumber={0}
+      items={this.state.sprints[0]}
+      move={this.move}
+      addToEnd={this.addToEnd}/>
     </div>
   );}
 

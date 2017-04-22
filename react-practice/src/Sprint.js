@@ -21,17 +21,11 @@ class Sprint extends Component {
   constructor(props) {
     super(props);
     //get items for sprint
-    var it = [['item 1'],['item 2'],['item 3'],['item 4']];
-    this.state = {
-      items:it
-    };
-
+    this.state = {};
     this.allowDrop = this.allowDrop.bind(this);
     this.drop = this.drop.bind(this);
     this.drag = this.drag.bind(this);
     this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
-    this.move = this.move.bind(this);
-    this.addToEnd = this.addToEnd.bind(this);
   }
 
   getColumnNumberByName(name){
@@ -44,20 +38,6 @@ class Sprint extends Component {
     }else{
       return 3;
     }
-  }
-
-  addToEnd(sprintNumber,fromRow, fromColumn, toColumn){
-    var items = this.state.items;
-    var item = items[fromColumn].splice(fromRow,1);
-    items[toColumn].push(item);
-    this.setState({'sprints':items})
-  }
-
-  move(sprintNumber, fromRow, fromColumn, toRow, toColumn){
-    var items = this.state.items;
-    var item = items[fromColumn].splice(fromRow,1);
-    items[toColumn].splice(toRow,0,item);
-    this.setState({'sprints':items})
   }
 
   //--------------------------------------------DND-------------------------------------------------------------
@@ -73,12 +53,12 @@ class Sprint extends Component {
       }else if(ev.dataTransfer.getData("column")!="sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
 
       }else if(row==="9999"){
-        this.addToEnd(this.props.sprintNumber,
+        this.props.addToEnd(this.props.sprintNumber,
         ev.dataTransfer.getData("row"),
         this.getColumnNumberByName(ev.dataTransfer.getData("column")),
         this.getColumnNumberByName(ev.target.id));
       }else{
-        this.move(this.props.sprintNumber,
+        this.props.move(this.props.sprintNumber,
         ev.dataTransfer.getData("row"),
         this.getColumnNumberByName(ev.dataTransfer.getData("column")),
         ev.target.id,
@@ -99,13 +79,13 @@ render(){
     <div className="sprint" >
       <div id="title"><h3>Sprint Title</h3></div>
       <br/>
-      <ColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.state.items[0]}
+      <ColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.props.items[0]}
       drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
-      <ColumnContents column="todo" title="To Do" items={this.state.items[1]}
+      <ColumnContents column="todo" title="To Do" items={this.props.items[1]}
       drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
-      <ColumnContents column="inprogress" title="In Progress" items={this.state.items[2]}
+      <ColumnContents column="inprogress" title="In Progress" items={this.props.items[2]}
       drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
-      <ColumnContents column="done" title="Done"items={this.state.items[3]}
+      <ColumnContents column="done" title="Done"items={this.props.items[3]}
       drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
     </div>
   );}

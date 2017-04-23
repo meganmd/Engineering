@@ -7,11 +7,23 @@ app.use(bodyParser.json());
 
 var config = require('./serverConfig');
 var database = require("./database.js");
-var data = new database(config.database[app.settings.env]);
+var mode = app.settings.env;
+var data = new database(config.database[mode]);
 
 //data.drop();
-data.initialize();
+var initialized = data.initialize();
 
+app.post('/api/drop', function(request, response) {
+  if(mode === 'test') {
+    data.drop(function() {
+      response.setHeader('Content-Type', 'application/json');
+      response.status(200).send();
+    })
+  } else {
+    response.setHeader('Content-Type', 'application/json');
+    response.status(400).send();
+  }
+})
 
 app.get('/api/listUsers', function(request, response) {
   data.getUsers(function(err, rows) {

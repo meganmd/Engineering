@@ -20,6 +20,15 @@ describe('Blobs', function() {
     firstName: "Michael",
     lastName: "Mouse",
   }];
+  var project = {
+    name: "project1",
+    description: "first project"
+  };
+  var userProject = {
+    user: "philidelphia",
+    project: "project1",
+    role: "productOwner"
+  };
   var server;
   var database;
   beforeEach(function (done) {
@@ -129,6 +138,124 @@ describe('Blobs', function() {
       res.should.be.json;
       res.body.should.be.a('object');
       res.body.should.eql(users[1]);
+      done();
+    });
+  })
+  it("shouldn't get nonexistant user", function(done) {
+    chai.request(server)
+    .get('/api/user?username=' + 'notauser')
+    .end(function(err, res){
+      res.should.have.status(400);
+      done();
+    });
+  })
+  it('should add project', function(done) {
+    chai.request(server)
+      .post('/api/addProject')
+      .send(project)
+      .end(function(err, res){
+        res.should.have.status(200);
+        //res.should.be.json;
+        //res.body.should.be.a('object');
+        //res.body.should.have.property('username');
+        //res.body.should.have.property('password');
+        //res.body.should.have.property('firstName');
+        //res.body.should.have.property('lastName');
+        //res.body.username.should.equal(newUser.username);
+        //res.body.password.should.equal(newUser.password);
+        done();
+      });
+  });
+  it("shouldn't add duplicate project", function(done) {
+    chai.request(server)
+      .post('/api/addProject')
+      .send(project)
+      .end(function(err, res){
+        res.should.have.status(400);
+        //res.should.be.json;
+        //res.body.should.be.a('object');
+        //res.body.should.have.property('username');
+        //res.body.should.have.property('password');
+        //res.body.should.have.property('firstName');
+        //res.body.should.have.property('lastName');
+        //res.body.username.should.equal(newUser.username);
+        //res.body.password.should.equal(newUser.password);
+        done();
+      });
+  });
+  it('should get project', function(done) {
+    chai.request(server)
+    .get('/api/project?name=' + project.name)
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.eql(project);
+      done();
+    });
+  })
+  it("shouldn't get nonexistant project", function(done) {
+    chai.request(server)
+    .get('/api/project?name=' + "notaproject")
+    .end(function(err, res){
+      res.should.have.status(400);
+      done();
+    });
+  })
+  it("list projects", function(done) {
+    chai.request(server)
+    .get('/api/listProjects')
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      res.body.should.have.lengthOf(1);
+      res.body.should.eql([project]);
+      done();
+    });
+  })
+  it("adding user to project", function(done) {
+    chai.request(server)
+      .post('/api/addUserToProject')
+      .send(userProject)
+      .end(function(err, res){
+        res.should.have.status(200);
+        //res.should.be.json;
+        //res.body.should.be.a('object');
+        //res.body.should.have.property('username');
+        //res.body.should.have.property('password');
+        //res.body.should.have.property('firstName');
+        //res.body.should.have.property('lastName');
+        //res.body.username.should.equal(newUser.username);
+        //res.body.password.should.equal(newUser.password);
+        done();
+      });
+  })
+  it("can't add user to project twice", function(done) {
+    chai.request(server)
+      .post('/api/addUserToProject')
+      .send(userProject)
+      .end(function(err, res){
+        res.should.have.status(400);
+        //res.should.be.json;
+        //res.body.should.be.a('object');
+        //res.body.should.have.property('username');
+        //res.body.should.have.property('password');
+        //res.body.should.have.property('firstName');
+        //res.body.should.have.property('lastName');
+        //res.body.username.should.equal(newUser.username);
+        //res.body.password.should.equal(newUser.password);
+        done();
+      });
+  })
+  it('list all projectusers', function(done) {
+    chai.request(server)
+    .get('/api/listProjectUsers')
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      res.body.should.have.lengthOf(1);
       done();
     });
   })

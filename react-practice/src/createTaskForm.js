@@ -18,13 +18,11 @@ function CreateProjectDisplay(props){
         </select><br />
       })
 
-
-
-
-      <textarea id="createPercentage" name="percentage" type="text" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
+      <textarea id="createPercentage" name="percentage" type="number" min="1" max="100" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
       <textarea id="createMember" name="assignedMember" type="text" placeholder="Enter Assigned User" onChange={props.handleFieldChange} /> <br/>
       <button className="leaveTaskFormButton" onClick={props.handleBackButton}>Cancel</button>
       <button className="createTaskButton" onClick={props.handleClick}>Create Project</button>
+
     </div>
   );
 }
@@ -39,7 +37,7 @@ class CreateTaskForm extends Component {
   }
 
   handleClick(){
-    if(this.state.taskDescription.length > 0 && this.state.userStory.length>0){ //need to check user story exists
+    if(this.state.taskDescription.length > 0 && this.state.userStory.length>0){
 
       Client.getTotalPBIPercentage(this.props.pbi.id, (total)=>{
               Client.addTask(this.props.project, this.props.sprint, this.props.pbi.id,

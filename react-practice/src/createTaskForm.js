@@ -8,6 +8,9 @@ function CreateProjectDisplay(props){
       <input id="createTaskInput" name="taskDesciption" type="text" placeholder="Enter Task Description ... "
         onChange={props.handleFieldChange}/> <br/>
         Description<br/>
+
+  
+
       <textarea id="createPercentage" name="percentage" type="text" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
       <textarea id="createMember" name="assignedMember" type="text" placeholder="Enter Assigned User" onChange={props.handleFieldChange} /> <br/>
       <button className="leaveTaskFormButton" onClick={props.handleBackButton}>Cancel</button>
@@ -28,11 +31,14 @@ class CreateTaskForm extends Component {
   handleClick(){
     if(this.state.taskDescription.length > 0 && this.state.userStory.length>0){ //need to check user story exists
 
-      Client.addTask(project, sprint, pbi, description, percentage, member, columnNumber, priority) //how do these work?
+      Client.getTotalPBIPercentage(this.props.pbi.id, (total)=>{
+              Client.addTask(this.props.project, this.props.sprint, this.props.pbi.id,
+                this.state.taskTescription, total, this.state.member, 1,1) //just giving 1 for columnNumber and Priority for now
+          })
       this.props.handleTaskComplete();
       });
     } else {
-      this.setState({errorMessage:'Must fill out project description and user story!'});
+      this.setState({errorMessage:'Must fill out project description and select user story!'});
     }
   }
 

@@ -3,20 +3,25 @@ import Client from './Client'
 
 
 function CreateProjectDisplay(props){
+
+  var dropdown = [];
+
+  //dropdown for selecting user story
+  Client.getPBIs(this.props.project, (pbis)=>{
+    dropdown.push(userStory: <select name="userStory" onChange={props.handleInputChange}>);
+    for(int i=0;int<pbis.length;i++){
+      dropdown.push(<option value=pbis[i]> pbis[i].description </option>);
+    }
+    dropdown.push(</select><br />);
+  })
+
   return(
     <div className="CreateTask">
       <input id="createTaskInput" name="taskDesciption" type="text" placeholder="Enter Task Description ... "
         onChange={props.handleFieldChange}/> <br/>
         Description<br/>
 
-        //dropdown for selecting user story
-        Client.getPBIs(this.props.project, (pbis)=>{
-        userStory: <select name="userStory" onChange={props.handleInputChange}>
-        for(int i=0;int<pbis.length;i++){
-          <option value=pbis[i]> pbis[i].description </option>
-        }
-        </select><br />
-      })
+        dropdown
 
       <textarea id="createPercentage" name="percentage" type="number" min="1" max="100" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
       <textarea id="createMember" name="assignedMember" type="text" placeholder="Enter Assigned User" onChange={props.handleFieldChange} /> <br/>

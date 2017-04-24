@@ -115,7 +115,7 @@ class App extends Component {
             <button className="halfSizeButton" onClick={this.openAddUser}>Add User</button>
           </h1>
           content.push(top);
-          content.push(<ProjectBacklog/>);
+          content.push(<ProjectBacklog project={this.state.currentProject}/>);
       }else{
         var top = <h1  id="projectTitleText">
                       <LogOutButton onClick={this.handleLogOut} />

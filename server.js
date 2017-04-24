@@ -292,7 +292,7 @@ app.post('/api/addPBI', function(request, response) {
   data.addProductBacklogItem(
     request.body.description, request.body.role, request.body.functionality,
     request.body.value, request.body.acceptanceCriteria, request.body.estimate,
-    request.body.columnNumber, request.body.rowNumber, request.body.project,
+    request.body.priority, request.body.project,
     function(error){
       if(error) {
         response.status(400).send("Something went wrong in adding");
@@ -321,9 +321,9 @@ app.post('/api/editPBI', function(request, response) {
 })
 
 app.post('/api/movePBI', function(request, response) {
-  console.log("Moving PBI " + request.body.id + " to " + request.body.columnNumber + " | " + request.body.rowNumber);
+  console.log("Moving PBI " + request.body.id + " to priority " + request.body.priority);
   data.moveProductBackLogItem(
-    request.body.id, request.body.columnNumber, request.body.rowNumber,
+    request.body.id, request.body.priority,
     function(error){
       if(error) {
         response.status(400).send("Something went wrong in moving");

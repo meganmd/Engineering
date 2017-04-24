@@ -207,7 +207,7 @@ function listPBITable(cb){
 }
 
 function addPBI(description, role, functionality, value,
-  acceptanceCriteria, estimate, columnNumber, rowNumber, project, cb){
+  acceptanceCriteria, estimate, priority, project, cb){
     return fetch('api/addPBI', {
       headers: {
         'Accept': 'application/json',
@@ -221,8 +221,7 @@ function addPBI(description, role, functionality, value,
         value: value,
         acceptanceCriteria: acceptanceCriteria,
         estimate: estimate,
-        columnNumber: columnNumber,
-        rowNumber: rowNumber,
+        priority: priority,
         project: project
       })
     }).then(checkStatus)
@@ -250,7 +249,7 @@ function editPBI(id, description, role, functionality, value,
       .then(cb);
 }
 
-function movePBI(id, columnNumber, rowNumber, cb){
+function movePBI(id, priority, cb){
     return fetch('api/movePBI', {
       headers: {
         'Accept': 'application/json',
@@ -259,8 +258,7 @@ function movePBI(id, columnNumber, rowNumber, cb){
       method: "POST",
       body: JSON.stringify({
         id: id,
-        columnNumber: columnNumber,
-        rowNumber: rowNumber
+        priority: priority
       })
     }).then(checkStatus)
       .then(cb);

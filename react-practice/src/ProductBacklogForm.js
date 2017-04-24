@@ -8,11 +8,11 @@ function ColumnContents(props) {
   for(var i=0;i<props.items.length; i++){
     var divStyle = {
       background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
-      width: "95%", "margin-bottom":"20px", "min-height":"50px"};
+      width: "95%", "marginBottom":"20px", "minHeight":"50px"};
     if(i===0){
-        content.push(<div key={i} className={i} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag} style={divStyle}> {props.items[i]} <br/> <button onClick={props.pushToSprint} style={{width:"85%"}}>Push To Sprint</button> </div>);
+        content.push(<div key={i} className={i} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag} style={divStyle}> {props.items[i].description} <br/> <button onClick={props.pushToSprint} style={{width:"85%"}}>Push To Sprint</button> </div>);
     }else{
-        content.push(<div key={i} className={i} style={divStyle} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag}> {props.items[i]} </div>);
+        content.push(<div key={i} className={i} style={divStyle} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag}> {props.items[i].description} </div>);
     }
 
   }
@@ -27,7 +27,7 @@ class ProductBacklogForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contents:[],
+      pbis:[],
       isDragging:false,
       addPBI: false
     };
@@ -38,6 +38,7 @@ class ProductBacklogForm extends Component {
     this.openAddPBI = this.openAddPBI.bind(this);
     this.addPBIComplete = this.addPBIComplete.bind(this);
     this.exitAddPBI = this.exitAddPBI.bind(this);
+    this.updatePBIs = this.updatePBIs.bind(this);
     this.divStyle = {
       height: props.height,
       background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)","padding":"7%"};
@@ -64,19 +65,29 @@ class ProductBacklogForm extends Component {
 
   addPBIComplete(){
     this.setState({addPBI:false});
-    // for(var i = 0; i < this.state.productbacklog.length; i++){
-    //   var id = this.state.productbacklog[i].id;
-    //   var column = this.state.productbacklog[i].columnNumber;
-    //   var row = this.state.productbacklog[i].rowNumber;
-    //   //Move them all down 1 row
-    //   Client.movePBI(id,column, row+1,function(){});
-    // }
+    for(var i = 0; i < this.state.pbis.length; i++){
+      var id = this.state.pbis[i].id;
+      var priority = this.state.pbis[i].priority;
+      //Move them all down 1 row
+      Client.movePBI(id,priority+1,function(){});
+    }
     this.exitAddPBI();
   }
 
   exitAddPBI(){
     this.setState({addPBI:false});
-    this.updateTablePBIs();
+    this.updatePBIs();
+  }
+
+  updatePBIs(){
+    Client.getPBIs(this.props.project.name, (pbis) => {
+      this.setState({pbis: pbis});
+    })
+  }
+
+  componentWillMount() {
+    this.props.passUpFunction("productBacklogUpdate",this.updatePBIs);
+    this.updatePBIs();
   }
 
   //------------------------------------- Class Return ----------------------------------------------------------------
@@ -98,7 +109,7 @@ render(){
       </div>
       <ColumnContents
         style={this.divStyle}
-        items={this.props.items}
+        items={this.state.pbis}
         pushToSprint={this.props.pushToSprint}
         drop={this.drop}
         allowDrop={this.allowDrop}

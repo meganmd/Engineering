@@ -11,7 +11,9 @@ class ProjectBacklog extends Component {
       height:"510",
       productBacklog:['user story one', 'user story two', 'user story three'],
       sprints:[[['item 1'],['item 2'],['item 3'],['item 4']]],
-      editPBI: null
+      editPBI: null,
+      productBacklogUpdate: null,
+      sprintUpdate: null
     };
     this.pushToSprint = this.pushToSprint.bind(this);
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
@@ -21,6 +23,8 @@ class ProjectBacklog extends Component {
     this.addToEnd = this.addToEnd.bind(this);
     this.openEditPBI = this.openEditPBI.bind(this);
     this.exitEditPBI = this.exitEditPBI.bind(this);
+    this.passUpFunction = this.passUpFunction.bind(this);
+    this.updateChildren = this.updateChildren.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -79,6 +83,22 @@ class ProjectBacklog extends Component {
     updateFunction();
   }
 
+  passUpFunction(name, fun){
+    this.setState({[name]: fun});
+  }
+
+  updateChildren(){
+    if(this.state.productBacklogUpdate !== null){
+      this.state.productBacklogUpdate();
+    } else{
+      console.log("PB UPDATE NULL");
+    }
+    if(this.state.sprintUpdate !== null){
+      this.state.sprintUpdate();
+    }else{
+      console.log("SPRINT UPDATE NULL")
+    }
+  }
 
 //------------------------------------------- render ----------------------------------------------
 render(){
@@ -104,14 +124,17 @@ render(){
         pushToSprint={this.pushToSprint}
         moveProductBacklog={this.moveProductBacklog}
         project={this.props.project}
-        openEditPBI={this.openEditPBI}/>
+        openEditPBI={this.openEditPBI}
+        passUpFunction={this.passUpFunction}/>
 
         <Sprint
         sprintNumber={0}
         items={this.state.sprints[0]}
         move={this.move}
         addToEnd={this.addToEnd}
-        editTask={this.editTask}/>
+        editTask={this.editTask}
+        passUpFunction={this.passUpFunction}/>
+
         {editPBIView}
     </div>
   );}

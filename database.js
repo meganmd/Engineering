@@ -179,7 +179,7 @@ module.exports = class database {
 
   // Returns all PBIs for a project in order by column and then row
   getProductBacklogItemsForProject(project, cb){
-    this.db.all("SELECT * FROM productBacklogItems where project = ? ORDER BY columnNumber, rowNumber",project, cb);
+    this.db.all("SELECT * FROM productBacklogItems where project = ? ORDER BY priority",project, cb);
   }
 
   getProductBacklog(project, cb){
@@ -188,11 +188,11 @@ module.exports = class database {
   }
 
   addProductBacklogItem(description, role, functionality, value,
-    acceptanceCriteria, estimate, columnNumber, rowNumber, project, cb){
+    acceptanceCriteria, estimate, priority, project, cb){
     this.db.run("INSERT INTO productBacklogItems (description, role, " +
-    "functionality, value, acceptanceCriteria, estimate, columnNumber, " +
-    "rowNumber, project) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",description, role,
-    functionality, value, acceptanceCriteria, estimate, columnNumber, rowNumber,
+    "functionality, value, acceptanceCriteria, estimate, " +
+    "priority, project) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",description, role,
+    functionality, value, acceptanceCriteria, estimate, priority,
      project, cb);
   }
 
@@ -204,9 +204,9 @@ module.exports = class database {
       functionality, value, acceptanceCriteria, estimate, id, cb);
   }
 
-  moveProductBackLogItem(id, columnNumber, rowNumber, cb){
-    this.db.run("UPDATE productBacklogItems SET columnNumber = ?, rowNumber = ?" +
-    " WHERE id = ?", columnNumber, rowNumber, id, cb);
+  moveProductBackLogItem(id, priority, cb){
+    this.db.run("UPDATE productBacklogItems SET priority = ?" +
+    " WHERE id = ?", priority, id, cb);
   }
 
   addProductBacklogItemToSprint(id, srint, row, cb){

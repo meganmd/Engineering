@@ -13,7 +13,8 @@ class ProjectBacklog extends Component {
       sprints:[[['item 1'],['item 2'],['item 3'],['item 4']]],
       editPBI: null,
       productBacklogUpdate: null,
-      sprintUpdate: null
+      sprintUpdate: null,
+      errorMessage: ""
     };
     this.pushToSprint = this.pushToSprint.bind(this);
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
@@ -32,7 +33,7 @@ class ProjectBacklog extends Component {
   isFirstStoryProductBacklogComplete(){
     var pbi = this.getState("contents")[0];
     console.log("Role ='" + pbi.role + "' functionality = '" + pbi.functionality + "' acceptanceCriteria = '" + pbi.acceptanceCriteria+"'");
-    if(pbi.role != '' && pbi.functionality != '' && pbi.value != '' && pbi.acceptanceCriteria != ''){
+    if(pbi.role !== '' && pbi.functionality !== '' && pbi.value !== '' && pbi.acceptanceCriteria !== ''){
       console.log("return true");
       return true;
     }
@@ -57,13 +58,19 @@ class ProjectBacklog extends Component {
     this.setState({'sprints':items})
   }
 
-  pushToSprint(){
+  pushToSprint(pbi){
+    console.log("PUSHING");
     //use an if statement to test and make sure criteria is correct
-    console.log("pushing");
-    var sprints = this.state.sprints;
-    var productBacklog = this.state.productBacklog;
-    sprints[0][0].push(productBacklog.shift());
-    this.setState({'productBacklog':productBacklog, 'sprints':sprints});
+    console.log(pbi);
+    if(pbi.role != '' && pbi.functionality != '' && pbi.value != '' && pbi.acceptanceCriteria != '' && pbi.estimate != "undecided"){
+      Client.addPBIToSprint(pbi.id, 1, 0, function(){});
+      this.setState({errorMessage: ""});
+      this.updateChildren();
+    } else{
+      //Bad STUFF
+      console.log("FAIL");
+      this.setState({errorMessage: "Error: Top user story is incomplete. Add role, functionality, value, and acceptanceCriteria"})
+    }
   }
 
   moveProductBacklog(from, to){
@@ -78,9 +85,9 @@ class ProjectBacklog extends Component {
     this.setState({editPBI: pbi});
   }
 
-  exitEditPBI(updateFunction){
+  exitEditPBI(){
     this.setState({editPBI:null});
-    updateFunction();
+    this.updateChildren();
   }
 
   passUpFunction(name, fun){
@@ -111,7 +118,6 @@ render(){
       updatePBI={Client.editPBI}
       row={this.state.editPBIRow}
       column={this.state.editPBIColumn}
-      height={this.state.backlogColumnStyle.height}
     />
   }else{
     console.log("UNDEFINED______________________");
@@ -125,15 +131,20 @@ render(){
         moveProductBacklog={this.moveProductBacklog}
         project={this.props.project}
         openEditPBI={this.openEditPBI}
-        passUpFunction={this.passUpFunction}/>
+        passUpFunction={this.passUpFunction}
+        numSprints={1}/>
 
         <Sprint
-        sprintNumber={0}
+        sprintNumber={1}
         items={this.state.sprints[0]}
         move={this.move}
         addToEnd={this.addToEnd}
         editTask={this.editTask}
-        passUpFunction={this.passUpFunction}/>
+        passUpFunction={this.passUpFunction}
+        project={this.props.project}/>
+
+
+        {this.state.errorMessage}
 
         {editPBIView}
     </div>

@@ -40,7 +40,7 @@ class EditPBIForm extends Component {
       background: '#555555dd',
       width: '100%',
       'minHeight': '760px',
-      height: props.height+75,
+      height: 75,
     };
     //console.log(props.height+ "<- should be");
     this.handleInputChange = this.handleInputChange.bind(this);

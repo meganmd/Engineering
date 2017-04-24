@@ -2,14 +2,29 @@ import React, { Component } from 'react';
 import Client from './Client';
 import EditTaskForm from './EditTaskForm';
 
+function BacklogColumnContents(props){
+  var content = [];
+  for(var i=0; i<props.items.length; i++){
+    var divStyle = {
+      background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
+      width: "95%", "marginBottom":"20px", "minHeight":"50px"};
+      content.push(<div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
+  }
+  return(
+    <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>
+      <div id="title"><h3>{props.title}</h3></div>
+      {content}
+    </div>
+  );
+}
 
 function ColumnContents(props){
   var content = [];
   for(var i=0; i<props.items.length; i++){
     var divStyle = {
       background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
-      width: "95%", "margin-bottom":"20px", "minHeight":"50px"};
-      content.push(<div id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i]} </div>);
+      width: "95%", "marginBottom":"20px", "minHeight":"50px"};
+      content.push(<div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i]} </div>);
   }
   return(
     <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>
@@ -23,11 +38,14 @@ class Sprint extends Component {
   constructor(props) {
     super(props);
     //get items for sprint
-    this.state = {editTask: null};
+    this.state = {
+      editTask: null,
+      pbis: []};
     this.allowDrop = this.allowDrop.bind(this);
     this.drop = this.drop.bind(this);
     this.drag = this.drag.bind(this);
     this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
+    this.updatePBIs = this.updatePBIs.bind(this);
   }
 
   getColumnNumberByName(name){
@@ -84,6 +102,18 @@ class Sprint extends Component {
     this.setState({editTask: null});
   }
 
+  updatePBIs(){
+    Client.getSprintBacklog(this.props.project.name, this.props.sprintNumber, (pbis) => {
+      console.log(pbis);
+      this.setState({pbis: pbis});
+    })
+  }
+
+  componentWillMount() {
+    this.props.passUpFunction("sprintUpdate",this.updatePBIs);
+    this.updatePBIs();
+  }
+
   render(){
     var editTask;
     if(this.state.editTask !== null){
@@ -95,7 +125,7 @@ class Sprint extends Component {
       <div className="sprint" >
         <div id="title"><h3>Sprint Title</h3></div>
         <br/>
-        <ColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.props.items[0]}
+        <BacklogColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.state.pbis}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
         <ColumnContents column="todo" title="To Do" items={this.props.items[1]}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>

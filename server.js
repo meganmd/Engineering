@@ -274,7 +274,7 @@ app.get('/api/pbis', function(request, response) {
 
 app.get('/api/productBacklog', function(request, response) {
   console.log("Retrieving product backlog for " + request.query.project);
-  data.getProductBacklog(request.query.project, function(err, rows) {
+  data.getProductBacklog(request.query.project, request.query.numSprints,function(err, rows) {
     response.setHeader('Content-Type', 'application/json');
     if(rows != undefined){
       console.log("Found");
@@ -284,6 +284,22 @@ app.get('/api/productBacklog', function(request, response) {
       response.json([]);
     }
   })
+})
+
+app.get('/api/sprintBacklog', function(request, response) {
+  console.log("Retrieving product backlog for " +
+  request.query.project + " sprint " + request.query.sprintNum);
+  data.getSprintBacklog(request.query.project, request.query.sprintNum,
+    function(err, rows) {
+      response.setHeader('Content-Type', 'application/json');
+      if(rows != undefined){
+        console.log("Found");
+        response.json(rows);
+      } else{
+        console.log("None found");
+        response.json([]);
+      }
+    })
 })
 
 app.post('/api/addPBI', function(request, response) {
@@ -337,7 +353,7 @@ app.post('/api/movePBI', function(request, response) {
 
 app.post('/api/addPBIToSprint', function(request, response) {
   console.log("Adding PBI " + request.body.id + " to sprint " +
-  request.body.sprint);
+  request.body.sprint );
   data.addProductBacklogItemToSprint(
     request.body.id, request.body.sprint, request.body.rowNumber,
     function(error){

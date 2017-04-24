@@ -10,9 +10,25 @@ function ColumnContents(props) {
       background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
       width: "95%", "marginBottom":"20px", "minHeight":"50px"};
     if(i===0){
-        content.push(<div key={i} className={i} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag} style={divStyle}> {props.items[i].description} <br/> <button onClick={props.pushToSprint} style={{width:"85%"}}>Push To Sprint</button> </div>);
+        content.push(
+          <div key={i} className={i} draggable="true"
+          onDrop={props.drop} onDragOver={props.allowDrop}
+          onDragStart={props.drag} style={divStyle}>
+            <div id={i} onClick={props.openEditPBI}>
+              {props.items[i].description}
+            </div>
+            <br/>
+            <button onClick={props.pushToSprint} style={{width:"85%"}}>
+              Push To Sprint
+            </button>
+          </div>);
     }else{
-        content.push(<div key={i} className={i} style={divStyle} draggable="true" onDrop={props.drop} onDragOver={props.allowDrop} onDragStart={props.drag}> {props.items[i].description} </div>);
+        content.push(
+          <div key={i} id={i} className={i} style={divStyle} draggable="true"
+            onDrop={props.drop} onDragOver={props.allowDrop}
+            onDragStart={props.drag} onClick={props.openEditPBI}>
+            {props.items[i].description}
+          </div>);
     }
 
   }
@@ -39,6 +55,8 @@ class ProductBacklogForm extends Component {
     this.addPBIComplete = this.addPBIComplete.bind(this);
     this.exitAddPBI = this.exitAddPBI.bind(this);
     this.updatePBIs = this.updatePBIs.bind(this);
+    this.addToSprintButton = this.addToSprintButton.bind(this);
+    this.clickPBI = this.clickPBI.bind(this);
     this.divStyle = {
       height: props.height,
       background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)","padding":"7%"};
@@ -89,9 +107,18 @@ class ProductBacklogForm extends Component {
   }
 
   updatePBIs(){
-    Client.getPBIs(this.props.project.name, (pbis) => {
+    Client.getProductBacklog(this.props.project.name, this.props.numSprints,(pbis) => {
       this.setState({pbis: pbis});
     })
+  }
+
+  addToSprintButton(){
+    this.props.pushToSprint(this.state.pbis[0]);
+  }
+
+  clickPBI(e){
+    // console.log("EDITING..." + e.target.id)
+    this.props.openEditPBI(this.state.pbis[e.target.id]);
   }
 
   componentWillMount() {
@@ -119,7 +146,8 @@ render(){
       <ColumnContents
         style={this.divStyle}
         items={this.state.pbis}
-        pushToSprint={this.props.pushToSprint}
+        pushToSprint={this.addToSprintButton}
+        openEditPBI={this.clickPBI}
         drop={this.drop}
         allowDrop={this.allowDrop}
         drag={this.drag}/>

@@ -70,14 +70,14 @@ module.exports = class database {
       this.db.run("CREATE TABLE IF NOT EXISTS sprintPBIs (" +
         "row INTEGER, " +
         "project TEXT, " +
-        "PBIid INTEGER, " +
+        "id INTEGER, " +
         "sprint INTEGER, " +
         "status TEXT, " +
         "reason TEXT, " +
-        "PRIMARY KEY (project, PBIid, sprint)" +
+        "PRIMARY KEY (project, id, sprint)" +
         "FOREIGN KEY(project) REFERENCES projects(name)" +
         "FOREIGN KEY(project) REFERENCES sprints(project)" +
-        "FOREIGN KEY(PBIid) REFERENCES productBacklogItems(id)" +
+        "FOREIGN KEY(id) REFERENCES productBacklogItems(id)" +
         "FOREIGN KEY(sprint) REFERENCES sprints(number)" +
       ")");
       if(!(typeof cb === 'undefined')) {
@@ -182,9 +182,16 @@ module.exports = class database {
     this.db.all("SELECT * FROM productBacklogItems where project = ? ORDER BY priority",project, cb);
   }
 
-  getProductBacklog(project, cb){
-    this.db.all("SELECT * FROM productBacklogItems LEFT OUTER JOIN sprintPBIs "+
-    "ON productBacklogItems.id = sprintPBIs.PBIid",cb);
+  getProductBacklog(project, numSprints, cb){
+    this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
+    " WHERE project = ? AND ((sprint is null) OR (sprint = ? AND status != ?))",
+    project, numSprints, "rejected", cb);
+  }
+
+  getSprintBacklog(project, sprintNum, cb){
+    this.db.all("SELECT * FROM productBacklogItems INNER JOIN sprintPBIs ON " +
+    " productBacklogItems.id = sprintPBIs.PBIid WHERE project = ? AND " +
+    "sprint = ?", project, sprintNum, cb);
   }
 
   addProductBacklogItem(description, role, functionality, value,

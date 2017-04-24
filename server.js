@@ -321,6 +321,55 @@ app.post('/api/movePBI', function(request, response) {
   )
 })
 
+app.post('/api/addPBIToSprint', function(request, response) {
+  console.log("Adding PBI " + request.body.id + " to sprint " +
+  request.body.sprint);
+  data.addProductBacklogItemToSprint(
+    request.body.id, request.body.sprint, request.body.rowNumber,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in adding to sprint");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    }
+  )
+})
+
+app.post('/api/acceptPBI', function(request, response) {
+  console.log("Accepting PBI " + request.body.id + " for project " + request.body.projectName + " sprint " + request.body.sprint);
+  data.acceptProductBackLogItem(
+    request.body.id, request.body.projectName, request.body.sprint,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in accepting");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    }
+  )
+})
+
+app.post('/api/rejectPBI', function(request, response) {
+  console.log("Accepting PBI " + request.body.id + " for project " +
+  request.body.projectName + " sprint " + request.body.sprint + " because " +
+  request.body.reason);
+  data.acceptProductBackLogItem(
+    request.body.id, request.body.projectName, request.body.sprint,
+    request.body.reason,
+    function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in rejecting");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    }
+  )
+})
+
 app.get('/api/PBITotalPercentage', function(request, response) {
   console.log("Retrieving percentage for pbi..." + request.query.pbi);
   data.getTasksByPBI(request.query.pbi, function(err, rows){
@@ -372,6 +421,18 @@ app.post('/api/editTask', function(request, response) {
     })
 })
 
+app.post('/api/deleteTask', function(request, response) {
+  console.log("Deleting Task..." + request.body.id);
+  data.deleteTask(request.body.id, function(error){
+    if(error) {
+      response.status(400).send("Something went wrong in deleting");
+    } else {
+      console.log("No error");
+      response.status(200).end();
+    }
+  })
+})
+
 app.post('/api/moveTask', function(request, response) {
   console.log("Moving Task...");
   console.log(request.body);
@@ -388,7 +449,7 @@ app.post('/api/moveTask', function(request, response) {
 })
 
 app.get('/api/tasksBySprint', function(request, response){
-  data.getTasksBySprint(request.query.sprintID, function(err, rows){
+  data.getTasksBySprint(request.query.projectName , request.query.sprintID, function(err, rows){
     response.setHeader('Content-Type', 'application/json');
     if(rows != undefined){
       console.log("Found");

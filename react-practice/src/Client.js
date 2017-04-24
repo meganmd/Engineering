@@ -258,12 +258,61 @@ function movePBI(id, columnNumber, rowNumber, cb){
       .then(cb);
 }
 
+function addPBIToSprint(id, sprint, rowNumber, cb){
+  return fetch('api/addPBIToSprint', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      id: id,
+      sprint: sprint,
+      rowNumber: rowNumber
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
 //returns an integer representing the current total percentage of tasks for a pbi
 function getTotalPBIPercentage(pbiID, cb){
   return fetch(`api/PBITotalPercentage?pbi=${pbiID}`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)
+    .then(cb);
+}
+
+function acceptPBI(id, projectName, sprint, cb){
+  return fetch(`api/acceptPBI`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      id: id,
+      projectName: projectName,
+      sprint: sprint
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
+function rejectPBI(id, projectName, sprint, reason, cb){
+  return fetch(`api/rejectPBI`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      id: id,
+      projectName: projectName,
+      sprint: sprint,
+      reason: reason
+    })
+  }).then(checkStatus)
     .then(cb);
 }
 
@@ -289,6 +338,54 @@ function addTask(project, sprint, pbi, description, percentage, member,
     .then(cb);
 }
 
+function editTask(id, description, percent, member, pbi, cb){
+  return fetch('api/editTask', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      id: id,
+      description: description,
+      percent: percent,
+      member: member,
+      pbi: pbi
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
+function moveTask(id, columnNumber, priority, cb){
+  return fetch('api/moveTask', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      id: id,
+      columnNumber: columnNumber,
+      priority: priority
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
+function deleteTask(id, cb){
+  return fetch(`api/deleteTask`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      id: id,
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
+
 function getTasksBySprint(projectName, sprintNum, cb) {
   return fetch(`api/tasksBySprint?projectName=${projectName}&sprintNum=${sprintNum}`, {
     accept: 'application/json',
@@ -304,6 +401,8 @@ function getTasksByProject(projectName, cb) {
     .then(parseJSON)
     .then(cb);
 }
+
+
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -325,5 +424,5 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getUnacceptedProjectsByUser, getProjects, listProjectUsersTable,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
   editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask,
-  getTotalPBIPercentage};
+  getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint};
 export default Client;

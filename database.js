@@ -203,6 +203,20 @@ module.exports = class database {
     " WHERE id = ?", columnNumber, rowNumber, id, cb);
   }
 
+  addProductBacklogItemToSprint(id, srint, row, cb){
+    this.db.run("INSERT INTO sprintPBIs (row, project, PBIid, sprint, status," +
+    " reason) VALUES (?, (SELECT project from productBacklogItems WHERE " +
+    "id = ?), ?, ?, ?, ?)", row, id, id, sprint, "none", "", cb);
+  }
+
+  acceptProductBackLogItem(id, projectName, sprint, cb){
+    this.db.run("UPDATE sprintPBIs SET status = ? WHERE id = ? and project = ? and sprint = ?", "accepted", id, projectName, sprint, cb);
+  }
+
+  rejectProductBackLogItem(id, projectName, sprint, reason, cb){
+    this.db.run("UPDATE sprintPBIs SET status = ?, reason = ? WHERE id = ? and project = ? and sprint = ?", "accepted", reason, id, projectName, sprint, cb);
+  }
+
   addTask(project, pbi, description, percent, member, columnNumber, priority, cb) {
     this.db.run("INSERT INTO tasks (project, pbi, description, percent," +
     " member, columnNumber, priority) VALUES(?, ?, ?, ?, ?, ?, ?)",
@@ -223,8 +237,9 @@ module.exports = class database {
     this.db.run("DELETE from tasks where id = ?", id, cb);
   }
 
-  getTasksBySprint(sprintID, cb) {
-    //FINISH LATER
+  getTasksBySprint(projectName, sprintID, cb) {
+    //Are we sure we want it this way? Should there be a sprint column in tasks?
+    this.db.all("SELECT * FROM tasks WHERE pbi in (SELECT PBIid from sprintPBIs WHERE project = ? and sprint = ?)", projectName, sprintID, cb);
   }
 
   getTasksByProject(projectName, cb){

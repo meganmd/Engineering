@@ -13,10 +13,10 @@ var data = new database(config.database[mode]);
 //data.drop();
 var initialized = data.initialize();
 
-app.post('/api/drop', function(request, response) {
+app.get('/api/drop', function(request, response) {
   if(mode === 'test') {
     data.drop(function() {
-      response.setHeader('Content-Type', 'application/json');
+      //response.setHeader('Content-Type');
       response.status(200).send();
     })
   } else {

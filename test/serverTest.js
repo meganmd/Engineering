@@ -25,8 +25,8 @@ describe('Blobs', function() {
     description: "first project"
   };
   var userProject = {
-    user: "philidelphia",
-    project: "project1",
+    username: "philidelphia",
+    projectName: "project1",
     role: "productOwner"
   };
   var server;
@@ -38,6 +38,22 @@ describe('Blobs', function() {
   });
   afterEach(function (done) {
     server.close(done);
+  });
+  after(function(done) {
+    var nothing = {
+        username: "philidelphia",
+        password: "pennslyvania",
+        firstName: "phil",
+        lastName: "penn"
+      };
+      chai.request(server)
+      .get('/api/drop')
+      .end(function(err, res){
+        console.log("res: " + res);
+        console.log("err: " + err);
+        res.should.have.status(200);
+        done();
+      })
   });
   // it('dropping to start with clean database', function(done) {
   //   var nothing = {
@@ -255,6 +271,7 @@ describe('Blobs', function() {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
+      console.log(res.body);
       res.body.should.have.lengthOf(1);
       done();
     });

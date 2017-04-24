@@ -272,6 +272,20 @@ app.get('/api/pbis', function(request, response) {
   })
 })
 
+app.get('/api/productBacklog', function(request, response) {
+  console.log("Retrieving product backlog for " + request.query.project);
+  data.getProductBacklog(request.query.project, function(err, rows) {
+    response.setHeader('Content-Type', 'application/json');
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  })
+})
+
 app.post('/api/addPBI', function(request, response) {
   console.log("Adding PBI...");
   console.log(request.body);

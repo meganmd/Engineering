@@ -190,6 +190,14 @@ function getPBIs(project,cb){
     .then(cb);
 }
 
+function getProductBacklog(project, cb){
+  return fetch(`api/productBacklog?project=${project}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function listPBITable(cb){
   return fetch(`api/listPBITable`, {
     accept: 'application/json',
@@ -424,5 +432,6 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getUnacceptedProjectsByUser, getProjects, listProjectUsersTable,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
   editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask,
-  getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint};
+  getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint,
+  getProductBacklog};
 export default Client;

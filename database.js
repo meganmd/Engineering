@@ -39,14 +39,14 @@ module.exports = class database {
         "value TEXT, " +
         "acceptanceCriteria TEXT, " +
         "estimate TEXT, " +
-        "columnNumber INT, " +
-        "rowNumber INT, " +
+        "priority INT, " +
         "project TEXT, " +
         "FOREIGN KEY(project) REFERENCES projects(name)" +
       ")");
 
       this.db.run("CREATE TABLE IF NOT EXISTS tasks (" +
         "project TEXT, " +
+        "sprint TEXT, " +
         "pbi INTEGER, " +
         "id INTEGER PRIMARY KEY, " +
         "description TEXT, " +
@@ -55,6 +55,7 @@ module.exports = class database {
         "columnNumber INTEGER, " +
         "priority INTEGER, " +
         "FOREIGN KEY(project) REFERENCES projects(name), " +
+        "FOREIGN KEY(sprint) REFERENCES sprints(number), " +
         "FOREIGN KEY(pbi) REFERENCES productBacklogItems(id), " +
         "FOREIGN KEY(member) REFERENCES users(username)" +
       ")");
@@ -179,6 +180,11 @@ module.exports = class database {
   // Returns all PBIs for a project in order by column and then row
   getProductBacklogItemsForProject(project, cb){
     this.db.all("SELECT * FROM productBacklogItems where project = ? ORDER BY columnNumber, rowNumber",project, cb);
+  }
+
+  getProductBacklog(project, cb){
+    this.db.all("SELECT * FROM productBacklogItems LEFT OUTER JOIN sprintPBIs "+
+    "ON productBacklogItems.id = sprintPBIs.PBIid",cb);
   }
 
   addProductBacklogItem(description, role, functionality, value,

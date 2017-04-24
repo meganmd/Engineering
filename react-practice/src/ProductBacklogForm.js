@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Client from './Client'
+import CreatePBIForm from './CreatePBIForm'
 
 //------------------------------------------functions------------------------------------------------------------
 function ColumnContents(props) {
@@ -28,11 +29,15 @@ class ProductBacklogForm extends Component {
     this.state = {
       contents:[],
       isDragging:false,
+      addPBI: false
     };
 
     this.allowDrop = this.allowDrop.bind(this);
     this.drop = this.drop.bind(this);
     this.drag = this.drag.bind(this);
+    this.openAddPBI = this.openAddPBI.bind(this);
+    this.addPBIComplete = this.addPBIComplete.bind(this);
+    this.exitAddPBI = this.exitAddPBI.bind(this);
     this.divStyle = {
       height: props.height,
       background: "linear-gradient(-90deg ,#DDDDDD66, #DDDDDDDD, #DDDDDD66)","padding":"7%"};
@@ -53,13 +58,44 @@ class ProductBacklogForm extends Component {
     ev.dataTransfer.setData("row", ev.target.className);
   }
 
+  openAddPBI(){
+    this.setState({addPBI: true});
+  }
 
+  addPBIComplete(){
+    this.setState({addPBI:false});
+    // for(var i = 0; i < this.state.productbacklog.length; i++){
+    //   var id = this.state.productbacklog[i].id;
+    //   var column = this.state.productbacklog[i].columnNumber;
+    //   var row = this.state.productbacklog[i].rowNumber;
+    //   //Move them all down 1 row
+    //   Client.movePBI(id,column, row+1,function(){});
+    // }
+    this.exitAddPBI();
+  }
+
+  exitAddPBI(){
+    this.setState({addPBI:false});
+    this.updateTablePBIs();
+  }
 
   //------------------------------------- Class Return ----------------------------------------------------------------
 render(){
+  var addPBIView;
+  if(this.state.addPBI){
+    addPBIView = <CreatePBIForm
+      projectName={this.props.project.name}
+      exit={this.exitAddPBI}
+      addPBIComplete={this.addPBIComplete}
+      addPBI={Client.addPBI}
+    />
+  }
   return (
     <div className="ProductBacklogForm">
-      <div id="title"><h3>"Product Backlog"</h3></div>
+      <div id="title">
+        <h3>"Product Backlog"</h3>
+        <button className="addPBIButton" onClick={this.openAddPBI}>Add PBI</button>
+      </div>
       <ColumnContents
         style={this.divStyle}
         items={this.props.items}
@@ -67,6 +103,7 @@ render(){
         drop={this.drop}
         allowDrop={this.allowDrop}
         drag={this.drag}/>
+        {addPBIView}
     </div>
   );
 }

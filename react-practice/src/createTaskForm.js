@@ -15,6 +15,23 @@ function CreateProjectDisplay(props){
     dropdown.push(</select><br />);
   })
 
+  return(
+    <div className="CreateTask">
+      <input id="createTaskInput" name="taskDesciption" type="text" placeholder="Enter Task Description ... "
+        onChange={props.handleFieldChange}/> <br/>
+        Description<br/>
+
+        dropdown
+
+      <textarea id="createPercentage" name="percentage" type="number" min="1" max="100" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
+      <textarea id="createMember" name="assignedMember" type="text" placeholder="Enter Assigned User" onChange={props.handleFieldChange} /> <br/>
+      <button className="leaveTaskFormButton" onClick={props.handleBackButton}>Cancel</button>
+      <button className="createTaskButton" onClick={props.handleClick}>Create Project</button>
+
+    </div>
+  );
+}
+
 class CreateTaskForm extends Component {
 
   constructor(props) {

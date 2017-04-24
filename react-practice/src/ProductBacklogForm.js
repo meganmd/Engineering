@@ -52,7 +52,16 @@ class ProductBacklogForm extends Component {
   drop(ev) {
     ev.preventDefault();
     console.log("dropping height "+ ev.target.className);
-    this.props.moveProductBacklog(ev.dataTransfer.getData('row'),ev.target.className);
+    console.log("from: " + ev.dataTransfer.getData('row'))
+    var from = ev.dataTransfer.getData('row');
+    var to = ev.target.className;
+    var items = this.state.pbis;
+    var item = items.splice(from,1);
+    items.splice(to,0,item[0]);
+    this.setState({pbis:items});
+    for(var i = 0; i < this.state.pbis.length; i++){
+      Client.movePBI(this.state.pbis[i].id, i, function(){});
+    }
   }
 
   drag(ev) {

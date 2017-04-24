@@ -70,7 +70,7 @@ class ProjectBacklog extends Component {
     console.log("moving pbiRow");
     var items = this.state.productBacklog;
     var item = items.splice(from,1);
-    items.splice(to,0,item);
+    items.splice(to,0,item[0]);
     this.setState({'productBacklog':items});
   }
 

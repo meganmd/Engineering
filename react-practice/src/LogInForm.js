@@ -124,7 +124,6 @@ class LogInForm extends Component {
   }
 
   render() {
-    const isLoggedIn = this.props.isLoggedIn;
     var display = null;
     if (this.state.registering) {
       display = <div id="RegisterBackground"><h1>Register</h1><RegisterDisplay

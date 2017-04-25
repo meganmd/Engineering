@@ -68,9 +68,9 @@ class Sprint extends Component {
   drop(ev) {
     ev.preventDefault();
     var row = ev.target.className;
-    if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id != "sprintbacklog" && ev.target.className !="sprintbacklog")){
+    if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id !== "sprintbacklog" && ev.target.className !== "sprintbacklog")){
 
-    }else if(ev.dataTransfer.getData("column")!="sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
+    }else if(ev.dataTransfer.getData("column")!== "sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
 
     }else if(row==="9999"){
       this.props.addToEnd(this.props.sprintNumber,

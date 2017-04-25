@@ -87,12 +87,10 @@ class App extends Component {
   }
 
   render() {
-    var greeting = null;
     var content = [];
 
     if(this.state.isLoggedIn){
       if(this.state.isCreatingProject){
-        greeting = 'Create Project Form';
         content = <CreateProjectForm user={this.state.loggedInUser}
           handleProjectComplete={this.handleProjectComplete}
           handleLeaveCreateProjectForm={this.handleLeaveCreateProjectForm}/>
@@ -122,7 +120,6 @@ class App extends Component {
         content.push(viewProjects);
       }
     } else {
-      greeting = 'Please Login...';
       content = <LogInForm getUser={Client.getUser} addUser={addUser} handleLogIn={this.handleLogIn} handleLogOut={this.handleLogOut} isLoggedIn={this.state.isLoggedIn}/>;
     }
 

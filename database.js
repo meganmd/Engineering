@@ -184,14 +184,14 @@ module.exports = class database {
 
   getProductBacklog(project, numSprints, cb){
     this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
-    " WHERE project = ? AND ((sprint is null) OR (sprint = ? AND status != ?))",
+    " WHERE project = ? AND ((sprint is null) OR (sprint = ? AND status = ?))",
     project, numSprints, "rejected", cb);
   }
 
-  getSprintBacklog(project, sprintNum, cb){
-    this.db.all("SELECT * FROM productBacklogItems INNER JOIN sprintPBIs ON " +
-    " productBacklogItems.id = sprintPBIs.PBIid WHERE project = ? AND " +
-    "sprint = ?", project, sprintNum, cb);
+  getSprintBacklog(project, numSprints, cb){
+    this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
+    " WHERE project = ? AND ((sprint = ?))",
+    project, numSprints, cb);
   }
 
   addProductBacklogItem(description, role, functionality, value,
@@ -216,10 +216,8 @@ module.exports = class database {
     " WHERE id = ?", priority, id, cb);
   }
 
-  addProductBacklogItemToSprint(id, srint, row, cb){
-    this.db.run("INSERT INTO sprintPBIs (row, project, PBIid, sprint, status," +
-    " reason) VALUES (?, (SELECT project from productBacklogItems WHERE " +
-    "id = ?), ?, ?, ?, ?)", row, id, id, sprint, "none", "", cb);
+  addProductBacklogItemToSprint(id, projectName, sprint, row, cb){
+    this.db.run("INSERT INTO sprintPBIs (row, project, id, sprint, status, reason) VALUES (?, ?, ?, ?, ?, ?)", row, projectName, id, sprint, "none", "", cb);
   }
 
   acceptProductBackLogItem(id, projectName, sprint, cb){

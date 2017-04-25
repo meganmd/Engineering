@@ -63,7 +63,7 @@ class ProjectBacklog extends Component {
     //use an if statement to test and make sure criteria is correct
     console.log(pbi);
     if(pbi.role !== '' && pbi.functionality !== '' && pbi.value !== '' && pbi.acceptanceCriteria !== '' && pbi.estimate !== "undecided"){
-      Client.addPBIToSprint(pbi.id, 1, 0, function(){});
+      Client.addPBIToSprint(pbi.id, this.props.project.name, 1, 0, function(){});
       this.setState({errorMessage: ""});
       this.updateChildren();
     } else{
@@ -123,30 +123,34 @@ render(){
     console.log("UNDEFINED______________________");
   }
   return (
-    <div className="projectBacklog">
-        <ProductBacklogForm
-        height={this.state.height}
-        items={this.state.productBacklog}
-        pushToSprint={this.pushToSprint}
-        moveProductBacklog={this.moveProductBacklog}
-        project={this.props.project}
-        openEditPBI={this.openEditPBI}
-        passUpFunction={this.passUpFunction}
-        numSprints={1}/>
+    <div>
+      <font colot="red">{this.state.errorMessage}</font>
 
-        <Sprint
-        sprintNumber={1}
-        items={this.state.sprints[0]}
-        move={this.move}
-        addToEnd={this.addToEnd}
-        editTask={this.editTask}
-        passUpFunction={this.passUpFunction}
-        project={this.props.project}/>
+      <div className="projectBacklog">
+          <ProductBacklogForm
+          height={this.state.height}
+          items={this.state.productBacklog}
+          pushToSprint={this.pushToSprint}
+          moveProductBacklog={this.moveProductBacklog}
+          project={this.props.project}
+          openEditPBI={this.openEditPBI}
+          passUpFunction={this.passUpFunction}
+          numSprints={1}/>
+
+          <Sprint
+          sprintNumber={1}
+          items={this.state.sprints[0]}
+          move={this.move}
+          addToEnd={this.addToEnd}
+          editTask={this.editTask}
+          passUpFunction={this.passUpFunction}
+          project={this.props.project}/>
 
 
-        {this.state.errorMessage}
 
-        {editPBIView}
+
+          {editPBIView}
+      </div>
     </div>
   );}
 

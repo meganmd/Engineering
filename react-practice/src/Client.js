@@ -272,7 +272,7 @@ function movePBI(id, priority, cb){
       .then(cb);
 }
 
-function addPBIToSprint(id, sprint, rowNumber, cb){
+function addPBIToSprint(id, project, sprint, rowNumber, cb){
   return fetch('api/addPBIToSprint', {
     headers: {
       'Accept': 'application/json',
@@ -281,6 +281,7 @@ function addPBIToSprint(id, sprint, rowNumber, cb){
     method: "POST",
     body: JSON.stringify({
       id: id,
+      projectName: project,
       sprint: sprint,
       rowNumber: rowNumber
     })

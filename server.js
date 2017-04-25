@@ -287,7 +287,7 @@ app.get('/api/productBacklog', function(request, response) {
 })
 
 app.get('/api/sprintBacklog', function(request, response) {
-  console.log("Retrieving product backlog for " +
+  console.log("Retrieving sprint backlog for " +
   request.query.project + " sprint " + request.query.sprintNum);
   data.getSprintBacklog(request.query.project, request.query.sprintNum,
     function(err, rows) {
@@ -352,12 +352,14 @@ app.post('/api/movePBI', function(request, response) {
 })
 
 app.post('/api/addPBIToSprint', function(request, response) {
+  console.log(request.body);
   console.log("Adding PBI " + request.body.id + " to sprint " +
-  request.body.sprint );
-  data.addProductBacklogItemToSprint(
-    request.body.id, request.body.sprint, request.body.rowNumber,
+  request.body.sprint + " for project " + request.body.projectName);
+  data.addProductBacklogItemToSprint(request.body.id, request.body.projectName,
+    request.body.sprint, request.body.rowNumber,
     function(error){
       if(error) {
+        console.log("ERROR");
         response.status(400).send("Something went wrong in adding to sprint");
       } else {
         console.log("No error");

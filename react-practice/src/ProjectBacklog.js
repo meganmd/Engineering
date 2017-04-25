@@ -10,7 +10,7 @@ class ProjectBacklog extends Component {
     this.state = {
       height:"510",
       productBacklog:['user story one', 'user story two', 'user story three'],
-      sprints:[[['item 1'],['item 2'],['item 3'],['item 4']]],
+      sprints: [],
       editPBI: null,
       productBacklogUpdate: null,
       sprintUpdate: null,
@@ -26,6 +26,7 @@ class ProjectBacklog extends Component {
     this.exitEditPBI = this.exitEditPBI.bind(this);
     this.passUpFunction = this.passUpFunction.bind(this);
     this.updateChildren = this.updateChildren.bind(this);
+    this.getSprints = this.getSprints.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -107,6 +108,16 @@ class ProjectBacklog extends Component {
     }
   }
 
+  getSprints(){
+    Client.getSprints(this.props.project.name, (sprints) => {
+      this.setState({sprints: sprints});
+    });
+  }
+
+  componentWillMount() {
+    this.getSprints();
+  }
+
 //------------------------------------------- render ----------------------------------------------
 render(){
   var editPBIView;
@@ -122,6 +133,20 @@ render(){
   }else{
     console.log("UNDEFINED______________________");
   }
+  var sprints = [];
+  for(var i = 0; i < this.state.sprints.length; i++){
+    sprints.push(
+      <Sprint
+      sprintNumber={1}
+      items={[['item 1'],['item 2'],['item 3'],['item 4']]}
+      move={this.move}
+      addToEnd={this.addToEnd}
+      editTask={this.editTask}
+      passUpFunction={this.passUpFunction}
+      project={this.props.project}/>
+    )
+  }
+
   return (
     <div>
       <font colot="red">{this.state.errorMessage}</font>
@@ -137,16 +162,7 @@ render(){
           passUpFunction={this.passUpFunction}
           numSprints={1}/>
 
-          <Sprint
-          sprintNumber={1}
-          items={this.state.sprints[0]}
-          move={this.move}
-          addToEnd={this.addToEnd}
-          editTask={this.editTask}
-          passUpFunction={this.passUpFunction}
-          project={this.props.project}/>
-
-
+          {sprints}
 
 
           {editPBIView}

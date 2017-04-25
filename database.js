@@ -260,4 +260,12 @@ module.exports = class database {
   getTasksByPBI(pbi, cb){
     this.db.all("SELECT * from tasks WHERE pbi = ?", pbi, cb);
   }
+
+  addSprint(project, number, cb){
+    this.db.run("INSERT INTO sprints (number, project) VALUES (?,?)", number, project, cb);
+  }
+
+  getSprints(project, cb){
+    this.db.all("SELECT * FROM sprints WHERE project = ? ORDER BY number DESC", project, cb);
+  }
 }

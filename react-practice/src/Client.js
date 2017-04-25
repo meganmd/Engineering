@@ -417,7 +417,28 @@ function getTasksByProject(projectName, cb) {
     .then(cb);
 }
 
+function addSprint(project, number, cb){
+  return fetch('api/addSprint', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      project: project,
+      number: number
+    })
+  }).then(checkStatus)
+    .then(cb);
+}
 
+function getSprints(project,cb){
+  return fetch(`api/sprints?project=${project}`, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -440,5 +461,5 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
   editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask,
   getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint,
-  getProductBacklog, getSprintBacklog};
+  getProductBacklog, getSprintBacklog, addSprint, getSprints};
 export default Client;

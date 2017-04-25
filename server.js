@@ -506,6 +506,31 @@ app.get('/api/tasksByProject', function(request, response){
   });
 })
 
+app.post('/api/addSprint', function(request, response) {
+  console.log("Adding Sprint " + request.body.number + " to project " + request.body.project)
+  data.addSprint(request.body.project, request.body.number, function(error){
+    if(error) {
+      response.status(400).send("Something went wrong in moving");
+    } else {
+      console.log("No error");
+      response.status(200).end();
+    }
+  })
+})
+
+app.get('/api/sprints', function(request, response) {
+  data.getSprints(request.query.project, function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    if(rows != undefined){
+      console.log("Found");
+      response.json(rows);
+    } else{
+      console.log("None found");
+      response.json([]);
+    }
+  });
+})
+
 var server = app.listen(config.port[app.settings.env], function() {
   var host = server.address().address;
   var port = server.address().port;

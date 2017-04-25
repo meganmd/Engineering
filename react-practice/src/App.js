@@ -61,9 +61,10 @@ class App extends Component {
     this.setState({isCreatingProject: true});
   }
 
-  handleProjectComplete(){
+  handleProjectComplete(projectTitle){
     console.log('arriving here');
     this.setState({isCreatingProject: false});
+    Client.addSprint(projectTitle, 1);
   }
 
   handleLeaveCreateProjectForm(){

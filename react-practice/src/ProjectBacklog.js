@@ -137,7 +137,7 @@ render(){
   for(var i = 0; i < this.state.sprints.length; i++){
     sprints.push(
       <Sprint
-      sprintNumber={1}
+      sprintNumber={this.state.sprints[i].number}
       items={[['item 1'],['item 2'],['item 3'],['item 4']]}
       move={this.move}
       addToEnd={this.addToEnd}

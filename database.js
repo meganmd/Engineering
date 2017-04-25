@@ -190,7 +190,7 @@ module.exports = class database {
 
   getSprintBacklog(project, numSprints, cb){
     this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
-    " WHERE project = ? AND ((sprint = ?))",
+    " WHERE project = ? AND ((sprint = ?)) ORDER BY row",
     project, numSprints, cb);
   }
 
@@ -267,5 +267,9 @@ module.exports = class database {
 
   getSprints(project, cb){
     this.db.all("SELECT * FROM sprints WHERE project = ? ORDER BY number DESC", project, cb);
+  }
+
+  moveSprintPBI(id, project, sprintNum, row, cb){
+    this.db.run("UPDATE sprintPBIs SET row = ? WHERE id = ? and project = ? and sprint = ?", row, id, project, sprintNum, cb);
   }
 }

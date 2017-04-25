@@ -68,22 +68,49 @@ class Sprint extends Component {
   drop(ev) {
     ev.preventDefault();
     var row = ev.target.className;
+
+    //REORDERING SPRINT BACKLOG
+    if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
+      if(row==="9999"){
+        var from = ev.dataTransfer.getData('row');
+        var items = this.state.pbis;
+        var item = items.splice(from,1);
+        items.push(item[0]);
+        this.setState({pbis:items});
+        for(var i = 0; i < this.state.pbis.length; i++){
+          Client.moveSprintPBI(this.state.pbis[i].id, this.props.project.name, this.props.sprintNumber, i, function(){});
+        }
+      } else{
+        var from = ev.dataTransfer.getData('row');
+        var to = ev.target.id;
+        var items = this.state.pbis;
+        var item = items.splice(from,1);
+        items.splice(to,0,item[0]);
+        this.setState({pbis:items});
+        for(var i = 0; i < this.state.pbis.length; i++){
+          Client.moveSprintPBI(this.state.pbis[i].id, this.props.project.name, this.props.sprintNumber, i, function(){});
+        }
+      }
+    }
+
     if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id !== "sprintbacklog" && ev.target.className !== "sprintbacklog")){
 
     }else if(ev.dataTransfer.getData("column")!== "sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
 
     }else if(row==="9999"){
-      this.props.addToEnd(this.props.sprintNumber,
-      ev.dataTransfer.getData("row"),
-      this.getColumnNumberByName(ev.dataTransfer.getData("column")),
-      this.getColumnNumberByName(ev.target.id));
+
+      // this.props.addToEnd(this.props.sprintNumber,
+      // ev.dataTransfer.getData("row"),
+      // this.getColumnNumberByName(ev.dataTransfer.getData("column")),
+      // this.getColumnNumberByName(ev.target.id));
     }else{
-      this.props.move(this.props.sprintNumber,
-      ev.dataTransfer.getData("row"),
-      this.getColumnNumberByName(ev.dataTransfer.getData("column")),
-      ev.target.id,
-      this.getColumnNumberByName(ev.target.className));
-      console.log("dropping height "+ ev.target.className);
+
+      // this.props.move(this.props.sprintNumber,
+      // ev.dataTransfer.getData("row"),
+      // this.getColumnNumberByName(ev.dataTransfer.getData("column")),
+      // ev.target.id,
+      // this.getColumnNumberByName(ev.target.className));
+      // console.log("dropping height "+ ev.target.className);
     }
   //  this.props.moveProductBacklog(ev.dataTransfer.getData('row'),ev.target.className);
   }

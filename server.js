@@ -510,7 +510,7 @@ app.post('/api/addSprint', function(request, response) {
   console.log("Adding Sprint " + request.body.number + " to project " + request.body.project)
   data.addSprint(request.body.project, request.body.number, function(error){
     if(error) {
-      response.status(400).send("Something went wrong in moving");
+      response.status(400).send("Something went wrong in adding sprint");
     } else {
       console.log("No error");
       response.status(200).end();
@@ -529,6 +529,19 @@ app.get('/api/sprints', function(request, response) {
       response.json([]);
     }
   });
+})
+
+app.post('/api/moveSprintPBI', function(request, response) {
+  console.log("Moving sprint pbi " + request.body.id + " for project " + request.body.project +  " sprint " + request.body.sprintNum + " to row " + request.body.row)
+  data.moveSprintPBI(request.body.id, request.body.project, request.body.sprintNum,
+    request.body.row, function(error){
+      if(error) {
+        response.status(400).send("Something went wrong in moving");
+      } else {
+        console.log("No error");
+        response.status(200).end();
+      }
+    })
 })
 
 var server = app.listen(config.port[app.settings.env], function() {

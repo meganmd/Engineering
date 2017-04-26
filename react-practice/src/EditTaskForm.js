@@ -6,12 +6,8 @@ function EditTaskDisplay(props){
   var dropdown = [];
 
   //dropdown for selecting user story
-  var defaultPBI = "";
   for(var i=0;i<props.pbis.length;i++){
-    dropdown.push(<option key={i} value={i}> {props.pbis[i].description} </option>);
-    if(props.pbis[i].id === props.task.pbi){
-      defaultPBI = props.pbis[i].description;
-    }
+    dropdown.push(<option key={i} value={i} className={props.pbis[i].description}> {props.pbis[i].description} </option>);
   }
 
   var members = [];
@@ -30,13 +26,13 @@ function EditTaskDisplay(props){
 
           Description<br/>
           <input id="createTaskInput" name="taskDescription"
-            type="text" value={props.task.description}
+            type="text" value={props.defaultDescription}
             placeholder="Enter Task Description ... "
             onChange={props.handleFieldChange}/> <br/>
 
           Select User Story:<br/>
           <select name="userStory"
-            value={defaultPBI}
+            value={props.defaultPBI}
             onChange={props.handleSelectUserStory}>
 
             {dropdown}
@@ -45,7 +41,7 @@ function EditTaskDisplay(props){
           <br/>
 
           Percentage:<br/>
-          <input id="createPercentage" value={props.task.percentage}
+          <input id="createPercentage" value={props.defaultPercent}
             name="percentage" type="number" min="0" max="100"
             placeholder="Enter Approximate Percentage"
             onChange={props.handleFieldChange} /> <br/>
@@ -53,7 +49,7 @@ function EditTaskDisplay(props){
 
           Assign Member:<br/>
           <select name="assignedMember" id="createMember"
-            value={props.task.member} onChange={props.handleSelectMember}>
+            value={props.defaultMember} onChange={props.handleSelectMember}>
             {members}
           </select>
           <br/>
@@ -74,12 +70,19 @@ class EditTaskForm extends Component {
 
   constructor(props) {
     super(props);
+    var defaultPBI = "";
+    for(var i=0;i<props.pbis.length;i++){
+      if(props.pbis[i].id === props.task.pbi){
+        defaultPBI = i;
+      }
+    }
     this.state = {
       taskDescription: this.props.task.description,
       userStory: this.props.task.pbi,
       assignedMember: this.props.task.member,
-      percentage: this.props.task.percentage,
-      errorMessage: ''};
+      percentage: this.props.task.percent,
+      errorMessage: '',
+      defaultPBIDescription: defaultPBI};
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelectMember = this.handleSelectMember.bind(this);
@@ -103,7 +106,7 @@ class EditTaskForm extends Component {
               this.props.handleEditTaskComplete();
       });
     } else {
-      this.setState({errorMessage:'Must fill out project description and select user story!'});
+      this.setState({errorMessage:'Must fill out project description!'});
     }
   }
 
@@ -120,7 +123,7 @@ class EditTaskForm extends Component {
   }
 
   handleSelectUserStory(event){
-    this.setState({userStory: this.props.pbis[event.target.value].id});
+    this.setState({userStory: this.props.pbis[event.target.value].id, defaultPBIDescription: event.target.value});
   }
 
   render() {
@@ -138,6 +141,10 @@ class EditTaskForm extends Component {
             handleSelectUserStory={this.handleSelectUserStory}
             task={this.props.task}
             deleteTask={this.props.handleDeleteTask}
+            defaultPercent={this.state.percentage}
+            defaultDescription={this.state.taskDescription}
+            defaultMember={this.state.assignedMember}
+            defaultPBI={this.state.defaultPBIDescription}
           />
       </div>
     );

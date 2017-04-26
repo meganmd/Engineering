@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import Client from './Client'
 
 
-function CreateProjectDisplay(props){
+function CreateTaskDisplay(props){
 
   var dropdown = [];
 
   //dropdown for selecting user story
   for(var i=0;i<props.pbis.length;i++){
-    dropdown.push(<option value={i}> {props.pbis[i].description} </option>);
+    dropdown.push(<option key={i} value={i}> {props.pbis[i].description} </option>);
   }
 
   var members = [];
   for(var i=0; i<props.members.length;i++){
-    members.push(<option value={i}> {props.members[i].username} </option>);
+    members.push(<option key={i} value={i}> {props.members[i].username} </option>);
   }
 
   return(
@@ -111,7 +111,7 @@ class CreateTaskForm extends Component {
     return (
       <div className="CreateTask">
 
-          <CreateProjectDisplay
+          <CreateTaskDisplay
             handleClick={this.handleClick}
             handleBackButton={this.props.exit}
             errorMessage={this.state.errorMessage}

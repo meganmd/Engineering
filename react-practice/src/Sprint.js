@@ -56,6 +56,10 @@ class Sprint extends Component {
     this.openCreateTask = this.openCreateTask.bind(this);
     this.exitCreateTask = this.exitCreateTask.bind(this);
     this.clickPBI = this.clickPBI.bind(this);
+    this.openEditTaskForm = this.openEditTaskForm.bind(this);
+    this.exitEditTaskForm = this.exitEditTaskForm.bind(this);
+    this.handleEditTaskComplete = this.handleEditTaskComplete.bind(this);
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
     // this.updateTasks = this.updateTasks.bind(this);
   }
 
@@ -132,14 +136,6 @@ class Sprint extends Component {
     ev.dataTransfer.setData("column", ev.target.className);
   }
 
-  openEditTaskForm(task){
-    this.setState({editTask: task});
-  }
-
-  exitEditTaskForm(){
-    this.setState({editTask: null});
-  }
-
   updatePBIs(){
     Client.getSprintBacklog(this.props.project.name, this.props.sprintNumber, (pbis) => {
       // console.log(pbis);
@@ -180,6 +176,36 @@ class Sprint extends Component {
     this.setState({createTask: true});
   }
 
+  openEditTaskForm(e){
+    var column = e.target.className;
+    var target = e.target.id;
+    console.log(column);
+    if(column === "todo"){
+      this.setState({editTask: this.state.todo[target]});
+    } else if(column === "inProgress"){
+      this.setState({editTask: this.state.inProgress[target]});
+    } else if(column === "done"){
+      this.setState({editTask: this.state.doing[target]});
+    }
+  }
+
+  handleEditTaskComplete(){
+    this.updateTasks();
+    this.exitEditTaskForm();
+  }
+
+  exitEditTaskForm(){
+    this.setState({editTask: null});
+  }
+
+  handleDeleteTask(){
+    if(this.state.editTask != null){
+      Client.deleteTask(this.state.editTask.id, () => {
+        this.handleEditTaskComplete()
+      })
+    }
+  }
+
   clickPBI(e){
     // console.log("EDITING..." + e.target.id)
     this.props.openEditPBI(this.state.pbis[e.target.id]);
@@ -195,12 +221,20 @@ class Sprint extends Component {
     var editTask;
     if(this.state.editTask !== null){
       editTask=<EditTaskForm
-      height={510}
-      exit={this.exitEditTask}/>
+        project={this.props.project}
+        sprint={this.props.sprintNumber}
+        handleEditTaskComplete={this.handleEditTaskComplete}
+        exit={this.exitEditTaskForm}
+        members={this.props.members}
+        pbis={this.state.pbis}
+        task={this.state.editTask}
+        handleDeleteTask={this.handleDeleteTask}
+      />
     }
     var createTask;
     if(this.state.createTask){
-      createTask=<CreateTaskForm project={this.props.project}
+      createTask=<CreateTaskForm
+        project={this.props.project}
         sprint={this.props.sprintNumber}
         handleTaskComplete={this.handleCreateTaskComplete}
         exit={this.exitCreateTask}
@@ -217,12 +251,29 @@ class Sprint extends Component {
         <br/>
         <BacklogColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.state.pbis}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editPBI={this.clickPBI} />
-        <ColumnContents column="todo" title="To Do" items={this.state.todo}
-        drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
-        <ColumnContents column="inprogress" title="In Progress" items={this.state.inProgress}
-        drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
-        <ColumnContents column="done" title="Done"items={this.state.done}
-        drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
+        <ColumnContents
+          column="todo"
+          title="To Do"
+          items={this.state.todo}
+          drop={this.drop}
+          drag={this.drag}
+          allowDrop={this.allowDrop}
+          editTask={this.openEditTaskForm}/>
+        <ColumnContents
+          column="inprogress"
+          title="In Progress"
+          items={this.state.inProgress}
+          drop={this.drop}
+          drag={this.drag}
+          allowDrop={this.allowDrop}
+          editTask={this.openEditTaskForm}/>
+        <ColumnContents
+          column="done"
+          title="Done"items={this.state.done}
+          drop={this.drop}
+          drag={this.drag}
+          allowDrop={this.allowDrop}
+          editTask={this.openEditTaskForm}/>
         {editTask}
         {createTask}
       </div>

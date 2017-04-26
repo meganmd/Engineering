@@ -544,7 +544,7 @@ app.post('/api/moveSprintPBI', function(request, response) {
     })
 })
 app.get('/api/percentBreakdownByPBI', function(request, response) {
-  data.getPercentBreakdownByPBI(request.query.pbi, request.query.sprint function(err, rows){
+  data.getPercentBreakdownByPBI(request.query.pbi, request.query.sprint, function(err, rows){
     response.setHeader('Content-Type', 'application/json');
     if(rows != undefined){
       response.json(rows);

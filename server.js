@@ -543,6 +543,16 @@ app.post('/api/moveSprintPBI', function(request, response) {
       }
     })
 })
+app.get('/api/percentBreakdownByPBI', function(request, response) {
+  data.getPercentBreakdownByPBI(request.query.pbi, request.query.sprint function(err, rows){
+    response.setHeader('Content-Type', 'application/json');
+    if(rows != undefined){
+      response.json(rows);
+    } else{
+      response.status(400).send();
+    }
+  });
+})
 
 var server = app.listen(config.port[app.settings.env], function() {
   var host = server.address().address;

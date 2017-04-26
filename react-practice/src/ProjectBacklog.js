@@ -14,7 +14,8 @@ class ProjectBacklog extends Component {
       editPBI: null,
       productBacklogUpdate: null,
       sprintUpdate: null,
-      errorMessage: ""
+      errorMessage: "",
+      members: []
     };
     this.pushToSprint = this.pushToSprint.bind(this);
     this.moveProductBacklog = this.moveProductBacklog.bind(this);
@@ -27,6 +28,7 @@ class ProjectBacklog extends Component {
     this.passUpFunction = this.passUpFunction.bind(this);
     this.updateChildren = this.updateChildren.bind(this);
     this.getSprints = this.getSprints.bind(this);
+    this.getMembers = this.getMembers.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -114,8 +116,15 @@ class ProjectBacklog extends Component {
     });
   }
 
+  getMembers(){
+    Client.getUsersFromProject(this.props.project.name, (members) => {
+      this.setState({members: members});
+    });
+  }
+
   componentWillMount() {
     this.getSprints();
+    this.getMembers();
   }
 
 //------------------------------------------- render ----------------------------------------------
@@ -137,19 +146,21 @@ render(){
   for(var i = 0; i < this.state.sprints.length; i++){
     sprints.push(
       <Sprint
+      key={i}
       sprintNumber={this.state.sprints[i].number}
       items={[['item 1'],['item 2'],['item 3'],['item 4']]}
       move={this.move}
       addToEnd={this.addToEnd}
       editTask={this.editTask}
       passUpFunction={this.passUpFunction}
-      project={this.props.project}/>
+      project={this.props.project}
+      members={this.state.members}/>
     )
   }
 
   return (
     <div>
-      <font colot="red">{this.state.errorMessage}</font>
+      <font color="red">{this.state.errorMessage}</font>
 
       <div className="projectBacklog">
           <ProductBacklogForm

@@ -7,27 +7,48 @@ function CreateProjectDisplay(props){
   var dropdown = [];
 
   //dropdown for selecting user story
-  Client.getPBIs(this.props.project, (pbis)=>{
-    dropdown.push(userStory: <select name="userStory" onChange={props.handleInputChange}>);
-    for(int i=0;int<pbis.length;i++){
-      dropdown.push(<option value=pbis[i]> pbis[i].description </option>);
-    }
-    dropdown.push(</select><br />);
-  })
+  for(var i=0;i<props.pbis.length;i++){
+    dropdown.push(<option value={props.pbis[i]}> {props.pbis[i].description} </option>);
+  }
+
+  var members = [];
+  for(var i=0; i<props.members.length;i++){
+    members.push(<option value={props.members[i].username}> {props.members[i].username} </option>);
+  }
 
   return(
-    <div className="CreateTask">
-      <input id="createTaskInput" name="taskDesciption" type="text" placeholder="Enter Task Description ... "
-        onChange={props.handleFieldChange}/> <br/>
-        Description<br/>
+    <div id="EditPBIBackground">
+      <div id="CreateTaskForm">
+        <div className="CreateTask">
+          <h1  id="taskText">
+            Create Task
+          </h1>
+          Description<br/>
+          <input id="createTaskInput" name="taskDescription" type="text" placeholder="Enter Task Description ... "
+            onChange={props.handleFieldChange}/> <br/>
 
-        dropdown
+          Select User Story:<br/>
+          <select name="userStory" onChange={props.handleFieldChange}>
+            {dropdown}
+          </select>
+          <br/>
+          <br/>
 
-      <textarea id="createPercentage" name="percentage" type="number" min="1" max="100" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
-      <textarea id="createMember" name="assignedMember" type="text" placeholder="Enter Assigned User" onChange={props.handleFieldChange} /> <br/>
-      <button className="leaveTaskFormButton" onClick={props.handleBackButton}>Cancel</button>
-      <button className="createTaskButton" onClick={props.handleClick}>Create Project</button>
+          Percentage:<br/>
+          <input id="createPercentage" name="percentage" type="number" min="0" max="100" placeholder="Enter Approximate Percentage" onChange={props.handleFieldChange} /> <br/>
+          <br/>
 
+          Assign Member:<br/>
+          <select name="assignedMember" id="createMember" onChange={props.handleFieldChange}>
+            {members}
+          </select>
+          <br/>
+
+          <button className="leaveTaskFormButton" onClick={props.handleBackButton}>Cancel</button>
+          <button className="createTaskButton" onClick={props.handleClick}>Create Task</button>
+
+        </div>
+      </div>
     </div>
   );
 }
@@ -36,7 +57,7 @@ class CreateTaskForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {taskDescription: '', userStory: this.props.userStory, member: '', percentage: '', errorMessage: '', projecMembers: []};
+    this.state = {taskDescription: '', userStory: this.props.pbis[0], assignedMember: this.props.members[0], percentage: 0, errorMessage: ''};
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -46,9 +67,8 @@ class CreateTaskForm extends Component {
 
       Client.getTotalPBIPercentage(this.props.pbi.id, (total)=>{
               Client.addTask(this.props.project, this.props.sprint, this.props.pbi.id,
-                this.state.taskTescription, total, this.state.member, 1,1) //just giving 1 for columnNumber and Priority for now
-          })
-      this.props.handleTaskComplete();
+                this.state.taskTescription, total, this.state.member, 1,1, function(){}) //just giving 1 for columnNumber and Priority for now
+              this.props.handleTaskComplete();
       });
     } else {
       this.setState({errorMessage:'Must fill out project description and select user story!'});
@@ -56,20 +76,24 @@ class CreateTaskForm extends Component {
   }
 
   handleInputChange(event) {
-    this.setState({[event.target.name]: event.target.value});
+    if(event.target.name == "percentage"){
+      this.setState({[event.target.name]: parseInt(event.target.value)});
+    } else{
+      this.setState({[event.target.name]: event.target.value});
+    }
   }
 
   render() {
     return (
       <div className="CreateTask">
-      <h1  id="taskText">
-        Create Task
-      </h1>
+
           <CreateProjectDisplay
             handleClick={this.handleClick}
-            handleBackButton={this.props.handleLeaveCreateProjectForm}
+            handleBackButton={this.props.exit}
             errorMessage={this.state.errorMessage}
             handleFieldChange={this.handleInputChange}
+            pbis={this.props.pbis}
+            members={this.props.members}
           />
       </div>
     );

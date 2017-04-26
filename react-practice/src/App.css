@@ -120,7 +120,16 @@ table {
   background: #555555dd;
   width: 100%;
   height: 100%;
+}
 
+#CreateTaskBackground{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #555555dd;
+  width: 100%;
+  min-height: 500px;
+  height: 0;
 }
 
 #createProjInput{
@@ -160,6 +169,20 @@ table {
   top: 20px;
   background: #FFFFFF;
   height: 700px;
+  width: 45%;
+  box-shadow: 0 0 10px 0 rgb(15,15,15);
+  border: 2px solid black;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 2%;
+}
+
+#CreateTaskForm{
+  position: absolute;
+  left: 25%;
+  top: 20px;
+  background: #FFFFFF;
+  height: 450px;
   width: 45%;
   box-shadow: 0 0 10px 0 rgb(15,15,15);
   border: 2px solid black;

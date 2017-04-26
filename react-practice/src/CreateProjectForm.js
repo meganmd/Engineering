@@ -61,15 +61,15 @@ class CreateProjectForm extends Component {
   render() {
     return (
       <div className="CreateProject">
-      <h1  id="projectTitleText">
-        Create Project
-      </h1>
-          <CreateProjectDisplay
-            handleClick={this.handleClick}
-            handleBackButton={this.props.handleLeaveCreateProjectForm}
-            errorMessage={this.state.errorMessage}
-            handleFieldChange={this.handleInputChange}
-          />
+        <h1  id="projectTitleText">
+          Create Project
+        </h1>
+            <CreateProjectDisplay
+              handleClick={this.handleClick}
+              handleBackButton={this.props.handleLeaveCreateProjectForm}
+              errorMessage={this.state.errorMessage}
+              handleFieldChange={this.handleInputChange}
+            />
       </div>
     );
   }

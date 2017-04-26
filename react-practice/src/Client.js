@@ -457,7 +457,7 @@ function moveSprintPBI(id, project, sprintNum, row, cb){
     .then(cb);
 }
 function getPercentBreakdownByPBI(pbi, sprint, cb) {
-  return fetch('api/percentBreakdownByPBI?pbi=' + pbi + '&sprint=' + sprint) {
+  return fetch(`api/percentBreakdownByPBI?pbi=${pbi}&sprint=${sprint}`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(cb);

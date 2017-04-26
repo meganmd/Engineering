@@ -154,7 +154,8 @@ render(){
       editTask={this.editTask}
       passUpFunction={this.passUpFunction}
       project={this.props.project}
-      members={this.state.members}/>
+      members={this.state.members}
+      openEditPBI={this.openEditPBI}/>
     )
   }
 

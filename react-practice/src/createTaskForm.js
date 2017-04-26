@@ -8,12 +8,12 @@ function CreateProjectDisplay(props){
 
   //dropdown for selecting user story
   for(var i=0;i<props.pbis.length;i++){
-    dropdown.push(<option value={props.pbis[i]}> {props.pbis[i].description} </option>);
+    dropdown.push(<option value={i}> {props.pbis[i].description} </option>);
   }
 
   var members = [];
   for(var i=0; i<props.members.length;i++){
-    members.push(<option value={props.members[i].username}> {props.members[i].username} </option>);
+    members.push(<option value={i}> {props.members[i].username} </option>);
   }
 
   return(
@@ -31,7 +31,7 @@ function CreateProjectDisplay(props){
             onChange={props.handleFieldChange}/> <br/>
 
           Select User Story:<br/>
-          <select name="userStory" onChange={props.handleFieldChange}>
+          <select name="userStory" onChange={props.handleSelectUserStory}>
             {dropdown}
           </select>
           <br/>
@@ -42,7 +42,7 @@ function CreateProjectDisplay(props){
           <br/>
 
           Assign Member:<br/>
-          <select name="assignedMember" id="createMember" onChange={props.handleFieldChange}>
+          <select name="assignedMember" id="createMember" onChange={props.handleSelectMember}>
             {members}
           </select>
           <br/>
@@ -63,14 +63,27 @@ class CreateTaskForm extends Component {
     this.state = {taskDescription: '', userStory: this.props.pbis[0], assignedMember: this.props.members[0], percentage: 0, errorMessage: ''};
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSelectMember = this.handleSelectMember.bind(this);
+    this.handleSelectUserStory = this.handleSelectUserStory.bind(this);
   }
 
   handleClick(){
-    if(this.state.taskDescription.length > 0 && this.state.userStory.length>0){
+    if(this.state.taskDescription.length > 0 && this.state.userStory.username !== ''){
+      console.log("ID: " + this.state.userStory.id)
+      Client.getTotalPBIPercentage(this.state.userStory.id, (total)=>{
 
-      Client.getTotalPBIPercentage(this.props.pbi.id, (total)=>{
-              Client.addTask(this.props.project, this.props.sprint, this.props.pbi.id,
-                this.state.taskTescription, total, this.state.member, 1,1, function(){}) //just giving 1 for columnNumber and Priority for now
+          //MAKE IF STATEMENT TO MAKE SURE total + this.state.percentage is not over 100!!!
+
+              Client.addTask(
+                this.props.project.name,
+                this.props.sprint,
+                this.state.userStory.id,
+                this.state.taskDescription,
+                this.state.percentage,
+                this.state.assignedMember.username,
+                1,
+                this.props.placeRow,
+                function(){}) //just giving 1 for columnNumber and Priority for now
               this.props.handleTaskComplete();
       });
     } else {
@@ -86,6 +99,14 @@ class CreateTaskForm extends Component {
     }
   }
 
+  handleSelectMember(event){
+    this.setState({assignedMember: this.props.members[event.target.value]});
+  }
+
+  handleSelectUserStory(event){
+    this.setState({userStory: this.props.pbis[event.target.value]});
+  }
+
   render() {
     return (
       <div className="CreateTask">
@@ -97,6 +118,8 @@ class CreateTaskForm extends Component {
             handleFieldChange={this.handleInputChange}
             pbis={this.props.pbis}
             members={this.props.members}
+            handleSelectMember={this.handleSelectMember}
+            handleSelectUserStory={this.handleSelectUserStory}
           />
       </div>
     );

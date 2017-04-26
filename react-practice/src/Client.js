@@ -333,6 +333,7 @@ function rejectPBI(id, projectName, sprint, reason, cb){
 
 function addTask(project, sprint, pbi, description, percentage, member,
   columnNumber, priority, cb){
+  console.log(project + " " + sprint + " " + pbi + " ")
   return fetch('api/addTask', {
     headers: {
       'Accept': 'application/json',
@@ -485,5 +486,5 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask,
   getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint,
   getProductBacklog, getSprintBacklog, addSprint, getSprints, moveSprintPBI,
-  getUsersFromProject};
+  getUsersFromProject, getTasksBySprint};
 export default Client;

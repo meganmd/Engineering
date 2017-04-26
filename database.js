@@ -228,10 +228,10 @@ module.exports = class database {
     this.db.run("UPDATE sprintPBIs SET status = ?, reason = ? WHERE id = ? and project = ? and sprint = ?", "accepted", reason, id, projectName, sprint, cb);
   }
 
-  addTask(project, pbi, description, percent, member, columnNumber, priority, cb) {
-    this.db.run("INSERT INTO tasks (project, pbi, description, percent," +
-    " member, columnNumber, priority) VALUES(?, ?, ?, ?, ?, ?, ?)",
-    project, pbi, description, percent, member, columnNumber, priority, cb);
+  addTask(project, sprint, pbi, description, percent, member, columnNumber, priority, cb) {
+    this.db.run("INSERT INTO tasks (project, sprint, pbi, description, percent," +
+    " member, columnNumber, priority) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+    project, sprint, pbi, description, percent, member, columnNumber, priority, cb);
   }
 
   updateTask(id, pbi, description, percent, member, cb) {
@@ -248,9 +248,8 @@ module.exports = class database {
     this.db.run("DELETE from tasks where id = ?", id, cb);
   }
 
-  getTasksBySprint(projectName, sprintID, cb) {
-    //Are we sure we want it this way? Should there be a sprint column in tasks?
-    this.db.all("SELECT * FROM tasks WHERE pbi in (SELECT PBIid from sprintPBIs WHERE project = ? and sprint = ?)", projectName, sprintID, cb);
+  getTasksBySprint(projectName, sprintNum, cb) {
+    this.db.all("SELECT * FROM tasks WHERE project = ? AND sprint = ? ORDER BY columnNumber, priority", projectName, sprintNum, cb);
   }
 
   getTasksByProject(projectName, cb){

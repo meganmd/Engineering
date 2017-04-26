@@ -424,8 +424,13 @@ app.post('/api/addTask', function(request, response) {
   console.log("Adding Task...");
   console.log(request.body);
   data.addTask(
-    request.body.project, request.body.pbi, request.body.description,
-    request.body.percent, request.body.member, request.body.columnNumber,
+    request.body.project,
+    request.body.sprint,
+    request.body.pbi,
+    request.body.description,
+    request.body.percentage,
+    request.body.member,
+    request.body.columnNumber,
     request.body.priority,
     function(error){
       if(error) {
@@ -481,16 +486,24 @@ app.post('/api/moveTask', function(request, response) {
 })
 
 app.get('/api/tasksBySprint', function(request, response){
-  data.getTasksBySprint(request.query.projectName , request.query.sprintID, function(err, rows){
-    response.setHeader('Content-Type', 'application/json');
-    if(rows != undefined){
-      console.log("Found");
-      response.json(rows);
-    } else{
-      console.log("None found");
-      response.json([]);
-    }
-  });
+  console.log("Getting tasks for project " + request.query.projectName + " sprint " + request.query.sprintNum);
+  data.getTasksBySprint(request.query.projectName , request.query.sprintNum,
+    function(err, rows){
+      response.setHeader('Content-Type', 'application/json');
+      if(rows != undefined){
+        console.log("Found");
+        if(rows.constructor === Array){
+          // console.log("ARRAY");
+          response.json(rows);
+        } else{
+          var array = [rows];
+          response.json(array);
+        }
+      } else{
+        console.log("None found");
+        response.json([]);
+      }
+    });
 })
 
 app.get('/api/tasksByProject', function(request, response){

@@ -5,11 +5,11 @@ import CreateTaskForm from './createTaskForm'
 
 function BacklogColumnContents(props){
   var content = [];
+  var divStyle = {
+    background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
+    width: "95%", "marginBottom":"20px", "minHeight":"50px"};
   for(var i=0; i<props.items.length; i++){
-    var divStyle = {
-      background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
-      width: "95%", "marginBottom":"20px", "minHeight":"50px"};
-      content.push(<div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
+      content.push(<div key={i} id={i} className={props.column} onClick={props.editPBI} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
   }
   return(
     <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>
@@ -23,9 +23,9 @@ function ColumnContents(props){
   var content = [];
   for(var i=0; i<props.items.length; i++){
     var divStyle = {
-      background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
+      background: "#ffffff",'boxShadow': '0 0 4px 4px #666666',
       width: "95%", "marginBottom":"20px", "minHeight":"50px"};
-      content.push(<div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i]} </div>);
+      content.push(<div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
   }
   return(
     <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>
@@ -42,7 +42,11 @@ class Sprint extends Component {
     this.state = {
       editTask: null,
       createTask: false,
-      pbis: []};
+      pbis: [],
+      todo: [],
+      inProgress: [],
+      done: []
+    };
     this.allowDrop = this.allowDrop.bind(this);
     this.drop = this.drop.bind(this);
     this.drag = this.drag.bind(this);
@@ -51,6 +55,8 @@ class Sprint extends Component {
     this.handleCreateTaskComplete = this.handleCreateTaskComplete.bind(this);
     this.openCreateTask = this.openCreateTask.bind(this);
     this.exitCreateTask = this.exitCreateTask.bind(this);
+    this.clickPBI = this.clickPBI.bind(this);
+    // this.updateTasks = this.updateTasks.bind(this);
   }
 
   getColumnNumberByName(name){
@@ -136,13 +142,33 @@ class Sprint extends Component {
 
   updatePBIs(){
     Client.getSprintBacklog(this.props.project.name, this.props.sprintNumber, (pbis) => {
-      console.log(pbis);
+      // console.log(pbis);
       this.setState({pbis: pbis});
     })
   }
 
+  updateTasks(){
+    Client.getTasksBySprint(this.props.project.name, this.props.sprintNumber, (tasks) => {
+      console.log(tasks);
+      var todo = [];
+      var inProgress = [];
+      var done = [];
+      for(var i = 0; i < tasks.length; i++){
+        if(tasks[i].columnNumber === 1){
+          todo.push(tasks[i]);
+        } else if(tasks[i].columnNumber === 2){
+          inProgress.push(tasks[i]);
+        }else if(tasks[i].columnNumber === 3){
+          done.push(tasks[i]);
+        }
+      }
+      this.setState({todo: todo, inProgress: inProgress, done: done});
+    });
+  }
+
   handleCreateTaskComplete(){
     //fill in later
+    this.updateTasks();
     this.exitCreateTask();
   }
 
@@ -154,9 +180,15 @@ class Sprint extends Component {
     this.setState({createTask: true});
   }
 
+  clickPBI(e){
+    // console.log("EDITING..." + e.target.id)
+    this.props.openEditPBI(this.state.pbis[e.target.id]);
+  }
+
   componentWillMount() {
     this.props.passUpFunction("sprintUpdate",this.updatePBIs);
     this.updatePBIs();
+    this.updateTasks();
   }
 
   render(){
@@ -170,10 +202,11 @@ class Sprint extends Component {
     if(this.state.createTask){
       createTask=<CreateTaskForm project={this.props.project}
         sprint={this.props.sprintNumber}
-        handleCreateTaskComplete={this.handleCreateTaskComplete}
+        handleTaskComplete={this.handleCreateTaskComplete}
         exit={this.exitCreateTask}
         members={this.props.members}
-        pbis={this.state.pbis}/>
+        pbis={this.state.pbis}
+        placeRow={this.state.todo.length}/>
     }
     return (
       <div className="sprint" >
@@ -183,12 +216,12 @@ class Sprint extends Component {
         </div>
         <br/>
         <BacklogColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.state.pbis}
-        drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
-        <ColumnContents column="todo" title="To Do" items={this.props.items[1]}
+        drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editPBI={this.clickPBI} />
+        <ColumnContents column="todo" title="To Do" items={this.state.todo}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
-        <ColumnContents column="inprogress" title="In Progress" items={this.props.items[2]}
+        <ColumnContents column="inprogress" title="In Progress" items={this.state.inProgress}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
-        <ColumnContents column="done" title="Done"items={this.props.items[3]}
+        <ColumnContents column="done" title="Done"items={this.state.done}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
         {editTask}
         {createTask}

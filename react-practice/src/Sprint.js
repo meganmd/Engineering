@@ -178,7 +178,7 @@ class Sprint extends Component {
     return (
       <div className="sprint" >
         <div id="title">
-          <h3>Sprint Title</h3>
+          <h3>Sprint {this.props.sprintNumber}</h3>
           <button className="addPBIButton" onClick={this.openCreateTask}>Create Task</button>
         </div>
         <br/>

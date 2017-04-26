@@ -272,4 +272,10 @@ module.exports = class database {
   moveSprintPBI(id, project, sprintNum, row, cb){
     this.db.run("UPDATE sprintPBIs SET row = ? WHERE id = ? and project = ? and sprint = ?", row, id, project, sprintNum, cb);
   }
+
+  getPercentBreakdownByPBI(pbi, sprint, cb) {
+    //for a pbi tells you how much people work on it
+    //doesn't have a requirement to be complete yet
+    this.db.run("SELECT SUM(percent) as percent, username, from tasks where pbi = ? and sprint = ? GROUP BY username", pbi, sprint, cb);
+  }
 }

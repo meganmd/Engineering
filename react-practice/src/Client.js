@@ -456,6 +456,12 @@ function moveSprintPBI(id, project, sprintNum, row, cb){
   }).then(checkStatus)
     .then(cb);
 }
+function getPercentBreakdownByPBI(pbi, sprint, cb) {
+  return fetch('api/percentBreakdownByPBI?pbi=' + pbi + '&sprint=' + sprint) {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(cb);
+}
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {

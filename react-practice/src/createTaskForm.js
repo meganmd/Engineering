@@ -24,7 +24,7 @@ function CreateProjectDisplay(props){
             Create Task
           </h1>
 
-          <font color="red">{this.props.errorMessage}</font><br/>
+          <font color="red">{props.errorMessage}</font><br/>
 
           Description<br/>
           <input id="createTaskInput" name="taskDescription" type="text" placeholder="Enter Task Description ... "

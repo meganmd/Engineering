@@ -478,5 +478,6 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   addUserToProject, getUserFromProject, getPBIs, addPBI, listPBITable,
   editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask,
   getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint,
-  getProductBacklog, getSprintBacklog, addSprint, getSprints, moveSprintPBI};
+  getProductBacklog, getSprintBacklog, addSprint, getSprints, moveSprintPBI,
+  getUsersFromProject};
 export default Client;

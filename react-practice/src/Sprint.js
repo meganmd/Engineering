@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Client from './Client';
 import EditTaskForm from './EditTaskForm';
+import CreateTaskForm from './createTaskForm'
 
 function BacklogColumnContents(props){
   var content = [];
@@ -40,12 +41,16 @@ class Sprint extends Component {
     //get items for sprint
     this.state = {
       editTask: null,
+      createTask: false,
       pbis: []};
     this.allowDrop = this.allowDrop.bind(this);
     this.drop = this.drop.bind(this);
     this.drag = this.drag.bind(this);
     this.getColumnNumberByName = this.getColumnNumberByName.bind(this);
     this.updatePBIs = this.updatePBIs.bind(this);
+    this.handleCreateTaskComplete = this.handleCreateTaskComplete.bind(this);
+    this.openCreateTask = this.openCreateTask.bind(this);
+    this.exitCreateTask = this.exitCreateTask.bind(this);
   }
 
   getColumnNumberByName(name){
@@ -136,6 +141,19 @@ class Sprint extends Component {
     })
   }
 
+  handleCreateTaskComplete(){
+    //fill in later
+    this.exitCreateTask();
+  }
+
+  exitCreateTask(){
+    this.setState({createTask: false});
+  }
+
+  openCreateTask(){
+    this.setState({createTask: true});
+  }
+
   componentWillMount() {
     this.props.passUpFunction("sprintUpdate",this.updatePBIs);
     this.updatePBIs();
@@ -148,9 +166,21 @@ class Sprint extends Component {
       height={510}
       exit={this.exitEditTask}/>
     }
+    var createTask;
+    if(this.state.createTask){
+      createTask=<CreateTaskForm project={this.props.project}
+        sprint={this.props.sprintNumber}
+        handleCreateTaskComplete={this.handleCreateTaskComplete}
+        exit={this.exitCreateTask}
+        members={this.props.members}
+        pbis={this.state.pbis}/>
+    }
     return (
       <div className="sprint" >
-        <div id="title"><h3>Sprint Title</h3></div>
+        <div id="title">
+          <h3>Sprint Title</h3>
+          <button className="addPBIButton" onClick={this.openCreateTask}>Create Task</button>
+        </div>
         <br/>
         <BacklogColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.state.pbis}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop}/>
@@ -161,6 +191,7 @@ class Sprint extends Component {
         <ColumnContents column="done" title="Done"items={this.props.items[3]}
         drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editTask={this.props.editTask}/>
         {editTask}
+        {createTask}
       </div>
     );}
 

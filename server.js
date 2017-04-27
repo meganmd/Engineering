@@ -385,10 +385,10 @@ app.post('/api/acceptPBI', function(request, response) {
 })
 
 app.post('/api/rejectPBI', function(request, response) {
-  console.log("Accepting PBI " + request.body.id + " for project " +
+  console.log("Rejecting PBI " + request.body.id + " for project " +
   request.body.projectName + " sprint " + request.body.sprint + " because " +
   request.body.reason);
-  data.acceptProductBackLogItem(
+  data.rejectProductBackLogItem(
     request.body.id, request.body.projectName, request.body.sprint,
     request.body.reason,
     function(error){
@@ -557,7 +557,9 @@ app.post('/api/moveSprintPBI', function(request, response) {
     })
 })
 app.get('/api/percentBreakdownByPBI', function(request, response) {
+  console.log("Retrieving percent breakdown for " + request.query.pbi + " sprint " + request.query.sprint)
   data.getPercentBreakdownByPBI(request.query.pbi, request.query.sprint, function(err, rows){
+    console.log(rows);
     response.setHeader('Content-Type', 'application/json');
     if(rows != undefined){
       response.json(rows);

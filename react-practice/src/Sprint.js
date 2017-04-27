@@ -2,15 +2,38 @@ import React, { Component } from 'react';
 import Client from './Client';
 import EditTaskForm from './EditTaskForm';
 import CreateTaskForm from './createTaskForm'
+import RejectUserStoryForm from './rejectUserStoryForm'
 
 function BacklogColumnContents(props){
   var content = [];
+
   var divStyle = {
     background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
     width: "95%", "marginBottom":"20px", "minHeight":"50px"};
+
   for(var i=0; i<props.items.length; i++){
-      content.push(<div key={i} id={i} className={props.column} onClick={props.editPBI} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
+      var status = [];
+      if(props.role === "product owner" && props.items[i].status === "none"){
+        status.push(<button className="rejectPBIButton" key={"reject"+i} id={i} onClick={props.rejectButton}> Reject </button>);
+        status.push(<button className="acceptPBIButton" key={"accept"+i} id={i} onClick={props.acceptButton}> Accept </button>);
+      } else if(props.items[i].status === "rejected"){
+        status.push(<font color="red">Rejected: {props.items[i].reason}</font>)
+      } else if(props.items[i].status === "accepted"){
+        status.push(<font color="green">Accepted</font>)
+      }
+      content.push(
+        <div key={i} id={i} className={props.column} style={divStyle} draggable="true" onDragStart={props.drag}>
+          <div className={i} onClick={props.editPBI}>
+            {props.items[i].description}
+          </div>
+          <br/>
+          {status}
+        </div>);
+      // Client.getPercentBreakdownByPBI(props.items[i].id, 1, (percentBreakdown) => {
+      //   console.log(percentBreakdown);
+      // })
   }
+
   return(
     <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>
       <div id="title"><h3>{props.title}</h3></div>
@@ -41,6 +64,7 @@ class Sprint extends Component {
     //get items for sprint
     this.state = {
       editTask: null,
+      rejectPBI: null,
       createTask: false,
       pbis: [],
       todo: [],
@@ -60,6 +84,9 @@ class Sprint extends Component {
     this.exitEditTaskForm = this.exitEditTaskForm.bind(this);
     this.handleEditTaskComplete = this.handleEditTaskComplete.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
+    this.openRejectUserStoryForm = this.openRejectUserStoryForm.bind(this);
+    this.exitRejectUserStoryForm = this.exitRejectUserStoryForm.bind(this);
+    this.clickAcceptButton = this.clickAcceptButton.bind(this);
     // this.updateTasks = this.updateTasks.bind(this);
   }
 
@@ -86,6 +113,8 @@ class Sprint extends Component {
 
     //REORDERING SPRINT BACKLOG
     if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
+      console.log("IDENTIFIED SPRINT MOVE")
+
       if(row==="9999"){
         var from = ev.dataTransfer.getData('row');
         var items = this.state.pbis;
@@ -198,6 +227,20 @@ class Sprint extends Component {
     this.setState({editTask: null});
   }
 
+  openRejectUserStoryForm(e){
+    var row = e.target.id;
+    this.setState({rejectPBI: this.state.pbis[row]})
+  }
+
+  exitRejectUserStoryForm(){
+    this.setState({rejectPBI: null})
+  }
+
+  clickAcceptButton(e){
+    var row = e.target.id;
+    this.props.acceptPBI(this.state.pbis[row]);
+  }
+
   handleDeleteTask(){
     if(this.state.editTask != null){
       Client.deleteTask(this.state.editTask.id, () => {
@@ -208,8 +251,9 @@ class Sprint extends Component {
 
   clickPBI(e){
     // console.log("EDITING..." + e.target.id)
-    this.props.openEditPBI(this.state.pbis[e.target.id]);
+    this.props.openEditPBI(this.state.pbis[e.target.className]);
   }
+
 
   componentWillMount() {
     this.props.passUpFunction("sprintUpdate",this.updatePBIs);
@@ -242,6 +286,13 @@ class Sprint extends Component {
         pbis={this.state.pbis}
         placeRow={this.state.todo.length}/>
     }
+    var rejectPBI;
+    if(this.state.rejectPBI !== null){
+      rejectPBI = <RejectUserStoryForm
+        pbi={this.state.rejectPBI}
+        exitReject={this.exitRejectUserStoryForm}
+        completeReject={this.props.rejectPBI} />
+    }
     return (
       <div className="sprint" >
         <div id="title">
@@ -249,8 +300,17 @@ class Sprint extends Component {
           <button className="addPBIButton" onClick={this.openCreateTask}>Create Task</button>
         </div>
         <br/>
-        <BacklogColumnContents column="sprintbacklog"  title="Sprint Backlog" items={this.state.pbis}
-        drop={this.drop} drag={this.drag} allowDrop={this.allowDrop} editPBI={this.clickPBI} />
+        <BacklogColumnContents
+          column="sprintbacklog"
+          title="Sprint Backlog"
+          items={this.state.pbis}
+          drop={this.drop}
+          drag={this.drag}
+          allowDrop={this.allowDrop}
+          editPBI={this.clickPBI}
+          role={this.props.project.role}
+          rejectButton={this.openRejectUserStoryForm}
+          acceptButton={this.clickAcceptButton}/>
         <ColumnContents
           column="todo"
           title="To Do"
@@ -277,6 +337,7 @@ class Sprint extends Component {
           editTask={this.openEditTaskForm}/>
         {editTask}
         {createTask}
+        {rejectPBI}
       </div>
     );}
 

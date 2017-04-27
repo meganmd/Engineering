@@ -462,6 +462,7 @@ function getPercentBreakdownByPBI(pbi, sprint, cb) {
   return fetch(`api/percentBreakdownByPBI?pbi=${pbi}&sprint=${sprint}`, {
     accept: 'application/json',
   }).then(checkStatus)
+    .then(parseJSON)
     .then(cb);
 }
 
@@ -487,5 +488,6 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   editPBI, movePBI, acceptProjectInvitation, rejectProjectInvitation, addTask,
   getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint,
   getProductBacklog, getSprintBacklog, addSprint, getSprints, moveSprintPBI,
-  getUsersFromProject, getTasksBySprint};
+  getUsersFromProject, getTasksBySprint, getPercentBreakdownByPBI,
+  rejectPBI, acceptPBI};
 export default Client;

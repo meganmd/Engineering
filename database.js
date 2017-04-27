@@ -190,7 +190,7 @@ module.exports = class database {
 
   getSprintBacklog(project, numSprints, cb){
     this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
-    " WHERE project = ? AND ((sprint = ?)) ORDER BY row",
+    "  WHERE project = ? AND ((sprint = ?)) ORDER BY row",
     project, numSprints, cb);
   }
 
@@ -225,7 +225,7 @@ module.exports = class database {
   }
 
   rejectProductBackLogItem(id, projectName, sprint, reason, cb){
-    this.db.run("UPDATE sprintPBIs SET status = ?, reason = ? WHERE id = ? and project = ? and sprint = ?", "accepted", reason, id, projectName, sprint, cb);
+    this.db.run("UPDATE sprintPBIs SET status = ?, reason = ? WHERE id = ? and project = ? and sprint = ?", "rejected", reason, id, projectName, sprint, cb);
   }
 
   addTask(project, sprint, pbi, description, percent, member, columnNumber, priority, cb) {
@@ -273,8 +273,7 @@ module.exports = class database {
   }
 
   getPercentBreakdownByPBI(pbi, sprint, cb) {
-    //for a pbi tells you how much people work on it
-    //doesn't have a requirement to be complete yet
-    this.db.run("SELECT SUM(percent) as percent, username, from tasks where pbi = ? and sprint = ? GROUP BY username", pbi, sprint, cb);
+    this.db.all("SELECT productBacklogItems.description,tasks.member, SUM(tasks.percent) as 'total' FROM tasks INNER JOIN productBacklogItems ON tasks.pbi = productBacklogItems.id WHERE pbi = ? and sprint = ? GROUP BY member",pbi, sprint, cb);
+    // this.db.all("SELECT SUM(percent) as percent, username, from tasks where pbi = ? and sprint = ? GROUP BY username", pbi, sprint, cb);
   }
 }

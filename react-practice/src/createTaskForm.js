@@ -71,7 +71,6 @@ class CreateTaskForm extends Component {
     if(this.state.taskDescription.length > 0 && this.state.userStory.username !== ''){
       console.log("ID: " + this.state.userStory.id)
       Client.getTotalPBIPercentage(this.state.userStory.id, (total)=>{
-
           //MAKE IF STATEMENT TO MAKE SURE total + this.state.percentage is not over 100!!!
 
               Client.addTask(

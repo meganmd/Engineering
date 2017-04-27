@@ -91,11 +91,10 @@ class EditTaskForm extends Component {
 
   handleClick(){
     if(this.state.taskDescription.length > 0 && this.state.userStory.username !== ''){
-      console.log("ID: " + this.state.userStory.id)
-      Client.getTotalPBIPercentage(this.state.userStory.id, (total)=>{
-
-          //MAKE IF STATEMENT TO MAKE SURE total + this.state.percentage is not over 100!!!
-
+      // console.log("ID: " + this.state.userStory)
+      Client.getTotalPBIPercentage(this.state.userStory, (total)=>{
+          // console.log("TOTAL: " + total)
+            if(this.state.percentage+total<=100){
               Client.editTask(
                 this.props.task.id,
                 this.state.taskDescription,
@@ -104,6 +103,10 @@ class EditTaskForm extends Component {
                 this.state.userStory,
                 function(){}) //just giving 1 for columnNumber and Priority for now
               this.props.handleEditTaskComplete();
+            }else{
+                  this.setState({errorMessage:'Percentage cannot be over 100%!'});
+            }
+
       });
     } else {
       this.setState({errorMessage:'Must fill out project description!'});

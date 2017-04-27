@@ -113,7 +113,7 @@ class Sprint extends Component {
 
     //REORDERING SPRINT BACKLOG
     if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
-      console.log("IDENTIFIED SPRINT MOVE")
+      // console.log("IDENTIFIED SPRINT MOVE")
 
       if(row==="9999"){
         var from = ev.dataTransfer.getData('row');
@@ -174,7 +174,7 @@ class Sprint extends Component {
 
   updateTasks(){
     Client.getTasksBySprint(this.props.project.name, this.props.sprintNumber, (tasks) => {
-      console.log(tasks);
+      // console.log(tasks);
       var todo = [];
       var inProgress = [];
       var done = [];
@@ -208,7 +208,7 @@ class Sprint extends Component {
   openEditTaskForm(e){
     var column = e.target.className;
     var target = e.target.id;
-    console.log(column);
+    // console.log(column);
     if(column === "todo"){
       this.setState({editTask: this.state.todo[target]});
     } else if(column === "inprogress"){

@@ -72,8 +72,7 @@ class CreateTaskForm extends Component {
       console.log("ID: " + this.state.userStory.id)
       Client.getTotalPBIPercentage(this.state.userStory.id, (total)=>{
 
-          //MAKE IF STATEMENT TO MAKE SURE total + this.state.percentage is not over 100!!!
-
+              if(this.state.percentage>=0 && this.state.percentage+total<=100){
               Client.addTask(
                 this.props.project.name,
                 this.props.sprint,
@@ -85,6 +84,11 @@ class CreateTaskForm extends Component {
                 this.props.placeRow,
                 function(){}) //just giving 1 for columnNumber and Priority for now
               this.props.handleTaskComplete();
+
+            }
+              else{
+                  this.setState({errorMessage:'Must enter a positive percentage that does not put your total over 100%!'});
+              }
       });
     } else {
       this.setState({errorMessage:'Must fill out project description and select user story!'});

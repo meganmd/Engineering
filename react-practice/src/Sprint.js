@@ -182,10 +182,10 @@ class Sprint extends Component {
     console.log(column);
     if(column === "todo"){
       this.setState({editTask: this.state.todo[target]});
-    } else if(column === "inProgress"){
+    } else if(column === "inprogress"){
       this.setState({editTask: this.state.inProgress[target]});
     } else if(column === "done"){
-      this.setState({editTask: this.state.doing[target]});
+      this.setState({editTask: this.state.done[target]});
     }
   }
 
@@ -269,7 +269,8 @@ class Sprint extends Component {
           editTask={this.openEditTaskForm}/>
         <ColumnContents
           column="done"
-          title="Done"items={this.state.done}
+          title="Done"
+          items={this.state.done}
           drop={this.drop}
           drag={this.drag}
           allowDrop={this.allowDrop}

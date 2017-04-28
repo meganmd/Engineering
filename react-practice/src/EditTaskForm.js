@@ -94,7 +94,7 @@ class EditTaskForm extends Component {
       // console.log("ID: " + this.state.userStory)
       Client.getTotalPBIPercentage(this.state.userStory, (total)=>{
           // console.log("TOTAL: " + total)
-            if(this.state.percentage+total<=100){
+            if(this.state.percentage+total<=100 && this.state.percentage>=0){
               Client.editTask(
                 this.props.task.id,
                 this.state.taskDescription,

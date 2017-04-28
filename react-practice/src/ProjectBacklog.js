@@ -29,6 +29,8 @@ class ProjectBacklog extends Component {
     this.updateChildren = this.updateChildren.bind(this);
     this.getSprints = this.getSprints.bind(this);
     this.getMembers = this.getMembers.bind(this);
+    this.rejectPBI = this.rejectPBI.bind(this);
+    this.acceptPBI = this.acceptPBI.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -74,6 +76,18 @@ class ProjectBacklog extends Component {
       console.log("FAIL");
       this.setState({errorMessage: "Error: Top user story is incomplete. Add role, functionality, value, and acceptanceCriteria"})
     }
+  }
+
+  rejectPBI(pbi,reason){
+    Client.rejectPBI(pbi.id, this.props.project.name, 1, reason, function(){})
+    this.setState({errorMessage: ""});
+    this.updateChildren();
+  }
+
+  acceptPBI(pbi){
+    Client.acceptPBI(pbi.id,this.props.project.name, 1, function(){});
+    this.setState({errorMessage: ""});
+    this.updateChildren();
   }
 
   moveProductBacklog(from, to){
@@ -151,10 +165,12 @@ render(){
       items={[['item 1'],['item 2'],['item 3'],['item 4']]}
       move={this.move}
       addToEnd={this.addToEnd}
-      editTask={this.editTask}
       passUpFunction={this.passUpFunction}
       project={this.props.project}
-      members={this.state.members}/>
+      members={this.state.members}
+      openEditPBI={this.openEditPBI}
+      rejectPBI={this.rejectPBI}
+      acceptPBI={this.acceptPBI}/>
     )
   }
 

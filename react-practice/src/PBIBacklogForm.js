@@ -469,6 +469,7 @@ openAddPBI(){
 
 addPBIComplete(){
   this.setState({addPBI:false});
+  //Now doing this on the backend whenever we add a pbi
   //for(var i = 0; i < this.state.productbacklog.length; i++){
   //  var id = this.state.productbacklog[i].id;
   //  var column = this.state.productbacklog[i].columnNumber;

@@ -191,7 +191,6 @@ render(){
 
           {sprints}
 
-
           {editPBIView}
       </div>
     </div>

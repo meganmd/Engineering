@@ -5,10 +5,6 @@ import App from './App.css';
 
 class InvitedProjectsTableForm extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
 render() {
   var tableBody = [];
     tableBody.push(

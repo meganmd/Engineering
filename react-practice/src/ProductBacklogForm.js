@@ -11,7 +11,7 @@ function ColumnContents(props) {
       width: "95%", "marginBottom":"20px", "minHeight":"50px"};
     var status = [];
     if(props.items[i].status === "rejected"){
-      status.push(<font color="red">Rejected: {props.items[i].reason}</font>)
+      status.push(<font color="red" key={0}>Rejected: {props.items[i].reason}</font>)
     }
 
     if(i===0){

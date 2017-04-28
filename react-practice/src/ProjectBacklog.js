@@ -8,7 +8,7 @@ class ProjectBacklog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      height:"510",
+      height:510,
       productBacklog:['user story one', 'user story two', 'user story three'],
       sprints: [],
       editPBI: null,

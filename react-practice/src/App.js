@@ -110,23 +110,23 @@ class App extends Component {
           handleLeavePBIBacklogForm={this.handleLeavePBIBacklogForm} />);
           */
           //The new way of doing things ...
-          var top = <h1  id="projectTitleText">
+          var top = <h1  id="projectTitleText" key={0}>
             <button className="halfSizeButton" onClick={this.handleLeavePBIBacklogForm}>Back</button>
             {this.state.currentProject.name}
             <button className="halfSizeButton" onClick={this.openAddUser}>Add User</button>
             <button className="halfSizeButton" onClick={this.openAddSprint}>Create Sprint</button>
           </h1>
           content.push(top);
-          content.push(<ProjectBacklog project={this.state.currentProject} />);
+          content.push(<ProjectBacklog project={this.state.currentProject} key={1}/>);
       }else{
-        var top = <h1  id="projectTitleText">
+        top = <h1  id="projectTitleText" key={0}>
                       <LogOutButton onClick={this.handleLogOut} />
                       {this.state.loggedInUser.firstName + " " + this.state.loggedInUser.lastName}
                      <CreateProjectButton createClick={this.handleCreateProject}
                      />
                    </h1>
         content.push(top);
-        var viewProjects = <div><ViewProjectsForm user={this.state.loggedInUser}
+        var viewProjects = <div key={1}><ViewProjectsForm user={this.state.loggedInUser}
            handleProjectSelected={this.handleProjectSelected}/></div>
         content.push(viewProjects);
       }

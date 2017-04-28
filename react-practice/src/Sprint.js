@@ -17,9 +17,9 @@ function BacklogColumnContents(props){
         status.push(<button className="rejectPBIButton" key={"reject"+i} id={i} onClick={props.rejectButton}> Reject </button>);
         status.push(<button className="acceptPBIButton" key={"accept"+i} id={i} onClick={props.acceptButton}> Accept </button>);
       } else if(props.items[i].status === "rejected"){
-        status.push(<font color="red">Rejected: {props.items[i].reason}</font>)
+        status.push(<font color="red" key={0}>Rejected: {props.items[i].reason}</font>)
       } else if(props.items[i].status === "accepted"){
-        status.push(<font color="green">Accepted</font>)
+        status.push(<font color="green" key={0}>Accepted</font>)
       }
       content.push(
         <div key={i} id={i} className={props.column} style={divStyle} draggable="true" onDragStart={props.drag}>
@@ -125,13 +125,13 @@ class Sprint extends Component {
           Client.moveSprintPBI(this.state.pbis[i].id, this.props.project.name, this.props.sprintNumber, i, function(){});
         }
       } else{
-        var from = ev.dataTransfer.getData('row');
+        from = ev.dataTransfer.getData('row');
         var to = ev.target.id;
-        var items = this.state.pbis;
-        var item = items.splice(from,1);
+        items = this.state.pbis;
+        item = items.splice(from,1);
         items.splice(to,0,item[0]);
         this.setState({pbis:items});
-        for(var i = 0; i < this.state.pbis.length; i++){
+        for(i = 0; i < this.state.pbis.length; i++){
           Client.moveSprintPBI(this.state.pbis[i].id, this.props.project.name, this.props.sprintNumber, i, function(){});
         }
       }

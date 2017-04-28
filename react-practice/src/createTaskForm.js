@@ -12,7 +12,7 @@ function CreateTaskDisplay(props){
   }
 
   var members = [];
-  for(var i=0; i<props.members.length;i++){
+  for(i=0; i<props.members.length;i++){
     members.push(<option key={i} value={i}> {props.members[i].username} </option>);
   }
 
@@ -96,8 +96,8 @@ class CreateTaskForm extends Component {
   }
 
   handleInputChange(event) {
-    if(event.target.name == "percentage"){
-      this.setState({[event.target.name]: parseInt(event.target.value)});
+    if(event.target.name === "percentage"){
+      this.setState({[event.target.name]: parseInt(event.target.value, 100)});
     } else{
       this.setState({[event.target.name]: event.target.value});
     }

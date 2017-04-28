@@ -373,7 +373,7 @@ function editTask(id, description, percent, member, pbi, cb){
 }
 
 function moveTask(id, columnNumber, priority, cb){
-  return fetch('api/moveTask', {
+  return fetch('api/moveTaskNew', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

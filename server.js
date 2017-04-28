@@ -605,14 +605,14 @@ app.post('/api/moveTaskNew', function(request, response) {
       console.log("didn't get task");
       response.status(400).send("didn't get task");
     } else {
-      data.incrementTasksInNewColumn(request.body.column, request.body.priority, function(error) {
+      data.incrementTasksInNewColumn(request.body.columnNumber, request.body.priority, function(error) {
         if(error) {
           console.log(error);
           console.log("didn't increment tasks in new column");
           response.status(400).send("didn't increment tasks in new column");
         } else {
           console.log(this.changes);
-          data.moveTask(request.body.id, request.body.column, request.body.priority, function(error) {
+          data.moveTask(request.body.id, request.body.columnNumber, request.body.priority, function(error) {
             if(error) {
               console.log(error);
               console.log("didn't move task");

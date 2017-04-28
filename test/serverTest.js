@@ -444,7 +444,7 @@ describe('Blobs', function() {
   it('move task', function(done) {
     var move ={
       id: 1,
-      column: 2,
+      columnNumber: 2,
       priority: 0,
     }
     chai.request(server)
@@ -473,7 +473,7 @@ describe('Blobs', function() {
   it('move another task', function(done) {
     var move ={
       id: 2,
-      column: 2,
+      columnNumber: 2,
       priority: 0,
     }
     chai.request(server)

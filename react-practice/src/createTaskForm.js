@@ -72,7 +72,7 @@ class CreateTaskForm extends Component {
       // console.log("ID: " + this.state.userStory.id)
       Client.getTotalPBIPercentage(this.state.userStory.id, (total)=>{
 
-            if(this.state.percentage+total<=100){
+            if(this.state.percentage+total<=100 && this.state.percentage>=0){
 
               Client.addTask(
                 this.props.project.name,

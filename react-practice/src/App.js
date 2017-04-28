@@ -6,6 +6,7 @@ import Client from './Client';
 import AddUserToProjectForm from './AddUserToProjectForm';
 import ProjectBacklog from './ProjectBacklog';
 import ViewProjectsForm from './ViewProjectsForm';
+import CreateSprint from './CreateSprint';
 
 function LogOutButton(props) {
   return (
@@ -37,7 +38,8 @@ class App extends Component {
       isCreatingProject: false,
       currentProject: {},
       isViewingProject:false,
-      isAddingUser: false};
+      isAddingUser: false,
+      isAddingSprint: false};
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleCreateProject = this.handleCreateProject.bind(this);
@@ -47,6 +49,7 @@ class App extends Component {
     this.handleLeavePBIBacklogForm = this.handleLeavePBIBacklogForm.bind(this);
     this.openAddUser = this.openAddUser.bind(this);
     this.exitAddUser = this.exitAddUser.bind(this);
+    this.openAddSprint = this.openAddSprint.bind(this);
   }
 
   handleLogIn(user){
@@ -65,6 +68,11 @@ class App extends Component {
     console.log('arriving here');
     this.setState({isCreatingProject: false});
     Client.addSprint(projectTitle, 1);
+  }
+
+  openAddSprint(project, number){
+    //Client.addSprint(project,number, cb );
+    this.setState({isAddingSprint:true});
   }
 
   handleLeaveCreateProjectForm(){
@@ -106,6 +114,7 @@ class App extends Component {
             <button className="halfSizeButton" onClick={this.handleLeavePBIBacklogForm}>Back</button>
             {this.state.currentProject.name}
             <button className="halfSizeButton" onClick={this.openAddUser}>Add User</button>
+            <button className="halfSizeButton" onClick={this.openAddSprint}>Create Sprint</button>
           </h1>
           content.push(top);
           content.push(<ProjectBacklog project={this.state.currentProject} />);
@@ -113,7 +122,8 @@ class App extends Component {
         var top = <h1  id="projectTitleText">
                       <LogOutButton onClick={this.handleLogOut} />
                       {this.state.loggedInUser.firstName + " " + this.state.loggedInUser.lastName}
-                     <CreateProjectButton createClick={this.handleCreateProject}/>
+                     <CreateProjectButton createClick={this.handleCreateProject}
+                     />
                    </h1>
         content.push(top);
         var viewProjects = <div><ViewProjectsForm user={this.state.loggedInUser}
@@ -129,6 +139,13 @@ class App extends Component {
         handleAddUserComplete={this.exitAddUser}/></div>);
         //add in board height here/>
     }
+
+/*
+    if(this.state.isAddingSprint){
+      console.log("ERROR Adding");
+      content.push(<CreateSprint close={this.closeAddSprint}/>);
+    }
+    */
 
     return (
       <div className="App">

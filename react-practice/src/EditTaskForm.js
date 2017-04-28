@@ -12,7 +12,7 @@ function EditTaskDisplay(props){
 
   var members = [];
   for(var i=0; i<props.members.length;i++){
-    members.push(<option key={i} value={i}> {props.members[i].username} </option>);
+    members.push(<option key={i} value={i} className={props.members[i].username}> {props.members[i].username} </option>);
   }
 
   return(
@@ -31,8 +31,7 @@ function EditTaskDisplay(props){
             onChange={props.handleFieldChange}/> <br/>
 
           Select User Story:<br/>
-          <select name="userStory"
-            value={props.defaultPBI}
+          <select name="userStory" value={props.defaultPBI}
             onChange={props.handleSelectUserStory}>
 
             {dropdown}
@@ -74,6 +73,14 @@ class EditTaskForm extends Component {
     for(var i=0;i<props.pbis.length;i++){
       if(props.pbis[i].id === props.task.pbi){
         defaultPBI = i;
+        break;
+      }
+    }
+    var defaultMember = "";
+    for(var i=0;i<props.members.length;i++){
+      if(props.members[i].username === props.task.member){
+        defaultMember = i;
+        break;
       }
     }
     this.state = {
@@ -82,7 +89,8 @@ class EditTaskForm extends Component {
       assignedMember: this.props.task.member,
       percentage: this.props.task.percent,
       errorMessage: '',
-      defaultPBIDescription: defaultPBI};
+      defaultPBIDescription: defaultPBI,
+      defaultMember: defaultMember};
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelectMember = this.handleSelectMember.bind(this);
@@ -94,7 +102,7 @@ class EditTaskForm extends Component {
       // console.log("ID: " + this.state.userStory)
       Client.getTotalPBIPercentage(this.state.userStory, (total)=>{
           // console.log("TOTAL: " + total)
-            if(this.state.percentage+total<=100){
+            if(this.state.percentage+total<=100 && this.state.percentage>=0){
               Client.editTask(
                 this.props.task.id,
                 this.state.taskDescription,
@@ -122,7 +130,7 @@ class EditTaskForm extends Component {
   }
 
   handleSelectMember(event){
-    this.setState({assignedMember: this.props.members[event.target.value].username});
+    this.setState({assignedMember: this.props.members[event.target.value].username, defaultMember: event.target.value});
   }
 
   handleSelectUserStory(event){
@@ -146,7 +154,7 @@ class EditTaskForm extends Component {
             deleteTask={this.props.handleDeleteTask}
             defaultPercent={this.state.percentage}
             defaultDescription={this.state.taskDescription}
-            defaultMember={this.state.assignedMember}
+            defaultMember={this.state.defaultMember}
             defaultPBI={this.state.defaultPBIDescription}
           />
       </div>

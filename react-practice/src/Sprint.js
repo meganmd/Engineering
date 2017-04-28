@@ -206,15 +206,17 @@ class Sprint extends Component {
   }
 
   openEditTaskForm(e){
-    var column = e.target.className;
-    var target = e.target.id;
-    // console.log(column);
-    if(column === "todo"){
-      this.setState({editTask: this.state.todo[target]});
-    } else if(column === "inprogress"){
-      this.setState({editTask: this.state.inProgress[target]});
-    } else if(column === "done"){
-      this.setState({editTask: this.state.done[target]});
+    if(this.props.project.role === "development team member"){
+      var column = e.target.className;
+      var target = e.target.id;
+      // console.log(column);
+      if(column === "todo"){
+        this.setState({editTask: this.state.todo[target]});
+      } else if(column === "inprogress"){
+        this.setState({editTask: this.state.inProgress[target]});
+      } else if(column === "done"){
+        this.setState({editTask: this.state.done[target]});
+      }
     }
   }
 
@@ -224,7 +226,7 @@ class Sprint extends Component {
   }
 
   exitEditTaskForm(){
-    this.setState({editTask: null});
+      this.setState({editTask: null});
   }
 
   openRejectUserStoryForm(e){
@@ -293,11 +295,15 @@ class Sprint extends Component {
         exitReject={this.exitRejectUserStoryForm}
         completeReject={this.props.rejectPBI} />
     }
+    var createTaskButton;
+    if(this.props.project.role === "development team member"){
+      createTaskButton = <button className="addPBIButton" onClick={this.openCreateTask}>Create Task</button>;
+    }
     return (
       <div className="sprint" >
         <div id="title">
           <h3>Sprint {this.props.sprintNumber}</h3>
-          <button className="addPBIButton" onClick={this.openCreateTask}>Create Task</button>
+          {createTaskButton}
         </div>
         <br/>
         <BacklogColumnContents

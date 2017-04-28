@@ -220,8 +220,10 @@ module.exports = class database {
     " WHERE id = ?", priority, id, cb);
   }
 
-  addProductBacklogItemToSprint(id, projectName, sprint, row, cb){
-    this.db.run("INSERT INTO sprintPBIs (row, project, id, sprint, status, reason) VALUES (?, ?, ?, ?, ?, ?)", row, projectName, id, sprint, "none", "", cb);
+  addProductBacklogItemToSprint(id, projectName, sprint, cb){
+    this.db.get("SELECT MAX(row) as lastRow from sprintPBIs where project = ? and sprint = ?", projectName, sprint, (error, data) => {
+      this.db.run("INSERT INTO sprintPBIs (row, project, id, sprint, status, reason) VALUES (?, ?, ?, ?, ?, ?)", data.lastRow + 1, projectName, id, sprint, "none", "", cb);
+    })
   }
 
   acceptProductBackLogItem(id, projectName, sprint, cb){

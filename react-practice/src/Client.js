@@ -215,7 +215,7 @@ function listPBITable(cb){
 }
 
 function addPBI(description, role, functionality, value,
-  acceptanceCriteria, estimate, priority, project, cb){
+  acceptanceCriteria, estimate, project, cb){
     return fetch('api/addPBI', {
       headers: {
         'Accept': 'application/json',
@@ -229,7 +229,6 @@ function addPBI(description, role, functionality, value,
         value: value,
         acceptanceCriteria: acceptanceCriteria,
         estimate: estimate,
-        priority: priority,
         project: project
       })
     }).then(checkStatus)
@@ -272,7 +271,7 @@ function movePBI(id, priority, cb){
       .then(cb);
 }
 
-function addPBIToSprint(id, project, sprint, rowNumber, cb){
+function addPBIToSprint(id, project, sprint, cb){
   return fetch('api/addPBIToSprint', {
     headers: {
       'Accept': 'application/json',
@@ -283,7 +282,6 @@ function addPBIToSprint(id, project, sprint, rowNumber, cb){
       id: id,
       projectName: project,
       sprint: sprint,
-      rowNumber: rowNumber
     })
   }).then(checkStatus)
     .then(cb);

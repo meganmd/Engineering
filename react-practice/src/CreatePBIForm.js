@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Client from './Client'
 
 function PBIFormattedSection(props){
   return(
@@ -65,10 +66,9 @@ class CreatePBIForm extends Component {
     if(this.state.description === '' && (this.state.role === '' || this.state.functionality === '' || this.state.value === '')){
       this.setState({errorMessage: 'Must have description OR role, functionality, and value'});
     }else{
-      this.props.addPBI(this.state.description, this.state.role,
+      Client.addPBI(this.state.description, this.state.role,
         this.state.functionality, this.state.value, this.state.acceptanceCriteria,
-        this.state.estimate, 0, this.props.projectName);
-      this.props.addPBIComplete();
+        this.state.estimate, this.props.projectName, this.props.addPBIComplete);
       this.setState({errorMessage: ''});
     }
   }

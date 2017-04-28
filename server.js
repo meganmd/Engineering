@@ -303,21 +303,25 @@ app.get('/api/sprintBacklog', function(request, response) {
 })
 
 app.post('/api/addPBI', function(request, response) {
-  //console.log("Adding PBI...");
-  //console.log(request.body);
   data.incrementBacklog(function(error) {
-    data.addProductBacklogItem(
-      request.body.description, request.body.role, request.body.functionality,
-      request.body.value, request.body.acceptanceCriteria, request.body.estimate,
-      request.body.project,
-      function(error){
-        if(error) {
-          response.status(400).send("Something went wrong in adding");
-        } else {
-          //console.log("No error");
-          response.status(200).end();
-        }
-      })
+    if(error) {
+      console.log(error);
+      response.status(400).send("Something went wrong in adding");
+    } else {
+      data.addProductBacklogItem(
+        request.body.description, request.body.role, request.body.functionality,
+        request.body.value, request.body.acceptanceCriteria, request.body.estimate,
+        request.body.project,
+        function(error){
+          if(error) {
+            console.log(error);
+            response.status(400).send("Something went wrong in adding");
+          } else {
+            //console.log("No error");
+            response.status(200).end();
+          }
+        })
+      }
     })
 })
 
@@ -358,7 +362,7 @@ app.post('/api/addPBIToSprint', function(request, response) {
   //console.log("Adding PBI " + request.body.id + " to sprint " +
   //request.body.sprint + " for project " + request.body.projectName);
   data.addProductBacklogItemToSprint(request.body.id, request.body.projectName,
-    request.body.sprint, request.body.rowNumber,
+    request.body.sprint,
     function(error){
       if(error) {
         //console.log("ERROR");

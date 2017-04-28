@@ -101,12 +101,13 @@ class ProductBacklogForm extends Component {
 
   addPBIComplete(){
     this.setState({addPBI:false});
-    for(var i = 0; i < this.state.pbis.length; i++){
-      var id = this.state.pbis[i].id;
-      var priority = this.state.pbis[i].priority;
+    //for(var i = 0; i < this.state.pbis.length; i++){
+    //  var id = this.state.pbis[i].id;
+    //  var priority = this.state.pbis[i].priority;
       //Move them all down 1 row
-      Client.movePBI(id,priority+1,function(){});
-    }
+    //  Client.movePBI(id,priority+1,function(){});
+    //}
+    //doing on server
     this.exitAddPBI();
   }
 

@@ -68,7 +68,7 @@ class ProjectBacklog extends Component {
     //use an if statement to test and make sure criteria is correct
     console.log(pbi);
     if(pbi.role !== '' && pbi.functionality !== '' && pbi.value !== '' && pbi.acceptanceCriteria !== '' && pbi.estimate !== "undecided"){
-      Client.addPBIToSprint(pbi.id, this.props.project.name, 1, 0, function(){});
+      Client.addPBIToSprint(pbi.id, this.props.project.name, 1, function(){});
       this.setState({errorMessage: ""});
       this.updateChildren();
     } else{

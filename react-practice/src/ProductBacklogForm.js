@@ -9,6 +9,11 @@ function ColumnContents(props) {
     var divStyle = {
       background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
       width: "95%", "marginBottom":"20px", "minHeight":"50px"};
+    var status = [];
+    if(props.items[i].status === "rejected"){
+      status.push(<font color="red">Rejected: {props.items[i].reason}</font>)
+    }
+
     if(i===0){
         content.push(
           <div key={i} className={i} draggable="true"
@@ -17,6 +22,8 @@ function ColumnContents(props) {
             <div id={i} onClick={props.openEditPBI}>
               {props.items[i].description}
             </div>
+            <br/>
+            {status}
             <br/>
             <button onClick={props.pushToSprint} style={{width:"85%"}}>
               Push To Sprint
@@ -28,6 +35,8 @@ function ColumnContents(props) {
             onDrop={props.drop} onDragOver={props.allowDrop}
             onDragStart={props.drag} onClick={props.openEditPBI}>
             {props.items[i].description}
+            <br/>
+            {status}
           </div>);
     }
 

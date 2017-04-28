@@ -162,7 +162,6 @@ render(){
       <Sprint
       key={i}
       sprintNumber={this.state.sprints[i].number}
-      items={[['item 1'],['item 2'],['item 3'],['item 4']]}
       move={this.move}
       addToEnd={this.addToEnd}
       passUpFunction={this.passUpFunction}

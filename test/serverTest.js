@@ -29,6 +29,64 @@ describe('Blobs', function() {
     projectName: "project1",
     role: "productOwner"
   };
+  var pbi1 = {
+    description: "this is a pbi",
+    role: "?",
+    functionality: "needs to do x",
+    value: "x",
+    acceptanceCriteria: "did x",
+    estimate: "S",
+    priority: 0,
+    project: "project1",
+  };
+  var pbi2 = {
+    description: "this is a pbi",
+    role: "?",
+    functionality: "needs to do x",
+    value: "x",
+    acceptanceCriteria: "did x",
+    estimate: "S",
+    priority: 0,
+    project: "project1",
+  };
+  var sprint = {
+    project:"project1",
+    number:"1"
+  };
+
+  var task1 = {
+    project: "project1",
+    sprint: "1",
+    pbi: "0",
+    description: "am task 1",
+    percentage: 45,
+    member: "philidelphia",
+    columnNumber: 1,
+    priority: 0,
+  };
+
+  var task2 = {
+    project: "project1",
+    sprint: "1",
+    pbi: "0",
+    description: "am task 2",
+    percentage: 45,
+    member: "philidelphia",
+    columnNumber: 1,
+    priority: 1,
+  };
+
+  var task3 = {
+    project: "project1",
+    sprint: "1",
+    pbi: "0",
+    description: "am task 3",
+    percentage: 45,
+    member: "philidelphia",
+    columnNumber: 1,
+    priority: 2,
+  };
+
   var server;
   var database;
   beforeEach(function (done) {
@@ -271,15 +329,177 @@ describe('Blobs', function() {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
-      console.log(res.body);
+      //console.log(res.body);
       res.body.should.have.lengthOf(1);
       done();
     });
   })
 
-  it('should add a SINGLE blob on /blobs POST');
-  it('should update a SINGLE blob on /blob/<id> PUT');
-  it('should delete a SINGLE blob on /blob/<id> DELETE');
+  it('add pbi', function(done) {
+    chai.request(server)
+    .post('/api/addPBI')
+    .send(pbi1)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('add pbi', function(done) {
+    chai.request(server)
+    .post('/api/addPBI')
+    .send(pbi2)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('check backlog', function(done) {
+    chai.request(server)
+    .get('/api/productbacklog?project=' + project.name)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      res.body.should.have.lengthOf(2);
+      res.body[0].priority.should.equal(0);
+      res.body[1].priority.should.equal(1);
+      done();
+    })
+  })
+
+  it('add sprint', function(done) {
+    chai.request(server)
+    .post('/api/addSprint')
+    .send(sprint)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('add task 1', function(done) {
+    chai.request(server)
+    .post('/api/addTask')
+    .send(task1)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('add task 2', function(done) {
+    chai.request(server)
+    .post('/api/addTask')
+    .send(task2)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('add task 3', function(done) {
+    chai.request(server)
+    .post('/api/addTask')
+    .send(task3)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('check tasks', function(done) {
+    chai.request(server)
+    .get('/api/tasksByProject?projectName=' + project.name)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      res.body.should.have.lengthOf(3);
+      //console.log(res.body);
+      res.body[0].priority.should.equal(0);
+      res.body[1].priority.should.equal(1);
+      res.body[2].priority.should.equal(2);
+      done();
+    })
+  })
+
+  it('check tasks again', function(done) {
+    chai.request(server)
+    .get('/api/tasksBySprint2D?projectName=' + project.name + '&sprintNum=' + sprint.number)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      res.body[0].should.have.lengthOf(3);
+      //console.log(res.body);
+      //res.body[0].priority.should.equal(0);
+      //res.body[1].priority.should.equal(1);
+      //res.body[2].priority.should.equal(2);
+      done();
+    })
+  })
+
+  it('move task', function(done) {
+    var move ={
+      id: 1,
+      column: 2,
+      priority: 0,
+    }
+    chai.request(server)
+    .post('/api/moveTaskNew')
+    .send(move)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('check tasks again', function(done) {
+    chai.request(server)
+    .get('/api/tasksBySprint2D?projectName=' + project.name + '&sprintNum=' + sprint.number)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      console.log(res.body);
+      res.body[0][0].priority.should.equal(0);
+      res.body[1][0].priority.should.equal(0);
+      done();
+    })
+  })
+
+  it('move another task', function(done) {
+    var move ={
+      id: 2,
+      column: 2,
+      priority: 0,
+    }
+    chai.request(server)
+    .post('/api/moveTaskNew')
+    .send(move)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
+  it('check tasks again', function(done) {
+    chai.request(server)
+    .get('/api/tasksBySprint2D?projectName=' + project.name + '&sprintNum=' + sprint.number)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      console.log(res.body);
+      res.body[0][0].priority.should.equal(0);
+      res.body[1][0].priority.should.equal(0);
+      res.body[1][1].priority.should.equal(1);
+      done();
+    })
+  })
+
 });
 
 

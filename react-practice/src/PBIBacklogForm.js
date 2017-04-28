@@ -469,13 +469,13 @@ openAddPBI(){
 
 addPBIComplete(){
   this.setState({addPBI:false});
-  for(var i = 0; i < this.state.productbacklog.length; i++){
-    var id = this.state.productbacklog[i].id;
-    var column = this.state.productbacklog[i].columnNumber;
-    var row = this.state.productbacklog[i].rowNumber;
+  //for(var i = 0; i < this.state.productbacklog.length; i++){
+  //  var id = this.state.productbacklog[i].id;
+  //  var column = this.state.productbacklog[i].columnNumber;
+  //  var row = this.state.productbacklog[i].rowNumber;
     //Move them all down 1 row
-    Client.movePBI(id,column, row+1,function(){});
-  }
+  //  Client.movePBI(id,column, row+1,function(){});
+  //}
   this.exitAddPBI();
 }
 

@@ -184,7 +184,8 @@ module.exports = class database {
 
   getProductBacklog(project, numSprints, cb){
     this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
-    " WHERE project = ? AND ((sprint is null) OR (sprint = ? AND status = ?))",
+    " WHERE project = ? AND ((sprint is null) OR (sprint = ? AND status = ?))" +
+    " ORDER BY priority ASC",
     project, numSprints, "rejected", cb);
   }
 
@@ -195,12 +196,15 @@ module.exports = class database {
   }
 
   addProductBacklogItem(description, role, functionality, value,
-    acceptanceCriteria, estimate, priority, project, cb){
+    acceptanceCriteria, estimate, project, cb){
     this.db.run("INSERT INTO productBacklogItems (description, role, " +
     "functionality, value, acceptanceCriteria, estimate, " +
-    "priority, project) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",description, role,
-    functionality, value, acceptanceCriteria, estimate, priority,
+    "priority, project) VALUES(?, ?, ?, ?, ?, ?, 0, ?)",description, role,
+    functionality, value, acceptanceCriteria, estimate,
      project, cb);
+  }
+  incrementBacklog(cb) {
+    this.db.run("UPDATE productBacklogItems SET priority = priority + 1", cb);
   }
 
   updateProductBacklogItem(id, description, role, functionality, value,
@@ -258,6 +262,24 @@ module.exports = class database {
 
   getTasksByPBI(pbi, cb){
     this.db.all("SELECT * from tasks WHERE pbi = ?", pbi, cb);
+  }
+
+  getTask(id, cb){
+    this.db.get("SELECT * from tasks WHERE id = ?", id, cb);
+  }
+
+  incrementTasksInNewColumn(column, priority, cb) {
+    this.db.run("UPDATE tasks set priority = priority + 1" +
+      " WHERE columnNumber = ? and priority >= ?",
+      column, priority, cb);
+  }
+
+  decrementTasksInOldColumn(column, priority, cb) {
+    console.log("column");
+    console.log(column);
+    this.db.run("UPDATE tasks set priority = priority - 1" +
+      " WHERE columnNumber = ? and priority > ?",
+      column, priority, cb);
   }
 
   addSprint(project, number, cb){

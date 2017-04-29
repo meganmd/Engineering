@@ -222,6 +222,7 @@ class Sprint extends Component {
 
   handleEditTaskComplete(){
     this.updateTasks();
+    this.updatePBIs();
     this.exitEditTaskForm();
   }
 
@@ -245,9 +246,7 @@ class Sprint extends Component {
 
   handleDeleteTask(){
     if(this.state.editTask != null){
-      Client.deleteTask(this.state.editTask.id, () => {
-        this.handleEditTaskComplete()
-      })
+      Client.deleteTask(this.state.editTask.id, this.handleEditTaskComplete)
     }
   }
 

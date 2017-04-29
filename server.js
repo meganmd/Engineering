@@ -601,6 +601,11 @@ app.get('/api/percentBreakdownByPBI', function(request, response) {
     }
   });
 })
+app.get('/api/wholeProjectBreakdown', function(request, response) {
+  data.getWholeProjectBreakdown(request.query.project, function(err, rows) {
+
+  })
+})
 
 app.post('/api/moveTaskNew', function(request, response) {
   //id, Column, Priority

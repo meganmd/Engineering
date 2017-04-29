@@ -312,4 +312,29 @@ module.exports = class database {
     this.db.all("SELECT tasks.member, SUM(tasks.percent) as 'total' FROM tasks INNER JOIN productBacklogItems ON tasks.pbi = productBacklogItems.id WHERE pbi = ? and sprint = ?  and columnNumber = 3 GROUP BY member",pbi, sprint, cb);
     // this.db.all("SELECT SUM(percent) as percent, username, from tasks where pbi = ? and sprint = ? GROUP BY username", pbi, sprint, cb);
   }
+
+  getPercentBreakdownForAllPBIs(project, cb) {
+    this.db.all("SELECT sprint, pbi, member, SUM(percent) as 'percentComplete' " +
+    "FROM (SELECT sprint, pbi, member,
+      CASE
+        WHEN columnNumber < 3 THEN 0
+        ELSE percent
+      END as percent
+      FROM tasks
+      WHERE project = ? " +
+    "WHERE project = ? and columnNumber = 3 " +
+    "GROUP BY sprint, pbi, member",
+     project, cb);
+  }
+//not done yet
+  getPBIsPercentCompleteInAllSprints(project, cb) {
+    this.db.all("SELECT id, description, role, functionality, value, acceptanceCriteria, estimate, priority, project, IFNUll(percentComplete,0) as percentComplete FROM productBacklogItems p NATURAL JOIN sprintPBIs " +
+    " LEFT OUTER JOIN (" +
+    "  SELECT pbi, sum(percent) as percentComplete" +
+    "  FROM tasks WHERE columnNumber = 3 AND project = ? AND sprint = ? " +
+    "  GROUP BY pbi" +
+    " ) x on x.pbi = p.id" +
+    "  WHERE project = ? AND sprint = ? ORDER BY row",
+    project, sprint, project, sprint, cb);
+  }
 }

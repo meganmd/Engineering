@@ -609,6 +609,8 @@ app.post('/api/moveTaskNew', function(request, response) {
       console.log(error);
       console.log("didn't get task");
       response.status(400).send("didn't get task");
+    } else if((task.percent == null || task.member == null) && request.body.columnNumber>1) {
+      response.status(400).send("Can only move tasks with a percent and a member");
     } else {
       data.incrementTasksInNewColumn(request.body.columnNumber, request.body.priority, function(error) {
         if(error) {
@@ -623,13 +625,11 @@ app.post('/api/moveTaskNew', function(request, response) {
               console.log("didn't move task");
               response.status(400).send("didn't move task");
             } else {
-              console.log(this.changes);
               data.decrementTasksInOldColumn(task.columnNumber, task.priority, function(error, rows) {
                 if(error) {
                   console.log("didn't decrement tasks");
                   response.status(400).send("didn't decrement tasks");
                 } else {
-                  console.log(this.changes);
                   response.status(200).end();
                 }
               })

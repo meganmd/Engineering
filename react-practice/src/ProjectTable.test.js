@@ -8,9 +8,13 @@ import { mount } from 'enzyme';
 
 test('Clicking a tableRow calls fetchProject once', () => {
 
+
+
   const wrapper = mount(
     <ProjectTable />
   );
+  wrapper.fetchProject = jest.fn();
+
 Client.getProjectsByUser("user1",(projects)=>{
     wrapper.setState(projects:projects)
   });

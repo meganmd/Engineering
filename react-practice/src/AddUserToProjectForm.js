@@ -60,8 +60,7 @@ class AddUserToProjectForm extends Component {
           this.setState({errorMessage: 'User already in project'});
           return;
         } else{
-          Client.addUserToProject(this.state.username, this.state.project, this.state.role, function(){});
-          this.props.handleAddUserComplete();
+          Client.addUserToProject(this.state.username, this.state.project, this.state.role, this.props.handleAddUserComplete);
         }
       });
     })

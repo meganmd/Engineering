@@ -274,14 +274,15 @@ app.get('/api/pbis', function(request, response) {
 
 app.get('/api/productBacklog', function(request, response) {
 //  console.log("Retrieving product backlog for " + request.query.project);
-  data.getProductBacklog(request.query.project, request.query.numSprints,function(err, rows) {
+  data.getProductBacklog(request.query.project, function(err, rows) {
     response.setHeader('Content-Type', 'application/json');
     if(rows != undefined){
       //console.log("Found");
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      console.log(err);
+      response.status(400).send("could not get product backlog");
     }
   })
 })
@@ -296,8 +297,8 @@ app.get('/api/sprintBacklog', function(request, response) {
         //console.log("Found");
         response.json(rows);
       } else{
-        //console.log("None found");
-        response.json([]);
+        console.log(err);
+        response.status(400).send("could not get sprint backlog");
       }
     })
 })

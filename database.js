@@ -182,17 +182,26 @@ module.exports = class database {
     this.db.all("SELECT * FROM productBacklogItems where project = ? ORDER BY priority",project, cb);
   }
 
-  getProductBacklog(project, numSprints, cb){
-    this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
-    " WHERE project = ? AND ((sprint is null) OR (sprint = ? AND status = ?))" +
-    " ORDER BY priority ASC",
-    project, numSprints, "rejected", cb);
+  getProductBacklog(project, cb){
+    this.db.all(
+        "SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN ( " +
+          "SELECT * FROM sprintPBIs x JOIN ( " +
+            "SELECT id, MAX(sprint) AS sprint " +
+            "FROM sprintPBIs " +
+            "GROUP BY id " +
+            ") y ON y.id = x.id AND y.sprint = x.sprint )" +
+        "WHERE project = ? AND ((sprint is null) OR (status = 'rejected')) " +
+        "ORDER BY priority ASC",
+        project, cb);
   }
 
-  getSprintBacklog(project, numSprints, cb){
-    this.db.all("SELECT * FROM productBacklogItems NATURAL LEFT OUTER JOIN sprintPBIs "+
-    "  WHERE project = ? AND ((sprint = ?)) ORDER BY row",
-    project, numSprints, cb);
+  getSprintBacklog(project, sprint, cb){
+    this.db.all("SELECT * FROM productBacklogItems NATURAL JOIN sprintPBIs "+
+    "  WHERE project = ? AND sprint = ? ORDER BY row",
+    project, sprint, cb);
+  }
+  getPercentComplete(project, sprint, pbi, cb) {
+    this.db.get("SELECT sum(percent) as percentComplete from tasks where columnNumber=3 and project=? and sprint=? and pbi=?", cb);
   }
 
   addProductBacklogItem(description, role, functionality, value,

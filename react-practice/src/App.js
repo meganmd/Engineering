@@ -135,7 +135,7 @@ class App extends Component {
     }
 
     if(this.state.addUser){
-      content.push(<div><AddUserToProjectForm project={this.state.currentProject.name}
+      content.push(<div key={2}><AddUserToProjectForm project={this.state.currentProject.name}
         handleAddUserComplete={this.exitAddUser}/></div>);
         //add in board height here/>
     }

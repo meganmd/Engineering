@@ -24,10 +24,15 @@ describe('Blobs', function() {
     name: "project1",
     description: "first project"
   };
-  var userProject = {
+  var userProject1 = {
     username: "philidelphia",
     projectName: "project1",
     role: "productOwner"
+  };
+  var userProject2 = {
+    username: "MickeyMouse",
+    projectName: "project1",
+    role: "developmentTeam"
   };
   var pbi1 = {
     description: "this is a pbi",
@@ -158,7 +163,7 @@ describe('Blobs', function() {
         done();
       });
   });
-  it('should add users', function(done) {
+  it('should add another user', function(done) {
     chai.request(server)
       .post('/api/addUser')
       .send(users[1])
@@ -288,10 +293,10 @@ describe('Blobs', function() {
       done();
     });
   })
-  it("adding user to project", function(done) {
+  it("adding Product Owner to project", function(done) {
     chai.request(server)
       .post('/api/addUserToProject')
-      .send(userProject)
+      .send(userProject1)
       .end(function(err, res){
         res.should.have.status(200);
         //res.should.be.json;
@@ -308,9 +313,26 @@ describe('Blobs', function() {
   it("can't add user to project twice", function(done) {
     chai.request(server)
       .post('/api/addUserToProject')
-      .send(userProject)
+      .send(userProject1)
       .end(function(err, res){
         res.should.have.status(400);
+        //res.should.be.json;
+        //res.body.should.be.a('object');
+        //res.body.should.have.property('username');
+        //res.body.should.have.property('password');
+        //res.body.should.have.property('firstName');
+        //res.body.should.have.property('lastName');
+        //res.body.username.should.equal(newUser.username);
+        //res.body.password.should.equal(newUser.password);
+        done();
+      });
+  })
+  it("adding developmentTeam to project", function(done) {
+    chai.request(server)
+      .post('/api/addUserToProject')
+      .send(userProject2)
+      .end(function(err, res){
+        res.should.have.status(200);
         //res.should.be.json;
         //res.body.should.be.a('object');
         //res.body.should.have.property('username');
@@ -330,7 +352,7 @@ describe('Blobs', function() {
       res.should.be.json;
       res.body.should.be.a('array');
       //console.log(res.body);
-      res.body.should.have.lengthOf(1);
+      res.body.should.have.lengthOf(2);
       done();
     });
   })
@@ -467,7 +489,7 @@ describe('Blobs', function() {
       res.body[0][0].priority.should.equal(0);
       res.body[1][0].priority.should.equal(0);
       done();
-    })
+    });
   })
 
   it('move another task', function(done) {
@@ -497,7 +519,7 @@ describe('Blobs', function() {
       res.body[1][0].priority.should.equal(0);
       res.body[1][1].priority.should.equal(1);
       done();
-    })
+    });
   })
 
 });

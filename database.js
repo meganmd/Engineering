@@ -313,7 +313,7 @@ module.exports = class database {
     // this.db.all("SELECT SUM(percent) as percent, username, from tasks where pbi = ? and sprint = ? GROUP BY username", pbi, sprint, cb);
   }
 
-  getPercentBreakdownForAllPBIs(project, cb) {
+  /*getPercentBreakdownForAllPBIs(project, cb) {
     this.db.all("SELECT sprint, pbi, member, SUM(percent) as 'percentComplete' " +
     "FROM (SELECT sprint, pbi, member,
       CASE
@@ -336,5 +336,5 @@ module.exports = class database {
     " ) x on x.pbi = p.id" +
     "  WHERE project = ? AND sprint = ? ORDER BY row",
     project, sprint, project, sprint, cb);
-  }
+  }*/
 }

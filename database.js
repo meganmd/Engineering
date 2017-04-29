@@ -196,13 +196,16 @@ module.exports = class database {
   }
 
   getSprintBacklog(project, sprint, cb){
-    this.db.all("SELECT * FROM productBacklogItems NATURAL JOIN sprintPBIs "+
+    this.db.all("SELECT id, description, role, functionality, value, acceptanceCriteria, estimate, priority, project, IFNUll(percentComplete,0) as percentComplete FROM productBacklogItems p NATURAL JOIN sprintPBIs " +
+    " LEFT OUTER JOIN (" +
+    "  SELECT pbi, sum(percent) as percentComplete" +
+    "  FROM tasks WHERE columnNumber = 3 AND project = ? AND sprint = ? " +
+    "  GROUP BY pbi" +
+    " ) x on x.pbi = p.id" +
     "  WHERE project = ? AND sprint = ? ORDER BY row",
-    project, sprint, cb);
+    project, sprint, project, sprint, cb);
   }
-  getPercentComplete(project, sprint, pbi, cb) {
-    this.db.get("SELECT sum(percent) as percentComplete from tasks where columnNumber=3 and project=? and sprint=? and pbi=?", cb);
-  }
+
 
   addProductBacklogItem(description, role, functionality, value,
     acceptanceCriteria, estimate, project, cb){

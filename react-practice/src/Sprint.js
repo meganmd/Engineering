@@ -24,7 +24,7 @@ function BacklogColumnContents(props){
       content.push(
         <div key={i} id={i} className={props.column} style={divStyle} draggable="true" onDragStart={props.drag}>
           <div className={i} onClick={props.editPBI}>
-            {props.items[i].description}
+            <span>{props.items[i].description} {props.items[i].percentComplete}%</span>
           </div>
           <br/>
           {status}

@@ -295,6 +295,13 @@ function getTotalPBIPercentage(pbiID, cb){
     .then(parseJSON)
     .then(cb);
 }
+function getPBI(id, cb) {
+  return fetch(`api/getPBI?id=` + id, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
 
 function acceptPBI(id, projectName, sprint, cb){
   return fetch(`api/acceptPBI`, {
@@ -464,6 +471,14 @@ function getPercentBreakdownByPBI(pbi, sprint, cb) {
     .then(cb);
 }
 
+function getWholeProjectBreakdown(project, cb) {
+  return fetch('/api/wholeProjectBreakdown?project=' + project, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -487,5 +502,5 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint,
   getProductBacklog, getSprintBacklog, addSprint, getSprints, moveSprintPBI,
   getUsersFromProject, getTasksBySprint, getPercentBreakdownByPBI,
-  rejectPBI, acceptPBI};
+  rejectPBI, acceptPBI, getPBI, getWholeProjectBreakdown};
 export default Client;

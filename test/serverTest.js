@@ -61,7 +61,7 @@ describe('Blobs', function() {
 
   var task1 = {
     project: "project1",
-    sprint: "1",
+    sprint: 1,
     pbi: "0",
     description: "am task 1",
     percentage: 45,
@@ -72,7 +72,7 @@ describe('Blobs', function() {
 
   var task2 = {
     project: "project1",
-    sprint: "1",
+    sprint: 1,
     pbi: "0",
     description: "am task 2",
     percentage: 45,
@@ -91,6 +91,15 @@ describe('Blobs', function() {
     columnNumber: 1,
     priority: 2,
   };
+
+  var task4 = {
+    project: "project1",
+    sprint:1,
+    pbi:0,
+    description:"task without stuff",
+    columnNumber:1,
+    priority: 3,
+  }
 
   var server;
   var database;
@@ -431,6 +440,16 @@ describe('Blobs', function() {
     });
   })
 
+  it('add task 4', function(done) {
+    chai.request(server)
+    .post('/api/addTask')
+    .send(task4)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      done();
+    });
+  })
+
   it('check tasks', function(done) {
     chai.request(server)
     .get('/api/tasksByProject?projectName=' + project.name)
@@ -438,11 +457,12 @@ describe('Blobs', function() {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
-      res.body.should.have.lengthOf(3);
+      res.body.should.have.lengthOf(4);
       //console.log(res.body);
       res.body[0].priority.should.equal(0);
       res.body[1].priority.should.equal(1);
       res.body[2].priority.should.equal(2);
+      res.body[3].priority.should.equal(3);
       done();
     })
   })
@@ -454,7 +474,7 @@ describe('Blobs', function() {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
-      res.body[0].should.have.lengthOf(3);
+      res.body[0].should.have.lengthOf(4);
       //console.log(res.body);
       //res.body[0].priority.should.equal(0);
       //res.body[1].priority.should.equal(1);
@@ -485,7 +505,7 @@ describe('Blobs', function() {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
-      console.log(res.body);
+      //console.log(res.body);
       res.body[0][0].priority.should.equal(0);
       res.body[1][0].priority.should.equal(0);
       done();
@@ -514,7 +534,37 @@ describe('Blobs', function() {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
-      console.log(res.body);
+      //console.log(res.body);
+      res.body[0][0].priority.should.equal(0);
+      res.body[1][0].priority.should.equal(0);
+      res.body[1][1].priority.should.equal(1);
+      done();
+    });
+  })
+
+  it("can't move incomplete task", function(done) {
+    var move ={
+      id: 4,
+      columnNumber: 2,
+      priority: 0,
+    }
+    chai.request(server)
+    .post('/api/moveTaskNew')
+    .send(move)
+    .end(function(err, res) {
+      res.should.have.status(400);
+      done();
+    });
+  })
+
+  it('check tasks again', function(done) {
+    chai.request(server)
+    .get('/api/tasksBySprint2D?projectName=' + project.name + '&sprintNum=' + sprint.number)
+    .end(function(err, res) {
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      //console.log(res.body);
       res.body[0][0].priority.should.equal(0);
       res.body[1][0].priority.should.equal(0);
       res.body[1][1].priority.should.equal(1);

@@ -50,7 +50,7 @@ app.get('/api/user', function(request,response) {
       response.json(row);
     }else{
       //console.log("Not found")
-      response.json({})
+      response.status(400).send();
     }
   })
 })
@@ -133,7 +133,7 @@ app.get('/api/projects', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      response.status(400).send();
     }
   });
 })
@@ -147,7 +147,7 @@ app.get('/api/acceptedProjects', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      response.status(400).send();
     }
   });
 })
@@ -161,7 +161,7 @@ app.get('/api/unacceptedProjects', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      response.status(400).send();
     }
   });
 })
@@ -177,7 +177,7 @@ app.get('/api/project', function(request,response){
       response.json(row);
     }else{
       //console.log("Not found");
-      response.json({});
+      response.status(400).send();
     }
   })
 })
@@ -225,7 +225,7 @@ app.get('/api/userFromProject', function(request, response) {
       response.json(row);
     }else{
       //console.log("Not found");
-      response.json({});
+      response.status(400).send();
     }
   })
 })
@@ -239,7 +239,7 @@ app.get('/api/usersFromProject', function(request, response) {
       response.json(row);
     }else{
       //console.log("Not found");
-      response.json({});
+      response.status(400).send();
     }
   })
 })
@@ -253,7 +253,7 @@ app.get('/api/listPBITable', function(request, response) {
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      response.status(400).send();
     }
   })
 })
@@ -267,7 +267,7 @@ app.get('/api/pbis', function(request, response) {
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      response.status(400).send();
     }
   })
 })
@@ -301,6 +301,21 @@ app.get('/api/sprintBacklog', function(request, response) {
         response.status(400).send("could not get sprint backlog");
       }
     })
+})
+
+app.get('/api/getPBI', function(request, response) {
+  //console.log("Editing PBI...");
+  data.getProductBacklogItem(
+    request.query.id,
+    function(error, data){
+      if(error) {
+        response.status(400).send("No such pbi");
+      } else {
+        //console.log("No error");
+        response.json(data);
+      }
+    }
+  )
 })
 
 app.post('/api/addPBI', function(request, response) {
@@ -508,7 +523,7 @@ app.get('/api/tasksBySprint', function(request, response){
         }
       } else{
         //console.log("None found");
-        response.json([]);
+        response.status(400).send();
       }
     });
 })
@@ -534,7 +549,7 @@ app.get('/api/tasksBySprint2D', function(request, response){
         }
       } else{
         //console.log("None found");
-        response.json([]);
+        response.status(400).send();
       }
     });
 })
@@ -547,7 +562,7 @@ app.get('/api/tasksByProject', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      response.status(400).send();
     }
   });
 })
@@ -572,7 +587,7 @@ app.get('/api/sprints', function(request, response) {
       response.json(rows);
     } else{
       //console.log("None found");
-      response.json([]);
+      response.status(400).send();
     }
   });
 })
@@ -601,6 +616,48 @@ app.get('/api/percentBreakdownByPBI', function(request, response) {
     }
   });
 })
+app.get('/api/wholeProjectBreakdown', function(request, response) {
+  var projectBreakdown={};
+  data.getSprints(request.query.project, function(error, rows) {
+    if(error) {
+      console.log(error);
+      response.status(400).send();
+    } else {
+      //console.log("sprints:");
+      //console.log(rows);
+      for(var i = 0; i < rows.length; i++) {
+        projectBreakdown[rows[i].number] = {};
+      }
+      data.getPBIsPercentCompleteInAllSprints(request.query.project, function(error, rows) {
+        if(error) {
+          console.log(error);
+          response.status(400).send();
+        } else {
+          //console.log("percent pbi for all sprints");
+          //console.log(rows);
+          for(i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            projectBreakdown[row.sprint][row.id] = {percentComplete:row.percentComplete, description:row.description, memberContributions:[]};
+          }
+          data.getPercentBreakdownForAllPBIs(request.query.project, function(error, rows) {
+            if(error) {
+              console.log(error);
+              response.status(400).send();
+            } else {
+              //console.log("member contributions for all pbis");
+              //console.log(rows);
+              for(i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                projectBreakdown[row.sprint][row.pbi].memberContributions.push({member:row.member,percentComplete:row.percentComplete});
+              }
+              response.json(projectBreakdown);
+            }
+          })
+        }
+      })
+    }
+  })
+})
 
 app.post('/api/moveTaskNew', function(request, response) {
   //id, Column, Priority
@@ -609,6 +666,8 @@ app.post('/api/moveTaskNew', function(request, response) {
       console.log(error);
       console.log("didn't get task");
       response.status(400).send("didn't get task");
+    } else if((task.percent == null || task.member == null) && request.body.columnNumber>1) {
+      response.status(400).send("Can only move tasks with a percent and a member");
     } else {
       data.incrementTasksInNewColumn(request.body.columnNumber, request.body.priority, function(error) {
         if(error) {
@@ -623,13 +682,11 @@ app.post('/api/moveTaskNew', function(request, response) {
               console.log("didn't move task");
               response.status(400).send("didn't move task");
             } else {
-              console.log(this.changes);
               data.decrementTasksInOldColumn(task.columnNumber, task.priority, function(error, rows) {
                 if(error) {
                   console.log("didn't decrement tasks");
                   response.status(400).send("didn't decrement tasks");
                 } else {
-                  console.log(this.changes);
                   response.status(200).end();
                 }
               })

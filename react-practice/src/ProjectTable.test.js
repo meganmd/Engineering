@@ -8,17 +8,21 @@ import { mount } from 'enzyme';
 
 test('Clicking a tableRow calls fetchProject once', () => {
 
-
+  var projects = [{name: "someName", role: "someRole", description: "someDescription", length: 1}]
 
   const wrapper = mount(
-    <ProjectTable />
+    <ProjectTable
+    projects={projects}
+    />
   );
   wrapper.fetchProject = jest.fn();
+
+
 
 Client.getProjectsByUser("user1",(projects)=>{
     wrapper.setState(projects:projects)
   });
-  const p = wrapper.find('row0');
+  const p = wrapper.find('projectTable');
   p.simulate('click');
   expect(wrapper.fetchProject).toHaveBeenCalledTimes(1);
 })

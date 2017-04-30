@@ -87,7 +87,7 @@ class CreateTaskForm extends Component {
               this.props.handleTaskComplete();
 
             }else{
-                  this.setState({errorMessage:'Percentage cannot be over 100%!'});
+                  this.setState({errorMessage:'Enter a valid percentage, between 0 and 100!'});
             }
       });
     } else {

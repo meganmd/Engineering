@@ -295,6 +295,13 @@ function getTotalPBIPercentage(pbiID, cb){
     .then(parseJSON)
     .then(cb);
 }
+function getPBI(id, cb) {
+  return fetch(`api/getPBI?id=` + id, {
+    accept: 'application/json',
+  }).then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
 
 function acceptPBI(id, projectName, sprint, cb){
   return fetch(`api/acceptPBI`, {
@@ -487,5 +494,5 @@ const Client = { getUsers, addUser, getUser, getUsernames, addProject,
   getTotalPBIPercentage, editTask, moveTask, deleteTask, addPBIToSprint,
   getProductBacklog, getSprintBacklog, addSprint, getSprints, moveSprintPBI,
   getUsersFromProject, getTasksBySprint, getPercentBreakdownByPBI,
-  rejectPBI, acceptPBI};
+  rejectPBI, acceptPBI, getPBI};
 export default Client;

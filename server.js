@@ -303,6 +303,21 @@ app.get('/api/sprintBacklog', function(request, response) {
     })
 })
 
+app.get('/api/getPBI', function(request, response) {
+  //console.log("Editing PBI...");
+  data.getProductBacklogItem(
+    request.query.id,
+    function(error, data){
+      if(error) {
+        response.status(400).send("No such pbi");
+      } else {
+        //console.log("No error");
+        response.json(data);
+      }
+    }
+  )
+})
+
 app.post('/api/addPBI', function(request, response) {
   data.incrementBacklog(function(error) {
     if(error) {

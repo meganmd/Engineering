@@ -312,7 +312,9 @@ module.exports = class database {
     this.db.all("SELECT tasks.member, SUM(tasks.percent) as 'total' FROM tasks INNER JOIN productBacklogItems ON tasks.pbi = productBacklogItems.id WHERE pbi = ? and sprint = ?  and columnNumber = 3 GROUP BY member",pbi, sprint, cb);
     // this.db.all("SELECT SUM(percent) as percent, username, from tasks where pbi = ? and sprint = ? GROUP BY username", pbi, sprint, cb);
   }
-
+  getProductBacklogItem(id, cb) {
+    this.db.get("SELECT * from productBacklogItems where id = ?", id, cb);
+  }
   /*getPercentBreakdownForAllPBIs(project, cb) {
     this.db.all("SELECT sprint, pbi, member, SUM(percent) as 'percentComplete' " +
     "FROM (SELECT sprint, pbi, member,

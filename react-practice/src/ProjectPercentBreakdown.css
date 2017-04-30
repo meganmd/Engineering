@@ -1,0 +1,33 @@
+.breakdownWindow {
+  position: fixed;
+  text-align: left;
+  left:25%;
+  top: 0;
+  height: 100%;
+  width: 45%;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px 0 rgb(15,15,15);
+  border: 2px solid black;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 2%;
+  overflow-y: scroll;
+}
+.sprintDisplay {
+  background: lightgray;
+  margin: 10px;
+  padding: 10px;
+}
+.pbiDisplay {
+  background: gray;
+  margin: 10px;
+  padding: 10px;
+}
+.contributionDisplay {
+  margin: 10px;
+  padding: 10px;
+}
+.sprintList, .pbiList, .contributionList{
+  margin: 0;
+  padding:10px;
+}

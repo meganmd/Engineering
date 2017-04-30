@@ -637,7 +637,7 @@ app.get('/api/wholeProjectBreakdown', function(request, response) {
           //console.log(rows);
           for(i = 0; i < rows.length; i++) {
             var row = rows[i];
-            projectBreakdown[row.sprint][row.id] = {percentComplete:row.percentComplete, memberContributions:[]};
+            projectBreakdown[row.sprint][row.id] = {percentComplete:row.percentComplete, description:row.description, memberContributions:[]};
           }
           data.getPercentBreakdownForAllPBIs(request.query.project, function(error, rows) {
             if(error) {

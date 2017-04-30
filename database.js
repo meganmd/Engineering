@@ -330,7 +330,7 @@ module.exports = class database {
   }
 //not done yet
   getPBIsPercentCompleteInAllSprints(project, cb) {
-    this.db.all("SELECT p.sprint, i.id, row, IFNUll(x.percentComplete,0) as percentComplete  " +
+    this.db.all("SELECT p.sprint, i.id, i.description, row, IFNUll(x.percentComplete,0) as percentComplete  " +
     "FROM productBacklogItems i JOIN sprintPBIs p on i.id=p.id and i.project=p.project LEFT OUTER JOIN ( " +
     "SELECT sprint, pbi, sum(percent) as percentComplete " +
     "FROM tasks WHERE columnNumber=3 AND project=? " +

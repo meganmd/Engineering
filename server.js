@@ -50,7 +50,8 @@ app.get('/api/user', function(request,response) {
       response.json(row);
     }else{
       //console.log("Not found")
-      response.status(400).send();
+      response.json({});
+      // response.status(400).send();
     }
   })
 })
@@ -133,7 +134,8 @@ app.get('/api/projects', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.status(400).send();
+      response.json([]);
+      // response.status(400).send();
     }
   });
 })
@@ -147,7 +149,8 @@ app.get('/api/acceptedProjects', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.status(400).send();
+      response.json([]);
+      // response.status(400).send();
     }
   });
 })
@@ -161,7 +164,8 @@ app.get('/api/unacceptedProjects', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.status(400).send();
+      response.json([]);
+      // response.status(400).send();
     }
   });
 })
@@ -177,7 +181,8 @@ app.get('/api/project', function(request,response){
       response.json(row);
     }else{
       //console.log("Not found");
-      response.status(400).send();
+      response.json({});
+      // response.status(400).send();
     }
   })
 })
@@ -217,29 +222,31 @@ app.post('/api/deleteUser', function(request, response) {
 })
 
 app.get('/api/userFromProject', function(request, response) {
-  //console.log("Retrieving " + request.query.username + " from " + request.query.projectTitle);
+  console.log("Retrieving " + request.query.username + " from " + request.query.projectTitle);
   data.getUserFromProject(request.query.projectTitle, request.query.username, function(err, row) {
     response.setHeader('Content-Type', 'application/json');
     if(row != undefined){
-      //console.log("Found");
+      console.log("Found");
       response.json(row);
     }else{
-      //console.log("Not found");
-      response.status(400).send();
+      console.log("Not found");
+      response.json({});
+      // response.status(400).send();
     }
   })
 })
 
 app.get('/api/usersFromProject', function(request, response) {
   //console.log("Retrieving users from " + request.query.projectTitle);
-  data.getProjectUsers(request.query.projectTitle, function(err, row) {
+  data.getProjectUsers(request.query.projectTitle, function(err, rows) {
     response.setHeader('Content-Type', 'application/json');
-    if(row != undefined){
+    if(rows != undefined){
       //console.log("Found");
-      response.json(row);
+      response.json(rows);
     }else{
       //console.log("Not found");
-      response.status(400).send();
+      response.json([])
+      // response.status(400).send();
     }
   })
 })
@@ -253,7 +260,8 @@ app.get('/api/listPBITable', function(request, response) {
       response.json(rows);
     } else{
       //console.log("None found");
-      response.status(400).send();
+      // response.status(400).send();
+      response.json([]);
     }
   })
 })
@@ -267,7 +275,8 @@ app.get('/api/pbis', function(request, response) {
       response.json(rows);
     } else{
       //console.log("None found");
-      response.status(400).send();
+      // response.status(400).send();
+      response.json([]);
     }
   })
 })
@@ -523,7 +532,8 @@ app.get('/api/tasksBySprint', function(request, response){
         }
       } else{
         //console.log("None found");
-        response.status(400).send();
+        // response.status(400).send();
+        response.json([]);
       }
     });
 })
@@ -549,7 +559,8 @@ app.get('/api/tasksBySprint2D', function(request, response){
         }
       } else{
         //console.log("None found");
-        response.status(400).send();
+        // response.status(400).send();
+        response.json([]);
       }
     });
 })
@@ -562,7 +573,8 @@ app.get('/api/tasksByProject', function(request, response){
       response.json(rows);
     } else{
       //console.log("None found");
-      response.status(400).send();
+      // response.status(400).send();
+      response.json([]);
     }
   });
 })
@@ -587,7 +599,8 @@ app.get('/api/sprints', function(request, response) {
       response.json(rows);
     } else{
       //console.log("None found");
-      response.status(400).send();
+      // response.status(400).send();
+      response.json([]);
     }
   });
 })

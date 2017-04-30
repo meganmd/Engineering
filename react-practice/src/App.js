@@ -129,7 +129,6 @@ class App extends Component {
             <button className="halfSizeButton" onClick={this.handleLeavePBIBacklogForm}>Back</button>
             {this.state.currentProject.name}
             <button className="halfSizeButton" onClick={this.openAddUser}>Add User</button>
-            <button className="halfSizeButton" onClick={this.openAddSprint}>Create Sprint</button>
             <button className="halfSizeButton" onClick={this.openPercentBreakdown}>Percent Breakdown</button>
           </h1>
           content.push(top);

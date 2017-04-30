@@ -136,7 +136,7 @@ function getUnacceptedProjectsByUser(uid, cb) {
     .then(cb);
 }
 
-function getUserFromProject(uid,pid, cb){
+function getUserFromProject(uid, pid, cb){
   return fetch(`api/userFromProject?username=${uid}&projectTitle=${pid}`, {
     accept: 'application/json',
   }).then(checkStatus)

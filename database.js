@@ -315,28 +315,28 @@ module.exports = class database {
   getProductBacklogItem(id, cb) {
     this.db.get("SELECT * from productBacklogItems where id = ?", id, cb);
   }
-  /*getPercentBreakdownForAllPBIs(project, cb) {
-    this.db.all("SELECT sprint, pbi, member, SUM(percent) as 'percentComplete' " +
-    "FROM (SELECT sprint, pbi, member,
-      CASE
-        WHEN columnNumber < 3 THEN 0
-        ELSE percent
-      END as percent
-      FROM tasks
-      WHERE project = ? " +
-    "WHERE project = ? and columnNumber = 3 " +
-    "GROUP BY sprint, pbi, member",
+  getPercentBreakdownForAllPBIs(project, cb) {
+    this.db.all("SELECT sprint, pbi, member, SUM(percent) as percentComplete " +
+    "FROM (SELECT sprint, pbi, member, " +
+    "CASE " +
+    "   WHEN columnNumber < 3 THEN 0 " +
+    "   ELSE percent " +
+    "  END as percent " +
+    "  FROM tasks " +
+    "  WHERE project = ? " +
+    ") " +
+    "GROUP BY sprint, pbi, member ",
      project, cb);
   }
 //not done yet
   getPBIsPercentCompleteInAllSprints(project, cb) {
-    this.db.all("SELECT id, description, role, functionality, value, acceptanceCriteria, estimate, priority, project, IFNUll(percentComplete,0) as percentComplete FROM productBacklogItems p NATURAL JOIN sprintPBIs " +
-    " LEFT OUTER JOIN (" +
-    "  SELECT pbi, sum(percent) as percentComplete" +
-    "  FROM tasks WHERE columnNumber = 3 AND project = ? AND sprint = ? " +
-    "  GROUP BY pbi" +
-    " ) x on x.pbi = p.id" +
-    "  WHERE project = ? AND sprint = ? ORDER BY row",
-    project, sprint, project, sprint, cb);
-  }*/
+    this.db.all("SELECT p.sprint, i.id, row, IFNUll(x.percentComplete,0) as percentComplete  " +
+    "FROM productBacklogItems i JOIN sprintPBIs p on i.id=p.id and i.project=p.project LEFT OUTER JOIN ( " +
+    "SELECT sprint, pbi, sum(percent) as percentComplete " +
+    "FROM tasks WHERE columnNumber=3 AND project=? " +
+    "GROUP BY sprint, pbi " +
+    ") x on x.sprint=p.sprint and x.pbi=p.id " +
+    "WHERE i.project=? ORDER BY row ",
+    project, project, cb);
+  }
 }

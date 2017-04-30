@@ -9,12 +9,12 @@ class ProjectBacklog extends Component {
     super(props);
     this.state = {
       height:510,
-      productBacklog:['user story one', 'user story two', 'user story three'],
       sprints: [],
       editPBI: null,
       productBacklogUpdate: null,
       sprintUpdate: null,
       errorMessage: "",
+      sprintUpdateFunctionsArray: [],
       members: []
     };
     this.pushToSprint = this.pushToSprint.bind(this);
@@ -28,9 +28,11 @@ class ProjectBacklog extends Component {
     this.passUpFunction = this.passUpFunction.bind(this);
     this.updateChildren = this.updateChildren.bind(this);
     this.getSprints = this.getSprints.bind(this);
+    this.addSprint = this.addSprint.bind(this);
     this.getMembers = this.getMembers.bind(this);
     this.rejectPBI = this.rejectPBI.bind(this);
     this.acceptPBI = this.acceptPBI.bind(this);
+    this.passUpSprintUpdateForAddSprint = this.passUpSprintUpdateForAddSprint.bind(this);
   }
 
   //---------------------------------------- Helper Methods-----------------------------------------------------------
@@ -68,7 +70,7 @@ class ProjectBacklog extends Component {
     //use an if statement to test and make sure criteria is correct
     console.log(pbi);
     if(pbi.role !== '' && pbi.functionality !== '' && pbi.value !== '' && pbi.acceptanceCriteria !== '' && pbi.estimate !== "undecided"){
-      Client.addPBIToSprint(pbi.id, this.props.project.name, 1, function(){});
+      Client.addPBIToSprint(pbi.id, this.props.project.name, this.state.sprints[0].number, function(){});
       this.setState({errorMessage: ""});
       this.updateChildren();
     } else{
@@ -79,13 +81,13 @@ class ProjectBacklog extends Component {
   }
 
   rejectPBI(pbi,reason){
-    Client.rejectPBI(pbi.id, this.props.project.name, 1, reason, function(){})
+    Client.rejectPBI(pbi.id, this.props.project.name, this.state.sprints[0].number, reason, function(){})
     this.setState({errorMessage: ""});
     this.updateChildren();
   }
 
   acceptPBI(pbi){
-    Client.acceptPBI(pbi.id,this.props.project.name, 1, function(){});
+    Client.acceptPBI(pbi.id,this.props.project.name, this.state.sprints[0].number, function(){});
     this.setState({errorMessage: ""});
     this.updateChildren();
   }
@@ -111,6 +113,12 @@ class ProjectBacklog extends Component {
     this.setState({[name]: fun});
   }
 
+  passUpSprintUpdateForAddSprint(fun){
+    var ar = this.state.sprintUpdateFunctionsArray;
+    ar.push(fun);
+    this.setState({sprintUpdateFunctionsArray: ar});
+  }
+
   updateChildren(){
     if(this.state.productBacklogUpdate !== null){
       this.state.productBacklogUpdate();
@@ -130,11 +138,26 @@ class ProjectBacklog extends Component {
     });
   }
 
+  addSprint(){
+    Client.addSprint(this.props.project.name, this.state.sprints.length + 1, () => {
+      Client.getSprints(this.props.project.name, (sprints) => {
+        console.log("STUFF");
+        this.setState({sprints: sprints});
+        // this.state.sprintUpdate();
+        for(var i = 0; i < sprints.length; i++){
+          console.log("Try to call " + i);
+          this.state.sprintUpdateFunctionsArray[i]();
+        }
+      });
+    });
+  }
+
   getMembers(){
     Client.getUsersFromProject(this.props.project.name, (members) => {
       this.setState({members: members});
     });
   }
+
 
   componentWillMount() {
     this.getSprints();
@@ -158,6 +181,10 @@ render(){
   }
   var sprints = [];
   for(var i = 0; i < this.state.sprints.length; i++){
+    var currentSprint = false;
+    if(i == 0){
+      currentSprint = true;
+    }
     sprints.push(
       <Sprint
       key={i}
@@ -169,13 +196,16 @@ render(){
       members={this.state.members}
       openEditPBI={this.openEditPBI}
       rejectPBI={this.rejectPBI}
-      acceptPBI={this.acceptPBI}/>
+      acceptPBI={this.acceptPBI}
+      currentSprint={currentSprint}
+      passUpSprintUpdate={this.passUpSprintUpdateForAddSprint}/>
     )
   }
 
   return (
     <div>
       <font color="red">{this.state.errorMessage}</font>
+      <button onClick={this.addSprint}>Start New Sprint</button>
 
       <div className="projectBacklog">
           <ProductBacklogForm

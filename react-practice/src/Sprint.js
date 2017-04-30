@@ -11,21 +11,22 @@ function BacklogColumnContents(props){
     background: "#dfdfdf",'boxShadow': '0 0 4px 4px #666666',
     width: "95%", "marginBottom":"20px", "minHeight":"50px"};
 
-  for(var i=0; i<props.items.length; i++){
+  for(var i=0; i< props.items.length; i++){
       var status = [];
-      if(props.role === "product owner" && props.items[i].status === "none"){
+      if(props.role === "product owner" && props.items[i].status === "none" && props.currentSprint){
         status.push(<button className="rejectPBIButton" key={"reject"+i} id={i} onClick={props.rejectButton}> Reject </button>);
         status.push(<button className="acceptPBIButton" key={"accept"+i} id={i} onClick={props.acceptButton}> Accept </button>);
       } else if(props.items[i].status === "rejected"){
-        status.push(<font color="red" key={0}>Rejected: {props.items[i].reason}</font>)
+        status.push(<font color="red" key={0} id={i} className={props.column}>Rejected: {props.items[i].reason}</font>)
       } else if(props.items[i].status === "accepted"){
-        status.push(<font color="green" key={0}>Accepted</font>)
+        status.push(<font color="green" key={0} id={i} className={props.column}>Accepted</font>)
       }
       content.push(
         <div key={i} id={i} className={props.column} style={divStyle} draggable="true" onDragStart={props.drag}>
           <div className={i} onClick={props.editPBI}>
-            <span>{props.items[i].description} {props.items[i].percentComplete}%</span>
+            {props.items[i].description}
           </div>
+          {props.items[i].percentComplete}%
           <br/>
           {status}
         </div>);
@@ -87,7 +88,8 @@ class Sprint extends Component {
     this.openRejectUserStoryForm = this.openRejectUserStoryForm.bind(this);
     this.exitRejectUserStoryForm = this.exitRejectUserStoryForm.bind(this);
     this.clickAcceptButton = this.clickAcceptButton.bind(this);
-    // this.updateTasks = this.updateTasks.bind(this);
+    this.updateAll = this.updateAll.bind(this);
+    this.updateTasks = this.updateTasks.bind(this);
   }
 
   getColumnNumberByName(name){
@@ -109,6 +111,9 @@ class Sprint extends Component {
 
   drop(ev) {
     ev.preventDefault();
+    if(!this.props.currentSprint){
+      return;
+    }
     var row = ev.target.className;
 
     //REORDERING SPRINT BACKLOG
@@ -165,6 +170,12 @@ class Sprint extends Component {
     ev.dataTransfer.setData("column", ev.target.className);
   }
 
+  updateAll(){
+    // console.log("Update all for " + this.props.sprintNumber);
+    this.updatePBIs();
+    this.updateTasks();
+  }
+
   updatePBIs(){
     Client.getSprintBacklog(this.props.project.name, this.props.sprintNumber, (pbis) => {
       // console.log(pbis);
@@ -206,7 +217,8 @@ class Sprint extends Component {
   }
 
   openEditTaskForm(e){
-    if(this.props.project.role === "development team member"){
+    // console.log(e.target);
+    if(this.props.project.role === "development team member" && this.props.currentSprint){
       var column = e.target.className;
       var target = e.target.id;
       // console.log(column);
@@ -251,14 +263,20 @@ class Sprint extends Component {
   }
 
   clickPBI(e){
-    // console.log("EDITING..." + e.target.id)
-    this.props.openEditPBI(this.state.pbis[e.target.className]);
+    // console.log(e.target)
+    if(this.props.currentSprint){
+      this.props.openEditPBI(this.state.pbis[e.target.className]);
+    }
   }
 
 
   componentWillMount() {
-    this.props.passUpFunction("sprintUpdate",this.updatePBIs);
+    if(this.props.currentSprint){
+      this.props.passUpFunction("sprintUpdate",this.updatePBIs);
+    }
+    this.props.passUpSprintUpdate(this.updateAll);
     this.updatePBIs();
+    console.log("UPDATING...")
     this.updateTasks();
   }
 
@@ -295,7 +313,7 @@ class Sprint extends Component {
         completeReject={this.props.rejectPBI} />
     }
     var createTaskButton;
-    if(this.props.project.role === "development team member"){
+    if(this.props.project.role === "development team member" && this.props.currentSprint && this.state.pbis.length > 0){
       createTaskButton = <button className="addPBIButton" onClick={this.openCreateTask}>Create Task</button>;
     }
     return (
@@ -315,7 +333,8 @@ class Sprint extends Component {
           editPBI={this.clickPBI}
           role={this.props.project.role}
           rejectButton={this.openRejectUserStoryForm}
-          acceptButton={this.clickAcceptButton}/>
+          acceptButton={this.clickAcceptButton}
+          currentSprint={this.props.currentSprint}/>
         <ColumnContents
           column="todo"
           title="To Do"

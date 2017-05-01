@@ -289,12 +289,14 @@ function addPBIToSprint(id, project, sprint, cb){
 
 //returns an integer representing the current total percentage of tasks for a pbi
 function getTotalPBIPercentage(pbiID, sprint, cb){
-  return fetch(`api/PBITotalPercentage?pbi=${pbiID}sprint=${sprint}`, {
+  return fetch(`api/PBITotalPercentage?pbi=${pbiID}&sprint=${sprint}`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)
     .then(cb);
 }
+
+
 function getPBI(id, cb) {
   return fetch(`api/getPBI?id=` + id, {
     accept: 'application/json',

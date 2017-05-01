@@ -340,9 +340,13 @@ module.exports = class database {
     project, project, cb);
   }
 
+  getPercentTotalMadeForOnePbiInOneSprint(pbi, sprint, cb){
+    this.db.get("SELECT sum(percent) as 'total' from tasks WHERE pbi = ? AND sprint = ?", pbi, sprint, cb);
+  }
+
   getPercentCompleteForOnePbiInOneSprint(pbi, sprint, cb) {
-    this.db.get("SELECT ifnull(sum(percent),0) as percent from tasks" +
-    " WHERE pbi = ? AND sprint = ? AND columnNumber = 3",
+    this.db.get("SELECT sum(percent) as total from tasks" +
+    " WHERE pbi = ? AND sprint = ?",
     pbi, sprint, cb);
   }
 }

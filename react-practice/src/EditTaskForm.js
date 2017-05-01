@@ -97,7 +97,8 @@ class EditTaskForm extends Component {
       percentage: this.props.task.percent,
       errorMessage: '',
       defaultPBIDescription: defaultPBI,
-      defaultMember: defaultMember};
+      defaultMember: defaultMember,
+      oldPercentage: this.props.task.percent};
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelectMember = this.handleSelectMember.bind(this);
@@ -105,14 +106,15 @@ class EditTaskForm extends Component {
   }
 
   handleClick(){
+    // console.log("CLICK");
     if(this.state.taskDescription.length > 0){
       if(this.props.task.columnNumber !== 1 && (this.state.assignedMember === "unselected" || !(this.state.percentage > 0))){
         this.setState({errorMessage: 'Tasks in progress or done must have be given a percentage and assigned member'})
       } else{
         // console.log("ID: " + this.state.userStory)
-        Client.getTotalPBIPercentage(this.state.userStory, (total)=>{
-            // console.log("TOTAL: " + total)
-              if(this.state.percentage+total<=100 && this.state.percentage>=0){
+        Client.getTotalPBIPercentage(this.state.userStory, this.props.sprint, (total)=>{
+            console.log("TOTAL: " + total)
+              if(this.state.percentage+total-this.state.oldPercentage<=100 && this.state.percentage>=0){
                 Client.editTask(
                   this.props.task.id,
                   this.state.taskDescription,

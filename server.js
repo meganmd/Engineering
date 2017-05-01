@@ -434,13 +434,14 @@ app.post('/api/rejectPBI', function(request, response) {
 })
 
 app.get('/api/PBITotalPercentage', function(request, response) {
-  //console.log("Retrieving percentage for pbi..." + request.query.pbi);
-  data.getPercentCompleteForOnePbiInOneSprint(request.query.pbi, request.query.sprint, function(err, data){
-    if(!err) {
+  console.log("Retrieving percentage for pbi..." + request.query.pbi);
+  data.getPercentTotalMadeForOnePbiInOneSprint(request.query.pbi, request.query.sprint, function(err, data){
+    console.log("DATA " + data.total);
+    if(data != undefined) {
       response.setHeader('Content-Type', 'application/json');
-      response.json(data.percent);
+      response.json(data.total);
     } else{
-      //console.log("None found");
+      console.log("None found");
       response.json(0);
     }
   });

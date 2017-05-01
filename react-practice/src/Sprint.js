@@ -49,7 +49,8 @@ function ColumnContents(props){
     var divStyle = {
       background: "#ffffff",'boxShadow': '0 0 4px 4px #666666',
       width: "95%", "marginBottom":"20px", "minHeight":"50px"};
-      content.push(<div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
+      content.push(
+        <div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
   }
   return(
     <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>

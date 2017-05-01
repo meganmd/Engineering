@@ -150,7 +150,7 @@ render(){
   return (
     <div className="ProductBacklogForm">
       <div id="title">
-        <h3>"Product Backlog"</h3>
+        <h3>Product Backlog</h3>
         <button className="addPBIButton" onClick={this.openAddPBI}>Add PBI</button>
       </div>
       <ColumnContents

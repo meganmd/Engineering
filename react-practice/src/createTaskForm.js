@@ -97,7 +97,7 @@ class CreateTaskForm extends Component {
 
   handleInputChange(event) {
     if(event.target.name === "percentage"){
-      this.setState({[event.target.name]: parseInt(event.target.value, 100)});
+      this.setState({[event.target.name]: parseInt(event.target.value, 10)});
     } else{
       this.setState({[event.target.name]: event.target.value});
     }

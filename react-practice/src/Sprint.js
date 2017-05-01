@@ -50,7 +50,11 @@ function ColumnContents(props){
       background: "#ffffff",'boxShadow': '0 0 4px 4px #666666',
       width: "95%", "marginBottom":"20px", "minHeight":"50px"};
       content.push(
-        <div key={i} id={i} className={props.column} onClick={props.editTask} style={divStyle} draggable="true" onDragStart={props.drag}> {props.items[i].description} </div>);
+        <div key={i} id={i} className={props.column}
+          onClick={props.editTask} style={divStyle} draggable="true"
+          onDragStart={props.drag}>
+          {props.items[i].description}
+        </div>);
   }
   return(
     <div id={props.column} className="9999" onDrop={props.drop} onDragOver={props.allowDrop}>
@@ -202,7 +206,8 @@ class Sprint extends Component {
   }
 
   drag(ev) {
-    console.log("dragging column "+ ev.target.id + " - " + ev.target.className);
+    this.setState({errorMessage: ""});
+    // console.log("dragging column "+ ev.target.id + " - " + ev.target.className);
     ev.dataTransfer.setData("row", ev.target.id);
     ev.dataTransfer.setData("column", ev.target.className);
   }
@@ -250,11 +255,12 @@ class Sprint extends Component {
   }
 
   openCreateTask(){
-    this.setState({createTask: true});
+    this.setState({createTask: true, errorMessage: ""});
   }
 
   openEditTaskForm(e){
     // console.log(e.target);
+    this.setState({errorMessage: ""});
     if(this.props.project.role === "development team member" && this.props.currentSprint){
       var column = e.target.className;
       var target = e.target.id;

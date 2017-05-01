@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE abiword PUBLIC "-//ABISOURCE//DTD AWML 1.0 Strict//EN" "http://www.abisource.com/awml.dtd">
+<abiword template="false" xmlns:ct="http://www.abisource.com/changetracking.dtd" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:math="http://www.w3.org/1998/Math/MathML" xid-max="77" xmlns:dc="http://purl.org/dc/elements/1.1/" fileformat="1.1" xmlns:svg="http://www.w3.org/2000/svg" xmlns:awml="http://www.abisource.com/awml.dtd" xmlns="http://www.abisource.com/awml.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" version="3.0.1" xml:space="preserve" props="dom-dir:ltr; document-footnote-restart-section:0; document-endnote-type:numeric; document-endnote-place-enddoc:1; document-endnote-initial:1; lang:en-CA; document-endnote-restart-section:0; document-footnote-restart-page:0; document-footnote-type:numeric; document-footnote-initial:1; document-endnote-place-endsection:0">
+<!-- ======================================================================== -->
+<!-- This file is an AbiWord document.                                        -->
+<!-- AbiWord is a free, Open Source word processor.                           -->
+<!-- More information about AbiWord is available at http://www.abisource.com/ -->
+<!-- You should not edit this file by hand.                                   -->
+<!-- ======================================================================== -->
+
+<metadata>
+<m key="abiword.date_last_changed">Mon May  1 13:49:16 2017
+</m>
+<m key="abiword.generator">AbiWord</m>
+<m key="dc.date">Mon May  1 13:49:16 2017
+</m>
+<m key="dc.format">application/x-abiword</m>
+</metadata>
+<rdf>
+</rdf>
+<history version="1" edit-time="239" last-saved="1493664556" uid="521eeb34-2e9e-11e7-90a5-c5557f06ab59">
+<version id="1" started="1493664556" uid="e0d17072-2e9e-11e7-90a5-c5557f06ab59" auto="0" top-xid="77"/>
+</history>
+<styles>
+<s type="P" name="Body Text" basedon="_Normal" props="margin-top:0.450000pt; font-weight:bold; font-family:Calibri; font-size:16.000000pt"/>
+<s type="P" name="_Normal" basedon="_Normal"/>
+<s type="P" name="Table Paragraph" basedon="_Normal"/>
+<s type="P" name="Arrowhead List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Block Text" basedon="_Normal" props="margin-bottom:6.000000pt; margin-right:72.000000pt; margin-left:72.000000pt"/>
+<s type="P" name="Box List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Bullet List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Chapter Heading" basedon="Numbered Heading 1" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Contents 1" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Contents 2" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:72.000000pt"/>
+<s type="P" name="Contents 3" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:108.000000pt"/>
+<s type="P" name="Contents 4" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:144.000000pt"/>
+<s type="P" name="Contents Header" basedon="_Normal" followedby="_Normal" props="text-align:center; margin-top:12.000000pt; font-weight:bold; margin-bottom:6.000000pt; font-family:Arial; font-size:16.000000pt"/>
+<s type="P" name="Dashed List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="C" name="Default Paragraph Font" basedon="_Normal"/>
+<s type="P" name="Diamond List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Endnote" basedon="_Normal" props="text-indent:-14.400000pt; margin-left:14.400000pt"/>
+<s type="C" name="Endnote Reference" basedon="Normal" props="text-position:superscript; font-size:10.000000pt"/>
+<s type="P" name="Endnote Text" basedon="_Normal"/>
+<s type="P" name="Footnote" basedon="_Normal" props="text-indent:-14.400000pt; font-size:10.000000pt; margin-left:14.400000pt"/>
+<s type="C" name="Footnote Reference" basedon="Normal" props="text-position:superscript; font-size:10.000000pt"/>
+<s type="P" name="Footnote Text" basedon="_Normal" props="font-size:10.000000pt"/>
+<s type="P" name="Hand List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Heading 1" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Arial; font-size:17.000000pt"/>
+<s type="P" name="Heading 2" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Arial; font-size:14.000000pt"/>
+<s type="P" name="Heading 3" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Arial; font-size:12.000000pt"/>
+<s type="P" name="Heading 4" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Arial; font-size:12.000000pt"/>
+<s type="P" name="Heart List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Implies List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="List Paragraph" basedon="_Normal"/>
+<s type="P" name="Lower Case List" basedon="Numbered List" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Lower Roman List" basedon="_Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="No List" basedon="_Normal"/>
+<s type="P" name="Normal" basedon="Normal" followedby="Current Settings" props="font-family:Times New Roman; font-size:11.000000pt"/>
+<s type="P" name="Normal Table" basedon="_Normal"/>
+<s type="P" name="Numbered Heading 1" basedon="Heading 1" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Numbered Heading 2" basedon="Heading 2" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Numbered Heading 3" basedon="Heading 3" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Numbered List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Plain Text" basedon="_Normal" props="font-family:Courier New"/>
+<s type="P" name="Section Heading" basedon="Numbered Heading 1" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Square List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Star List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Tick List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Triangle List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Upper Case List" basedon="Numbered List" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Upper Roman List" basedon="Numbered List" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+</styles>
+<pagesize pagetype="Letter" orientation="landscape" width="11.000000" height="8.500000" units="in" page-scale="1.000000"/>
+<section xid="1" props="page-margin-right:0.291667in; column-line:off; page-margin-left:0.486111in; columns:1; page-margin-top:0.180556in; page-margin-bottom:0.194444in">
+<p style="Body Text" xid="2" props="text-align:center; tabstops:4.000000in/L0; margin-right:13.800000pt">Team: Scrumptious	Date: 05/1<bookmark type="start" name="_GoBack" xid="3"/><bookmark type="end" name="_GoBack" xid="4"/>/17</p>
+<p style="Body Text" xid="5" props="text-align:center; margin-top:9.550000pt; tabstops:4.000000in/L0; margin-right:13.800000pt">Start time:1:15	End time: 1:45</p>
+<p xid="6" props="margin-top:0.400000pt"><c></c></p>
+<table xid="7" props="table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; table-row-heights:27.400000pt/121.350000pt/121.350000pt/121.350000pt/107.950000pt/; left-style:1; bot-style:1; right-style:1; top-style:1">
+<cell xid="8" props="right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:0; left-style:1; right-style:1; right-attach:1; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:1; top-attach:0">
+<p style="Table Paragraph" xid="9" props="margin-left:39.000000pt; margin-top:6.650000pt"><c props="font-family:Calibri; font-weight:bold">Member Name (indicate)</c></p>
+</cell>
+<cell xid="10" props="right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:1; left-style:1; right-style:1; right-attach:2; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:1; top-attach:0">
+<p style="Table Paragraph" xid="11" props="text-indent:-35.500000pt; margin-left:41.200000pt; margin-right:5.750000pt"><c props="font-family:Calibri; font-weight:bold">Summary of what was completed since last meeting</c></p>
+</cell>
+<cell xid="12" props="right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:2; left-style:1; right-style:1; right-attach:3; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:1; top-attach:0">
+<p style="Table Paragraph" xid="13" props="text-indent:-15.700000pt; margin-left:28.550000pt; margin-right:12.850000pt"><c props="font-family:Calibri; font-weight:bold">Summary of what is planned to be completed by next meeting</c></p>
+</cell>
+<cell xid="14" props="right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:3; left-style:1; right-style:1; right-attach:4; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:1; top-attach:0">
+<p style="Table Paragraph" xid="15" props="text-indent:-68.500000pt; margin-left:79.250000pt; margin-right:10.800000pt"><c props="font-family:Calibri; font-weight:bold">Summary of what is getting in their way?</c></p>
+</cell>
+<cell xid="16" props="table-row-heights:27.400000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:0; left-style:1; right-style:1; right-attach:1; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:2; top-attach:1">
+<p style="Table Paragraph" xid="17" props="bgcolor:f1f1f1"><c></c></p>
+<p style="Table Paragraph" xid="18" props="text-align:center; bgcolor:f1f1f1"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">Adam</c></p>
+<p style="Table Paragraph" xid="19" props="bgcolor:f1f1f1"><c></c></p>
+<p style="Table Paragraph" xid="20" props="bgcolor:f1f1f1"><c></c></p>
+<p style="Table Paragraph" xid="21" props="margin-top:0.550000pt; bgcolor:f1f1f1"><c></c></p>
+<p style="Table Paragraph" xid="22" props="margin-left:5.150000pt; bgcolor:f1f1f1"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">Present from start to end of meeting?</c></p>
+<p style="Table Paragraph" xid="23" props="bgcolor:f1f1f1; tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">YES	</c></p>
+<p style="Table Paragraph" xid="24" props="margin-left:5.150000pt; bgcolor:f1f1f1"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">Is Scrum Master?</c></p>
+<p style="Table Paragraph" xid="25" props="bgcolor:f1f1f1; tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">	NO</c></p>
+</cell>
+<cell xid="26" props="table-row-heights:27.400000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:1; left-style:1; right-style:1; right-attach:2; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:2; top-attach:1">
+<p xid="27" props="bgcolor:f1f1f1">Completed ability to make multiple sprints. fixed bugs.,made it so that you can move tasks.</p>
+</cell>
+<cell xid="28" props="table-row-heights:27.400000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:2; left-style:1; right-style:1; right-attach:3; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:2; top-attach:1">
+<p xid="29" props="bgcolor:f1f1f1"><c props="bgcolor:f1f1f1">Finishup edit task form</c></p>
+</cell>
+<cell xid="30" props="table-row-heights:27.400000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:3; left-style:1; right-style:1; right-attach:4; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:2; top-attach:1">
+<p xid="31" props="bgcolor:f1f1f1">nothing</p>
+</cell>
+<cell xid="32" props="table-row-heights:27.400000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:0; left-style:1; right-style:1; right-attach:1; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:3; top-attach:2">
+<p style="Table Paragraph" xid="33"><c></c></p>
+<p style="Table Paragraph" xid="34" props="text-align:center"><c props="font-family:Calibri; font-weight:bold">Tyler</c></p>
+<p style="Table Paragraph" xid="35"><c></c></p>
+<p style="Table Paragraph" xid="36" props="margin-top:0.550000pt"><c></c></p>
+<p style="Table Paragraph" xid="37" props="margin-left:5.150000pt"><c props="font-family:Calibri; font-weight:bold">Present from start to end of meeting?</c></p>
+<p style="Table Paragraph" xid="38" props="tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="font-family:Calibri; font-weight:bold">YES</c></p>
+<p style="Table Paragraph" xid="39" props="margin-left:5.150000pt"><c props="font-family:Calibri; font-weight:bold">Is Scrum Master?</c></p>
+<p style="Table Paragraph" xid="40" props="tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="font-family:Calibri; font-weight:bold">NO</c></p>
+</cell>
+<cell xid="41" props="table-row-heights:27.400000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:1; left-style:1; right-style:1; right-attach:2; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:3; top-attach:2">
+<p xid="42">Refined CSS Styling</p>
+</cell>
+<cell xid="43" props="table-row-heights:27.400000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:2; left-style:1; right-style:1; right-attach:3; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:3; top-attach:2">
+<p xid="44">Present our project</p>
+</cell>
+<cell xid="45" props="table-row-heights:27.400000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:3; left-style:1; right-style:1; right-attach:4; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:3; top-attach:2">
+<p xid="46">nothing</p>
+</cell>
+<cell xid="47" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:0; left-style:1; right-style:1; right-attach:1; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:4; top-attach:3">
+<p style="Table Paragraph" xid="48" props="bgcolor:f1f1f1"><c></c></p>
+<p style="Table Paragraph" xid="49" props="text-align:center; bgcolor:f1f1f1"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">Noah</c></p>
+<p style="Table Paragraph" xid="50" props="bgcolor:f1f1f1"><c></c></p>
+<p style="Table Paragraph" xid="51" props="margin-top:0.600000pt; bgcolor:f1f1f1"><c></c></p>
+<p style="Table Paragraph" xid="52" props="margin-left:5.150000pt; bgcolor:f1f1f1"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">Present from start to end of meeting?</c></p>
+<p style="Table Paragraph" xid="53" props="bgcolor:f1f1f1; tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">YES</c></p>
+<p style="Table Paragraph" xid="54" props="margin-left:5.150000pt; bgcolor:f1f1f1"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">Is Scrum Master?</c></p>
+<p style="Table Paragraph" xid="55" props="bgcolor:f1f1f1; tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="bgcolor:f1f1f1; font-weight:bold; font-family:Calibri">	YES</c></p>
+</cell>
+<cell xid="56" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:1; left-style:1; right-style:1; right-attach:2; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:4; top-attach:3">
+<p xid="57" props="bgcolor:f1f1f1">created tests for project table and create Task done</p>
+</cell>
+<cell xid="58" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:2; left-style:1; right-style:1; right-attach:3; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:4; top-attach:3">
+<p xid="59" props="bgcolor:f1f1f1">finish up tests and present project.</p>
+</cell>
+<cell xid="60" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; background-color:f1f1f1; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:3; left-style:1; right-style:1; right-attach:4; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:4; top-attach:3">
+<p xid="61" props="bgcolor:f1f1f1"><c props="bgcolor:f1f1f1">Nothing</c></p>
+</cell>
+<cell xid="62" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:0; left-style:1; right-style:1; right-attach:1; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:5; top-attach:4">
+<p style="Table Paragraph" xid="63"><c></c></p>
+<p style="Table Paragraph" xid="64" props="text-align:center"><c props="font-family:Calibri; font-weight:bold">Megan</c></p>
+<p style="Table Paragraph" xid="65"><c></c></p>
+<p style="Table Paragraph" xid="66" props="margin-top:0.550000pt"><c></c></p>
+<p style="Table Paragraph" xid="67" props="margin-left:5.150000pt"><c props="font-family:Calibri; font-weight:bold">Present from start to end of meeting?</c></p>
+<p style="Table Paragraph" xid="68" props="tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="font-family:Calibri; font-weight:bold">	YES</c></p>
+<p style="Table Paragraph" xid="69" props="margin-left:5.150000pt"><c props="font-family:Calibri; font-weight:bold">Is Scrum Master?</c></p>
+<p style="Table Paragraph" xid="70" props="tabstops:1.071528in/L0; margin-left:41.150000pt"><c props="font-family:Calibri; font-weight:bold">	NO</c></p>
+</cell>
+<cell xid="71" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:1; left-style:1; right-style:1; right-attach:2; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:5; top-attach:4">
+<p xid="72"> finished allthe database calls for moving tasks in the backlog. added the task percent breakdown to the database and added it to the UI.</p>
+</cell>
+<cell xid="73" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:2; left-style:1; right-style:1; right-attach:3; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:5; top-attach:4">
+<p xid="74">present project</p>
+</cell>
+<cell xid="75" props="table-row-heights:27.400000pt/121.350000pt/121.350000pt/121.350000pt/; right-color:bebebe; left-color:bebebe; bot-style:1; bot-thickness:0.500000pt; table-column-props:193.500000pt/165.000000pt/183.000000pt/183.000000pt/; left-thickness:0.500000pt; right-thickness:0.500000pt; top-color:bebebe; top-style:1; left-attach:3; left-style:1; right-style:1; right-attach:4; bot-color:bebebe; top-thickness:0.500000pt; bot-attach:5; top-attach:4">
+<p xid="76">nothing</p>
+</cell>
+</table>
+<p xid="77"></p>
+</section>
+</abiword>

@@ -70,7 +70,8 @@ class Sprint extends Component {
       pbis: [],
       todo: [],
       inProgress: [],
-      done: []
+      done: [],
+      errorMessage: ""
     };
     this.allowDrop = this.allowDrop.bind(this);
     this.drop = this.drop.bind(this);
@@ -116,6 +117,7 @@ class Sprint extends Component {
     }
     var row = ev.target.className;
 
+
     //REORDERING SPRINT BACKLOG
     if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
       // console.log("IDENTIFIED SPRINT MOVE")
@@ -140,28 +142,62 @@ class Sprint extends Component {
           Client.moveSprintPBI(this.state.pbis[i].id, this.props.project.name, this.props.sprintNumber, i, function(){});
         }
       }
+      //MOVING TASKS
+    } else if(this.props.project.role === "development team member" && ev.dataTransfer.getData("column")!=="sprintbacklog" && ev.target.id!=="sprintbacklog" && ev.target.className!=="sprintbacklog"){
+      var rowFrom = ev.dataTransfer.getData('row');
+      var columnFrom = ev.dataTransfer.getData("column")
+      var columnTo;
+      var rowTo;
+      var task;
+      var id;
+
+      //Get the ID
+      if(columnFrom === "inprogress"){
+        task = this.state.inProgress[rowFrom];
+      } else{
+        task = this.state[columnFrom][rowFrom];
+      }
+      id = task.id;
+
+      //MOVING TO END OF COLUMN
+      if(row==="9999"){
+        if(ev.target.id === "todo"){
+          columnTo = 1;
+          rowTo = this.state.todo.length;
+        } else if(ev.target.id === "inprogress"){
+          columnTo = 2;
+          rowTo = this.state.inProgress.length;
+        } else if(ev.target.id === "done"){
+          columnTo = 3;
+          rowTo = this.state.done.length;
+        } else{
+          return;
+        }
+        // console.log("Destination: end of " + ev.target.id);
+      //MOVING TO SPECIFIC LOCATION
+      } else{
+        rowTo = ev.target.id;
+        if(row === "todo"){
+          columnTo = 1;
+        } else if(row === "inprogress"){
+          columnTo = 2;
+        } else if(row === "done"){
+          columnTo = 3;
+        } else{
+          return;
+        }
+        // console.log("Destination: row " + ev.target.id + " of column " + row);
+        // console.log(this.state[columnFrom][rowFrom].id);
+      }
+      // console.log("Moving from " + columnFrom + "-" + rowFrom + " to " + columnTo + "-" + rowTo);
+
+      if((task.member === "unselected" ||  !(task.percent > 0) ) && (columnTo === 2 || columnTo === 3)){
+        this.setState({errorMessage: "Must assign task and give percentage before moving to in progress or done"});
+      } else{
+        Client.moveTask(id, columnTo, rowTo, this.updateAll);
+        this.setState({errorMessage: ""});
+      }
     }
-
-    if(ev.dataTransfer.getData("column")==="sprintbacklog" && (ev.target.id !== "sprintbacklog" && ev.target.className !== "sprintbacklog")){
-
-    }else if(ev.dataTransfer.getData("column")!== "sprintbacklog" && (ev.target.id==="sprintbacklog" || ev.target.className==="sprintbacklog")){
-
-    }else if(row==="9999"){
-
-      // this.props.addToEnd(this.props.sprintNumber,
-      // ev.dataTransfer.getData("row"),
-      // this.getColumnNumberByName(ev.dataTransfer.getData("column")),
-      // this.getColumnNumberByName(ev.target.id));
-    }else{
-
-      // this.props.move(this.props.sprintNumber,
-      // ev.dataTransfer.getData("row"),
-      // this.getColumnNumberByName(ev.dataTransfer.getData("column")),
-      // ev.target.id,
-      // this.getColumnNumberByName(ev.target.className));
-      // console.log("dropping height "+ ev.target.className);
-    }
-  //  this.props.moveProductBacklog(ev.dataTransfer.getData('row'),ev.target.className);
   }
 
   drag(ev) {
@@ -320,6 +356,7 @@ class Sprint extends Component {
       <div className="sprint" >
         <div id="title">
           <h3>Sprint {this.props.sprintNumber}</h3>
+          <font color="red">{this.state.errorMessage}</font>
           {createTaskButton}
         </div>
         <br/>

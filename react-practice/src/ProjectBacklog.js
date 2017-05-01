@@ -205,7 +205,7 @@ render(){
   return (
     <div>
       <font color="red">{this.state.errorMessage}</font>
-      <button onClick={this.addSprint}>Start New Sprint</button>
+      <button onClick={this.addSprint}>Start Next Sprint</button>
 
       <div className="projectBacklog">
           <ProductBacklogForm

@@ -12,7 +12,8 @@ function CreateTaskDisplay(props){
   }
 
   var members = [];
-  for(i=0; i<props.members.length;i++){
+  members.push(<option key={-1} value={-1}> -unselected- </option>)
+  for(var i=0; i<props.members.length;i++){
     members.push(<option key={i} value={i}> {props.members[i].username} </option>);
   }
 
@@ -60,7 +61,7 @@ class CreateTaskForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {taskDescription: '', userStory: this.props.pbis[0], assignedMember: this.props.members[0], percentage: 0, errorMessage: ''};
+    this.state = {taskDescription: '', userStory: this.props.pbis[0], assignedMember: {username: "unselected"}, percentage: 0, errorMessage: ''};
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelectMember = this.handleSelectMember.bind(this);
@@ -104,7 +105,11 @@ class CreateTaskForm extends Component {
   }
 
   handleSelectMember(event){
-    this.setState({assignedMember: this.props.members[event.target.value]});
+    if(event.target.value === -1){
+      this.setState({assignedMember: {username: "unselected"}});
+    } else{
+      this.setState({assignedMember: this.props.members[event.target.value]});
+    }
   }
 
   handleSelectUserStory(event){

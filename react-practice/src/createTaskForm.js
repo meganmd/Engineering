@@ -70,7 +70,7 @@ class CreateTaskForm extends Component {
   handleClick(){
     if(this.state.taskDescription.length > 0 && this.state.userStory.username !== ''){
       // console.log("ID: " + this.state.userStory.id)
-      Client.getTotalPBIPercentage(this.state.userStory.id, (total)=>{
+      Client.getTotalPBIPercentage(this.state.userStory.id, this.props.sprint, (total)=>{
 
             if(this.state.percentage+total<=100 && this.state.percentage>=0){
 

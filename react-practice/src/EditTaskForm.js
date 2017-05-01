@@ -100,7 +100,7 @@ class EditTaskForm extends Component {
   handleClick(){
     if(this.state.taskDescription.length > 0 && this.state.userStory.username !== ''){
       // console.log("ID: " + this.state.userStory)
-      Client.getTotalPBIPercentage(this.state.userStory, (total)=>{
+      Client.getTotalPBIPercentage(this.state.userStory, this.props.sprint, (total)=>{
           // console.log("TOTAL: " + total)
             if(this.state.percentage+total<=100 && this.state.percentage>=0){
               Client.editTask(

@@ -435,15 +435,10 @@ app.post('/api/rejectPBI', function(request, response) {
 
 app.get('/api/PBITotalPercentage', function(request, response) {
   //console.log("Retrieving percentage for pbi..." + request.query.pbi);
-  data.getTasksByPBI(request.query.pbi, function(err, rows){
-    response.setHeader('Content-Type', 'application/json');
-    if(rows != undefined){
-      //console.log("Found");
-      var total = 0;
-      for(var i = 0; i < rows.length; i++){
-        total += rows[i].percent;
-      }
-      response.json(total);
+  data.getPercentCompleteForOnePbiInOneSprint(request.query.pbi, request.query.sprint, function(err, data){
+    if(!err) {
+      response.setHeader('Content-Type', 'application/json');
+      response.json(data.percent);
     } else{
       //console.log("None found");
       response.json(0);

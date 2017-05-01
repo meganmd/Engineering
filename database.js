@@ -339,4 +339,10 @@ module.exports = class database {
     "WHERE i.project=? ORDER BY row ",
     project, project, cb);
   }
+
+  getPercentCompleteForOnePbiInOneSprint(pbi, sprint, cb) {
+    this.db.get("SELECT ifnull(sum(percent),0) as percent from tasks" +
+    " WHERE pbi = ? AND sprint = ? AND columnNumber = 3",
+    pbi, sprint, cb);
+  }
 }
